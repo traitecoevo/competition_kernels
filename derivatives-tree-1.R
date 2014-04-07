@@ -23,10 +23,10 @@ res <- equilibrium.seed.rain(p, schedule0, 10,
 # Set the seed rain back into the parameters
 p$seed_rain <- res$seed_rain[,"out"]
 
-# And rerun again to get the ODE times.
+# Extract the ODE times so that we run at the same points as the
+# resident population was run at.
 schedule <- res$schedule
-ebt <- run.ebt(p, schedule$copy())
-schedule$ode_times <- ebt$ode_times
+schedule$ode_times <- attr(res, "ebt")$ode_times
 
 # Resident lma values:
 lma.res <- sapply(seq_len(p$size), function(i) p[[i]]$parameters$lma)

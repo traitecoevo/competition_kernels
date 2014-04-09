@@ -2,31 +2,23 @@ library(Revolve)
 library(deSolve)
 library(numDeriv)
 
-m_d <- make_dieckmann_1999()
-m_k <- make_kisdi_1999()
-
-step_d <- make_step_equilibrium(m_d$fitness, method="runsteady")
-step_k <- make_step_equilibrium(m_k$fitness, method="nleqslv")
-
-sys_d0 <- list(x=c(-1, 1) * 0.5, y=rep(1, 2), t=0)
-sys_d <- step_d(sys_d0)
-
-sys_k0 <- m_k$single_equilibrium()
-sys_k0$x <- sys_k0$x + c(-1, 1) * 0.1
-sys_k0$y <- rep(sys_k0$y/2, 2)
-sys_k <- step_k(sys_k0)
-
 # Trait space to look over.  This range is actually useful for both
 # models.
 xx <- seq(-2, 2, length=101)
 
 # We're interested in changes in fitness as the densities of residents
-# changes.  This little wrapper function will help.
+# changes.  This little wrapper function will help for all the models
+# that are implemented in Revolve.
 model_jacobian_density <- function(x, sys, m) {
   jacobian(function(y) m$fitness(x, sys$x, y), sys$y)
 }
 
 # # Dieckmann and Dobeli 1999:
+
+m_d <- make_dieckmann_1999()
+step_d <- make_step_equilibrium(m_d$fitness, method="runsteady")
+sys_d0 <- list(x=c(-1, 1) * 0.5, y=rep(1, 2), t=0)
+sys_d <- step_d(sys_d0)
 
 # Fitness landscape for the D+D model:
 plot(xx, m_d$fitness(xx, sys_d$x, sys_d$y), type="l",
@@ -48,6 +40,13 @@ abline(v=sys_d$x, lty=3, col=1:2)
 all.equal(z_d / scal, c_true_d)
 
 # # Kisdi 1999
+
+m_k <- make_kisdi_1999()
+step_k <- make_step_equilibrium(m_k$fitness, method="nleqslv")
+sys_k0 <- m_k$single_equilibrium()
+sys_k0$x <- sys_k0$x + c(-1, 1) * 0.1
+sys_k0$y <- rep(sys_k0$y/2, 2)
+sys_k <- step_k(sys_k0)
 
 xx <- seq(-2, 2, length=101)
 plot(xx, m_k$fitness(xx, sys_k$x, sys_k$y), type="l",

@@ -6,16 +6,7 @@ library(tree)
 library(numDeriv)
 library(parallel)
 library(RColorBrewer)
-
-# Move into a support function:
-model_jacobian_density <- function(lma, p, schedule) {
-  target <- function(N) {
-    p <- p$copy()
-    p$seed_rain <- N
-    landscape(lma, p, schedule)
-  }
-  jacobian(target, p$seed_rain, method="simple")
-}
+source("util-tree.R")
 
 competition_assay <- function(N, lma.mutant, p) {
   t.max <- p$disturbance$cdf(tree:::reference.pr.survival.eps)

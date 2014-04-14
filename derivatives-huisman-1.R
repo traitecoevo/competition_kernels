@@ -16,6 +16,10 @@ library(Revolve)
 library(plyr)
 library(numDeriv)
 
+abcline <- function(x, y, m, ...) {
+  abline(y - x * m, m, ...)
+}
+
 m <- make_huisman_2001(S=1, matrices=huisman_matrices(huisman_mat_1))
 x <- matrix(0.5, nrow=2)
 y0 <- 1
@@ -84,11 +88,24 @@ abline(h=0, col="grey", lty=3)
 abline(v=x[1], lty=2)
 abline(v=m$Rstar(x), col="blue")
 
+# To make this all a little clearer, this is what the fitness gradient
+# is measuring.  Focus on a single mutant, whose trait is at the
+# resident species' R*:
 x.mutant <- rbind(m$Rstar(x), x[[2]])
 
-yy <- eq$y + seq(-0.1, 0.1, length=101)
-plot(yy, sapply(yy, function(y) m$fitness(x.mutant, x, y)), type="l")
-abline(v=eq$y, lty=2)
+# Then consider a range of densities of the resident species.
+y.resident <- eq$y + seq(-1, 1, length=101)
+
+# Fitness of the mutant as a function of these resident densities:
+w.mutant <- sapply(y.resident, function(y) m$fitness(x.mutant, x, y))
+
+w.mutant0 <- m$fitness(x.mutant, x, eq$y)
+
+plot(y.resident, w.mutant, type="l")
+abline(h=w.mutant0, v=eq$y, lty=3, col="grey")
+z.mutant <- jacobian(function(y) m$fitness(x.mutant, x, y), eq$y)
+points(eq$y, w.mutant0, col="red")
+abcline(eq$y, w.mutant0, z.mutant, lty=2, col="red")
 
 op <- par(mfrow=c(2, 1), mar=c(2.5, 4, .5, .5))
 plot(xx, fitness.resident - fitness.empty, type="l")

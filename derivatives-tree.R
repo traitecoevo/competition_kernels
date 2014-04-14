@@ -5,6 +5,7 @@ library(Revolve)
 library(deSolve)
 library(tree)
 library(numDeriv)
+source("util-tree.R")
 
 p <- new(Parameters)
 # p$add_strategy(new(Strategy, list(lma=0.0648406)))

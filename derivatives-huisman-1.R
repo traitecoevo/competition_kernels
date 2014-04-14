@@ -33,8 +33,8 @@ abline(h=unlist(eq), col=1:2, lty=3)
 dy <- eq$y * 0.1
 res1 <- m$run_fixed_density(x, eq$y - dy, t, eq$R)
 res2 <- m$run_fixed_density(x, eq$y + dy, t, eq$R)
-eq1 <- m$equilibrium_resource(x, eq$y - dy)
-eq2 <- m$equilibrium_resource(x, eq$y + dy)
+eq1 <- m$equilibrium_R(x, eq$y - dy)
+eq2 <- m$equilibrium_R(x, eq$y + dy)
 matplot(res1$t, cbind(res1$R, res2$R), type="l", col=2:3)
 abline(h=c(eq$R, eq1$R, eq2$R), col=1:3, lty=3)
 

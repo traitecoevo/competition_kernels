@@ -16,77 +16,93 @@ library(Revolve)
 library(plyr)
 library(numDeriv)
 
-abcline <- function(x, y, m, ...) {
-  abline(y - x * m, m, ...)
-}
+mat <- huisman_matrices(huisman_mat_1, huisman_mat_1)
 
-m <- make_huisman_2001(S=1, matrices=huisman_matrices(huisman_mat_1))
+m <- make_huisman_2001(mat, S=1)
 x <- matrix(0.5, nrow=2)
 y0 <- 1
 t <- seq(0, 30, length=201)
 
 res <- m$run(x, y0, t)
 matplot(res$t, cbind(res$R, res$y), type="l", lty=1:2, xlab="Time",
-        ylab="Abundance (red), Resource (black)")
+        ylab="Abundance (red), Resource (black)",
+        ylim=c(0, max(res$R, res$y)))
 
 eq <- m$single_equilibrium(x)
 abline(h=unlist(eq), col=1:2, lty=3)
 
-# Displace the solution from equilibrium and look at the new level of
-# resources:
+# Displace the solution from equilibrium population density and look
+# at the approach to a new level of resources:
 dy <- eq$y * 0.1
 res1 <- m$run_fixed_density(x, eq$y - dy, t, eq$R)
 res2 <- m$run_fixed_density(x, eq$y + dy, t, eq$R)
+matplot(res1$t, cbind(res1$R, res2$R), type="l", col=2:3)
+# Determined by running things out a bunch:
 eq1 <- m$equilibrium_R(x, eq$y - dy)
 eq2 <- m$equilibrium_R(x, eq$y + dy)
-matplot(res1$t, cbind(res1$R, res2$R), type="l", col=2:3)
 abline(h=c(eq$R, eq1$R, eq2$R), col=1:3, lty=3)
+# Determined analytically:
+points(max(res1$t), m$single_equilibrium_R(x, eq$y - dy), col=2)
+points(max(res1$t), m$single_equilibrium_R(x, eq$y + dy), col=3)
 
 # Next, we start working towards the instantaneous growth rate of a
 # new type at this equilibrium
 
 # Look at the fitness landscape: how does the instantaneous growth
-# rate look with respect to K:
+# rate look with respect to mutant C and K.
 xx <- seq(0, 1, length=101)
-x2 <- rbind(xx, x[2], deparse.level=0) # K varying
-x3 <- rbind(x[2], xx, deparse.level=0) # C varying
-
-plot(xx, m$fitness(x2, x, eq$y, eq$R), type="l")
-abline(h=0, col="grey", lty=3)
-abline(v=x[1], lty=2)
+x.K <- rbind(xx, x[2], deparse.level=0) # K varying
+x.C <- rbind(x[2], xx, deparse.level=0) # C varying
 
 # Fitness does not vary with respect to c when rare, because species
 # only consume resources when not rare.  Which doesn't mean that there
 # will be no competition between species with different c values but
 # the same K values of course: a different c value can drive a
 # different species extinct!
-plot(xx, m$fitness(x3, x, eq$y, eq$R), type="l")
+plot(xx, m$fitness(x.C, x, eq$y, eq$R), type="l")
 abline(h=0, col="grey", lty=3)
+
+# Fitness does vary with K.
+w.mutant <- m$fitness(x.K, x, eq$y, eq$R)
+plot(xx, w.mutant, type="l")
+abline(h=0, col="grey", lty=3)
+abline(v=x[1], lty=2)
 
 # But then there's a broader view of what competition is here: The
 # species with K above the resident species are all strongly competed
 # against by the resident species, regardless of what the derivatives
 # show -- because they can't grow there.  That's the insight that we'd
 # get from the subtraction case:
-plot(xx, m$fitness(x2, x, 0, m$parameters$get()[["S"]]), type="l")
+w.empty <- m$fitness(x.K, x, 0, m$parameters$get()[["S"]])
+plot(xx, w.empty, type="l")
 abline(h=0, col="grey", lty=3)
 abline(v=x[1], lty=2)
 
-fitness.empty    <- m$fitness(x2, x, 0, m$parameters$get()[["S"]])
-fitness.resident <- m$fitness(x2, x, eq$y)
-plot(xx, fitness.resident - fitness.empty, type="l")
+plot(xx, w.mutant - w.empty, type="l")
 abline(h=0, col="grey", lty=3)
 abline(v=x[1], lty=2)
 
 # Next, see what happpens to this fitness as we vary the population
 # density.  This involves recomputing the new resource density for the
 # species density:
-z <- jacobian(function(y) m$fitness(x2, x, y), eq$y)
+z <- jacobian(function(y) m$fitness(x.K, x, y), eq$y)
 
 plot(xx, z, type="l")
 abline(h=0, col="grey", lty=3)
 abline(v=x[1], lty=2)
-abline(v=m$Rstar(x), col="blue")
+
+op <- par(mfrow=c(3, 1), mar=c(2.5, 4, .5, .5))
+plot(xx, w.mutant - w.empty, type="l")
+abline(h=0, col="grey", lty=3)
+abline(v=x[1], lty=2)
+
+plot(xx, z, type="l")
+abline(h=0, col="grey", lty=3)
+abline(v=x[1], lty=2)
+
+plot(xx, z / w.empty, type="l")
+abline(v=x[1], lty=2)
+par(op)
 
 # To make this all a little clearer, this is what the fitness gradient
 # is measuring.  Focus on a single mutant, whose trait is at the
@@ -106,17 +122,3 @@ abline(h=w.mutant0, v=eq$y, lty=3, col="grey")
 z.mutant <- jacobian(function(y) m$fitness(x.mutant, x, y), eq$y)
 points(eq$y, w.mutant0, col="red")
 abcline(eq$y, w.mutant0, z.mutant, lty=2, col="red")
-
-op <- par(mfrow=c(2, 1), mar=c(2.5, 4, .5, .5))
-plot(xx, fitness.resident - fitness.empty, type="l")
-abline(h=0, col="grey", lty=3)
-abline(v=x[1], lty=2)
-
-plot(xx, z, type="l")
-abline(h=0, col="grey", lty=3)
-abline(v=x[1], lty=2)
-abline(v=m$Rstar(x), col="blue")
-par(op)
-
-plot(xx, z / fitness.empty, type="l")
-abline(v=x[1], lty=2)

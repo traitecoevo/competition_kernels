@@ -4,13 +4,13 @@ library(numDeriv)
 
 # First consider what happens when we have species that vary in their
 # preference for resources, but have identical uptake levels.
-mat <- huisman_matrices(huisman_mat_2_tradeoff,
-                        make_huisman_mat_constant(matrix(0.5, 2)))
-m <- make_huisman_2001(mat, S=c(1,1))
+mat <- rstar_matrices(rstar_mat_2_tradeoff,
+                        make_rstar_mat_constant(matrix(0.5, 2)))
+m <- make_rstar(mat, S=c(1,1))
 x2 <- cbind(matrix(0.3, nrow=1), 0.7)
 
 # Here is the ZNGI plot:
-huisman_plot(m, x)
+rstar_plot(m, x)
 
 # Ultimately, in this case the evolutionary race will be determined by
 # which side of the line we start on.  Changing C would allow

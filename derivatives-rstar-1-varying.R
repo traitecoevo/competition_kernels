@@ -3,9 +3,9 @@ library(plyr)
 library(numDeriv)
 library(RColorBrewer)
 
-mat <- huisman_matrices(huisman_mat_1, huisman_mat_1)
+mat <- rstar_matrices(rstar_mat_1, rstar_mat_1)
 
-m <- make_huisman_2001(mat, S=1)
+m <- make_rstar(mat, S=1)
 x <- matrix(0.5, nrow=2)
 
 eq <- m$single_equilibrium(x)
@@ -19,7 +19,7 @@ yy <- 2^seq(-6, 2) * eq$y
 cols <- RColorBrewer::brewer.pal(length(yy), "Blues")
 
 # Then we want to know what the fitness is at these levels.  That's
-# actually quite easy too.  As with derivatives-huisman-1.R, look at
+# actually quite easy too.  As with derivatives-rstar-1.R, look at
 # varying the K parameter and hold the C parameter.
 xx <- seq(0, 1, length=201)
 x.K <- rbind(xx, x[2], deparse.level=0) # K varying

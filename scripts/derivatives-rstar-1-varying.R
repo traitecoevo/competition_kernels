@@ -87,7 +87,10 @@ lines(xx, z.resident / w.empty * eq$y, lty=2)
 # resident density, let alone linear.
 
 # Let's take this a little further.
-yyy <- tree::seq_log(eq$y * 2^(-6), eq$y * 2^2, length=51)
+seq_log <- function(from, to, length) {
+  exp(seq(log(from), log(to), length.out=length))
+}
+yyy <- seq_log(eq$y * 2^(-6), eq$y * 2^2, length=51)
 
 res.z <- sapply(yyy, function(y.res)
                 jacobian(function(y) m$fitness(x.K, x, y), y.res))
@@ -95,6 +98,8 @@ image(xx, yyy, res.z, log="y")
 image(xx, yyy, res.z / w.empty, log="y")
 
 persp(xx, yyy, res.z, theta=30, phi=30, shade=TRUE,
+      col="steelblue", border=NA)
+persp(xx, yyy, res.z / w.empty, theta=30, phi=30, shade=TRUE,
       col="steelblue", border=NA)
 
 # Then, see what happens as we change the density of the mutant type,

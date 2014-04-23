@@ -4,3 +4,7 @@ cache
 derivatives-tree-1.Rmd
 derivatives-tree-1.html
 derivatives-tree-1.md
+
+doc/simple_models.html
+doc/simple_models.md
+doc/figure/simple_models_*.png

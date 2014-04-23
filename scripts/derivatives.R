@@ -16,9 +16,7 @@ model_jacobian_density <- function(x, sys, m) {
 # # Dieckmann and Dobeli 1999:
 
 m_d <- make_dieckmann_1999()
-step_d <- make_step_equilibrium(m_d$fitness, method="runsteady")
-sys_d0 <- list(x=c(-1, 1) * 0.5, y=rep(1, 2), t=0)
-sys_d <- step_d(sys_d0)
+sys_d <- m_d$equilibrium(x=c(-1, 1) * 0.5, y=rep(1, 2))
 
 # Fitness landscape for the D+D model:
 plot(xx, m_d$fitness(xx, sys_d$x, sys_d$y), type="l",

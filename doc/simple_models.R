@@ -1,5 +1,8 @@
 ## # Simple models and competition
 
+### TODO:
+### * Subtraction approach for the simple models.
+
 ##+ echo=FALSE
 knitr::knit_hooks$set(small_mar=function(before, options, envir) {
   if (before) par(mar=c(4, 4, .1, .1)) # smaller margin on top and right
@@ -277,12 +280,132 @@ matplot(x.mutant, z_k / intrinsic.mutant, type="l", lty=1,
         xlab="Trait", ylab="Scaled fitness derivative")
 abline(v=sys_k$x, lty=3, col=1:2)
 
+## # Implicit competition
+
+## This is where things get more interesting.
+
+## ## Rstar model
+
+## This version of the model is based loosely off Huisman and Weissing
+## 2001.
+
+## ### Single resource
+
+## I'm going to consider the single resource case first because it's a
+## bunch easier to think about than the two (or more!) resource case.
+## It's also confusing enough to be worth thinking about.
+##
+## In this model, there can only be a single dominant species, so we
+## can't study what happens during coexistance.  However, there's
+## still plenty of competition going on.
+
+## In the single resource case species are characterised by two
+## traits: K (the constant of half-saturation of the Monod curve --
+## higher K indicates higher requirements for the resource) and C (the
+## rate of consumption of the resource).  All else being equal, the
+## species with the lowest K will win because they will drive K below
+## the minimum level required for positive net growth by the other
+## species.
+m_r1 <- make_rstar(rstar_matrices(rstar_mat_1, rstar_mat_1), S=1)
+sys_r1 <- list(x=matrix(0.5, nrow=2), y=1)
+
+eq <- m_r1$single_equilibrium(sys_r1$x)
+
+## Look at the fitness landscape: how does the instantaneous growth
+## rate look with respect to mutant C and K.
+x.mutant <- seq(0, 1, length=101)
+x.K <- rbind(x.mutant, eq$x[2], deparse.level=0) # K varying
+
+## Here is the fitness landscape with respect to mutant K (changing C
+## doesn't change the fitness landscape because it only affects
+## species at nontrivial densities).
+##+ r1_fitness_landscape
+plot(x.mutant, m_r1$fitness(x.K, eq$x, eq$y, eq$R), type="l",
+     xlab="Trait (K)", ylab="Fitness")
+abline(h=0, col="grey", lty=3)
+abline(v=eq$x[1], lty=2)
+
+## As with the Dieckmann and Dobeli model, vary the density of the
+## resident a little and see what the response of the fitness
+## landscape is.
+
+x.mutant1 <- rbind(0.3, eq$x[[2]])
+y.resident <- eq$y + seq(-1, 1, length=101)
+w.mutant1 <- sapply(y.resident, function(y)
+                    m_r1$fitness(x.mutant1, eq$x, y))
+w.mutant0 <- m_r1$fitness(x.mutant1, eq$x, eq$y) # at equil. density
+
+##+ r1_mutant_1
+plot(w.mutant1 ~ y.resident, type="l",
+     xlab="Resident density", ylab="Fitness")
+points(eq$y, w.mutant0, pch=19)
+
+## Then compute the slope
+##+ r1_mutant_1_slope
+plot(w.mutant1 ~ y.resident, type="l",
+     xlab="Resident density", ylab="Fitness")
+points(eq$y, w.mutant0, pch=19)
+z.mutant1 <- jacobian(function(y) m_r1$fitness(x.mutant1, eq$x, y), eq$y)
+abcline(eq$y, w.mutant0, z.mutant1,
+        lwd=10, col=make_transparent(1, .2))
+
+## First, note that in contrast with the D+D model, fitness is
+## nonlinearly related to resident density (i.e., the line has a
+## nonzero second derivative).  As resident density increases, mutant
+## fitness decreases, but this happens *slower than linearly*.
+
+## Computing this slope over the entire range of mutant trait values:
+z <- jacobian(function(y) m_r1$fitness(x.K, eq$x, y), eq$y)
+
+##+ r1_derivative
+plot(x.mutant, z, type="l", xlab="Mutant trait (K) value",
+     ylab="Fitness derivative")
+abline(h=0, col="grey", lty=3)
+abline(v=eq$x[1], lty=2)
+
+## As above, the more negative this is, the more a species growth rate
+## is depressed by a unit increase in redsident density.  The resident
+## is indicated by the vertical dashed line.  In contrast with the
+## explicit competition models, the line is neither centred on the
+## resident nor monotonic.
+
+## The greatest sensitivity to the density of the resident species is
+## around 0.17.  Counter-intuitively though, this species can
+## competitively displace the resident (invasion is always possible
+## for smaller values of K).
+
+## However, species with a smaller K value also have a higher
+## "intrinsic" growth rate -- a growth rate in a totally empty
+## environment.
+##+ r1_fitness_empty
+w.empty <- m_r1$fitness(x.K, eq$x, 0, m_r1$parameters$get()[["S"]])
+plot(x.mutant, w.empty, type="l", xlab="Mutant trait (K) value",
+     ylab="Fitness in an empty environment")
+
+## If we scale the fitness derivative by this maximum potential
+## fitness we get the fractional reduction in fitness by a unit
+## increase in density of the resident species:
+##+ r1_derivative_scaled
+plot(x.mutant, z / w.empty, type="l",
+     xlab="Mutant trait (K) value", ylab="Fitness derivative, scaled")
+abline(v=eq$x[1], lty=2)
+abline(h=0, col="grey", lty=3)
+
+## This function is monotonic and shows the greatest reduction in
+## fitness for species with greater K values -- the same species that
+## would be competitively replaced.  The function is flattest around
+## the resident species (vertical dashed line).  And the impact on
+## species that have very low K values is very small.  This seems to
+## agree with the intuitive behaviour of the model.
+
 ## # Unresolved things
 
 ## * I've scaled by different things all over the show, until things
 ##   look "about right" -- would be nice to know what was going on
 ##   here.  I suspect that working out what units things are in will
 ##   enlightening.
+
+
 
 ## # Appendix
 

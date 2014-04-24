@@ -306,7 +306,8 @@ abline(v=sys_k$x, lty=3, col=1:2)
 ## species with the lowest K will win because they will drive K below
 ## the minimum level required for positive net growth by the other
 ## species.
-m_r1 <- make_rstar(rstar_matrices(rstar_mat_1, rstar_mat_1), S=1)
+mat_r1 <- rstar_matrices(rstar_mat_1, rstar_mat_1)
+m_r1 <- make_rstar(mat_r1, S=1)
 sys_r1 <- list(x=matrix(0.5, nrow=2), y=1)
 
 eq <- m_r1$single_equilibrium(sys_r1$x)
@@ -378,7 +379,7 @@ abline(v=eq$x[1], lty=2)
 ## "intrinsic" growth rate -- a growth rate in a totally empty
 ## environment.
 ##+ r1_fitness_empty
-w.empty <- m_r1$fitness(x.K, eq$x, 0, m_r1$parameters$get()[["S"]])
+w.empty <- m_r1$fitness(x.K, eq$x, 0)
 plot(x.mutant, w.empty, type="l", xlab="Mutant trait (K) value",
      ylab="Fitness in an empty environment")
 
@@ -397,6 +398,79 @@ abline(h=0, col="grey", lty=3)
 ## the resident species (vertical dashed line).  And the impact on
 ## species that have very low K values is very small.  This seems to
 ## agree with the intuitive behaviour of the model.
+
+## The other thing that changes the exact behaviour here is S, but
+## that will only scale things up and down.
+
+m_r1_Slo <- make_rstar(mat_r1, S=0.5)
+m_r1_Shi <- make_rstar(mat_r1, S=2)
+
+## The equilibrium density of the species varies, but equilibrium of
+## the resource stays the same.
+eq_Slo <- m_r1_Slo$single_equilibrium(sys_r1$x)
+eq_Shi <- m_r1_Shi$single_equilibrium(sys_r1$x)
+
+##+ r1_fitness_S
+plot(x.mutant, m_r1$fitness(x.K, eq$x, eq$y, eq$R), type="l",
+     xlab="Trait (K)", ylab="Fitness")
+lines(x.mutant, m_r1_Slo$fitness(x.K, eq_Slo$x, eq_Slo$y, eq_Slo$R), col="red")
+lines(x.mutant, m_r1_Shi$fitness(x.K, eq_Shi$x, eq_Shi$y, eq_Shi$R), col="blue")
+abline(h=0, col="grey", lty=3)
+abline(v=eq$x[1], lty=2)
+
+## The derivative with respect to density does change though, due to
+## the nonlinear effect of density on fitness.
+z_Slo <- jacobian(function(y) m_r1_Slo$fitness(x.K, eq$x, y), eq_Slo$y)
+z_Shi <- jacobian(function(y) m_r1_Shi$fitness(x.K, eq$x, y), eq_Shi$y)
+
+##+ r1_derivative_S
+plot(x.mutant, z, type="l", ylim=range(z, z_Slo, z_Shi),
+     xlab="Mutant trait (K) value",
+     ylab="Fitness derivative")
+lines(x.mutant, z_Slo, col="red")
+lines(x.mutant, z_Shi, col="blue")
+abline(h=0, col="grey", lty=3)
+abline(v=eq$x[1], lty=2)
+legend("topright", c("Low S", "Medium S", "High S"),
+       col=c("red", "black", "blue"), lty=1, bty="n")
+
+## As resources become less available, fitness becomes more absolutely
+## sensitive to resident density.  This is consistent with the
+## sublinear decrease of fitness with mutant density.
+
+## Fitness in an empty environment also varies.
+w.empty_Slo <- m_r1_Slo$fitness(x.K, eq$x, 0)
+w.empty_Shi <- m_r1_Shi$fitness(x.K, eq$x, 0)
+
+## As resources become more available, fitness increases.
+##+ r1_empty_S
+plot(x.mutant, w.empty, type="l", xlab="Mutant trait (K) value",
+     ylab="Fitness in an empty environment")
+lines(x.mutant, w.empty_Slo, col="red")
+lines(x.mutant, w.empty_Shi, col="blue")
+legend("topright", c("Low S", "Medium S", "High S"),
+       col=c("red", "black", "blue"), lty=1, bty="n")
+
+## Rescaling the derivative by fitness in an empty environment is a
+## bit more surprising.  At high resource density (blue) this metric
+## is also not monotonic (like the derivative calculation itself).  So
+## perhaps this is not great after all (or perhaps that is actually
+## OK).
+##+ r1_derivative_scaled_S
+plot(x.mutant, z / w.empty, type="l", ylim=range(z_Slo / w.empty_Slo),
+     xlab="Mutant trait (K) value", ylab="Fitness derivative, scaled")
+lines(x.mutant, z_Slo / w.empty_Slo, col="red")
+lines(x.mutant, z_Shi / w.empty_Shi, col="blue")
+abline(v=eq$x[1], lty=2)
+abline(h=0, col="grey", lty=3)
+legend("bottomleft", c("Low S", "Medium S", "High S"),
+       col=c("red", "black", "blue"), lty=1, bty="n")
+
+## Up next:
+##
+##   * force the resident density to change and look at what that does
+##     (see `derivatives-rstar-1-varying.R`)
+##   * two resource case.
 
 ## # Unresolved things
 

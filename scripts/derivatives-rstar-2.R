@@ -1,5 +1,4 @@
 library(Revolve)
-library(plyr)
 library(numDeriv)
 
 # First consider what happens when we have species that vary in their
@@ -7,43 +6,46 @@ library(numDeriv)
 mat <- rstar_matrices(rstar_mat_2_tradeoff,
                         make_rstar_mat_constant(matrix(0.5, 2)))
 m <- make_rstar(mat, S=c(1,1))
-x2 <- cbind(matrix(0.3, nrow=1), 0.7)
 
-x.res <- matrix(0.3, nrow=1)
+sys0 <- sys(matrix(0.3), 1)
 
 # Here is the ZNGI plot:
-rstar_plot(m, x.res)
+rstar_plot(m, sys0)
 
 # Ultimately, in this case the evolutionary race will be determined by
 # which side of the line we start on.  Changing C would allow
 # coexistence, but does not actually figure in here!
 
 # So, let's proceed as if this was not the case.
-y0 <- 1
 t <- seq(0, 30, length=201)
 
-res <- m$run(x.res, y0, t)
+res <- m$run(sys0, t)
 matplot(res$t, cbind(res$R, res$y), type="l", lty=c(2,2,1), xlab="Time",
         ylab="Abundance (solid), Resource (dashed)")
 
-eq <- m$single_equilibrium(x.res)
-abline(h=unlist(eq), col=c(1:3), lty=3)
+eq <- m$single_equilibrium(sys0$x)
+abline(h=unlist(eq[c("R", "y")]), col=c(1:3), lty=3)
 
 # Displace the solution from equilibrium and look at the new level of
 # resources:
 dy <- eq$y * 0.1
-res1 <- m$run_fixed_density(x.res, eq$y - dy, t, eq$R)
-res2 <- m$run_fixed_density(x.res, eq$y + dy, t, eq$R)
-eq1 <- m$equilibrium_R(x.res, eq$y - dy)
-eq2 <- m$equilibrium_R(x.res, eq$y + dy)
-matplot(res1$t, cbind(res1$R, res2$R), type="l",
+sys.y1 <- modifyList(eq, list(y=eq$y - dy, R=eq$R))
+sys.y2 <- modifyList(eq, list(y=eq$y + dy, R=eq$R))
+
+res.y1 <- m$run_fixed_density(sys.y1, t)
+res.y2 <- m$run_fixed_density(sys.y2, t)
+
+eq.y1 <- m$equilibrium_R(sys.y1)
+eq.y2 <- m$equilibrium_R(sys.y2)
+
+matplot(res.y1$t, cbind(res.y1$R, res.y2$R), type="l",
         col=c(2,2,3,3))
 abline(h=eq$R, lty=3, col=1)
-abline(h=eq1$R, lty=3, col=2)
-abline(h=eq2$R, lty=3, col=3)
+abline(h=eq.y1$R, lty=3, col=2)
+abline(h=eq.y2$R, lty=3, col=3)
 # Determined analytically:
-points(rep(max(res1$t), 2), m$single_equilibrium_R(x.res, eq$y - dy), col=2)
-points(rep(max(res1$t), 2), m$single_equilibrium_R(x.res, eq$y + dy), col=3)
+points(rep(max(res.y1$t), 2), m$single_equilibrium_R(sys.y1), col=2)
+points(rep(max(res.y1$t), 2), m$single_equilibrium_R(sys.y2), col=3)
 
 # Next, we start working towards the instantaneous growth rate of a
 # new type at this equilibrium
@@ -89,10 +91,10 @@ plt <- function(obj) {
 xm <- matrix(seq(0, 1, length=301), nrow=1)
 
 # Changing the supply vector:
-plt(f(m, x.res, xm))
-plt(f(m, x.res, xm, pars=list(S=c(.8, 1))))
-plt(f(m, x.res, xm, pars=list(S=c(.5, 1))))
-plt(f(m, x.res, xm, pars=list(S=c(.3, 1))))
+plt(f(m, sys0$x, xm))
+plt(f(m, sys0$x, xm, pars=list(S=c(.8, 1))))
+plt(f(m, sys0$x, xm, pars=list(S=c(.5, 1))))
+plt(f(m, sys0$x, xm, pars=list(S=c(.3, 1))))
 
 # Changing the resident K values
 plt(f(m, matrix(.2), xm, pars=list(S=c(.5, 1))))
@@ -105,9 +107,9 @@ plt(f(m, matrix(.0125), xm, pars=list(S=c(.5, 1))))
 g <- function(C, K, S, xm) {
   mat <- rstar_matrices(rstar_mat_2_tradeoff,
                         make_rstar_mat_constant(matrix(C, 2)))
-  x.res <- matrix(K)
+  sys0$x <- matrix(K)
   m <- make_rstar(mat, S=c(1,1))
-  f(m, x.res, xm, pars=list(S=S))
+  f(m, sys0$x, xm, pars=list(S=S))
 }
 
 plt(g(c(0.5, 0.5), 0.3, c(1, 1), xm))

@@ -154,8 +154,8 @@ abcline(0, f1(0), z[[1]], lwd=10, col=make_transparent(1, .2))
 abcline(0, f2(0), z[[2]], lwd=10, col=make_transparent(2, .2))
 
 ## This approach can be generalised over the whole mutant trait space:
-model_jacobian_density <- function(x, sys, m) {
-  jacobian(function(y) m$fitness(x, sys$x, y), sys$y)
+model_jacobian_density <- function(x, sys, m, ...) {
+  jacobian(function(y) m$fitness(x, sys$x, y), sys$y, ...)
 }
 
 ## This computes the derivative over a range of mutants (`x.mutant`)
@@ -316,11 +316,18 @@ eq <- m_r1$single_equilibrium(sys_r1$x)
 ## rate look with respect to mutant C and K.
 x.mutant <- seq(0, 1, length=101)
 x.K <- rbind(x.mutant, eq$x[2], deparse.level=0) # K varying
+x.C <- rbind(eq$x[1], x.mutant, deparse.level=0) # C varying
 
-## Here is the fitness landscape with respect to mutant K (changing C
-## doesn't change the fitness landscape because it only affects
-## species at nontrivial densities).
-##+ r1_fitness_landscape
+## Here is the fitness landscape with respect to mutant K
+##+ r1_fitness_landscape_K
+plot(x.mutant, m_r1$fitness(x.K, eq$x, eq$y, eq$R), type="l",
+     xlab="Trait (K)", ylab="Fitness")
+abline(h=0, col="grey", lty=3)
+abline(v=eq$x[1], lty=2)
+
+## Changing C doesn't change the fitness landscape because it only
+## affects species at nontrivial densities.
+##+ r1_fitness_landscape_C
 plot(x.mutant, m_r1$fitness(x.K, eq$x, eq$y, eq$R), type="l",
      xlab="Trait (K)", ylab="Fitness")
 abline(h=0, col="grey", lty=3)
@@ -466,10 +473,189 @@ abline(h=0, col="grey", lty=3)
 legend("bottomleft", c("Low S", "Medium S", "High S"),
        col=c("red", "black", "blue"), lty=1, bty="n")
 
+## ### Varying resident density
+
+## Another assumption made by most explicit competition models is that
+## "competitive effect" scales linearly with density of a species.
+## From the nonlinear fitness / resident density plot above, this is
+## cleatly not the case.  We'd still expect that fitness should at
+## least be monotonic decreasing with density, though.
+mat_r1 <- rstar_matrices(rstar_mat_1, rstar_mat_1)
+m_r1 <- make_rstar(mat_r1, S=1)
+sys_r1 <- list(x=matrix(0.5, nrow=2), y=1)
+eq <- m_r1$single_equilibrium(sys_r1$x)
+
+## Build a vector of resident densities as a logarithmic series around
+## the equilibium density.
+y.resident <- 2^seq(-6, 2) * eq$y
+
+## Then we want to know what the fitness is at these levels.  I'm
+## using `x.K` and `x.C` from above.
+
+## Fitness in an empty environment, and at equilubrium resident
+## density:
+w.empty    <- m_r1$fitness(x.K, eq$x, 0)
+w.resident <- m_r1$fitness(x.K, eq$x, eq$y)
+
+## Fitness
+w.varying <- sapply(y.resident, function(y)
+                    m_r1$fitness(x.K, eq$x, y))
+
+## A vector of colours for plotting
+cols <- RColorBrewer::brewer.pal(length(y.resident), "Blues")
+
+## Here, as the density of residents increases (darker blues),
+## invasion fitness decreases, and the decline in fitness becomes
+## increasingly concave up with respect to the mutant K.  The upper
+## dashed line is fitness in an empty environment, and the lower
+## blue/black dashed line is at equilibrium resident density.
+##+ r1_fitness_varying
+plot(w.empty ~ x.mutant, type="l", lty=2, ylim=range(w.varying),
+     xlab="Mutant K", ylab="Fitness")
+abline(h=0, lty=3, col="grey")
+abline(v=eq$x[[1]], lty=2)
+matlines(x.mutant, w.varying, lty=1, col=cols)
+lines(x.mutant, w.resident, lty=2)
+
+## Scaling fitness against that in an empty environment (so this is
+## the proportional decrease in fitness).  As resident density
+## increases, the biggest fitness decreases are felt by mutants with
+## the biggest K values.
+##+ r1_fitness_varying_scaled
+w.varying.scaled <- w.varying / w.empty
+plot(w.empty/w.empty ~ x.mutant, type="l", lty=2,
+     ylim=range(w.varying.scaled), xlab="Mutant K", ylab="Fitness")
+abline(h=0, lty=3, col="grey")
+abline(v=eq$x[[1]], lty=2)
+matlines(x.mutant, w.varying.scaled, lty=1, col=cols)
+lines(x.mutant, w.resident / w.empty, lty=2)
+
+## Next, compute the competition estimate (derivatrive) at each of
+## these resident denities:
+z.varying <- sapply(y.resident, function(y.res)
+                    jacobian(function(y) m_r1$fitness(x.K, eq$x, y), y.res))
+## And at equilibrium
+z.resident <- jacobian(function(y) m_r1$fitness(x.K, eq$x, y), eq$y)
+## (The gradient in the empty environment is harder to compute because
+## we have to move up from zero only.  We should get close enough with
+## the hack below)
+eps <- sqrt(.Machine$double.eps)
+z.empty <- jacobian(function(y) m_r1$fitness(x.K, eq$x, y), eps,
+                    method="simple", method.args=list(eps=eps))
+
+## The dashed line is the derivative in an empty environment, while
+## the dashed black/blue line is derivative at resident equilibrium.
+##
+## As the resident density increases the mutant type that is most
+## strongly affected by the resident (most negative derivative) has a
+## lower and lower K value.
+##+ r1_derivative_varying
+plot(z.empty ~ x.mutant, type="l", lty=2, ylim=range(z.varying),
+     xlab="Mutant K", ylab="Fitness derivative")
+abline(h=0, lty=3, col="grey")
+abline(v=eq$x[[1]], lty=2)
+matlines(x.mutant, z.varying, lty=1, col=cols)
+lines(x.mutant, z.resident, lty=2)
+
+## Earlier, normalising the derivative by fitness in an empty
+## environment seemed to make sense:
+z.varying.scaled <- z.varying / w.empty
+
+##+ r1_derivative_varying_scaled
+plot(z.empty / w.empty ~ x.mutant, type="l", lty=2,
+     ylim=range(z.varying.scaled),
+     xlab="Mutant K", ylab="Scaled fitness derivative")
+abline(h=0, lty=3, col="grey")
+abline(v=eq$x[[1]], lty=2)
+matlines(x.mutant, z.varying.scaled, lty=1, col=cols)
+lines(x.mutant, z.resident/w.empty, lty=2)
+
+## We can rescale these values by the total resident density, which
+## seems to put everything onto a similar scale.
+### TODO: Go through and work out units here so that I can work out
+### wnat this actually means.
+##+ r1_derivative_varying_scaled_resident
+z.varying.scaled.resident <- t(t(z.varying) * y.resident)
+plot(z.empty * 0 ~ x.mutant, type="l", lty=2,
+     ylim=range(z.varying.scaled.resident),
+     xlab="Mutant K",
+     ylab="Fitness derivative, scaled against resident density")
+abline(h=0, lty=3, col="grey")
+abline(v=eq$x[[1]], lty=2)
+matlines(x.mutant, z.varying.scaled.resident, lty=1, col=cols)
+lines(x.mutant, z.resident * eq$y, lty=2)
+
+## Note that this scaling only matters in the context of comparing
+## different resident densities, because we've not really worked out
+## what the y axis means.
+
+## And we can scale both ways:
+z.varying.scaled.twice <- t(t(z.varying.scaled) * y.resident)
+
+##+ r1_derivative_varying_scaled_twice
+plot(z.empty / w.empty * 0 ~ x.mutant, type="l", lty=2,
+     ylim=range(z.varying.scaled.twice),
+     xlab="Mutant K",
+     ylab="Fitness derivative, scaled twice")
+abline(h=0, lty=3, col="grey")
+abline(v=eq$x[[1]], lty=2)
+matlines(x.mutant, z.varying.scaled.twice, lty=1, col=cols)
+lines(x.mutant, z.resident / w.empty * eq$y, lty=2)
+
+## If these plots capture something reasonable about competition, then
+## it means that competition in this model is not monotonic in
+## resident density, let alone linear.
+
+# Let's take this a little further.
+y.resident.hires <- eq$y * 2^seq(-6, 2, length=51)
+z.varying.hires <- sapply(y.resident.hires, function(y)
+                          model_jacobian_density(x.K, sys(eq$x, y), m_r1))
+z.varying.scaled.hires <- z.varying.hires / w.empty
+z.varying.scaled.twice.hires <- t(t(z.varying.scaled.hires) *
+                                  y.resident.hires)
+
+## Heatmap of the derivative (dark red is most negative, light yellow
+## is zero).
+##+ r1_derivative_image
+image(x.mutant, y.resident.hires, z.varying.hires, log="y",
+      xlab="Mutant trait (K)", ylab="Resident density")
+abline(v=eq$x[1], h=eq$y, lty=2)
+
+## Heatmap of the derivative, scaled against fitness in the empty
+## landscape.
+##+ r1_derivative_scaled_image
+image(x.mutant, y.resident.hires, z.varying.scaled.hires, log="y",
+      xlab="Mutant trait (K)", ylab="Resident density")
+abline(v=eq$x[1], h=eq$y, lty=2)
+
+## Heatmap of the derivative, scaled against fitness in the empty
+## landscape, and against resident density.
+##+ r1_derivative_scaled_twice_image
+image(x.mutant, y.resident.hires, z.varying.scaled.twice.hires, log="y",
+      xlab="Mutant trait (K)", ylab="Resident density")
+abline(v=eq$x[1], h=eq$y, lty=2)
+
+##+ r1_derivative_3d, fig.height=7
+persp(x.mutant, log(y.resident.hires), z.varying.hires,
+      theta=30, phi=30, shade=0.5, col="green3", border=NA,
+      xlab="Mutant trait (K)", ylab="Resident density (log scale)",
+      zlab="Fitness derivative")
+
+##+ r1_derivative_scaled_3d, fig.height=7
+persp(x.mutant, log(y.resident.hires), z.varying.scaled.hires,
+      theta=30, phi=30, shade=0.5, col="green3", border=NA,
+      xlab="Mutant trait (K)", ylab="Resident density (log scale)",
+      zlab="Fitness derivative, scaled")
+
+## (note the change in perspective here)
+##+ r1_derivative_scaled_twice_3d, fig.height=7
+persp(x.mutant, log(y.resident.hires), z.varying.scaled.twice.hires,
+      theta=55, phi=40, shade=0.5, col="green3", border=NA,
+      xlab="Mutant trait (K)", ylab="Resident density (log scale)",
+      zlab="Fitness derivative, scaled twice")
+
 ## Up next:
 ##
-##   * force the resident density to change and look at what that does
-##     (see `derivatives-rstar-1-varying.R`)
 ##   * two resource case.
 
 ## # Unresolved things

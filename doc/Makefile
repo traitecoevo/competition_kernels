@@ -17,7 +17,7 @@ all: simple_models.html
 	markdownToHTML('$<', '$@', options=opts)"
 
 clean:
-	rm -f simple_models.{Rmd,html}
+	rm -f simple_models.{md,Rmd,html}
 	rm -rf figure
 
 WIKI_DIR = ../wiki
@@ -25,3 +25,5 @@ update_wiki: simple_models.md
 	./.update_wiki.sh
 publish_wiki: update_wiki
 	./.publish_wiki.sh
+
+.SECONDARY: simple_models.md simple_models.Rmd

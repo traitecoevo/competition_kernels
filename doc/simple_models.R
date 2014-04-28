@@ -14,8 +14,8 @@
 knitr::knit_hooks$set(small_mar=function(before, options, envir) {
   if (before) par(mar=c(4, 4, .1, .1)) # smaller margin on top and right
 })
-knit_hooks$set(source=function(x, options)
-               paste0("\n\n```S\n", x, "\n```\n\n"))
+knitr::knit_hooks$set(source=function(x, options)
+                      paste0("\n\n```S\n", x, "\n```\n\n"))
 knitr::opts_chunk$set(tidy=FALSE, fig.height=5, error=FALSE,
                       small_mar=TRUE,
                       fig.path="figure/simple_models_")
@@ -688,7 +688,7 @@ persp(x.mutant, log(y.resident.hires), z.varying.scaled.twice.hires,
 ## resources for now.
 mat_r2 <- rstar_matrices(rstar_mat_2_tradeoff,
                          make_rstar_mat_constant(matrix(0.5, 2)))
-m_r2 <- make_rstar(mat_r2, S=c(1, 1))
+m_r2 <- make_rstar(mat_r2, S=c(0.5, 0.5))
 
 sys_r2 <- sys(matrix(0.3), 1)
 eq <- m_r2$single_equilibrium(sys_r2$x)
@@ -707,7 +707,7 @@ rstar_plot(m_r2, sys_r2)
 ## This formulation of the model boils down to a single parameter: how
 ## much of resource 1 is needed for growth relative to resource 2.  So
 ## we can compute fitness over this range:
-x_mutant <- matrix(seq(0, 1, length=101), 1)
+x_mutant <- matrix(seq(0, 1, length=301), 1)
 w_mutant <- m_r2$fitness(x_mutant, eq$x, eq$y)
 ##+ r2_fitness
 plot(x_mutant, w_mutant, type="l", xlab="Trait (K1)", ylab="Fitness")
@@ -750,6 +750,85 @@ abline(h=0, col="grey", lty=3)
 ## This tells the opposite story -- the resident exerts the strongest
 ## proportional competitive effect on invading strategies with K1
 ## values *further* from 0.5 than itself.
+
+## #### Varying S
+
+## Things start getting a bit more complicated once start allowing the
+## resource supply rates, S, to change.
+
+## Following Tilman, I'll move the resources along a gradient holding
+## S1 + S2 = 1.  What matters for invasion is which side of the C
+## vector the starting point lands on, so this should be sufficient.
+## Note that this does not include the previous example at this point...
+
+S1 <- sort(c(seq(0, 1, length=51), 0.5 - 1e-8))
+S <- cbind(S1=S1, S2=1 - S1)
+
+## The resident species will survive wherever the S line falls above
+## the ZNGIs.
+Rstar <- m_r2$Rstar(sys_r2$x)
+
+##+ r2_rstar_S
+rstar_plot(m_r2, sys_r2)
+abline(1, -1, lty=3, col="blue")
+segments(Rstar[1], 1 - Rstar[1], 1 - Rstar[2], Rstar[2],
+         col="blue")
+
+m_r2_S <- apply(S, 1, function(S) make_rstar(mat_r2, S=S))
+eq_r2_S <- lapply(m_r2_S, function(m) m$single_equilibrium(eq$x))
+
+## Resident density as a function of the supply rate of the first
+## resource (when it directly trades off with the second).  The
+## drop-off occurs at S1 = 0.5, which is determined by the C vector.
+##+ r2_fitness_resident_S
+plot(S1, sapply(eq_r2_S, "[[", "y"), type="l",
+     xlab="Supply rate of resource 1", ylab="Resident density")
+abline(v=c(Rstar[1], 1 - Rstar[2]), lty=3)
+abline(v=0.5, lty=2)
+
+## So, outside of the critical S values determined by the resident
+## Rstar, measures of competition don't make any sense because there
+## is no resident species to have a competitive effect on invaders.
+## This might cause issues later...
+w_r2_S <- mapply(function(m, eq)
+                 m$fitness(x_mutant, eq$x, eq$y, eq$R),
+                 m_r2_S, eq_r2_S)
+
+red.blue <- colorRampPalette(RColorBrewer::brewer.pal(9, "RdBu"))
+cols <- red.blue(length(S1))
+
+## Here is a plot of mutant fitness as a function of K1 value for a
+## range of different resource supply ratios.  Red lines have
+## relatively high rates of S1, enabling the carrying capacity of the
+## resident to be higher.  Blue lines have S2 > S1, and relatively
+## lower densities of the resident.
+##+ r2_fitness_S
+matplot(drop(x_mutant), w_r2_S, type="l", col=cols, lty=1,
+        xlab="Mutant trait (K1) value",
+        ylab="Fitness")
+abline(h=0, lty=3)
+abline(v=eq$x[1], lty=2)
+
+## Compute the fitness derivatives with respect to resident density.
+## This can only be done easily where the equilibrium resident density
+## is at least zero.  We can use the same hack as above for zero
+## equilibrium though.
+ok <- apply(t(S) > drop(Rstar), 2, all)
+
+##+ r2_derivative_S_calculate, cache=TRUE
+z_r2_S <- mapply(function(m, eq)
+                 model_jacobian_density(x_mutant, eq, m),
+                 m_r2_S[ok], eq_r2_S[ok])
+
+##+ r2_derivative_S
+matplot(drop(x_mutant), z_r2_S, col=cols[ok], type="l", lty=1,
+        xlab="Mutant trait (K1) value", ylab="Fitness derivative")
+abline(h=0, col="grey", lty=3)
+abline(v=eq$x[1], lty=2)
+# This should agree, but appears not to.
+lines(x_mutant, model_jacobian_density(x_mutant, eq, m_r2),
+      lty=2)
+
 
 ## # Unresolved things
 

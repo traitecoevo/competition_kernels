@@ -4,6 +4,12 @@ WIKI_DIR=../wiki
 FIGURE_DIR="figure"
 GIT_WIKI="--git-dir=$WIKI_DIR/.git --work-tree=$WIKI_DIR"
 SHORT_SHA=$(git rev-parse --short HEAD)
+WIKI_URI=git@github.com:richfitz/competition-kernels.wiki.git
+
+if test ! -d "$WIKI_DIR"
+then
+    git clone $WIKI_URI ../wiki
+fi
 
 # Check that we don't have any residual "unnamed chunk" figures that I
 # never want committed.

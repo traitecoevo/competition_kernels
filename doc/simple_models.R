@@ -776,12 +776,13 @@ segments(Rstar[1], 1 - Rstar[1], 1 - Rstar[2], Rstar[2],
 
 m_r2_S <- apply(S, 1, function(S) make_rstar(mat_r2, S=S))
 eq_r2_S <- lapply(m_r2_S, function(m) m$single_equilibrium(eq$x))
+y_r2_S <- sapply(eq_r2_S, "[[", "y")
 
 ## Resident density as a function of the supply rate of the first
 ## resource (when it directly trades off with the second).  The
 ## drop-off occurs at S1 = 0.5, which is determined by the C vector.
 ##+ r2_fitness_resident_S
-plot(S1, sapply(eq_r2_S, "[[", "y"), type="l",
+plot(S1, y_r2_S, type="l",
      xlab="Supply rate of resource 1", ylab="Resident density")
 abline(v=c(Rstar[1], 1 - Rstar[2]), lty=3)
 abline(v=0.5, lty=2)
@@ -794,7 +795,7 @@ w_r2_S <- mapply(function(m, eq)
                  m$fitness(x_mutant, eq$x, eq$y, eq$R),
                  m_r2_S, eq_r2_S)
 
-red.blue <- colorRampPalette(RColorBrewer::brewer.pal(9, "RdBu"))
+red.blue <- colorRampPalette(RColorBrewer::brewer.pal(4, "RdBu"))
 cols <- red.blue(length(S1))
 
 ## Here is a plot of mutant fitness as a function of K1 value for a
@@ -808,12 +809,55 @@ matplot(drop(x_mutant), w_r2_S, type="l", col=cols, lty=1,
         ylab="Fitness")
 abline(h=0, lty=3)
 abline(v=eq$x[1], lty=2)
+lines(x_mutant, w_mutant, lty=2)
+
+## Empty fitness
+get_S <- function(m) {
+  m$parameters$get()[["S"]]
+}
+w_r2_empty_S <- mapply(function(m, eq)
+                       m$fitness(x_mutant, eq$x, 0, get_S(m)),
+                       m_r2_S, eq_r2_S)
+
+##+ r2_fitness_empty_S
+matplot(drop(x_mutant), w_r2_empty_S, type="l", col=cols, lty=1,
+        xlab="Mutant trait (K1) value",
+        ylab="Fitness in empty environment")
+abline(h=0, lty=3)
+abline(v=eq$x[1], lty=2)
+lines(x_mutant, w_empty, lty=2)
+
+ok <- apply(t(S) > drop(Rstar), 2, all)
+
+## These are going to be easier to draw if we code the lines up by
+## resident surviving.  Basically where the resident can exist it
+## *will* draw the resource down to Rstar, and the fitness function
+## will then pass through that point.
+##+ r2_fitness_compare_S
+op <- par(mfrow=c(2, 1))
+matplot(drop(x_mutant), w_r2_S, type="l",
+        col=ifelse(ok, cols, make_transparent(cols, .25)),
+        lty=ifelse(ok, 1, 2),
+        xlab="Mutant trait (K1) value",
+        ylab="Fitness")
+abline(h=0, lty=3)
+abline(v=eq$x[1], lty=2)
+lines(x_mutant, w_mutant, lty=2)
+
+matplot(drop(x_mutant), w_r2_empty_S, type="l",
+        col=ifelse(ok, cols, make_transparent(cols, .25)),
+        lty=ifelse(ok, 1, 2),
+        xlab="Mutant trait (K1) value",
+        ylab="Fitness in empty environment")
+abline(h=0, lty=3)
+abline(v=eq$x[1], lty=2)
+lines(x_mutant, w_empty, lty=2)
+par(op)
 
 ## Compute the fitness derivatives with respect to resident density.
 ## This can only be done easily where the equilibrium resident density
 ## is at least zero.  We can use the same hack as above for zero
 ## equilibrium though.
-ok <- apply(t(S) > drop(Rstar), 2, all)
 
 ##+ r2_derivative_S_calculate, cache=TRUE
 z_r2_S <- mapply(function(m, eq)
@@ -825,10 +869,37 @@ matplot(drop(x_mutant), z_r2_S, col=cols[ok], type="l", lty=1,
         xlab="Mutant trait (K1) value", ylab="Fitness derivative")
 abline(h=0, col="grey", lty=3)
 abline(v=eq$x[1], lty=2)
-# This should agree, but appears not to.
 lines(x_mutant, model_jacobian_density(x_mutant, eq, m_r2),
       lty=2)
 
+## Then we can rescale this by the fitness in an empty environment.
+
+z_r2_scaled_S <- z_r2_S / w_r2_empty_S[,ok]
+z_r2_scaled_twice_S <- t(t(z_r2_scaled_S) * y_r2_S[ok])
+
+## There are some really weird discontinuities here that I need to
+## chase up...
+##+ r2_derivative_scaled_S
+matplot(drop(x_mutant), z_r2_scaled_S, type="l", lty=1,
+        col=cols[ok],
+        xlab="Mutant trait (K1) value",
+        ylab="Fitness derivative, scaled",
+        ylim=c(-5,0))
+abline(v=eq$x[1], lty=2)
+abline(h=0, col="grey", lty=3)
+lines(x_mutant, z_r2 / w_empty, lty=2)
+
+## And this really makes no sense at all.  Back to the drawing board
+## here, I think.
+##+ r2_derivative_scaled_twice_S
+matplot(drop(x_mutant), z_r2_scaled_twice_S, type="l", lty=1,
+        col=cols[ok],
+        xlab="Mutant trait (K1) value",
+        ylab="Fitness derivative, scaled twice",
+        ylim=c(-5,0))
+abline(v=eq$x[1], lty=2)
+abline(h=0, col="grey", lty=3)
+lines(x_mutant, z_r2 / w_empty * eq$y, lty=2)
 
 ## # Unresolved things
 

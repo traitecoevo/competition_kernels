@@ -67,7 +67,7 @@ library(numDeriv)
 ## # Explicit competition
 
 ## There are two models here: Dieckmann and Dobeli 1999 and Kisdi
-## 1999.  Both these models are related to Lokta Volterra models with
+## 1999.  Both these models are related to Lotka Volterra models with
 ## continuous competition functions that vary as a function of species
 ## traits rather than being particular to a species.  The species
 ## competitive effect scales linearly with density.
@@ -87,7 +87,7 @@ m_d <- make_dieckmann_1999()
 sys_d0 <- m_d$single_equilibrium()
 
 ## Displace this equilibrium by 0.5 to each side and run out to
-## demographic eqilibrium:
+## demographic equilibrium:
 sys_d <- m_d$equilibrium(sys_split(sys_d0, 0.5))
 
 ## Here is the fitness landscape
@@ -199,9 +199,22 @@ points(rep(mutant, 2), z * m_d$capacity(mutant), pch=19, col=1:2)
 ## Now the competitive effects are exactly centred around the resident
 ## densities.
 
-## Note that in this model this is *different* to the fitness in an
-## empty environment, which we'll use below.  The fitness in an empty
-## environment is 1 for all traits:
+## Carrying capacity in an empty environment is a gaussian centred on
+## zero:
+
+##+ dd_carrying_capacity
+capacity.mutant <- m_d$capacity(x.mutant)
+matplot(x.mutant, capacity.mutant, type="l", lty=1,
+        xlab="Trait", ylab="Carrying capacity (empty environment)")
+abline(v=sys_d$x, lty=3, col=1:2)
+
+## The rate of decline away from zero, relative to the widths of
+## competition, allows the system to maintain two species.  However,
+## they will be constantly driven apart by disruptive selection.
+
+## Note that in this model this is *different* to the **fitness** in
+## an empty environment, which we'll use below.  The fitness in an
+## empty environment is 1 for all traits:
 m_d$fitness(x.mutant, numeric(0), numeric(0))
 
 ## ## Kisdi 1999
@@ -238,7 +251,7 @@ matplot(x.mutant, t(m_k$competition(x.mutant, sys_k$x)), type="l", lty=1,
 abline(v=sys_k$x, col=1:2, lty=1:2)
 
 ## In the D+D model, we didn't really have to specify much about the
-## species exerting and recieving competition, but here we do.  This
+## species exerting and receiving competition, but here we do.  This
 ## is the amount that a mutant whose trait is at a position on the x
 ## axis has its growth reduced by the black and the red species; so
 ## this is competition *felt*.
@@ -305,7 +318,7 @@ abline(v=sys_k$x, lty=3, col=1:2)
 ## It's also confusing enough to be worth thinking about.
 ##
 ## In this model, there can only be a single dominant species, so we
-## can't study what happens during coexistance.  However, there's
+## can't study what happens during coexistence.  However, there's
 ## still plenty of competition going on.
 
 ## In the single resource case species are characterised by two
@@ -315,6 +328,24 @@ abline(v=sys_k$x, lty=3, col=1:2)
 ## species with the lowest K will win because they will drive K below
 ## the minimum level required for positive net growth by the other
 ## species.
+
+## +[MW: So ... are Huisman and Weissing modeling the resource here,
+## rather than the population? My vague memory of Tilman 82 treatment
+## was that the Monod curve described sensitivity of cell
+## multiplication rate to resource concentration (50% at K), and there
+## was a constant cell death rate that in effect defined R*. Plausible
+## trade-off in this system was for strategies with low K to have high
+## background death rate.]
+##
+## RF: Both the resource and the population are being modelled, and I
+## think the treatment here is the same as your memory from Tilman
+## (this is basically the same as the model on p. 46 (equation 5) of
+## Tilman 1982).  The specific growth rate of each species depends on
+## it's K, and then the consumption rate of the resource depends on
+## how much is needed for growth, so K appears in both the equations
+## for change in N and R.  See p. 2683 of the paper.  I do need to sit
+## down and transcribe the equations into Revolve at some point
+## though.
 mat_r1 <- rstar_matrices(rstar_mat_1, rstar_mat_1)
 m_r1 <- make_rstar(mat_r1, S=1)
 sys_r1 <- list(x=matrix(0.5, nrow=2), y=1)
@@ -357,7 +388,13 @@ plot(w.mutant1 ~ y.resident, type="l",
      xlab="Resident density", ylab="Fitness")
 points(eq$y, w.mutant0, pch=19)
 
-## Then compute the slope
+## This is the fitness of a *single invader/mutant strategy*, as a
+## function of the density of the resident.  A resident density
+## implies a resource density (increasing residents decreases
+## resources) and the fitness of the invading strategy decreases.
+
+## Then compute the slope at the equilibrium density (indicated by the
+## solid circle).
 ##+ r1_mutant_1_slope
 plot(w.mutant1 ~ y.resident, type="l",
      xlab="Resident density", ylab="Fitness")
@@ -381,7 +418,7 @@ abline(h=0, col="grey", lty=3)
 abline(v=eq$x[1], lty=2)
 
 ## As above, the more negative this is, the more a species growth rate
-## is depressed by a unit increase in redsident density.  The resident
+## is depressed by a unit increase in resident density.  The resident
 ## is indicated by the vertical dashed line.  In contrast with the
 ## explicit competition models, the line is neither centred on the
 ## resident nor monotonic.
@@ -415,8 +452,9 @@ abline(h=0, col="grey", lty=3)
 ## species that have very low K values is very small.  This seems to
 ## agree with the intuitive behaviour of the model.
 
-## The other thing that changes the exact behaviour here is S, but
-## that will only scale things up and down.
+## The other thing that changes the exact behaviour here is the
+## resource supply rate, S, but that will only scale things up and
+## down.
 
 m_r1_Slo <- make_rstar(mat_r1, S=0.5)
 m_r1_Shi <- make_rstar(mat_r1, S=2)
@@ -487,7 +525,7 @@ legend("bottomleft", c("Low S", "Medium S", "High S"),
 ## Another assumption made by most explicit competition models is that
 ## "competitive effect" scales linearly with density of a species.
 ## From the nonlinear fitness / resident density plot above, this is
-## cleatly not the case.  We'd still expect that fitness should at
+## clearly not the case.  We'd still expect that fitness should at
 ## least be monotonic decreasing with density, though.
 mat_r1 <- rstar_matrices(rstar_mat_1, rstar_mat_1)
 m_r1 <- make_rstar(mat_r1, S=1)
@@ -495,13 +533,13 @@ sys_r1 <- list(x=matrix(0.5, nrow=2), y=1)
 eq <- m_r1$single_equilibrium(sys_r1$x)
 
 ## Build a vector of resident densities as a logarithmic series around
-## the equilibium density.
+## the equilibrium density.
 y.resident <- 2^seq(-6, 2) * eq$y
 
 ## Then we want to know what the fitness is at these levels.  I'm
 ## using `x.K` and `x.C` from above.
 
-## Fitness in an empty environment, and at equilubrium resident
+## Fitness in an empty environment, and at equilibrium resident
 ## density:
 w.empty    <- m_r1$fitness(x.K, eq$x, 0)
 w.resident <- m_r1$fitness(x.K, eq$x, eq$y)
@@ -555,7 +593,7 @@ z.empty <- jacobian(function(y) m_r1$fitness(x.K, eq$x, y), eps,
 ## The dashed line is the derivative in an empty environment, while
 ## the dashed black/blue line is derivative at resident equilibrium.
 ##
-## As the resident density increases the mutant type that is most
+## As the resident density increases, the mutant type that is most
 ## strongly affected by the resident (most negative derivative) has a
 ## lower and lower K value.
 ##+ r1_derivative_varying
@@ -615,7 +653,7 @@ lines(x.mutant, z.resident / w.empty * eq$y, lty=2)
 ## it means that competition in this model is not monotonic in
 ## resident density, let alone linear.
 
-# Let's take this a little further.
+## Let's take this a little further.
 y.resident.hires <- eq$y * 2^seq(-6, 2, length=51)
 z.varying.hires <- sapply(y.resident.hires, function(y)
                           model_jacobian_density(x.K, sys(eq$x, y), m_r1))

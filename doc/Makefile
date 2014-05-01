@@ -10,7 +10,7 @@ all: ${TARGETS}
 %.Rmd: %.R
 	${RSCRIPT} -e "library(sowsear); sowsear('$<', 'Rmd')"
 %.md: %.Rmd
-	${RSCRIPT} -e "library(knitr); knit('$<')"
+	./.knit.sh $<
 %.pdf: %.md
 	pandoc $< -o $@
 %.docx: %.md

@@ -10,16 +10,6 @@
 ### TODO:
 ### * Subtraction approach for the simple models.
 
-##+ echo=FALSE
-knitr::knit_hooks$set(small_mar=function(before, options, envir) {
-  if (before) par(mar=c(4, 4, .1, .1)) # smaller margin on top and right
-})
-knitr::knit_hooks$set(source=function(x, options)
-                      paste0("\n\n```S\n", x, "\n```\n\n"))
-knitr::opts_chunk$set(tidy=FALSE, fig.height=5, error=FALSE,
-                      small_mar=TRUE,
-                      fig.path="figure/simple_models_")
-
 ## The idea here is to see if we can infer the shape of competition
 ## from simple models.  I'm trying this on two types of models:
 ##

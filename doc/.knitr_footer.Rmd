@@ -1,0 +1,6 @@
+# Appendix
+
+Compiled on `r date()` using packages and versions:
+``` {r __footer_session_info, echo=FALSE}
+sessionInfo()
+```

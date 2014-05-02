@@ -1,8 +1,5 @@
 ## Hook to replace ```r -> ```S in generated output -- this renders
-## better on github.  I don't have the patience to go through and work
-## out which bits need to be escaped to have this work from within
-## .knit.sh, but it seems like there's a bunch of trouble makers here
-## (`, $, ').
+## better on github.
 knitr::knit_hooks$set(source=function(x, options)
                       paste0('\n\n```S\n', x, '\n```\n\n'))
 
@@ -12,3 +9,14 @@ knitr::knit_hooks$set(small_mar=function(before, options, envir) {
   if (before) par(mar=c(4, 4, .1, .1)) # smaller margin on top and right
 })
 knitr::opts_chunk$set(small_mar=TRUE)
+
+local({
+  knit_and_read <- function(filename) {
+    readLines(knitr::knit(filename, tempfile(), quiet=TRUE))
+  }
+  document_with_footer <- function(x) {
+    knitr::render_markdown()
+    c(x, knit_and_read(".knitr_footer.Rmd"))
+  }
+  knitr::knit_hooks$set(document=document_with_footer)
+})

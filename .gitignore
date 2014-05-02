@@ -12,4 +12,7 @@ doc/simple_models.docx
 doc/simple_models.pdf
 doc/figure/simple_models_*.png
 
+doc/simple_models_*.Rmd
+doc/simple_models_*.md
+
 wiki

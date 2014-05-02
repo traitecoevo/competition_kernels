@@ -23,8 +23,7 @@ fi
 if [[ -d $FIGURE_DIR &&
       -n "$(find $FIGURE_DIR -maxdepth 1 -name '*unnamed*' -print -quit)" ]]
 then
-    echo "Error: Unnamed figure chunks found"
-    exit 1
+    echo "Warning: Unnamed figure chunks found"
 fi
 
 # I'm not sure if this is ideal.  Could be over cautious, given we
@@ -37,6 +36,8 @@ then
     exit 1
 fi
 
+# One option here would be to do nothing unless the local scripts and
+# the wiki'd version are different (compare the .md files).
 while read S; do
     S_BASE="${S%.*}"
 
@@ -57,7 +58,8 @@ while read S; do
     cp $FIGURE_DIR/${S_BASE}_* $WIKI_DIR/$FIGURE_DIR/
 
     # And add it to git:
-    git $GIT_WIKI add ${S_BASE}.md "$FIGURE_DIR/${S_BASE}_*"
+    git $GIT_WIKI add ${S_BASE}.md
+    git $GIT_WIKI add --ignore-errors "$FIGURE_DIR/${S_BASE}_*"
 done < .wiki_scripts
 
 if git $GIT_WIKI status --porcelain --untracked-files=no | grep --quiet '^[A-Z]'

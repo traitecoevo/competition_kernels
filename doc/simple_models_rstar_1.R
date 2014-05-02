@@ -394,7 +394,3 @@ persp(x.mutant, log(y.resident.hires), z.varying.scaled.twice.hires,
       theta=55, phi=40, shade=0.5, col="green3", border=NA,
       xlab="Mutant trait (K)", ylab="Resident density (log scale)",
       zlab="Fitness derivative, scaled twice")
-
-knitr::knit_hooks$set(document=function(x) browser())
-knitr::knit("test.Rmd")
-writeLines(readLines("test.md"))

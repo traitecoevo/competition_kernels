@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 
 # Compile Rmd -> md, setting some options.  The options that I want
 # are:

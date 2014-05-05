@@ -37,11 +37,11 @@ eq <- m_r2$single_equilibrium(sys_r2$x)
 ##+ r2_zngi_1sp
 rstar_plot(m_r2, sys_r2)
 
-## Ultimately, in this case, long term coexistance depends on
-## competition vectors.  With every species having the same
-## competition vector, as here, there will be only one possible
-## resident species and the outcome will depend on which side of the
-## diagonal line we start from (the supply point, S).
+## Ultimately, in this case, long term coexistence depends on
+## consumption vectors. With every species having the same consumption
+## vector, as here, there will be only one possible resident species
+## and the outcome will depend on which side of the diagonal line we
+## start from (the supply point, S).
 
 ## This formulation of the model boils down to a single parameter: how
 ## much of resource 1 is needed for growth relative to resource 2.  So
@@ -100,18 +100,23 @@ abline(h=0, col="grey", lty=3)
 ## vector the starting point lands on, so this should be sufficient.
 ## Note that this does not include the previous example at this point...
 
-S1 <- sort(c(seq(0, 1, length=51), 0.5 - 1e-8))
-S <- cbind(S1=S1, S2=1 - S1)
-
 ## The resident species will survive wherever the S line falls above
 ## the ZNGIs.
 Rstar <- m_r2$Rstar(sys_r2$x)
+
+c.slope <- 1
+c.intercept <- Rstar[2] - c.slope * Rstar[1]
+S.crit <- (1 - c.intercept) / (1 + c.slope)
+
+S1 <- sort(c(seq(0, 1, length=51), Rstar[1], 1 - Rstar[2], S.crit))
+S <- cbind(S1=S1, S2=1 - S1)
 
 ##+ r2_rstar_S
 rstar_plot(m_r2, sys_r2)
 abline(1, -1, lty=3, col="blue")
 segments(Rstar[1], 1 - Rstar[1], 1 - Rstar[2], Rstar[2],
          col="blue")
+points(S.crit , 1 - S.crit, col="blue")
 
 m_r2_S <- apply(S, 1, function(S) make_rstar(mat_r2, S=S))
 eq_r2_S <- lapply(m_r2_S, function(m) m$single_equilibrium(eq$x))
@@ -119,12 +124,13 @@ y_r2_S <- sapply(eq_r2_S, "[[", "y")
 
 ## Resident density as a function of the supply rate of the first
 ## resource (when it directly trades off with the second).  The
-## drop-off occurs at S1 = 0.5, which is determined by the C vector.
+## optimum resident density occurs when the supply point is at S.crit
 ##+ r2_fitness_resident_S
 plot(S1, y_r2_S, type="l",
      xlab="Supply rate of resource 1", ylab="Resident density")
 abline(v=c(Rstar[1], 1 - Rstar[2]), lty=3)
 abline(v=0.5, lty=2)
+abline(v=S.crit, lty=2, col="blue")
 
 ## So, outside of the critical S values determined by the resident
 ## Rstar, measures of competition don't make any sense because there

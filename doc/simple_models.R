@@ -66,9 +66,12 @@
 ## * [Rstar, 1 resource](simple_models_rstar_1)
 ## * [Rstar, 2 resources](simple_models_rstar_2)
 
-## # Unresolved things
+## # Scaling factors
 
-## * I've scaled by different things all over the show, until things
-##   look "about right" -- would be nice to know what was going on
-##   here.  I suspect that working out what units things are in will
-##   enlightening.
+## Fitness is defined as the *per capita rate of population increase*,
+## that is -- the number of offspring per individual per unit time.
+## This has units of individuals / (individuals time).
+##
+## Computing the derivative of this with respect to resident density
+## changes the units by a factor of 1 / (resident density).
+

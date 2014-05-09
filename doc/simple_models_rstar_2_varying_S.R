@@ -9,6 +9,9 @@ source("common.R")
 ## exploration, which will be in
 ## [this file](simple_models_rstar_2_varying_S).
 
+## This will be easier to deal with if we consider a couple of
+## different vectors first.
+
 ## Picking up from the end of [the main file](simple_models_rstar_2):
 get_S <- function(m) {
   m$parameters$get()[["S"]]
@@ -38,9 +41,10 @@ Rstar <- m_r2$Rstar(sys_r2$x)
 
 c.slope <- 1 # exp(drop(diff(log(mat_r2$C(eq$x))))), I think.
 c.intercept <- Rstar[2] - c.slope * Rstar[1]
-S.crit <- (1 - c.intercept) / (1 + c.slope)
+S.max <- (1 - c.intercept) / (1 + c.slope)
+S.crit <- c(Rstar[1], 1 - Rstar[2])
 
-S1 <- sort(c(seq(0, 1, length=51), Rstar[1], 1 - Rstar[2], S.crit))
+S1 <- sort(c(seq(0, 1, length=51), S.crit, S.max))
 S <- cbind(S1=S1, S2=1 - S1)
 
 ## I want a vector of colours along this supply vector, with red being
@@ -68,14 +72,53 @@ y_r2_S <- sapply(eq_r2_S, "[[", "y")
 
 ## Resident density as a function of the supply rate of the first
 ## resource (when it directly trades off with the second).  The
-## optimum resident density occurs when the supply point is at S.crit
+## optimum resident density occurs when the supply point is at S.max
 ##+ r2_fitness_resident_S
 plot(S1, y_r2_S, type="l",
      xlab="Supply rate of resource 1", ylab="Resident density")
 points(S1, y_r2_S, pch=pch.crit, col=cols, lwd=1.5)
-abline(v=c(Rstar[1], 1 - Rstar[2]), lty=3)
+abline(v=S.crit, lty=3)
 abline(v=0.5, lty=2)
-abline(v=S.crit, lty=2, col="blue")
+abline(v=S.max, lty=2, col="blue")
+
+## There are a couple of cases worth considering:
+##   * a: S1 below the the smallest critical value
+##   * b: ...above the critical value but above the optimum
+##   * c: ...at optimum
+##   * d: ...at S1 = S2 = 0.5, the same as the previous case
+##   * e: ...above 0.5, but below the larger critical value
+##   * f: ...above the critical value
+
+S1 <- c(a=mean(c(S.crit[1], 0)),
+        b=mean(c(S.crit[1], min(S.max, 0.5))),
+        c=min(S.max, 0.5),
+        d=max(S.max, 0.5),
+        e=mean(c(S.crit[2], max(S.max, 0.5))),
+        f=mean(c(S.crit[2], 1)))
+S <- cbind(D1=S1, S2 = 1 - S1)
+
+cols <- red.blue(length(S1))
+cols[S1 == 0.5] <- 1
+
+rstar_plot(m_r2, sys_r2)
+abline(1, -1, lty=3)
+abline(0, 1, lty=3, col="grey")
+points(S1, 1 - S1, col=cols, pch=19, lwd=1.5)
+text(S1, 1 - S1, names(S1), adj=c(.5, 2))
+
+## Lots of colour tweaking here...
+ok <- apply(t(S) > drop(Rstar), 2, all)
+cols.crit <- ifelse(ok, cols, make_transparent(cols, .25))
+lty.crit  <- ifelse(ok, 1, 2)
+pch.crit  <- ifelse(ok, 19, 1)
+i_max <- S1 == S.max
+lwd.crit <- ifelse(i_max, 10, 1)
+cols.crit[i_max] <- make_transparent(cols[i_max], 0.3)
+
+## Rebuild the models, equilibriums and get the resident densities:
+m_r2_S <- apply(S, 1, function(S) make_rstar(mat_r2, S=S))
+eq_r2_S <- lapply(m_r2_S, function(m) m$single_equilibrium(eq$x))
+y_r2_S <- sapply(eq_r2_S, "[[", "y")
 
 ## So, outside of the critical S values determined by the resident
 ## Rstar, measures of competition don't make any sense because there
@@ -94,46 +137,91 @@ w_r2_S <- mapply(function(m, eq)
 ## function will then pass through that point.
 ##+ r2_fitness_S
 matplot(drop(x_mutant), w_r2_S, type="l", col=cols.crit, lty=lty.crit,
+        lwd=lwd.crit,
         xlab="Mutant trait (K1) value",
         ylab="Invader fitness")
 abline(h=0, lty=3)
 abline(v=eq$x[1], lty=2)
+abline(v=0.5, lty=2, col="grey")
 lines(x_mutant, w_mutant, lty=2)
-abline(v=c(Rstar[1], 1 - Rstar[2]), lty=3)
-abline(v=0.5, lty=2)
 
-## Empty fitness
+## Fitness in an empty landscape
 w_r2_empty_S <- mapply(function(m, eq)
                        m$fitness(x_mutant, eq$x, 0, get_S(m)),
                        m_r2_S, eq_r2_S)
 
+## As the S1 rate decreases (redder lines), the optimal K1 value
+## decreases.  The dotted lines do are negative at the point that our
+## resident is at -- the resident cannot survive here.
 ##+ r2_fitness_empty_S
 matplot(drop(x_mutant), w_r2_empty_S, type="l",
-        col=cols.crit, lty=lty.crit,
+        col=cols.crit, lty=lty.crit, lwd=lwd.crit,
         xlab="Mutant trait (K1) value",
         ylab="Fitness in empty environment")
 abline(h=0, lty=3)
 abline(v=eq$x[1], lty=2)
-lines(x_mutant, w_empty, lty=2)
 
-## Here's the *depression* in fitness.  I need to return to this.
-## Note that we can't normalise against *potential* fitness without
-## removing species that never have positive fitness to avoid 0/0
-## issues (which are only *approximately* 0/0 so actually cause huge
-## problems).
+## Here's the *depression* in fitness -- the total decrease in fitness
+## that is felt in the presence of the resident.  There are only four
+## lines here because the two lines that correspond to the resident
+## being absent don't belong.
 ##+ fitness_depression
 matplot(drop(x_mutant), w_r2_empty_S - w_r2_S, type="l",
-        col=cols.crit, lty=lty.crit,
+        col=cols.crit, lty=lty.crit, lwd=lwd.crit,
         xlab="Mutant trait (K1) value",
         ylab="Depression in fitness")
 abline(h=0, lty=3)
 abline(v=eq$x[1], lty=2)
-lines(x_mutant, w_empty - w_mutant, lty=2)
+abline(v=S.crit, lty=3)
+
+## This is the *relative depression* in fitness -- the fractional
+## decrease in fitness due to the presence of the resident.  It takes
+## into account the fact that relatively fit species have further to
+## fall.
+matplot(drop(x_mutant), w_r2_S / w_r2_empty_S , type="l",
+        col=cols.crit, lty=lty.crit, lwd=lwd.crit,
+        xlab="Mutant trait (K1) value",
+        ylab="Relative depression in fitness", ylim=c(-4, 1))
+abline(h=0, lty=3)
+abline(v=eq$x[1], lty=2)
+abline(v=S.crit, lty=3)
+
+## Where a value is above zero, the mutant can invade in the presence
+## of the resident - that's why all lines have a y value of zero at
+## the resident K1 value.  If a line was above 1, that would represent
+## facilitation -- the mutant does better in the presence of the
+## resident.  That is not really possible in this model though, but
+## there are some pathalogical cases here where negative
+## empty-environment fitness can look like very strong facilitation.
+
+## At an even supply rate (S1 = S2), the fitness depression is zero
+## around K1 = 0.5.  As the supply rate moves towards the optimum for
+## the resident fitness depression becomes (roughly) symetric around
+## the resident trait.
+
+## At S1 supply rates less than the resident optimum, or greater than
+## 0.5, fitness depression becomes increasingly asymmetric until the
+## resident will outcompete all species with a K1 bigger than it (for
+## very low S1) or outcompete all species with a K1 smaller than it
+## (for very high S1).
 
 ## Compute the fitness derivatives with respect to resident density.
 ## This can only be done easily where the equilibrium resident density
 ## is at least zero.  We can use the same hack as above for zero
 ## equilibrium though.
+z_r2_S <- mapply(function(m, eq)
+                 model_jacobian_density(x_mutant, eq, m),
+                 m_r2_S[ok], eq_r2_S[ok])
+
+##+ r2_derivative_S1
+matplot(drop(x_mutant), z_r2_S, col=cols.crit[ok], type="l", lty=1,
+        lwd=lwd.crit[ok],
+        xlab="Mutant trait (K1) value", ylab="Fitness derivative")
+abline(h=0, col="grey", lty=3)
+abline(v=eq$x[1], lty=2)
+
+## Below here is unedited from before, but needs some work...
+
 
 ## Before considering all the points at once, let's just consider a
 ## single point.

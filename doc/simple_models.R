@@ -28,7 +28,10 @@
 ##    competition *felt* (species X's growth is depressed by species
 ##    Y).  In both is that X is the "focal" species and exists at
 ##    nontrivial density, while Y is something that we want to
-##    evaluate at any point along a trait axis.
+##    evaluate at any point along a trait axis. [MW: well seems to me
+##    that both things exist and are always different in principle,
+##    even though people sometimes speak casually about competition
+##    "between" two species as if it were reciprocal]
 ## 2. Indirect competition and second order effects.  As a result
 ##    mostly considering single resident cases at the moment.
 

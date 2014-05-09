@@ -1,4 +1,7 @@
+# This one might disappear soon
 simple_models.R
+
+# These are all the actual simple models files:   
 simple_models_dieckmann.R
 simple_models_kisdi.R
 simple_models_rstar_1.R

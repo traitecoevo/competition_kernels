@@ -1,0 +1,90 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage{fullpage}
+\usepackage[osf]{mathpazo}
+\newcommand{\ud}{\ensuremath{\mathrm{d}}}
+\newcommand{\Rstar}{\ensuremath{\mathrm{R}^*}}
+\newcommand{\Rs}{\ensuremath{R^*}}
+\newcommand{\Ns}{\ensuremath{N^*}}
+\newcommand{\Rhat}{\ensuremath{\hat R}}
+\newcommand{\Nhat}{\ensuremath{\hat N}}
+
+\begin{document}
+
+Fitness is defined as the \emph{per capita rate of population
+  increase} -- that is, the number of offspring per individual per
+unit time and so has units of $N_I / (N_I t)$ where the subscript $I$
+indicates invader.  We will generally consider this evaluated at $N_I
+= 0$.
+
+Taking the derivative with respect to resident density $N_R$,
+
+\begin{equation*}
+  \frac{\ud}{\ud N_R}\left[ \frac{\ud N_I}{\ud t} \right]
+\end{equation*}
+
+gives a quantity that has units $\frac{N_I}{N_I t}\frac{1}{N_R}$.
+
+One of the scalings was dividing by the fitness in an empty
+environment $w_0$.  This is basically the maximum value of $\ud N_I/
+\ud t$, and it makes the fitness dimensionless.  Because $w_0$ does
+not depend on $N_R$
+
+\begin{equation*}
+  \frac{\ud}{\ud N_R} \left[\frac{1}{w_0}\frac{\ud N_I}{\ud t}\right]
+  =
+  \frac{1}{w_0}\frac{\ud}{\ud N_R}\left[\frac{\ud N_I}{\ud t}\right]
+\end{equation*}
+
+Units wise, this converts the fitness measure from being individuals
+per individual per time to fractions of maximum individuals per
+individual per time, and the competition measure to being per invader
+per resident per time.
+
+The other scaling was multiplying back through by the density of
+residents so we have
+
+\begin{equation*}
+  \frac{1}{w_0}\frac{\ud}{\ud N_R}\left[\frac{\ud N_I}{\ud t}\right] N_R
+\end{equation*}
+
+which is dimensionless
+
+\begin{equation*}
+  \underbrace{\frac{N_I}{N_I t}}_{\text{fitness}}
+  \times
+  \overbrace{\frac{N_I t}{N_I}}^{1/\text{max fitness}}
+  \times
+  \underbrace{\frac{1}{N_R}}_{\frac{\ud}{\ud N_R}}
+  \times
+  \overbrace{\frac{N_R}{1}}^{N_R}
+\end{equation*}
+
+I don't know if that's necessarily a good thing, but it does seem that
+it might make it easier to compare across different models, or
+different parameter combinations.  In particular, getting time out of
+there is nice because you can scale ecological interactions up and
+down in speed and get the same answer.
+
+The dependence on $N_R$ is probably only a problem when considering
+different resident densities.  In particular, in a particular
+scenario, comparing across invader traits while holding a particular
+resident community constant will not depend on the $N_R$ term.
+
+Units of the competition kernel appear dimensionless in Dieckmann and
+Dobelli, because it appears as $\ud N / \ud t = r N(1 - (N + \alpha
+N_R)/K)$.  It's dimensionless in usual Lotka-Volterra models (because
+it appears as $K_i - N_i - \alpha_j N_j$, $\alpha_j$ must be
+dimensionless).  Also in Firbank and Watkinson (eq 9). 
+
+But it appears to have units $1/t$ in Kisdi because it appears as $r -
+\alpha(x_i - x_j)N_j$.  Unless we let $K = 1/r$ to get $r(1 -
+\alpha(x_i - x_j)N_j / K)$ in which case it's dimensionless again, but
+does appear scaled by time.
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-PDF-mode: t
+%%% End: 

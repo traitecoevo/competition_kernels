@@ -1,0 +1,65 @@
+% Turn off the ugly navigation symbols.
+\setbeamertemplate{navigation symbols}{}
+
+% Margins and whatnot.
+\setbeamersize{text margin left=2em,text margin right=2em}
+
+\usepackage{fontspec}
+\defaultfontfeatures{Mapping=tex-text} % enable -- / --- / `` / ''
+\usefonttheme{serif}
+\setmainfont{Helvetica}
+\setsansfont{Oswald}
+\setmonofont{Courier}
+
+\definecolor{verydarkgrey}{HTML}{001112}
+\definecolor{darkblue}{HTML}{232747}
+\definecolor{grey}{HTML}{777777}
+
+\setbeamerfont{frametitle}{size=\Large}
+\setbeamercolor{frametitle}{fg=black}
+\setbeamercolor{titleline}{bg=black}
+\setbeamercolor{title}{fg=black}
+\setbeamercolor*{date in head/foot}{fg=grey}
+\setbeamercolor{item}{fg=black}
+\setbeamerfont{item}{series=\bfseries}
+% Never used, but this is nice.
+\setbeamertemplate{itemize subitem}{--}
+\setbeamerfont{itemize/enumerate subbody}{size=\small}
+
+% \useoutertheme{new}
+
+\makeatletter
+\usepackage{dashrule}
+\defbeamertemplate*{frametitle}{mine}[1][left]
+{
+  % Increase width of title box
+  \@tempdima=\textwidth%
+  \advance\@tempdima by\beamer@leftmargin%
+  \advance\@tempdima by\beamer@rightmargin%
+  %
+  \begin{beamercolorbox}[sep=0.3cm,#1,wd=\the\@tempdima]{frametitle}
+    \usebeamerfont{frametitle}%
+    \vbox{}\vskip-1ex\vspace{.5ex}
+    \strut\hspace{2ex}\sf\insertframetitle\strut\par%
+    \vskip-1.5ex%
+    \hspace{\fill}%
+    %\hdashrule{\textwidth}{.075ex}{.075ex .2ex}%
+    \color{black}{\rule{\textwidth}{.075ex}}%
+    \hspace{\fill}%
+    \par\nointerlineskip \vspace{\baselineskip}
+  \end{beamercolorbox}%
+  \nointerlineskip%
+  \vspace{-3.5ex}
+}
+
+\defbeamertemplate*{footline}{}
+{
+  \hbox{%
+  \begin{beamercolorbox}[wd=.8\paperwidth]{section in head/foot}%
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatother

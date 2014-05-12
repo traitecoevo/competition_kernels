@@ -120,7 +120,7 @@ points(rep(mutant, 2), z, pch=19, col=1:2)
 ##+ dd_derivative_scaled
 capacity_mutant <- m_d$capacity(x_mutant)
 matplot(x_mutant, z_d * capacity_mutant, type="l", lty=1,
-        xlab="Trait", ylab="Fitness derivative")
+        xlab="Trait", ylab="Fitness derivative, scaled by K")
 abline(v=sys_d$x, lty=3, col=1:2)
 points(rep(mutant, 2), z * m_d$capacity(mutant), pch=19, col=1:2)
 
@@ -144,4 +144,3 @@ abline(v=sys_d$x, lty=3, col=1:2)
 ## an empty environment, which we'll use below.  The fitness in an
 ## empty environment is 1 for all traits:
 m_d$fitness(x_mutant, numeric(0), numeric(0))
-

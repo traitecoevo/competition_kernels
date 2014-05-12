@@ -110,6 +110,7 @@ plot(x.mutant, z, type="l", xlab="Mutant trait (K) value",
      ylab="Fitness derivative")
 abline(h=0, col="grey", lty=3)
 abline(v=eq$x[1], lty=2)
+points(x.mutant1[[1]], z.mutant1, pch=19)
 
 ## As above, the more negative this is, the more a species growth rate
 ## is depressed by a unit increase in resident density.  The resident
@@ -265,7 +266,8 @@ lines(x.mutant, w.resident, lty=2)
 ##+ r1_fitness_varying_scaled
 w.varying.scaled <- w.varying / w.empty
 plot(w.empty/w.empty ~ x.mutant, type="l", lty=2,
-     ylim=range(w.varying.scaled), xlab="Mutant K", ylab="Fitness")
+     ylim=range(w.varying.scaled), xlab="Mutant K",
+     ylab="Fitness, scaled")
 abline(h=0, lty=3, col="grey")
 abline(v=eq$x[[1]], lty=2)
 matlines(x.mutant, w.varying.scaled, lty=1, col=cols)

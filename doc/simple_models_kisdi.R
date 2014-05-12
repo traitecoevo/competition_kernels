@@ -14,6 +14,7 @@ x.mutant <- seq(-0.5, 1.5, length=301)
 plot(x.mutant, m_k$fitness(x.mutant, sys_k$x, sys_k$y), type="l",
      xlab="Trait", ylab="Fitness")
 abline(v=sys_k$x, col=1:2, lty=1:2)
+abline(h=0, lty=3)
 
 ## It's not totally obvious here, but there is some fluctuations
 ## around the local traits:

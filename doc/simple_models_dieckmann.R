@@ -11,7 +11,7 @@ source("common.R")
 m_d <- make_dieckmann_1999()
 
 ## There is a single equilibrium at x=0 and population density at the
-## carrying capacity.
+## carrying capacity is:
 sys_d0 <- m_d$single_equilibrium()
 
 ## Displace this equilibrium by 0.5 to each side and run out to
@@ -25,8 +25,8 @@ plot(x_mutant, m_d$fitness(x_mutant, sys_d$x, sys_d$y), type="l",
      xlab="Trait", ylab="Fitness")
 abline(v=sys_d$x, col=1:2, lty=1:2)
 
-## The resident competitive effects are explicitly given in this
-## model; they are:
+## The competition exerted by the residents on a mutant is explicitly given in this
+## model:
 ##+ dd_competition_true
 matplot(x_mutant, m_d$competition(sys_d$x, x_mutant), type="l", lty=1,
         xlab="Trait", ylab="Competitive effect")
@@ -40,8 +40,8 @@ abline(v=sys_d$x, col=1:2, lty=1:2)
 mutant <- 0.2
 m_d$fitness(mutant, sys_d$x, sys_d$y)
 
-## As we vary the density of resident individuals and see how fitness
-## changes.  Varying just the density of the *first* species we have:
+## Now we vary the density of residents and see how fitness
+## changes.  Varying just the density of the *first* resident we have:
 ##+ dd_mutant_1
 dy <- seq(-10, 10, length=101)
 f1 <- function(dy) {
@@ -111,7 +111,7 @@ points(rep(mutant, 2), z, pch=19, col=1:2)
 
 ## This seems to capture most of the important bits about competition:
 ## it's roughly symmetric around the resident, with the strongest
-## impact felt at the same trait value as the resident.  Note that in
+## impact felt at the same trait value as the resident.
 ##
 ## However, the competition functions are offset away from the
 ## resident locations slightly.  If we rescale the derivatives by
@@ -140,7 +140,7 @@ abline(v=sys_d$x, lty=3, col=1:2)
 ## competition, allows the system to maintain two species.  However,
 ## they will be constantly driven apart by disruptive selection.
 
-## Note that in this model this is *different* to the **fitness** in
+## Note that in this model **this (?what is this?)** is *different* to the **fitness** in
 ## an empty environment, which we'll use below.  The fitness in an
 ## empty environment is 1 for all traits:
 m_d$fitness(x_mutant, numeric(0), numeric(0))

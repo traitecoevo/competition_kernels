@@ -46,10 +46,10 @@
 ## The basic approach is centred around the idea that we should be
 ## able to get a handle on competition by looking to see how
 ## performance of one species varies with the density of another.  So
-## if we increase a resident species' density slightly, then if mutant
-## fitness decreases a lot then the resident has a strong competitive
+## if we increase a resident species' density slightly and the mutant
+## fitness decreases a lot, the resident can be said to have a strong competitive
 ## effect on the mutant (so this is competition *exerted* by the
-## mutant)
+## resident)
 
 ## # Explicit competition
 
@@ -77,4 +77,3 @@
 ##
 ## Computing the derivative of this with respect to resident density
 ## changes the units by a factor of 1 / (resident density).
-

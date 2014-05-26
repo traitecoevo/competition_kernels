@@ -1,0 +1,118 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{minionpro}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\newcommand{\ud}{\mathrm{d}}
+\setcounter{secnumdepth}{0}
+
+\begin{document}
+
+\section{Logistic growth}
+
+This is a classic analysis and nice and straightforward to think
+about.  Everything else will build off this.  The continuous time
+logistic equation is
+%
+\begin{equation}
+  \label{eq:logistic}
+  \frac{\ud N}{\ud t} = r N\left(1 - \frac{N}{K}\right)
+\end{equation}
+%
+where $N$ is the density of the species, $r$ is the instantaneous
+per-capita growth rate at zero denssity, and $K$ is the carrying
+capacity.  There are two equilibria: $\hat N = 0$ and $\hat N = K$.
+
+Taking the derivative of equation (\ref{eq:logistic}) with respect to
+$N$ gives
+
+\begin{equation}
+  \label{eq:logistic-derivative}
+  \frac{\ud}{\ud N}\left[\frac{\ud N}{\ud t}\right]
+   = r - \frac{2 r N}{K}.
+\end{equation}
+%
+When $\hat N = 0$, we have 
+\begin{equation}
+  \label{eq:logistic-derivative-trivial}
+  \frac{\ud}{\ud N}\left[\frac{\ud N}{\ud t}\right]
+   = r
+\end{equation}
+which is unstable for $r > 0$.  For the nontrivial equilubrium, $\hat
+N = K$, we have
+\begin{equation}
+  \label{eq:logistic-derivative-nontrivial}
+  \frac{\ud}{\ud N}\left[\frac{\ud N}{\ud t}\right]
+   = -r
+\end{equation}
+which is stable for $r > 0$.
+
+\section{Intraspecific-competition}
+
+We can generalise equation (\ref{eq:logistic}) to include the effect
+of intraspecific competition.  
+
+\begin{equation}
+  \label{eq:logistic-competition}
+  \frac{\ud N}{\ud t} = r N\left(1 - \frac{N\alpha(N)}{K}\right)
+\end{equation}
+
+where $\alpha$ is a competition coefficient.  We still have an
+equilibrium at $\hat N = 0$ but there are potentially more nontrivial
+equilibria --- wherever where $N = K / \alpha(N)$.  Because we can
+choose both $K$ and $\alpha$ we can define $\alpha(K) = 1$ and then we
+retain an equilirium at $\hat N = K$.
+
+Taking the derivative of equation (\ref{eq:logistic-competition}) with
+respect to $N$:
+\begin{equation}
+  \label{eq:logistic-competition-derivative}
+  \frac{\ud}{\ud N}\left[\frac{\ud N}{\ud t}\right]
+   = r - \frac{2 r N\alpha(N)}{K} - \frac{rN^2}{K}\alpha^\prime(N)
+\end{equation}
+where $\alpha^\prime(N) = \ud \alpha/\ud N$.
+
+The conditions at the trivial equilibrium don't change because when $N
+= 0$, equation (\ref{eq:logistic-competition-derivative}) reduces to
+equation (\ref{eq:logistic-derivative-trivial}).  The nontrivial
+equilibrium changes:
+\begin{equation}
+  \label{eq:logistic-competition-derivative-nontrivial}
+  \frac{\ud}{\ud N}\left[\frac{\ud N}{\ud t}\right]
+   = -r - rK\alpha^\prime(N) = -r(1 + K\alpha^\prime(N)).
+\end{equation}
+So the nontrivial equilibrium is stable if $r > 0$ and $K\alpha^\prime
+> -1$ (other conditions apply for $r < 0$, but that's less
+biologically relevant/interesting: we'd be stable there for $r < 0$
+and $K\alpha^\prime < -1$).  Because $K \geq 0$, the sign of
+$K\alpha^\prime$ is determined by $\alpha^\prime$.  It is negative
+when the per-capita competitive effect decreases with increasing
+density.  If it does de-stabilise the nontrivial equilibrium it must
+open up another equilibrium between 0 and $K$ though, because the
+trivial equilibrium is unconditionally unstable.
+
+The nice thing about this approach is we can partition the stability
+analysis into a density independent part and a density dependent
+part.  What's not clear is if this will generally be easiest to work
+with multiplicatively:
+\begin{equation}
+  \label{eq:logistic-comptition-partition-multiplicative}
+  \widetilde \lambda =
+  \overbrace{-r}^{\mathclap{\text{density-independent}}}
+  \times
+  \underbrace{(1 + K\alpha^\prime(N))}_{\text{density-dependent}}
+\end{equation}
+or additively:
+\begin{equation}
+  \label{eq:logistic-comptition-partition-multiplicative}
+  \widetilde \lambda =
+  \overbrace{-r}^{\mathclap{\text{density-independent}}}
+  +
+  \underbrace{-rK\alpha^\prime(N)}_{\text{density-dependent}}
+\end{equation}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-PDF-mode: t
+%%% End: 

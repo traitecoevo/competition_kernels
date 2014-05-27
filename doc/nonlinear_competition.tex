@@ -3,6 +3,8 @@
 \usepackage{amsmath}
 \usepackage{mathtools}
 \newcommand{\ud}{\mathrm{d}}
+\newcommand{\tr}{\mathrm{tr}}
+
 \setcounter{secnumdepth}{0}
 
 \begin{document}
@@ -19,7 +21,7 @@ logistic equation is
 \end{equation}
 %
 where $N$ is the density of the species, $r$ is the instantaneous
-per-capita growth rate at zero denssity, and $K$ is the carrying
+per-capita growth rate at zero density, and $K$ is the carrying
 capacity.  There are two equilibria: $\hat N = 0$ and $\hat N = K$.
 
 Taking the derivative of equation (\ref{eq:logistic}) with respect to
@@ -37,7 +39,7 @@ When $\hat N = 0$, we have
   \frac{\ud}{\ud N}\left[\frac{\ud N}{\ud t}\right]
    = r
 \end{equation}
-which is unstable for $r > 0$.  For the nontrivial equilubrium, $\hat
+which is unstable for $r > 0$.  For the nontrivial equilibrium, $\hat
 N = K$, we have
 \begin{equation}
   \label{eq:logistic-derivative-nontrivial}
@@ -60,7 +62,7 @@ where $\alpha$ is a competition coefficient.  We still have an
 equilibrium at $\hat N = 0$ but there are potentially more nontrivial
 equilibria --- wherever where $N = K / \alpha(N)$.  Because we can
 choose both $K$ and $\alpha$ we can define $\alpha(K) = 1$ and then we
-retain an equilirium at $\hat N = K$.
+retain an equilibrium at $\hat N = K$.
 
 Taking the derivative of equation (\ref{eq:logistic-competition}) with
 respect to $N$:
@@ -103,12 +105,294 @@ with multiplicatively:
 \end{equation}
 or additively:
 \begin{equation}
-  \label{eq:logistic-comptition-partition-multiplicative}
+  \label{eq:logistic-comptition-partition-additive}
   \widetilde \lambda =
   \overbrace{-r}^{\mathclap{\text{density-independent}}}
   +
   \underbrace{-rK\alpha^\prime(N)}_{\text{density-dependent}}
 \end{equation}
+
+\section{Linear interspecific competition}
+
+For two species
+\begin{equation}
+  \label{eq:competitive-lv}
+  \begin{split}
+    \frac{\ud N_1}{\ud t} = &r_1 N_1
+    \left(1 - \frac{N_1 \alpha_{11} + N_2 \alpha_{12}}{K_1}\right)\\
+    \frac{\ud N_2}{\ud t} = &r_2 N_2
+    \left(1 - \frac{N_1 \alpha_{21} + N_2 \alpha_{22}}{K_2}\right)
+  \end{split}
+\end{equation}
+(this is the form used in Dieckmann and Dobeli, and is equivalent to
+the form in Leimar with a change of variables that scales $r_i$ by
+$K_i$).
+
+There are four equilibria: $(0,0)$, $(K_1 / \alpha_{11}, 0)$, 
+$(0, K_2 / \alpha_{22})$, and $(\hat N_1, \hat N_2)$, where
+
+\begin{equation*}
+  \begin{split}
+    N_1 =& \frac{\alpha_{22} K_1 - \alpha_{12}K_2}
+    {\alpha_{11}\alpha_{22} - \alpha_{12}\alpha_{21}}\\
+    N_2 =& \frac{\alpha_{11} K_2 - \alpha_{21}K_1}
+    {\alpha_{11}\alpha_{22} - \alpha_{12}\alpha_{21}}
+  \end{split}
+\end{equation*}
+Note that the denominator of these equations is the determinant of a
+matrix $[\alpha_{ij}]$.  We can define $\alpha_{11} = \alpha_{22} = 1$
+(equivalent to rescaling $K_i$) to simplify things, but it will not
+matter that much.
+
+The Jacobian of this system is
+
+\begin{equation}
+  \label{eq:competitive-lv-jac}
+  \mathbf{J} =
+  \begin{bmatrix}
+    r_1 - \frac{2 r_1 N_1 \alpha_{11}}{K_1} -
+    \frac{r_1 N_2 \alpha_{12}}{K_1}&
+    -\frac{r_1N_1\alpha_{12}}{K_1}\\
+    -\frac{r_2N_2\alpha_{21}}{K_2}&
+    r_2 - \frac{r_2N_1\alpha_{21}}{K_2} - \frac{2r_2N_2\alpha_{22}}{K_2}
+  \end{bmatrix}
+\end{equation}
+
+We can consider the stability of the four equilibria in turn.
+Starting with the trivial equilibrium $(0,0)$:
+
+\begin{equation}
+  \label{eq:competitive-lv-jac-trivial}
+  \mathbf{J}_{(0,0)} =
+  \begin{bmatrix}
+    r_1 & 0 \\
+    0   & r_2
+  \end{bmatrix}
+\end{equation}
+
+This system is stable if $a_1 = -\tr(\mathbf{J}) > 0$ and $a_2 =
+|\mathbf{J}| > 0$.  We have
+
+\begin{equation*}
+  \begin{split}
+    a_1 =& -\tr(\mathbf{J}) = -(r_1 + r_2)\\
+    a_2 =& |\mathbf{J}| = r_1 r_2
+  \end{split}
+\end{equation*}
+%
+If $r_1$ and $r_2$ are always positive then $a_1 < 0$ and $a_2 > 0$
+and the system is always unstable.
+
+To test the monomorphic nontrivial equilibrium $(K_1, 0)$ (which is
+obviously very similar to the $(0, N_2)$ equilibrium but with
+appropriate changes of indices):
+
+\begin{equation}
+  \label{eq:competitive-lv-jac-monomorphic}
+  \mathbf{J}_{(K_1, 0)} =
+  \begin{bmatrix}
+    r_1 - \frac{2 r_1 N_1 \alpha_{11}}{K_1}&
+    -\frac{r_1N_1\alpha_{12}}{K_1}\\
+    0&
+    r_2 - \frac{r_2N_1\alpha_{21}}{K_2}
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    -r_1&
+    -\frac{r_1N_1\alpha_{12}}{K_1}\\
+    0&
+    r_2\left(1  - \frac{K_1\alpha_{21}}{K_2\alpha_{11}}\right)
+  \end{bmatrix}
+\end{equation}
+%
+(with the last term simplifying a little with $\alpha_{11} = 1$)
+
+This means that the stability criteria are:
+
+\begin{equation*}
+  \begin{split}
+    a_1 =& -\tr(\mathbf{J}) = 
+    r_1 - r_2\left(1  - \frac{K_1}{K_2}\alpha_{21}\right) > 0\\
+    a_2 =& |\mathbf{J}| = 
+    -r_1 r_2\left(1  - \frac{K_1}{K_2}\alpha_{21}\right) > 0
+  \end{split}
+\end{equation*}
+%
+If we assume that $r_i > 0$ then we can ignore the $r_1r_2$ term in
+the $a_2$ condition and species 2 is incapable of invading if
+
+\begin{equation*}
+  \begin{split}
+    \frac{K_1}{K_2}\alpha_{21} - 1 >&\, 0\\
+    \alpha_{21} >&\, K_2 / K_1
+  \end{split}
+\end{equation*}
+So if the competitive effect of species 1 on species 2 ($\alpha_{21}$)
+is less than the ratio of the carrying capacities ($K_2/K_1$), then
+species 2 can invade, with $a_2 < 0$.
+
+The $a_1$ condition describes a different type of instability.
+Species 2 can invade if
+
+\begin{equation}
+  \label{eq:invasion-a1}
+  r_1 < r_2\left(1  - \frac{K_1}{K_2}\alpha_{21}\right)  
+\end{equation}
+
+If the term in parentheses is less than 0, then species 2 can
+\emph{always} invade, even if this condition is not met, because
+condition $a_1$ indicates instability (in this case, the rhs of the
+$a_1$ condition will be negative).
+
+Still have to do the $(\hat N_1, \hat N_2)$ equilibrium, but that's
+fairly ugly to work out because the Jaobian retains all terms and the
+actual $\hat N$ values are quite ugly.
+
+\section{Density-dependent competition}
+
+Here, let the $\alpha_{ij}$ terms be a function of $N_k$.  This
+affects a number of things.  First, there may be other equilibria ---
+we can't find them without saying things about the specific form of
+$\alpha_{ij}(N_1, N_2)$ functions; there may be potentially many extra
+equilibria.  However, the $(0,0)$, $(K_1 / \alpha_{11}, 0)$, $(0, K_2
+/ \alpha_{22})$ equilibria still exist, and the $(\hat N_1, \hat N_2)$
+equilibria exist at least where $\alpha_{ij}$ are not extremely
+nonlinear, but possibly more generally too.  Note that in the above we
+still define $\alpha_{11}(K_1, 0) = 1$ and $\alpha_{22}(0, K_2) = 1$
+so that this model contains the previous model.
+
+First, some terminology.  Let's define the Jacobian of this system as
+$\mathbf{J} = \overline{\mathbf{J}} + \widetilde{\mathbf{J}}$, where
+$\overline{\mathbf{J}}$ is the Jacobian from equation
+(\ref{eq:competitive-lv-jac}) and $\widetilde{\mathbf{J}}$ is a set of
+terms that only exist when $\alpha_{ij}$ is a function of $N_k$.
+Recomputing the Jacobian of equation (\ref{eq:competitive-lv})
+allowing the $\alpha_{ij}$ to depend on $N_k$ we get
+
+\begin{equation}
+  \label{eq:competitive-lv-jac2}
+  \mathbf{J} = \overline{\mathbf{J}} +
+  \begin{bmatrix}
+    -\frac{r_1 N_1^2}{K_1}  \frac{\partial \alpha_{11}}{\partial N_1}
+    -\frac{r_1 N_1N_2}{K_1} \frac{\partial \alpha_{12}}{\partial N_1}
+    &
+    -\frac{r_1 N_1^2}{K_1}  \frac{\partial \alpha_{11}}{\partial N_2}
+    -\frac{r_1 N_1N_2}{K_1} \frac{\partial \alpha_{12}}{\partial N_2}
+    \\
+    -\frac{r_2 N_1N_2}{K_2}  \frac{\partial \alpha_{21}}{\partial N_1}
+    -\frac{r_2 N_2^2}{K_2} \frac{\partial \alpha_{22}}{\partial N_1}
+    &
+    -\frac{r_2 N_1N_2}{K_2}  \frac{\partial \alpha_{21}}{\partial N_2}
+    -\frac{r_2 N_2^2}{K_2} \frac{\partial \alpha_{22}}{\partial N_2}
+  \end{bmatrix}
+\end{equation}
+where the term on the right is $\widetilde{\mathbf{J}}$, which can be
+simplified to
+\begin{equation*}
+  \widetilde{\mathbf{J}} =
+  \begin{bmatrix}
+    -\frac{r_1 N_1}{K_1}\left(
+      N_1 \frac{\partial \alpha_{11}}{\partial N_1} +
+      N_2 \frac{\partial \alpha_{12}}{\partial N_1}\right)
+    &
+    -\frac{r_1 N_1}{K_1}\left(
+      N_1\frac{\partial \alpha_{11}}{\partial N_2} +
+      N_2\frac{\partial \alpha_{12}}{\partial N_2}\right)
+    \\
+    -\frac{r_2 N_2}{K_2}\left(
+      N_1\frac{\partial \alpha_{21}}{\partial N_1} +
+      N_2\frac{\partial \alpha_{22}}{\partial N_1}\right)
+    &
+    -\frac{r_2 N_2}{K_2}\left(
+      N_1\frac{\partial \alpha_{21}}{\partial N_2} +
+      N_2\frac{\partial \alpha_{22}}{\partial N_2}\right)
+  \end{bmatrix}
+\end{equation*}
+
+First, note that in the trivial equilibrium $(0, 0)$ this density
+dependence does not matter: $\widetilde{\mathbf{J}} = \mathbf{0}$ and
+the conditions remain the same as before (that is, the system is
+always invadeable if $(r_1, r_2) > 0$.
+
+For the monomorphic equilibrium (again focussing arbitrarily in
+nonzero density of species 1) $\widetilde{\mathbf{J}}$ reduces to
+\begin{equation*}
+  \widetilde{\mathbf{J}} =
+  \begin{bmatrix}
+    -\frac{r_1 N_1^2}{K_1} \frac{\partial \alpha_{11}}{\partial N_1}
+    &
+    -\frac{r_1 N_1^2}{K_1} \frac{\partial \alpha_{11}}{\partial N_2}
+    \\0&0
+  \end{bmatrix}
+\end{equation*}
+so
+
+\begin{equation}
+  \mathbf{J}_{(K_1, 0)} = 
+  \overline{\mathbf{J}} + \widetilde{\mathbf{J}} = 
+  \begin{bmatrix}
+    -r_1&
+    -\frac{r_1N_1\alpha_{12}}{K_1}\\
+    0&
+    r_2\left(1  - \frac{K_1\alpha_{21}}{K_2\alpha_{11}}\right)
+  \end{bmatrix}
+  +
+  \begin{bmatrix}
+    -\frac{r_1 N_1^2}{K_1} \frac{\partial \alpha_{11}}{\partial N_1}
+    &
+    -\frac{r_1 N_1^2}{K_1} \frac{\partial \alpha_{11}}{\partial N_2}
+    \\0&0
+  \end{bmatrix}
+\end{equation}
+
+The conditions for stability are
+%
+\begin{equation*}
+  \begin{split}
+    a_1 = - \tr(\mathbf{J}) =& 
+    r_1\overbrace{\left(1 +
+        K_1 \frac{\partial
+          \alpha_{11}}{\partial N_1}
+      \right)}^{\mathclap{\text{Extra due to density dependence}}} -
+    r_2\left(1  - \frac{K_1}{K_2}\alpha_{21}\right)
+    > 0\\
+    a_2 = |\mathbf{J}| =&
+    -r_1\underbrace{\left(1 + K_1
+        \frac{\partial \alpha_{11}}{\partial N_1}\right)}%
+    _{\mathclap{\text{Extra due to density dependence}}}
+    r_2\left(1  - \frac{K_1}{K_2}\alpha_{21}\right)
+    > 0
+  \end{split}
+\end{equation*}
+
+It's surprising that while this equation involves $\alpha_{21}$ the
+only terms for which the nonlinearity affects are the resident species
+(so resident intraspecific competition nonlinearity matters, but we
+only care about resident-invader effects through the $\alpha_{21}$
+term evaluated at $(K_1, 0)$, and do not care about its slope).  The
+way that $\partial\alpha_{11}/\partial N_1$ enters in here is the same
+as equation (\ref{eq:logistic-comptition-partition-multiplicative}),
+and the effects will be the same.  In particular, we'll only see a
+sign change for $a_2$ when $K_1\partial\alpha_{11}/\partial N_1 < -1$.
+This implies that the per-capita intraspecific competition function
+$\alpha_{11}$ strongly decreases with population size, and makes no
+reference to the invading population: this is probably the system
+moving to an additional stable equilibrium $0 < N_1 < K_1$.
+
+The $a_1$ condition is more interesting though; we modify equation
+(\ref{eq:invasion-a1}) to get the conditions for \textit{invasion} by
+species 2:
+
+\begin{equation}
+  \label{eq:invasion-a1}
+  r_1\overbrace{\left(1 +
+      K_1 \frac{\partial \alpha_{11}}{\partial N_1}
+    \right)}^{\mathclap{\text{Extra due to density dependence}}} < r_2\left(1  - \frac{K_1}{K_2}\alpha_{21}\right)  
+\end{equation}
+
+So if $\frac{\partial \alpha_{11}}{\partial N_1}$ is negative then
+species 2 can invade over a wider range of parameters than for when
+competition is density independent.
 
 \end{document}
 

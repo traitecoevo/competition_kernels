@@ -1,0 +1,44 @@
+\documentclass[10pt]{article}
+\newcommand{\ud}{\ensuremath{\mathrm{d}}}
+\usepackage{amsmath}
+\usepackage{minionpro}
+
+\begin{document}
+
+The \textit{per-capita} growth rate at invasion is
+
+\begin{equation}
+  \label{eq:v1}
+  \frac{\ud N(x_I)}{\ud t} = r_I\left(K(x_I) - \alpha(x_I, x_R) N_R\right)
+\end{equation}
+
+or
+
+\begin{equation}
+  \label{eq:v2}
+  \frac{\ud N(x_I)}{\ud t} = 
+  r_I\left(1 - \frac{\alpha(x_I, x_R) N_R}{K(x_I)}\right)
+\end{equation}
+
+Rearranging to solve for $\alpha$:
+
+\begin{equation}
+  \label{eq:a1}
+  \alpha(x_I, x_R) = \frac{1}{N_R}
+  \left(K(x_I) - \frac{1}{r_I}\frac{\ud N(x_I)}{\ud t}\right)
+\end{equation}
+
+\begin{equation}
+  \label{eq:a2}
+  \alpha(x_I, x_R) = \frac{K(x_I)}{N_R}
+  \left(1 - \frac{1}{r_I}\frac{\ud N(x_I)}{\ud t}\right)
+\end{equation}
+
+These are obviously different;
+
+\begin{equation*}
+  \alpha_2(x_I, x_R) - \alpha_1(x_I, x_R) = 
+  \frac{\ud N(x_I)}{\ud t} \frac{K(x_I) - 1}{K(x_I) N_R r_I}
+\end{equation*}
+
+\end{document}

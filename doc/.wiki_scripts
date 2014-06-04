@@ -7,3 +7,11 @@ simple_models_kisdi.R
 simple_models_rstar_1.R
 simple_models_rstar_2.R
 simple_models_rstar_2_varying_S.R
+
+# These are things that it might  be nice to have on the wiki.
+# Note that figure format must follow the same pattern as knitr to get
+# included.
+#   definition.md
+
+# Directly compute alpha parameters
+direct.R

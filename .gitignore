@@ -15,4 +15,8 @@ doc/figure/simple_models_*.png
 doc/simple_models_*.Rmd
 doc/simple_models_*.md
 
+doc/direct.Rmd
+doc/direct.md
+doc/direct.pdf
+
 wiki

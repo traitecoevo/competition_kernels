@@ -2,6 +2,7 @@
 \newcommand{\ud}{\ensuremath{\mathrm{d}}}
 \usepackage{amsmath}
 \usepackage{minionpro}
+\newcommand{\sign}{\mathop{\mathrm{sign}}\nolimits}
 
 \begin{document}
 
@@ -16,7 +17,7 @@ or
 
 \begin{equation}
   \label{eq:v2}
-  \frac{\ud N(x_I)}{\ud t} = 
+  \frac{\ud N(x_I)}{\ud t} =
   r_I\left(1 - \frac{\alpha(x_I, x_R) N_R}{K(x_I)}\right)
 \end{equation}
 
@@ -37,8 +38,55 @@ Rearranging to solve for $\alpha$:
 These are obviously different;
 
 \begin{equation*}
-  \alpha_2(x_I, x_R) - \alpha_1(x_I, x_R) = 
-  \frac{\ud N(x_I)}{\ud t} \frac{K(x_I) - 1}{K(x_I) N_R r_I}
+  \alpha_1(x_I, x_R) - \alpha_2(x_I, x_R) =
+  \frac{\ud N(x_I)}{\ud t} \frac{K(x_I) - 1}{N_r r_I}
 \end{equation*}
+
+With the second form,
+\begin{equation*}
+  \sign(\alpha) = \sign\left(1 - \frac{w_I}{r_I}\right)
+\end{equation*}
+so, $\alpha < 0$ (i.e., facilitation) when $w_I > r_I$, which makes
+intuitive sense to me.
+
+With the first form
+\begin{equation*}
+  \sign(\alpha) = \sign\left(K(x_I) - \frac{w_I}{r_I}\right)
+\end{equation*}
+so facilitation happens when $K(x_I) r_I < w_I$.  When $K = 1$ (as in
+Leimar, I think) this does not really matter.  But it seems a real
+problem for models where $K$ actually varies with traits.
+
+\section*{Multiple species}
+
+There is an issue when multiple species are involved though.  For two
+residents with traits $x_A$ and $x_B$ we have per-capita fitness
+
+\begin{equation*}
+  w_I = r_I\left(1 - \frac{\alpha_{x_I, x_A} N_A + \alpha_{x_I, x_B} N_B}{K(x_I)}\right)
+\end{equation*}
+Rearranging:
+\begin{equation*}
+  \alpha_{x_I, x_A} N_A + \alpha_{x_I, x_B} N_B =
+  K(x_I)\left(1 - \frac{w_I}{r_I}\right)
+\end{equation*}
+So we have one equation and two unknowns; there is no way of
+estimating both $\alpha$ coefficients from the single measurement of
+fitness.
+
+We can vary the fitness of one species though and get extra
+information perhaps.  So if we computed fitness at $N_a + \epsilon$ we'd
+get one extra equation and one extra unknown.  Taking this idea
+further we can compute the derivative of $w_I$ with respect to ${N_a,
+  N_b}$ (i.e., the Jacobian of $w_I$) and end up with two more
+equations and two more unknowns.  For example:
+
+\begin{equation*}
+  \frac{\ud}{\ud N_j} = - \left(\frac{r_I}{K(x_I)} \alpha_{x_I, x_j}
+    + \frac{r_I N_j}{K_{x_I}}
+    \frac{\partial}{\partial N_j}\left[ \alpha_{x_I, x_j} \right]\right)
+\end{equation*}
+
+This does seem gettable though.  I think I'm just missing something.
 
 \end{document}

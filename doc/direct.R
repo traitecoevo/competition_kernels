@@ -121,9 +121,18 @@ plot(x.mutant, alpha(x.K1, m_r1, eq, 2), type="l")
 lines(x.mutant, alpha(x.K1, m_r1, eq, 1), lty=2)
 
 ## Also note that the height of competition here has increased above
-## 1, so that was a pure co-incidence in the previous figure.  That
-## actually makes sense because the alpha parameters depend on the
-## densities of the different types.
+## 1; this is OK because the resident trait *does not appear in this
+## graph*: we're looking elsewhere in C space.
+
+## We should alway have intraspecific alpha = 1 because we have
+##
+## (1 - w/r) * K / Nr
+##
+## And K == Nr so
+##
+## (1 - w/r)
+##
+## and at equilibrium w = 0 so we have 1.
 
 ## Invasion depends only on the K value and not on the C value (see
 ## the fitness 3d plot above.
@@ -207,3 +216,113 @@ image(x.mutant, N.r.varying, m1,
 ## We should be able to do that by inheritance, but R's reference
 ## classes don't seem to like me.  It would actually break a few
 ## places, so I'm going to leave that be for a little bit.
+
+## # Two resources
+
+## Using the tradeoff version again
+mat_r2 <- rstar_matrices(rstar_mat_2_tradeoff,
+                         rstar_mat_2_tradeoff)
+m_r2 <- rstar(mat_r2, S=c(0.5, 0.5))
+eq <- m_r2$single_equilibrium(matrix(0.3, nrow=2))
+
+x.K <- rbind(x.mutant, eq$x[2], deparse.level=0)
+x.C <- rbind(eq$x[1], x.mutant, deparse.level=0)
+
+## I need to add in the special points to get these lines nice and
+## smooth.
+w.mutant.K <- m_r2$fitness(x.K, eq$x, eq$y, eq$R)
+plot(x.mutant, w.mutant.K, type="l",
+     xlab="Trait (K)", ylab="Fitness")
+abline(h=0, col="grey", lty=3)
+abline(v=eq$x[1], lty=2)
+
+w.mutant.C <- m_r2$fitness(x.C, eq$x, eq$y, eq$R)
+plot(x.mutant, w.mutant.C, type="l",
+     xlab="Trait (K)", ylab="Fitness")
+abline(h=0, col="grey", lty=3)
+abline(v=eq$x[1], lty=2)
+
+r.mutant.K <- m_r2$max_growth_rate(x.K)
+K.mutant.K <- m_r2$carrying_capacity(x.K)
+r.mutant.C <- m_r2$max_growth_rate(x.C)
+K.mutant.C <- m_r2$carrying_capacity(x.C)
+
+## Maximum growth rate:
+plot(x.mutant, r.mutant.K, type="l")
+lines(x.mutant, r.mutant.C, type="l", col="blue")
+
+## Carrying capacity:
+plot(x.mutant, K.mutant.K, type="l")
+lines(x.mutant, K.mutant.C, type="l", col="blue")
+
+## And the density of the resident species.
+N.resident <- eq$y
+
+alpha1.K <- compute_alpha(w.mutant.K, r.mutant.K, K.mutant.K,
+                          N.resident, 1)
+alpha2.K <- compute_alpha(w.mutant.K, r.mutant.K, K.mutant.K,
+                          N.resident, 2)
+
+alpha1.C <- compute_alpha(w.mutant.C, r.mutant.C, K.mutant.C,
+                          N.resident, 1)
+alpha2.C <- compute_alpha(w.mutant.C, r.mutant.C, K.mutant.C,
+                          N.resident, 2)
+
+## This has an erorr in it: the intraspecific competition value is not
+## equal to 1, but it should be.
+K.mutant
+
+## So the alpha1 (dashed line) is really weird; it gives values that
+## are negative (facilitation) for large K values - super weird!
+plot(x.mutant, alpha2.K, type="l", ylim=range(alpha1.K, alpha2.K),
+     xlab="Invader trait (K)", ylab="Competitive effect")
+lines(x.mutant, alpha1.K, type="l", lty=2)
+abline(h=c(0, 1), v=eq$x[[1]], lty=3)
+
+## Check that that's actually OK -- yes the difference is what we'd
+## predict.
+plot(x.mutant, alpha1.K - alpha2.K, type="l")
+points(x.mutant,
+       w.mutant.K * (K.mutant.K - 1) / (N.resident * r.mutant.K))
+
+## Again, with the 
+plot(x.mutant, alpha2.C, type="l",
+     ylim=range(alpha1.C, alpha2.C), xlab="Invader trait (C)",
+     ylab="Competitive effect")
+lines(x.mutant, alpha1.C, type="l", lty=2)
+abline(h=c(0, 1), v=eq$x[[1]], lty=3)
+
+## And we can make a little 3d picture of what the competition kernel
+## looks like:
+ww <- matrix(m_r2$fitness(xx, eq$x, eq$y, eq$R), length(x.mutant))
+rr <- m_r2$max_growth_rate(xx)
+kk <- m_r2$carrying_capacity(xx)
+a1 <- compute_alpha(ww, rr, kk, N.resident, 1)
+a2 <- compute_alpha(ww, rr, kk, N.resident, 2)
+a1[!is.finite(a1)] <- a2[!is.finite(a2)] <- NA
+
+## Fitness varies with K but not with C
+persp(x.mutant, x.mutant, ww, xlab="K", ylab="C", zlab="w",
+      theta=30, shade=.2, border=NA, col="dodgerblue4")
+
+## Well, that does not look Gaussian:
+persp(x.mutant, x.mutant, a1, xlab="K", ylab="C", zlab="alpha (1)",
+      theta=30, shade=.2, border=NA, col="dodgerblue4")
+persp(x.mutant, x.mutant, a2, xlab="K", ylab="C", zlab="alpha (2)",
+      theta=30, shade=.2, border=NA, col="dodgerblue4")
+
+image(x.mutant, x.mutant, a1, xlab="K", ylab="C")
+image(x.mutant, x.mutant, a2, xlab="K", ylab="C")
+
+## It's probably worth overlaying this with the different adaptive
+## regions -- species that can invade, coexist and outcompete.
+
+## In this section here, invasion is possible where |K - 0.5| is less
+## than the resident value.  That can be generalised to different S
+## values, and to different slopes of the K1/K2 tradeoff (at least it
+## looks easy graphically).
+abline(v=0.5 + c(-1, 1) * abs(eq$x[[1]] - 0.5))
+abline(h=eq$x[[2]], lty=2)
+slope <- x.mutant / (1 - x.mutant)
+
+image(x.mutant, x.mutant, a2, xlab="K", ylab="C")

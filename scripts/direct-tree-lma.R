@@ -14,8 +14,8 @@ lma.base <- seq_log(lma.r[[1]], lma.r[[2]], 20)
 ## More complete set of points for everything else:
 lma.full <- seq_log(lma.r[[1]], lma.r[[2]], 101)
 
-r.base <- log(max_growth_rate(lma.base))
-K.base <- carrying_capacity(lma.base, parallel=TRUE)
+r.base <- log(max_growth_rate("lma", lma.base))
+K.base <- carrying_capacity("lma", lma.base, parallel=TRUE)
 
 r.i <- loglog_splinefun(lma.base, r.base, "x")
 K.i <- loglog_splinefun(lma.base, K.base, "xy")
@@ -33,14 +33,29 @@ lma.r <- 0.2
 N.r <- K.i(lma.r)
 
 ## Generating function that will give us invasion fitness 
-f.w <- make_invasion_fitness(lma.r, N.r)
+f.w <- make_invasion_fitness("lma", lma.r, N.r)
 w.i <- f.w(lma.full)
 
 plot(lma.full, w.i, log="x", type="l")
 abline(h=0, lty=2)
 abline(v=lma.r)
 
-plot(lma.full, compute_alpha(w.i, r.i(lma.full), K.i(lma.full), N.r),
+alpha.i <- compute_alpha(w.i, r.i(lma.full), K.i(lma.full), N.r)
+
+res.lma <- list(trait="lma",
+                x.resident=lma.r,
+                N.resident=N.r,
+                base=lma.base,
+                full=lma.full,
+                r.base=r.base,
+                K.base=K.base,
+                w=w.i,
+                r=r.i, K=K.i,
+                alpha=alpha.i)
+
+saveRDS(res.lma, "res.lma.rds")
+
+plot(lma.full, alpha.lma,
      log="x", type="l")
 abline(v=lma.r, lty=2)
 

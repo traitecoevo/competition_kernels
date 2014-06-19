@@ -29,6 +29,11 @@
 
 \begin{document}
 
+% Need a nice title slide.  Probably just go with a picture and the
+% text in a box.  Simple and relatively easy.  Picture could just be a
+% tropical forest shot or something, or a slide split between a
+% tropical forest and a monoculture of some sort, which would lead
+% into the next slide nicely.
 \begin{frame}
   \thispagestyle{empty}
   \begin{center}
@@ -42,59 +47,90 @@
   \end{center}
 \end{frame}
 
-\begin{frame}{Why is competition interesting?}
-  % Photos of things competing, perhaps.
+\begin{frame}
+  % I'm going to need an intro hook.  Previously I drove things from
+  % "competition is a homogenising and a disruptive force", but
+  % suggestion in lab meeting was to start with limiting similarity.
   %
-  % Definitely a graph of limiting similarity.
+  % One option is to put the figure from hermoyian 2002 in (bivales
+  % across a gradient) and the finch things.  That'd be nice if I then
+  % have a finch figure.
   %
-  % Perhaps something from D+D showing a disruptive fitness landscape
-  % and evolutionary branching.
-
-  % Things to mention:
+  % Another way is to start with "models of competition make it into
+  % many different types of evolutionary models: of coexistance, trait
+  % evolution, character displacement, dispersal, etc".  Competition
+  % can be a homogenising force leading to competitive exclusion or it
+  % can generate disruptive selection allowing for many different
+  % types to coexist by deforming the fitness landscape.
   %
-  % Competition plays an interesting, and balancing, role in
-  % understanding the maintenance of diversity.
   % 
-  % On the one hand, competition is a homogenising force -- winner
-  % takes all is one extreme end of competition.  So competition can
-  % lead to a lack of divesity. [picture of grass? beech forest?]
+  % > On the one hand, competition is a homogenising force -- winner
+  % > takes all is one extreme end of competition.  So competition can
+  % > lead to a lack of divesity. [picture of grass? beech forest?]
   %
-  % On the other hand, competition a diversity-generating force -- it
-  % can generate disruptive selection that forces traits apart.
-  % Competition is present in almost all theory abaout how
-  % hyperdiverse systems come to be. [picture of tropical forest]
+  % > On the other hand, competition a diversity-generating force -- it
+  % > can generate disruptive selection that forces traits apart.
+  % > Competition is present in almost all theory abaout how
+  % > hyperdiverse systems come to be. [picture of tropical forest]
   %
-  % This antagonistic dual role leads to the "paradox of the plankton"
-  % -- how do species, especially primary producers, that compete for
-  % relatively few key resources reach high levels of diversity
-  %
-  % Competition is central to how with think about trait evolution
-  % through charater displacement, niche evolution and limiting
-  % similarity.
-  \begin{itemize}
-  \item Why, and when, does evolution favour diversity?
-  \item Competition reduces diversity (competitive exclusion) and
-    generates/maintains it (disruptive selection).  It shapes fitness
-    landscapes so affects how traits evolve.
-  \item Central to ideas of ``limiting similarity'' and niche
-    structuring that shape evolutionary thought
-  \end{itemize}
+  % However, the way that we model competition tends to be very
+  % simple.
+  \begin{center}
+    [Intro stuff still undecided]
+  \end{center}
 \end{frame}
 
-%{\setbeamercolor{background canvas}{bg=black}
-  \begin{frame}
-    \begin{center}
-      \includegraphics<1>[height=\textheight]{pics/diatoms.jpg}
-      \only<2>{%\color{white}%
-        [Picture of a boreal or beech forest]}
-      \only<3>{%\color{white}%
-        [Picture of a tropical forest]}
-    \end{center}
-    % \FrameText{\tiny{http://en.wikipedia.org/wiki/Diatom#mediaviewer/File:Diatom2.jpg}}
-    \FrameText{\tiny{%\color{white}%
-        \only<1>{\tt http://en.wikipedia.org/wiki/Diatom}}}
+\begin{frame}
+  % Despite the centrality of the idea, the way we model competition
+  % is surprisingly simple.  When competition is assumed into a model,
+  % we tend to reach for the simplest cases -- that's fine, but these
+  % are usually variants on the MacArthur and Levins model from 1967,
+  % itself a modification of the Lotka--Volterra models of the 30s.
+
+  % Combination of logistic growth and the Lotka-Volterra equation.
+  % Competition function maps species traits to how much they suppress
+  % the growth and carrying capacity of other species.
+
+  % Don't know why this won't fit better.  Increasing the width just
+  % pushes the damn thing off the edge.  Check with eseb talk, though
+  % I think I used tikz for all placement there.
+  %
+  % TODO: This set of figures should be a finch and seed sizes along
+  % the bottom, and then the last one should have the plant leaves.
+  %
+  % TODO: Mention limiting similarity and pop a reference to Macarthur
+  % here?  Possibly also the figure from that paper.
+  \includegraphics<1>[width=\textwidth]{figs/gaussian_competition_1}
+  \includegraphics<2>[width=\textwidth]{figs/gaussian_competition_2}
+  \includegraphics<3>[width=\textwidth]{figs/gaussian_competition_3}
+  %
+  % TODO: At some point within this series, put the hermoyian 2002
+  % figure and the finch figure here and point out that people
+  % interpret these sorts of trait distributions are evidence for
+  % competition.
+  %
+  % Then move to the leaf one and say that it's less clear how we
+  % should interpret this for plants where the resource axis is less
+  % clear.
 \end{frame}
-% }
+
+\begin{frame}
+  % Plant ecology has become increasingly trait focussed over the last
+  % few decades, and has moved from counting "species identity" as
+  % important to trying identify major axes of functional variation.
+  % We can point at things like the leaf economic spectrum and say
+  % "That's a fast plant" and "that's a slow plant", but it's very
+  % difficult to say anything *in general* about how these traits
+  % might relate to competiton, and therefore to things like
+  % coexistance.
+  \includegraphics[width=\textwidth]{figs/bridge_1}
+  % Around here, introduce the traits that we have information for,
+  % possibly including a picture that represents SLA, hmat.
+  % 
+  % Perhaps: bunch of leaves with letters A - X on them, and
+  % then recast as a series of points along the LMA / leaf lifespan
+  % plot, coloured up.  So we want silhoettes I think.
+\end{frame}
 
 \begin{frame}{How do we model competition?}
   % Despite the centrality of the idea, the way we model competition
@@ -104,10 +140,12 @@
   % itself a modification of the Lotka--Volterra models of the 30s.
 
   % No need to go into the model in any detail, but just say that it
-  % is a mix of the LV and logistic models, and list the assumptions.
+  % is a mix of the LV and logistic models, and list the assumptions:
+  %
+  % Competition intensity increases linearly with species density
+  % ...directly summed over all species.
   \begin{itemize}
-  \item Simple models, usually based on Lotka-Volterra equations and
-    MacArthur and Levins 1967.
+  \item Simple models, usually based model by MacArthur and Levins 1967.
   \item Combination of logistic growth and the Lotka-Volterra
     equations.
   \end{itemize}
@@ -117,62 +155,9 @@
   \item constant with respect to densities of all species
   \item linear in species density
   \item linear over all species in the community
-  \item generally assumes competition is gaussian in trait space
   \end{itemize}
+  Gaussian usually gaussian in trait space
 \end{frame}
-
-% Plant ecology has become increasingly trait focussed over the last
-% few decades, and has moved from counting "species identity" as
-% important to trying identify major axes of functional variation.
-% We can point at things like the leaf economic spectrum and say
-% "That's a fast plant" and "that's a slow plant", but it's very
-% difficult to say anything *in general* about how these traits
-% might relate to competiton, and therefore to things like
-% coexistance.
-% 
-% Pictures here: bunch of leaves with letters A - X on them, and
-% then recast as a series of points along the LMA / leaf lifespan
-% plot, coloured up.  So we want silhoettes I think.
-
-% Need to get the link into *traits* here.  How did Georges do this?
-% It's easy enough to motivate from the evolutionary end of things --
-% competition generates fitness gradients in trait space, and that's
-% what we want to focus on.
-
-\begin{frame}{The MacArthur and Levins / Lotka Volterra model}
-  \begin{center}
-    \includegraphics[height=.8\textheight]{figs/gaussian}
-  \end{center}
-\end{frame}
-
-% \begin{frame}{The MacArthur and Levins / Lotka Volterra model}
-%   \begin{itemize}
-%   \item Moving from species identity (abitrary matrix of coefficients)
-%     to \textbf{traits} involves replacing growth, carrying capacity
-%     and competition parameters as functions of traits.
-%   \item MacArthur and Levins started the convention of Gaussian
-%     competition kernels --- this has persisted through the literature
-%     enormously [worth giving a list here?]
-%   \end{itemize}
-  
-%   \begin{equation*}
-%     \frac{\ud N(x_i)}{\ud t} =
-%     r(x_i) N(x_i) \left(1 - \frac{N(x_i) + 
-%         \sum_{j \neq i }\alpha(x_i, x_j)N_j}{K(x_i)}\right)
-%   \end{equation*}
-
-%   Usually $\alpha(x_i, x_i)$ is Gaussian, same for all $|x_i - x_j|$,
-%   with constant intensity and variance.
-  
-%   % Really need a picture of a Gaussian kernel here just to ram it
-%   % home.  Put species traits along the bottom -- that's going to be
-%   % easiest if have already mentioned traits in some context, but it
-%   % could be fine with finch beaks, really.  Might be easiest to
-%   % motivate from resource uses too if we can say that assumptions
-%   % that go in are about individuals using resources in a Gaussian way
-%   % and under some assumptions this leads to a Gaussian competition
-%   % kernel.
-% \end{frame}
 
 \begin{frame}{How do we connect these models with real data?}
   %
@@ -183,6 +168,8 @@
   % What I want to do here is look at how we can build a bridge
   % between these very simple models and the types of data that we
   % have, via mechanistic models.
+
+  % About here: clarify "implicit" and "explicit" competition.
   \begin{itemize}
   \item Theoretical models framed in terms of \textbf{resource use};
     the ``trait'' is really preference for a resource.
@@ -209,27 +196,36 @@
   complicated model.
 \end{frame}
 
-% The approach we took was really simple minded: we focus on invasion
-% fitness (the fitness of a rare mutant with some new phenotype) and
-% compute all the components of the ML/LV equation except for alpha
-% (K, r, w).  Then solve for the competition coefficient.
 
-% Getting the flow right through this bit is going to be really,
-% really hard.
+\begin{frame}{Approach}
+  % The approach we took was really simple minded: we focus on invasion
+  % fitness (the fitness of a rare mutant with some new phenotype) and
+  % compute all the components of the ML/LV equation except for alpha
+  % (K, r, w).  Then solve for the competition coefficient.
 
-% To start off, the first place we thought to look what what happens
-% in the simplest models where competition is *implicit* -- that is
-% competition is an emergent property of the model rather than being
-% assumed in.
+  % Throw this at two models:
+  %
+  %  - One is Tilman's R* model: phenomenological model (though I
+  %    think some people argue mechanistic) -- simplest implicit
+  %    competition model
+  %
+  %  - The other is a much more complicated model of forest dynamics
+  %    where competition emerges from species interactions.
 
-% Simplest model we could think of is Tilman's R* model, developed
-% through the 1980s, but still in widespread use.
+  % To start off, the first place we thought to look what what happens
+  % in the simplest models where competition is *implicit* -- that is
+  % competition is an emergent property of the model rather than being
+  % assumed in.
 
-% The model has similar ingredients to the ML/LV model, but resource
-% regeneration does not happen instantaneously.
+  % Simplest model we could think of is Tilman's R* model, developed
+  % through the 1980s, but still in widespread use.
 
-% Species compete for and consume some number of resources -- at most
-% 'n' species can coexist on 'n' resources.
+  % The model has similar ingredients to the ML/LV model, but resource
+  % regeneration does not happen instantaneously.
+
+  % Species compete for and consume some number of resources -- at most
+  % 'n' species can coexist on 'n' resources.
+\end{frame}
 
 \begin{frame}{R star model of competition}
   \begin{itemize}
@@ -243,40 +239,34 @@
   \item For two resources, we can set $K_2 = 1 - K_2$ so that resource
     use trades off (efficient with one, poor with another).
   \item There is also the rate of \emph{consumption} of the resource.
+  \item Emphasise that this is most commonly used model with
+    implicit competition.
   \end{itemize}
 \end{frame}
 
-
-% \begin{frame}{Approach}
-%   \begin{equation*}
-%     g_i = r(x_i) \left(1 - \frac{\alpha(x_i, x_r)N_r}{K(x_i)}\right)
-%   \end{equation*}
-%   \begin{itemize}
-%   \item $r(x_i)$ --- maximum growth rate
-%   \item $K(x_i)$ --- carrying capacity
-%   \item $g_i$ --- per-capita growth rate of invader in presence of
-%     resident. 
-%   \end{itemize}
-%   \begin{equation*}
-%     \alpha(x_i, x_r) = \frac{K(x_i)}{N_r}\left(1 - \frac{g_i}{r_i(x_i)}\right)
-%   \end{equation*}
-% \end{frame}
-
 \begin{frame}{R star with one resource}
   \begin{center}
-    % Asymmetric fitness:
+    % Asymmetric fitness -- ended up dropping the fitness plots in
+    % favour of indicating where species can invade.
     %
     % Plot of w against K -- the resource requirement.  The species
     % with the lowest K can invade and resist invasion from all other
     % species.
-    \includegraphics<1>[height=.8\textheight]{figs/rstar_fitness_1}
+    % \includegraphics<1>[height=.8\textheight]{figs/rstar_fitness_1}
     % Asymmetric competition:
     %
     % So it's not surprising that the kernel shows the same basic
     % pattern: species with lower K values experience lower
     % competition than species with higher K values.
-    \includegraphics<2>[height=.8\textheight]{figs/rstar_alpha_1}
-    % Density dependence:
+    %
+    % Expand this out to include can/cannot invade.
+    \includegraphics<1>[height=.8\textheight]{figs/rstar1_alpha_1}
+    \includegraphics<2>[height=.8\textheight]{figs/rstar1_alpha_2}
+    \includegraphics<3>[height=.8\textheight]{figs/rstar1_alpha_3}
+
+    % People thought that density dependence was hard to get their
+    % heads around and recommended dropping.
+    %
     % What is more surprising is that even in this really simple model
     % we violate one of the assumptions of LV: we have nonlinear density
     % dependence in competition.
@@ -284,7 +274,6 @@
     % Note here that the rarity of of linear competition density
     % dependence in both theory and data has been noted by Peter Abrahms
     % since the 1970s!
-    \includegraphics<3>[height=.8\textheight]{figs/rstar_density_1}
   \end{center}
 \end{frame}
 
@@ -301,10 +290,14 @@
     % coexistance possible]
 
     % Peaked fitness landscape - extreme specialists have low fitness.
-    \includegraphics<1>[height=.8\textheight]{figs/rstar_fitness_2}
+    % \includegraphics<1>[height=.8\textheight]{figs/rstar_fitness_2}
 
     % This generates a weird and nondifferentiable kernel.
-    \includegraphics<2>[height=.8\textheight]{figs/rstar_alpha_2}
+    \includegraphics<1>[height=.8\textheight]{figs/rstar2_alpha_1}
+    \includegraphics<2>[height=.8\textheight]{figs/rstar2_alpha_2}
+    \includegraphics<3>[height=.8\textheight]{figs/rstar2_alpha_3}
+    % Add gaussian kernel to this as fourth slide, superimposed over
+    % the lines
   \end{center}
   % This kernel is unsurprisingly also not constant with respect to
   % resident density (and the shape moves around as resident density
@@ -346,10 +339,12 @@
 \begin{frame}{Linking to biological traits}
   \begin{center}
     \includegraphics<1>[height=.8\textheight]{figs/tree_w_hmat}
-    \includegraphics<2>[height=.8\textheight]{figs/tree_alpha_hmat}
-    \includegraphics<3>[height=.8\textheight]{figs/tree_w_lma}
-    \includegraphics<4>[height=.8\textheight]{figs/tree_alpha_lma}
-    \only<5>{[for both, show eventual equilibrium fitness landscape]}
+    \includegraphics<2>[height=.8\textheight]{figs/tree_alpha_hmat_1}
+    \includegraphics<3>[height=.8\textheight]{figs/tree_alpha_hmat_2}
+    \includegraphics<4>[height=.8\textheight]{figs/tree_w_lma}
+    \includegraphics<5>[height=.8\textheight]{figs/tree_alpha_lma_1}
+    \includegraphics<6>[height=.8\textheight]{figs/tree_alpha_lma_2}
+    % for both, show eventual equilibrium fitness landscape?
   \end{center}
 \end{frame}
 
@@ -394,6 +389,11 @@
     unlikely to be worse than the current crop of models.
   \end{itemize}
 \end{frame}
+
+% Around here:
+%
+% Mention why competition is used - coexistance etc, to remind people
+% why it is interesting that competition kernels look different.
 
 \begin{frame}{Acknowledgements}
   \begin{itemize}

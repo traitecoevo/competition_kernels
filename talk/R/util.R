@@ -14,9 +14,10 @@ to_dev <- function(expr, dev, filename, ..., verbose=TRUE) {
   invisible()
 }
 
-to_pdf <- function(expr, filename, ..., cairo=FALSE, pointsize=12) {
-  dev <- if (cairo) CairoPDF else pdf
-  to_dev(expr, dev, filename, ..., pointsize=pointsize)
+to_pdf <- function(expr, filename, ..., cairo=FALSE, pointsize=12,
+                   bg="transparent") {
+  dev <- if (cairo) Cairo::CairoPDF else pdf
+  to_dev(expr, dev, filename, ..., pointsize=pointsize, bg=bg)
 }
 
 to_cairo_pdf <- function(expr, filename, ..., pointsize=12,
@@ -28,10 +29,10 @@ to_cairo_pdf <- function(expr, filename, ..., pointsize=12,
 set_cairo_fonts <- function(name, bold="Bold", italic="Italic",
                             bold.italic="Bold Italic") {
   fmt <- "%s:style=%s"
-  CairoFonts(regular    = name,
-             bold       = sprintf(fmt, name, bold),
-             italic     = sprintf(fmt, name, italic),
-             bolditalic = sprintf(fmt, name, bold.italic))
+  Cairo::CairoFonts(regular    = name,
+                    bold       = sprintf(fmt, name, bold),
+                    italic     = sprintf(fmt, name, italic),
+                    bolditalic = sprintf(fmt, name, bold.italic))
 }
 
 ## These should be tweaked to match the font pairings in format.tex
@@ -54,4 +55,11 @@ last <- function(x) {
 
 expand_range <- function(r, p=0.03, down=TRUE, up=TRUE) {
   r + c(if (down) -1 else 0, if (up) 1 else 0) * diff(r) * p
+}
+
+mask_raster <- function(x, col) {
+  if (!is.matrix(x) || length(dim(x)) !=2 || length(col) != 1) {
+    stop("nope")
+  }
+  1 - outer(1-x, 1-unname(drop(col2rgb(col)))/255)
 }

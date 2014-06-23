@@ -31,11 +31,10 @@ prep_rstar_1 <- function() {
        n.resource=1)
 }
 
-prep_rstar_2 <- function() {
+prep_rstar_2 <- function(x.r=.3, S=c(.7, .5), C=c(.3, .7)) {
   mat_r2 <- rstar_matrices(rstar_mat_2_tradeoff,
-                           make_rstar_mat_constant(rbind(.3, .7)))
-  m_r2 <- rstar(mat_r2, S=c(0.7, 0.5))
-  x.r <- 0.3
+                           make_rstar_mat_constant(matrix(C, nrow=2)))
+  m_r2 <- rstar(mat_r2, S=S)
   eq_r2 <- m_r2$single_equilibrium(matrix(x.r))
   x.mutant <- seq(0, 1, length=301)
   x.K <- rbind(x.mutant, deparse.level=0)
@@ -60,7 +59,7 @@ prep_rstar_2 <- function() {
 fig_rstar_alpha <- function(res, plt) {
   leaf <- vector_read("pics/leaf.svg")
   ## So draw this as "resource required for growth"
-  mar <- c(.15, .1, .2, .02)
+  mar <- c(.18, .1, .18, .02)
 
   h <- 1 - sum(mar[c(1, 3)])
   w <- 1 - sum(mar[c(2, 4)])
@@ -75,46 +74,45 @@ fig_rstar_alpha <- function(res, plt) {
   }
 
   pushViewport(viewport(w=w, h=h, x=x, y=y, yscale=ylim))
-  cols <- colours()
-  grid.rect(gp=gpar(col=NA, fill=cols$bg))
+  cols <- colours_use()
+  grid.rect(gp=gpar(col=NA, fill=cols$cream))
 
-  grid_xaxis_simple(c(0, 1), unit(-.5, "lines"))
-  grid_xlab_simple("Resource requirement", unit(-1.2, "lines"))
+  at <- unit(-.5, "lines")
+  if (res$n.resource == 1) {
+    grid_xaxis_simple(c(0, 1), at)
+  } else {
+    grid.text("Specialist (A)", 0, at, just=c("left", "top"))
+    grid.text("Generalist", .5, at, just=c("center", "top"))
+    grid.text("Specialist (B)", 1, at, just=c("right", "top"))
+  }
+  grid_xlab_simple("Resource requirement",
+                   unit(-1.2 - (res$n.resource == 2) * .5, "lines"))
 
   if (plt == 1) {
     y <- 0.4
     len <- if (res$n.resource == 1) 0.25 else 0.2
     dx <- 0.05
+    dy <- 0.075
+    arr <- arrow(type="closed", angle=15)
+    arr.gp <- gpar(col="black", fill="black", lwd=2)
 
     if (res$n.resource == 1) {
       grid.lines(res$x.r - (dx + c(0, len)), rep(y, 2),
-                 arrow=arrow(type="closed", angle=15),
-                 gp=gpar(col=cols$fg, fill=cols$fg, lwd=2))
+                 arrow=arr, gp=arr.gp)
       grid.lines(res$x.r + (dx + c(0, len)), rep(y, 2),
-                 arrow=arrow(type="closed", angle=15),
-                 gp=gpar(col=cols$fg, fill=cols$fg, lwd=2))
-      grid.text("Can invade",
-                res$x.r - dx,
-                y + 0.05, just=c("right", "bottom"))
-      grid.text("Cannot invade",
-                res$x.r + dx,
-                y + 0.05, just=c("left", "bottom"))
-    } else {
-      x2 <- 1 - res$x.r
-      grid.lines(rep(x2, 2), c(0, 1), gp=gpar(lty=2, col=cols$fg, lwd=2))
-      grid.lines(res$x.r - (dx + c(0, len)), rep(y, 2),
-                 arrow=arrow(type="closed", angle=15),
-                 gp=gpar(col=cols$fg, fill=cols$fg, lwd=2))
-      grid.lines(c(res$x.r + dx, x2 - dx), rep(y, 2),
-                 arrow=arrow(type="closed", angle=15, ends="both"),
-                 gp=gpar(col=cols$fg, fill=cols$fg, lwd=2))
-      grid.lines(x2 + (dx + c(0, len)), rep(y, 2),
-                 arrow=arrow(type="closed", angle=15),
-                 gp=gpar(col=cols$fg, fill=cols$fg, lwd=2))
-      grid.text("Can invade", .5, y + 0.05, just="bottom")
-      grid.text("Cannot invade", res$x.r - dx, y + 0.05,
+                 arrow=arr, gp=arr.gp)
+      grid.text("Can invade", res$x.r - dx, y + dy,
                 just=c("right", "bottom"))
-      grid.text("Cannot invade", x2 + dx, y + 0.05,
+      grid.text("Cannot invade", res$x.r + dx, y + dy,
+                just=c("left", "bottom"))
+    } else {
+      grid.lines(res$x.r - (dx + c(0, len)), rep(y, 2),
+                 arrow=arr, gp=arr.gp)
+      grid.lines(res$x.r + (dx + c(0, len*2)), rep(y, 2),
+                 arrow=arr, gp=arr.gp)
+      grid.text("Cannot\ninvade", res$x.r - dx, y + dy,
+                just=c("right", "bottom"))
+      grid.text("Can invade", res$x.r + dx, y + dy,
                 just=c("left", "bottom"))
     }
   }
@@ -128,16 +126,22 @@ fig_rstar_alpha <- function(res, plt) {
   }
 
   ## Add the resident:
-  grid.lines(rep(res$x.r, 2), c(0, 1), gp=gpar(lty=2, col=cols$hl, lwd=2))
+  grid.lines(rep(res$x.r, 2), c(0, 1),
+             gp=gpar(lty=2, col=cols$orange, lwd=2, lineend="butt"))
   
   if (plt > 2) {
     grid.lines(res$x, unit(res$alpha, "native"),
-               gp=gpar(lwd=2, col=cols$fg, lineend="butt"))
+               gp=gpar(lwd=2, col=cols$blue, lineend="butt"))
+  }
+  if (plt > 3) {
+    grid.lines(res$x,
+               unit(gaussian(res$x, mean=res$x.r, sd=1/8), "native"),
+               gp=gpar(col=cols$yellow_dk, lwd=1.5))
   }
   popViewport()
 
   pushViewport(viewport(w=w, h=mar[3], x=x, y=1, just="top"))
-  grid.picture(colour_picture(leaf, cols$hl), x=res$x.r,
+  grid.picture(colour_picture(leaf, cols$orange), x=res$x.r,
                y=unit(0, "npc"), height=unit(.5, "npc"), just="bottom")
   popViewport()
 }

@@ -7,6 +7,7 @@ gaussian <- function(x, mean=0, sd=1, scale=1) {
 
 fig_gaussian_competition <- function(plt) {
   leaf <- vector_read("pics/leaf.svg")
+  finch <- png::readPNG("pics/finch.png")
 
   mar <- c(.15, .1, .2, .02)
 
@@ -21,7 +22,7 @@ fig_gaussian_competition <- function(plt) {
   xl.native <- r[1] + diff(r) * xl
   hl <- seq_sqrt(.3, .9, length.out=5)
 
-  cols <- colours()
+  cols <- colours_use()
 
   if (interactive()) {
     grid.newpage()
@@ -29,8 +30,8 @@ fig_gaussian_competition <- function(plt) {
   }
 
   pushViewport(viewport(w=w, h=h, x=x, y=y))
-  grid.rect(gp=gpar(col=NA, fill=cols$bg))
-  if (plt == 1) {
+  grid.rect(gp=gpar(col=NA, fill=cols$cream))
+  if (plt %in% c(1, 4)) {
     grid_xlab_simple("Resource", unit(-.75, "lines"))
     grid_ylab_simple("Preference", unit(-1, "lines"))
   } else {
@@ -42,12 +43,12 @@ fig_gaussian_competition <- function(plt) {
   if (plt > 2) {
     for (i in seq_len(5)[-3]) {
       grid.lines(xx, gaussian(xx, xl.native[i], scale=.9),
-                 gp=gpar(col=cols$fg, lwd=2, lineend="butt"),
+                 gp=gpar(col=cols$blue, lwd=2, lineend="butt"),
                  default.unit="native")
     }
   }
   grid.lines(xx, gaussian(xx, xl.native[3], scale=.9),
-             gp=gpar(col=cols$hl, lwd=4, lineend="butt"),
+             gp=gpar(col=cols$orange, lwd=4, lineend="butt"),
              default.unit="native")
   popViewport(2)
 
@@ -55,29 +56,36 @@ fig_gaussian_competition <- function(plt) {
   pushViewport(viewport(w=w, h=mar[3], x=x, y=1, xscale=r, just="top"))
   if (plt > 2) {
     for (i in seq_along(xl)[-3]) {
-      grid.picture(colour_picture(leaf, cols$fg), x=unit(xl[i], "npc"),
-                   y=unit(0, "npc"), just="bottom", height=unit(hl[i], "npc"))
+      if (plt >= 5) {
+        grid.picture(colour_picture(leaf, cols$blue),
+                     x=unit(xl[i], "npc"),
+                     y=unit(0, "npc"), just="bottom",
+                     height=unit(hl[i], "npc"))
+      } else {
+        grid.raster(mask_raster(finch, cols$blue),
+                    x=unit(xl[i], "npc"),
+                    y=unit(0, "npc"), just="bottom",
+                    height=unit(hl[i], "npc"))
+      }
     }
   }
 
-  grid.picture(colour_picture(leaf, cols$hl), x=unit(xl.native[3], "native"),
-               y=unit(0, "npc"), height=unit(.5, "npc"), just="bottom")
+  if (plt >= 5) {
+    grid.picture(colour_picture(leaf, cols$orange),
+                 x=unit(xl.native[3], "native"), y=unit(0, "npc"),
+                 height=unit(.5, "npc"), just="bottom")
+  } else {
+    grid.raster(mask_raster(finch, cols$orange),
+                x=unit(xl.native[3], "native"), y=unit(0, "npc"),
+                height=unit(.5, "npc"), just="bottom")
+  }
   popViewport()
 }
 
 ## Need to have a figure so that I can handwave about bridging models
 ## and data.
 fig_bridge <- function(plt) {
-  cols <- list(brown="#574134",
-               brown_dk="#473629",
-               orange="#d54b1a",
-               orange_dk="#bf4317",
-               yellow="#e3a72f",
-               yellow_dk="#c6891d",
-               blue="#058789",
-               blue_dk="#04797a",
-               cream="#f0ecc9",
-               cream_dk="#c7c094")
+  cols <- colours_use()
 
   trees <- vector_read("pics/trees.svg")
 
@@ -119,8 +127,6 @@ fig_bridge <- function(plt) {
 
   x.arr <- c(x[1] + w/2 + mar/2, last(x) - w/2 - mar/2)
   y.arr <- c(y[1] - h/2 - mar/2, last(y) + h/2 + mar/2)
-  grid.lines(x.arr, y.arr, arrow=arrow(type="closed", angle=15),
-             gp=gpar(col=cols$brown, fill=cols$brown, lwd=2))
-  
-  grid.text("?", y=.6, gp=gpar(cex=4))
+  grid.lines(x.arr, y.arr, arrow=arrow(type="closed", angle=15, ends="both"),
+             gp=gpar(col="black", fill="black", lwd=2))
 }

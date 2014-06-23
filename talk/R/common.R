@@ -18,3 +18,16 @@ colours <- function() {
   cols <- list(bg=cols.wa[[3]], fg=cols.wa[[1]],
                hl=cols.wa[[2]], con=cols.wa[[4]])
 }
+
+colours_use <- function() {
+  list(brown="#574134",
+       brown_dk="#473629",
+       orange="#d54b1a",
+       orange_dk="#bf4317",
+       yellow="#e3a72f",
+       yellow_dk="#c6891d",
+       blue="#058789",
+       blue_dk="#04797a",
+       cream="#f0ecc9",
+       cream_dk="#c7c094")
+}

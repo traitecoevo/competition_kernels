@@ -57,4 +57,8 @@ Because the equation above is a convolution, if the $U$ functions are Gaussian t
 * @Bender-1984: shows what experiments would be required to infer competition coefficients from data; for $n$ species, $n$ experiments will be required.
 * @Schoener-1974: discusses links between resource utilisation kernels and competition coefficients.
 
+# Recent work
+
+* @Mirrahimi-2014: Connections bbetween Tilman style models and LV style models, but looks fairly inpenetrable.  A lot of the motivations look similar to ours.
+
 # References

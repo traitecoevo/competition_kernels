@@ -26,25 +26,26 @@
 % \raggedright
 % \pagestyle{empty}
 
-\mstitlepage
+% \mstitlepage
 \parindent=1.5em
 \addtolength{\parskip}{.3em}
 
 % \begin{abstract}
 % \end{abstract}
 
-\section{Introduction, take2}
+\section{Introduction}
 
-Competition kernels are widely used in both models and arguments.
-They represent the fitness landscape drawdown.
+\textit{Competition kernels are widely used in both models and arguments}
 \begin{itemize}
+\item A fundamental measure of community dynamics: kernels represent
+  the fitness landscape drawdown
 \item example usage:
   \begin{itemize}
   \item limiting similarity \citet{MacArthur-1967}
   \item coexistence
-  \item characte displacement \citep[e.g.,][]{Taper-1985, Case-2000,
+  \item character displacement \citep[e.g.,][]{Taper-1985, Case-2000,
       Goldberg-2006}
-  \item game theory \citep[e.g.,][]{Brown-1987-140, Brown-1987}
+  \item game theory \citep[e.g.,][]{Brown-1987, Brown-1987-140}
   \item disruptive selection and adaptive dynamics \citep{Dieckmann-1999}
   \end{itemize}
 \item Species packing remains a hugely influential concept: the
@@ -53,8 +54,8 @@ They represent the fitness landscape drawdown.
   1999, v4).
 \end{itemize}
 
-Competition kernels, and models of competition, are largely unchanged
-from their original formulation in the 1960s.
+\textit{Competition kernels, and models of competition, are largely
+  unchanged from their original formulation in the 1960s.}
 \begin{itemize}
 \item Based on Lotka-Volterra equations (\citealt{MacArthur-1967}
   references Volterra 1926), with a function for competition in terms
@@ -62,8 +63,9 @@ from their original formulation in the 1960s.
   \citet{MacArthur-1967}
 \item These models have been criticised from the outset:
 \begin{itemize}
+\item \citet{Andrewartha-1953}
 \item \citet{May-1972}
-\item \citet{Neill-1974}: competition functions not meaninful
+\item \citet{Neill-1974}: competition functions not meaningful
   properties of species pairs, are density and context dependent.
 \item \citet{Abrams-1975}: sensitive to details about how resources
   are used.
@@ -77,9 +79,9 @@ from their original formulation in the 1960s.
   that a Gaussian is a likely reasonable low-order approximation.
 \end{itemize}
 
-There is a shift in the 1980s from modelling limiting similarity in
-terms of resources to modelling trait divergence/convergence and
-disruptive selection.
+\textit{There is a shift in the 1980s from modelling limiting
+  similarity in terms of resources to modelling trait
+  divergence/convergence and disruptive selection.}
 \begin{itemize}
 \item Begins with \citet{Taper-1985} and \citet{Brown-1987-140}; these
   make explicit a direct 1:1 trait:resource mapping implied by the
@@ -96,8 +98,8 @@ disruptive selection.
   process muddier.
 \end{itemize}
 
-At the same time, other strands of modelling aimed to link species
-traits, competition and coexistence.
+\textit{At the same time, other strands of modelling aimed to link
+  species traits, competition and coexistence.}
 \begin{itemize}
 \item R* \citep{Tilman-1980,Tilman-1982} aimed to link resource
   dynamics to competition via species competing for different pools of
@@ -105,10 +107,11 @@ traits, competition and coexistence.
   \citet{MacArthur-1967} model, but with slower replenishment of
   resources.
 \item Sessile dynamics to Neutral theory
-\item Competition/colonisation models.  Incl lottery models?
+\item Competition/colonisation models.  Including lottery models?
 \end{itemize}
 
-If we understood competition kernels with respect to traits, we could
+\textit{If we understood competition kernels with respect to traits,
+  we could}
 \begin{itemize}
 \item Measure real competition kernels in nature
 \item Predict trait-mixtures better than species mixtures.  Is there a
@@ -120,223 +123,17 @@ If we understood competition kernels with respect to traits, we could
   are important.
 \item Basing an entire field on competition kernels where we don't
   even know their shape seems like a house of cards.
-\item We aim to investigate the shape and behaviour of competition
-  kernels in mechanstic models of growth and reproduction.
 \end{itemize}
 
-\section{Introduction}
-
+\textit{Aim of this paper}: to investigate the shape and behaviour of
+competition kernels in mechanstic models of growth and reproduction.
 \begin{itemize}
-\item Origin of competition kernels and the literature that has spread
-  from them, especially limiting similarity and their use in models
-  where we need species to compete to generate frequency dependent
-  fitness.
-\item Evidence for shape of competition kernels in nature, motivating
-  use of modelling.
-\item Identified issues with assumptions about kernels: especially
-  density dependence, trait dependence (e.g. width of the kernel as a
-  trait), Gaussian pathalogical case.
-\item Ideas of explicit competition kernels and implicit competition
+\item In a sense our approach is similar to \citet{Draghi-2012}; we're
+  going to look at models that are simple enough to push around but
+  complicated enough that we don't immediately know the emergent
+  behaviours and use this as a proxy to do things we can't easily do
+  in natural systems.
 \end{itemize}
-
-% Yeah, so this section entirely lacks references.  It's adapted from
-% what I said during my Evolution talk.  I think all these points are
-% defendable though some are doubtless a lot more subtle than as
-% presented here.  That is especially the case for Gaussian
-% competition as those in the know avoid Gaussian kernels, and I think
-% even some of the very early competition work did too.
-Interspecific competition generates frequency dependent selection that
-is probably responsible for mantaining much of species diversity, and
-disruptive selection that generates phenotypic selection.  Despite its
-wide potential importance, the way we model competition is usually
-very simple: typically species are assumed to compete most strongly
-with themselves and less strongly with things very different from
-themselves -- something like a Gaussian shape of competition intensity
-with respect to traits (e.g., examples).
-% It seems likely that a figure here will help, but this is likely
-% pretty old-hat to most people.
-This may lead to so-called ``limiting similarity''; species are spaced
-along a trait axis, kept apart or excluded from the community due to
-intense competition between similar species.
-% Lack 1947 is the canonical empirical example here.
-This approach to modelling competition can be motivated by imagining
-that species use resources that are arranged along some axis
-(e.g. seed size) and that some trait (e.g. beak size) affects how
-efficiently a species can handle and use the resources.
-
-\begin{itemize}
-\item These ideas root back to \citet{MacArthur-1967}, and often the
-  modelling approach is essentially unchanged.
-\item Do these ideas have stronger roots in animal ecology than plant
-  ecology?  Are there fewer resources?  (there is a paper, possibly
-  Tilman, that argues that plants \emph{don't} have fewer resources
-  than animals).  In any case, it's not clear how most species traits
-  map on to resource use directly.  Perhaps contrast distributions
-  like \citet{Hermoyian-2002} with distribution of plant traits like
-  LMA with essentially continuous distributions.
-  % This is still a bit weak: need to be clearer here about the sort
-  % of questions we might want to ask.
-\item It's therefore hard to bridge between abstract models of
-  competition that inform most theory with the sort of traits and
-  species data that we have for plant communities.
-\end{itemize}
-
-Aims
-
-\begin{itemize}
-\item What do competition kernels look like?  Are they symmetric?
-\item Are kernels constant across trait space, and as such important
-  properties of \emph{traits} rather than species-specific properties
-  that are hard to generalise?
-\item Are kernels constant with species density?  Or do we need to
-  know the densities of all actor species to predict what will happen?
-\end{itemize}
-
-\section{Background}
-
-% Getting this bit right is going to be hard but important.  It's also
-% destined for the appenndix probably.
-A wrinkle: there are two forms of modified Lotka Volterra equations in
-the literature
-
-\begin{subequations}
-  \label{eq:LV}
-  \begin{align}
-    \frac{\ud N_i}{\ud t} =& r_i\left(K_i  - \sum_j\alpha(i, j) N_j\right)\\
-    \frac{\ud N_i}{\ud t} =&
-    r_i\left(1 - \sum_j \frac{\alpha(i, j) N_j}{K_i}\right)
-  \end{align}
-\end{subequations}
-
-these differ in whether the competition function is scaled by the
-species' carrying capacity or not.  For scalar $\alpha$ and $K$
-parameters, this difference is a matter of book-keeping, but when
-$\alpha$ and $K$ are functions of some trait $x$ difference becomes
-important.  By convention, $\alpha(i, i) \equiv 1$.
-
-\section{Methods}
-
-% Most of the methods section will be describing the models that we
-% use.  Ideally we'll keep this nice and short, and any actual
-% elaboration will be put in the supporting material and in the code.
-% This is particularly the case for tree, but hopefully we can mostly
-% point at Falster-2011 for that?
-%
-% In the first paragraph, I guess we describe the entire approach as
-% well as possible.
-We use two models that feature competition emerging from the model.
-In both, competition emerges due to species competing for the same
-resources (as in the Lotka-Volterra equations), and species traits
-affect how species compete for resources.  We compute the quantities
-used in the Lotka-Volterra equations (growth rate, carrying capacity
-and per-capita rate of population increase) and from that infer the
-values of competition coefficients.
-% Make sure to hit all these points in the intro:
-We can do this over a range of trait values and investigate things
-about these kernels: in particular if they have Gaussian shape, if
-they are symmetrical and if they are density independent.
-
-% This section will *all* move into an appendix and we'll present the
-% equations we need: probably the equation that relates alpha to N, r,
-% K, w.
-It is not possible to infer all competition coefficients in the
-general case as there are too many unknowns to infer.  Instead we
-focus on the special case where there is a single resident type and a
-mutant is invading from negligible density.  With $x_I$ and $x_R$ as
-the traits of indvading and resident types, then the per-capita rate
-of increase in the mutant density is
-
-\begin{subequations}
-  \label{eq:LVi}
-  \begin{align}
-    \frac{\ud N(x_I)}{\ud t} &=
-    r(x_I)\left(K(x_I) - \alpha(x_I, x_R) N_R\right)\\
-    \frac{\ud N(x_I)}{\ud t} &=
-    r(x_I)\left(1 - \frac{\alpha(x_I, x_R) N_R}{K(x_I)}\right)
-  \end{align}
-\end{subequations}
-
-(with the two forms being related to equation (\ref{eq:LV}))
-
-Rearranging equation (\ref{eq:LVi}) to solve for $\alpha$ gives
-
-\begin{subequations}
-  \begin{align}
-    \alpha(x_I, x_R) &= \frac{1}{N_R}
-    \left(K(x_I) - \frac{1}{r(x_I)}\frac{\ud N(x_I)}{\ud t}\right)\\
-    \alpha(x_I, x_R) &= \frac{K(x_I)}{N_R}
-    \left(1 - \frac{1}{r(x_I)}\frac{\ud N(x_I)}{\ud t}\right)
-  \end{align}
-\end{subequations}
-
-These are obviously different;
-\begin{equation*}
-  \alpha_1(x_I, x_R) - \alpha_2(x_I, x_R) =
-  \frac{\ud N(x_I)}{\ud t} \frac{K(x_I) - 1}{N_R r(x_I)}
-\end{equation*}
-
-So:
-
-\begin{align*}
-  \sign(\alpha_1) =& \sign\left(K(x_I) - \frac{w_I}{r(x_I)}\right)\\
-  \sign(\alpha_2) =& \sign\left(1 - \frac{w_I}{r(x_I)}\right)
-\end{align*}
-
-Therefore with the second form facilitation ($\alpha < 0$) happens
-facilitation happens when $w_I > r(x_I)$, which makes sense.  In
-contrast with the first form we get facilitation when $K(x_I) r(x_I) <
-w_I$, which does not an intuitive appeal unless $K(x) = 1$ (as in
-Leimar, I think).  But it seems a real problem for models where $K$
-actually varies with traits.
-
-To show that we have a problem with two species, consider the case
-where we have species $A$ and $B$, both at nontrivial density.  Then
-the per-capita fitness of an invading type $I$ is
-
-\begin{equation*}
-  w_I = r(x_I)\left(1 - \frac{\alpha(x_I, x_A) N_A + \alpha(x_I, x_B) N_B}{K(x_I)}\right)
-\end{equation*}
-
-Rearranging:
-\begin{equation*}
-  \alpha_{x_I, x_A} N_A + \alpha_{x_I, x_B} N_B =
-  K(x_I)\left(1 - \frac{w_I}{r(x_I)}\right)
-\end{equation*}
-So we have one equation and two unknowns; there is no way of
-estimating both $\alpha$ coefficients from the single measurement of
-fitness.
-
-% R*
-\subsection{Tilman's R star model}
-\begin{itemize}
-\item As originally formulated, R* does not include traits
-\item We adapt a formulation (due to whom?) where a ``trait'' is a
-  measure of specialisation/generalisation.
-\end{itemize}
-
-\subsection{TREE}
-\begin{itemize}
-\item Originally described by \citet{Falster-2011}
-\item Species compete for light in a stand
-\item Average light environment constructed, averaged over the
-  expected disturbance regime of a patch in an infinite metapopulation
-  with island model dispersal.
-\item Things we need for the model:
-  \begin{itemize}
-  \item $N$ --- seed rain
-  \item $r(x)$ --- this is the rate of growth in an empty environment
-    (i.e., mutant fitness in the empty environment)
-  \item $K(x)$ --- this is maximum population density (equilibrium
-    seed rain in a monoculture)
-  \end{itemize}
-\end{itemize}
-
-In a way, we're arguing to turn the way that we've looked at
-competition around: rather than asking ``given we know species
-coexist, what do we have to do to competition kernels'', we're
-saying: ``given we have data on species traits, can we just look at
-the shapes that competition functions actually take and use that to
-guide future modelling''.
 
 \clearpage
 \section{Discussion}
@@ -345,39 +142,59 @@ guide future modelling''.
 \begin{itemize}
 \item No clear generalisation yet about competition kernel shapes.
   \begin{itemize}
-  \item our lma kernel looks a little like the roughgarden offset
-    Gaussian, but the ridges are likely important for later species
-    (we need to actually show this however)
-  \item  our hmat kernel looks like kisdi's asymmetric kernel, and the
-    dynamics are fairly similar
+  \item our lma kernel looks a little like the
+    \citet{Roughgarden-1979} offset Gaussian, but the ridges are
+    likely important for later species (we need to actually show this
+    however)
+  \item our hmat kernel looks like the \citet{Kisdi-1999} asymmetric
+    kernel, and the dynamics are fairly similar (needs
+    demonstrating).
   \item The R* kernels just look weird, but that's because the
-    \emph{trait} doesn't really map onto the resource very directly.
+    \emph{trait} doesn't really map onto the resource very directly;
+    the trait is the preference for two different resources, which
+    can't map onto any single resource very well.
   \end{itemize}
 \item Kernels other than Gaussian may lead to coexistance more easily
   than Gaussian.  
   \begin{itemize}
-  \item It's not all bad news; kernels like the lma kernel
-    look ridiculous and you're not going to be allowed to propose them
-    for a modelling paper.
-  \item But they arise from size-structured dynamics
-    in the model, so may not be that uncommon (worth noting that almost
-    all the models are really of discrete exchangable adults and that
-    size/age structure was flaged as an issue arges ago but I've lost
-    the paper).
+  \item It's not all bad news; kernels like the lma kernel look
+    ridiculous and you're not going to be allowed to propose them for
+    a modelling paper.
+  \item But they arise from size-structured dynamics in the model, so
+    may not be that uncommon (worth noting that almost all the models
+    are really of discrete exchangable adults and that size/age
+    structure was flaged as an issue arges ago but I've lost the
+    paper).
   \end{itemize}
-\item Trait dependent competition in every model, as predicted by
-  \citet{Abrams-1980}
+\item Density dependent competition emerged in every model, as
+  predicted by \citet{Abrams-1980}, who argued that not satisfying
+  implicit assumptions would lead to widespread nonconstant density
+  dependence.
+\item More than density dependence, the \emph{shape} of the kernel
+  changes with density, moving in position as the resident population
+  density changes.  Kernels of this type simply haven't been studied
+  and it's not actually very clear if kernels of this type might
+  stretch the concept beyond its useful limit.
 \item Outcome of competition is governed by the relative shapes of r,
   K and $\alpha$ but most modelling focusses only on the competition
   kernel, setting $K$ to be uniform or Gaussian and setting $r$ to be
-  uniform.  We don't know what \emph{any} of these look like in nature.
+  uniform.  The exception is asymmetric competition studies that tend
+  to use asymmetric $r$ functions (pointing in the opposite direction
+  of competitive ability). We don't know what \emph{any} of these look
+  like in nature.
 \end{itemize}
 
-\textit{Traits are a productive way forward}
+\textit{Traits are a productive way forward -- for what?}
 \begin{itemize}
 \item What did we want to say here, really?  Traits are already how
   people are thinking about kernels, but the work on resources hasn't
   caught up (see last point)
+\item In a way, we're arguing to turn the way that we've looked at
+  competition around: rather than asking ``given we know species
+  coexist, what do we have to do to competition kernels'', we're
+  saying: ``given we have data on species traits, can we just look at
+  the shapes that competition functions actually take and use that to
+  guide future modelling''.
 \end{itemize}
 
 \textit{(Maybe) link to field measurement of competition.}
@@ -397,8 +214,8 @@ guide future modelling''.
   there (perhaps we could put it on a manifold\ldots).
 \end{itemize}
 
-Trait-resource utility linkage is important, but largely ignored.
-Mechanistic models provide some sort of way forward.
+\textit{Trait-resource utility linkage is important, but largely
+  ignored.  Mechanistic models provide some sort of way forward.}
 \begin{itemize}
 \item Of course we don't actually make this link in the model --
   perhaps we should
@@ -406,6 +223,14 @@ Mechanistic models provide some sort of way forward.
   gradually been entirely replaced by trait axes.  We argue that
   neither are likely to exhibit behaviour like the
   \citet{MacArthur-1967} model in natural systems.
+\item It's hard to bridge between abstract models of competition that
+  inform most theory with the sort of traits and species data that we
+  have for plant communities.
+\end{itemize}
+
+\textit{Conclusions}
+\begin{itemize}
+\item Coming up with a positive note here might be hard.
 \end{itemize}
 
 \clearpage

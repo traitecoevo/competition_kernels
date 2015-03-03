@@ -1,0 +1,207 @@
+\section{Introduction}
+
+\begin{itemize}
+\item Origin of competition kernels and the literature that has spread
+  from them, especially limiting similarity and their use in models
+  where we need species to compete to generate frequency dependent
+  fitness.
+\item Evidence for shape of competition kernels in nature, motivating
+  use of modelling.
+\item Identified issues with assumptions about kernels: especially
+  density dependence, trait dependence (e.g. width of the kernel as a
+  trait), Gaussian pathalogical case.
+\item Ideas of explicit competition kernels and implicit competition
+\end{itemize}
+
+% Yeah, so this section entirely lacks references.  It's adapted from
+% what I said during my Evolution talk.  I think all these points are
+% defendable though some are doubtless a lot more subtle than as
+% presented here.  That is especially the case for Gaussian
+% competition as those in the know avoid Gaussian kernels, and I think
+% even some of the very early competition work did too.
+Interspecific competition generates frequency dependent selection that
+is probably responsible for mantaining much of species diversity, and
+disruptive selection that generates phenotypic selection.  Despite its
+wide potential importance, the way we model competition is usually
+very simple: typically species are assumed to compete most strongly
+with themselves and less strongly with things very different from
+themselves -- something like a Gaussian shape of competition intensity
+with respect to traits (e.g., examples).
+% It seems likely that a figure here will help, but this is likely
+% pretty old-hat to most people.
+This may lead to so-called ``limiting similarity''; species are spaced
+along a trait axis, kept apart or excluded from the community due to
+intense competition between similar species.
+% Lack 1947 is the canonical empirical example here.
+This approach to modelling competition can be motivated by imagining
+that species use resources that are arranged along some axis
+(e.g. seed size) and that some trait (e.g. beak size) affects how
+efficiently a species can handle and use the resources.
+
+\begin{itemize}
+\item These ideas root back to \citet{MacArthur-1967}, and often the
+  modelling approach is essentially unchanged.
+\item Do these ideas have stronger roots in animal ecology than plant
+  ecology?  Are there fewer resources?  (there is a paper, possibly
+  Tilman, that argues that plants \emph{don't} have fewer resources
+  than animals).  In any case, it's not clear how most species traits
+  map on to resource use directly.  Perhaps contrast distributions
+  like \citet{Hermoyian-2002} with distribution of plant traits like
+  LMA with essentially continuous distributions.
+  % This is still a bit weak: need to be clearer here about the sort
+  % of questions we might want to ask.
+\item It's therefore hard to bridge between abstract models of
+  competition that inform most theory with the sort of traits and
+  species data that we have for plant communities.
+\end{itemize}
+
+Aims
+
+\begin{itemize}
+\item What do competition kernels look like?  Are they symmetric?
+\item Are kernels constant across trait space, and as such important
+  properties of \emph{traits} rather than species-specific properties
+  that are hard to generalise?
+\item Are kernels constant with species density?  Or do we need to
+  know the densities of all actor species to predict what will happen?
+\end{itemize}
+
+\section{Background}
+
+% Getting this bit right is going to be hard but important.  It's also
+% destined for the appenndix probably.
+A wrinkle: there are two forms of modified Lotka Volterra equations in
+the literature
+
+\begin{subequations}
+  \label{eq:LV}
+  \begin{align}
+    \frac{\ud N_i}{\ud t} =& r_i\left(K_i  - \sum_j\alpha(i, j) N_j\right)\\
+    \frac{\ud N_i}{\ud t} =&
+    r_i\left(1 - \sum_j \frac{\alpha(i, j) N_j}{K_i}\right)
+  \end{align}
+\end{subequations}
+
+these differ in whether the competition function is scaled by the
+species' carrying capacity or not.  For scalar $\alpha$ and $K$
+parameters, this difference is a matter of book-keeping, but when
+$\alpha$ and $K$ are functions of some trait $x$ difference becomes
+important.  By convention, $\alpha(i, i) \equiv 1$.
+
+\section{Methods}
+
+% Most of the methods section will be describing the models that we
+% use.  Ideally we'll keep this nice and short, and any actual
+% elaboration will be put in the supporting material and in the code.
+% This is particularly the case for tree, but hopefully we can mostly
+% point at Falster-2011 for that?
+%
+% In the first paragraph, I guess we describe the entire approach as
+% well as possible.
+We use two models that feature competition emerging from the model.
+In both, competition emerges due to species competing for the same
+resources (as in the Lotka-Volterra equations), and species traits
+affect how species compete for resources.  We compute the quantities
+used in the Lotka-Volterra equations (growth rate, carrying capacity
+and per-capita rate of population increase) and from that infer the
+values of competition coefficients.
+% Make sure to hit all these points in the intro:
+We can do this over a range of trait values and investigate things
+about these kernels: in particular if they have Gaussian shape, if
+they are symmetrical and if they are density independent.
+
+% This section will *all* move into an appendix and we'll present the
+% equations we need: probably the equation that relates alpha to N, r,
+% K, w.
+It is not possible to infer all competition coefficients in the
+general case as there are too many unknowns to infer.  Instead we
+focus on the special case where there is a single resident type and a
+mutant is invading from negligible density.  With $x_I$ and $x_R$ as
+the traits of indvading and resident types, then the per-capita rate
+of increase in the mutant density is
+
+\begin{subequations}
+  \label{eq:LVi}
+  \begin{align}
+    \frac{\ud N(x_I)}{\ud t} &=
+    r(x_I)\left(K(x_I) - \alpha(x_I, x_R) N_R\right)\\
+    \frac{\ud N(x_I)}{\ud t} &=
+    r(x_I)\left(1 - \frac{\alpha(x_I, x_R) N_R}{K(x_I)}\right)
+  \end{align}
+\end{subequations}
+
+(with the two forms being related to equation (\ref{eq:LV}))
+
+Rearranging equation (\ref{eq:LVi}) to solve for $\alpha$ gives
+
+\begin{subequations}
+  \begin{align}
+    \alpha(x_I, x_R) &= \frac{1}{N_R}
+    \left(K(x_I) - \frac{1}{r(x_I)}\frac{\ud N(x_I)}{\ud t}\right)\\
+    \alpha(x_I, x_R) &= \frac{K(x_I)}{N_R}
+    \left(1 - \frac{1}{r(x_I)}\frac{\ud N(x_I)}{\ud t}\right)
+  \end{align}
+\end{subequations}
+
+These are obviously different;
+\begin{equation*}
+  \alpha_1(x_I, x_R) - \alpha_2(x_I, x_R) =
+  \frac{\ud N(x_I)}{\ud t} \frac{K(x_I) - 1}{N_R r(x_I)}
+\end{equation*}
+
+So:
+
+\begin{align*}
+  \sign(\alpha_1) =& \sign\left(K(x_I) - \frac{w_I}{r(x_I)}\right)\\
+  \sign(\alpha_2) =& \sign\left(1 - \frac{w_I}{r(x_I)}\right)
+\end{align*}
+
+Therefore with the second form facilitation ($\alpha < 0$) happens
+facilitation happens when $w_I > r(x_I)$, which makes sense.  In
+contrast with the first form we get facilitation when $K(x_I) r(x_I) <
+w_I$, which does not an intuitive appeal unless $K(x) = 1$ (as in
+Leimar, I think).  But it seems a real problem for models where $K$
+actually varies with traits.
+
+To show that we have a problem with two species, consider the case
+where we have species $A$ and $B$, both at nontrivial density.  Then
+the per-capita fitness of an invading type $I$ is
+
+\begin{equation*}
+  w_I = r(x_I)\left(1 - \frac{\alpha(x_I, x_A) N_A + \alpha(x_I, x_B) N_B}{K(x_I)}\right)
+\end{equation*}
+
+Rearranging:
+\begin{equation*}
+  \alpha_{x_I, x_A} N_A + \alpha_{x_I, x_B} N_B =
+  K(x_I)\left(1 - \frac{w_I}{r(x_I)}\right)
+\end{equation*}
+So we have one equation and two unknowns; there is no way of
+estimating both $\alpha$ coefficients from the single measurement of
+fitness.
+
+% R*
+\subsection{Tilman's R star model}
+\begin{itemize}
+\item As originally formulated, R* does not include traits
+\item We adapt a formulation (due to whom?) where a ``trait'' is a
+  measure of specialisation/generalisation.
+\end{itemize}
+
+
+\subsection{TREE}
+\begin{itemize}
+\item Originally described by \citet{Falster-2011}
+\item Species compete for light in a stand
+\item Average light environment constructed, averaged over the
+  expected disturbance regime of a patch in an infinite metapopulation
+  with island model dispersal.
+\item Things we need for the model:
+  \begin{itemize}
+  \item $N$ --- seed rain
+  \item $r(x)$ --- this is the rate of growth in an empty environment
+    (i.e., mutant fitness in the empty environment)
+  \item $K(x)$ --- this is maximum population density (equilibrium
+    seed rain in a monoculture)
+  \end{itemize}
+\end{itemize}

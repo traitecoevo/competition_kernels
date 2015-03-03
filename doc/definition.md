@@ -43,3 +43,7 @@ On defining competitive ability:
 > The key problem here is that much of formal theory is based on population at equilibrium but the vast majority of experimental work on competition has been at the individual level and short term.
 
 > The magnitude of competition at the individual level can be quantified as the per unit effect of individuals of some neighbour taxon on the response of some target taxon, where "unit" can refer to individuals, biomass or any other measure of abundance, and response is measured as some component of fitness of target individuals at different abundances of the neighbours.  While this single values expresses competitive ability of both taxa in a particular interacting pair, comparisons of this value among taxa, i.e. comparisons of competitive ability, can be done in two distinct ways that have very different interpretations...[1] Comparisons among neighbour species assess ability to suppress other plants or competitive effect, while [2] comparisons among target species assess resistance to suppression or competitive response.
+
+## Schoener (1974) http://www.jstor.org/stable/2459895
+
+> The most general definition of *competition coefficient* is a number giving the degree to which an individual of one species affects through competition the growth or equilibrium level of a second species' population, relative to the effect of an individual of the second species.

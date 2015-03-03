@@ -47,7 +47,7 @@ Because the equation above is a convolution, if the $U$ functions are Gaussian t
 ## Criticism of LV models
 
 * Become cumbersome, non-identifiable @Tilman-1987.  Also notes that the effect of viewing things in a LV framework leads to detecting little competition (or little apparent competition) in communities that should have widespread competition.
-* Criticism of constant/linear assumptions in @Schoener-1974 (see p 36)
+* Criticism of constant/linear assumptions in @Schoener-1974 (see p 336)
 * Criticism of constant per-capita competition in Wilbur 1972, Ayala et al. 1973, Neill 1974, @Schoener-1974, Smith-Gill and Gill 1978, Abrams 1980 (references in @Holt-1985).
 
 ## Other assorted bits

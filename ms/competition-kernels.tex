@@ -338,6 +338,77 @@ saying: ``given we have data on species traits, can we just look at
 the shapes that competition functions actually take and use that to
 guide future modelling''.
 
+\clearpage
+\section{Discussion}
+
+\textit{Main issues of competition models illustrated by our analysis}
+\begin{itemize}
+\item No clear generalisation yet about competition kernel shapes.
+  \begin{itemize}
+  \item our lma kernel looks a little like the roughgarden offset
+    Gaussian, but the ridges are likely important for later species
+    (we need to actually show this however)
+  \item  our hmat kernel looks like kisdi's asymmetric kernel, and the
+    dynamics are fairly similar
+  \item The R* kernels just look weird, but that's because the
+    \emph{trait} doesn't really map onto the resource very directly.
+  \end{itemize}
+\item Kernels other than Gaussian may lead to coexistance more easily
+  than Gaussian.  
+  \begin{itemize}
+  \item It's not all bad news; kernels like the lma kernel
+    look ridiculous and you're not going to be allowed to propose them
+    for a modelling paper.
+  \item But they arise from size-structured dynamics
+    in the model, so may not be that uncommon (worth noting that almost
+    all the models are really of discrete exchangable adults and that
+    size/age structure was flaged as an issue arges ago but I've lost
+    the paper).
+  \end{itemize}
+\item Trait dependent competition in every model, as predicted by
+  \citet{Abrams-1980}
+\item Outcome of competition is governed by the relative shapes of r,
+  K and $\alpha$ but most modelling focusses only on the competition
+  kernel, setting $K$ to be uniform or Gaussian and setting $r$ to be
+  uniform.  We don't know what \emph{any} of these look like in nature.
+\end{itemize}
+
+\textit{Traits are a productive way forward}
+\begin{itemize}
+\item What did we want to say here, really?  Traits are already how
+  people are thinking about kernels, but the work on resources hasn't
+  caught up (see last point)
+\end{itemize}
+
+\textit{(Maybe) link to field measurement of competition.}
+\begin{itemize}
+\item Most manipulative measures of competition in the field are going
+  to give \emph{discrete} estimates of $\alpha$: the amount of
+  competition exerted by or felt by a single species in the context of
+  some community.
+\item Because original, \citet{MacArthur-1967}, version of competition
+  kernels was designed around resource utilisation functions, it
+  should be possible to estimate competition coefficients and kernels
+  from shapes of those functions if they were estimatable.
+\item Does our way offer any better way forward?  The nonmanipulative
+  work that Georges is doing with the working group data, or that
+  James is looking at with the BCI data might help; we have large data
+  sets of traits and growth; the signature of competition may show up
+  there (perhaps we could put it on a manifold\ldots).
+\end{itemize}
+
+Trait-resource utility linkage is important, but largely ignored.
+Mechanistic models provide some sort of way forward.
+\begin{itemize}
+\item Of course we don't actually make this link in the model --
+  perhaps we should
+\item The 1:1 mapping happened very quietly, but the resource axis has
+  gradually been entirely replaced by trait axes.  We argue that
+  neither are likely to exhibit behaviour like the
+  \citet{MacArthur-1967} model in natural systems.
+\end{itemize}
+
+\clearpage
 \bibliographystyle{amnat}
 \bibliography{references}
 

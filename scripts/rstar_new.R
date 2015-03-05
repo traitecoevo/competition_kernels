@@ -57,6 +57,11 @@ rstar_fitness_given_R <- function(x_invade, R, parameters) {
   rstar_min_p(x_invade, drop(R), parameters) - parameters$m
 }
 
+rstar_fitness_given_N <- function(x_invade, x_res, N_res, parameters) {
+  R <- rstar_equilibrium_R(x_res, N_res, parameters)$R
+  rstar_fitness_given_R(x_invade, R, parameters)
+}
+
 rstar_max_growth_rate <- function(x, parameters) {
   ## rstar_fitness(x, parameters$S, parameters)
   rstar_min_p(x, parameters$S, parameters) - parameters$m
@@ -191,6 +196,9 @@ rstar_single_equilibrium_R <- function(x, N, parameters) {
   # x, N, parameters
   K <- parameters$K(x)
   C <- parameters$C(x)
+  S <- parameters$S
+  D <- parameters$D
+  r <- parameters$r
   ans <- quadratic_roots(-D, (D * (S - K) - C * r * N), D * K * S)
   ans <- ans[ans >= 0 & ans <= S]
   if (length(ans) != 1) {

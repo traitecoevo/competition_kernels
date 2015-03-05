@@ -16,14 +16,12 @@ p <- rstar_parameters(rstar_mat_2_tradeoff, rstar_mat_2_tradeoff, S=1.0)
 ## mat <- rstar_matrices(rstar_mat_2_tradeoff, rstar_mat_2_tradeoff)
 ## m <- rstar(mat, 1)
 
-
 ## One species:
 col1 <- "blue"
 col1_tr <- make_transparent(col1, .2)
 x1 <- matrix(0.2, nrow=2)
 N1 <- 1.0
 
-## END OF WEDNESDAY, 2015-03-04: up to here---
 rstar_plot(x1, p, col=col1)
 for (i in 1:100) {
   rstar_trajectory(x1, N1, p, col=col1_tr, col_died=col_died, S=runif(2))

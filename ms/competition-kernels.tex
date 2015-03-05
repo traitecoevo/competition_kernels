@@ -226,7 +226,44 @@ density (equilibrium seed rain in a monoculture).
 
 \subsection{Tilman's R-star model}
 
-In the first model (R-star) individuals compete for two soil resources.
+In the first model (R-star) individuals compete for two soil
+resources. The model is one of the best studied model of competition
+for resources \citep{Tilman-1982}, which find its roots in \citet{Leon-1975}. We focus on a version of the
+model in which the specific growth rates follow the Monod
+equation and resources are essential as in \citet{Tilman-1977} or \citet{Huisman-1999}.
+
+\begin{equation}
+\label{eq:R1}
+\frac{dN_i}{dt} = N_i \, (\mu_i(R_1, \cdots,  R_n) – m) \\
+\frac{dR_j}{dt} = D \, (S_j – R_j) - \sum_{i=1}^{n}{c_{ji} \,
+  \mu_i(R_1, \cdots,  R_n) \, N_i}
+\end{equation}
+
+Where $N_i$ is the population abundance of species $i$, and $R_j$ is the
+abundance of essential resource $j$ ($j = 1, 2$). $m$ is the
+mortality rate, $D$ is the rate of resources wash out of the system,
+$S_j$ is the influent concentration of resource $j$, $c_{ji}$ is the
+content of resource $j$ in species $i$ (or stoichiometry), and
+$\mu_i(R_1, \cdots,  R_n)$ is the growth rate of species $i$.
+
+The specific growth rates follow the Monod Equation for essential
+resources (determined by the resource that is most limiting according
+to the ‘law of minimum”)  \citep{Tilman-1977,Huisman-1999}.
+\begin{equation}
+\label{eq:R1}
+\mu_i(R_1, \cdots,  R_n) = min \left( \frac{r R_1}{K_{1i} + R_1},  \frac{r R_2}{K_{2i} + R_2} \right)
+\end{equation}
+
+Where $r$ is the maximal growth rate, $K_{ji}$ is the
+half saturation constant for species $i$ limited by resource $j$.
+
+To simplify the model we assume a tradeoff in resources requirement, with $K_{1i} = 1-K{2i}$, thus the
+requirement of species $i$ for resource 1 is inversly related to the
+requirement of resource 2 (the resource requirement is given by
+$R_{ji}^*=\frac{m \, K_{ji}}{r-m}$, which is a common assumption
+\citep{Tilman-1985,Schreiber-2003,Fox-2008}. **RICH I SAW YOU MADE THE
+SAME ASSUMPTION ABOUT THE $C_{ji}$, I'm not sure this is needed, what
+about if we set the $C=1$???**.
 
 
 \begin{itemize}
@@ -252,7 +289,7 @@ is to alter an individual's photosynthetic income. Following
 \citep{Falster-2015}, the fitness of individuals with a given type is
 calculated by integrating seed output across the entire metapopulation.
 
-We use the TREE model was to estimate trait-based compeitive coefficients for
+We use the TREE model to estimate trait-based compeitive coefficients for
 two traits whose evolutionary dyanmics have recently been investigated
 \citet{Falster-2015}: leaf mass per area (LMA) and height at maturation
 (HMAT). In the model, LMA moderates a physiological trade-off between the cost

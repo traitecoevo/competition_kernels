@@ -143,26 +143,91 @@ competition kernels in mechanstic models of growth and reproduction.
   in natural systems.
 \end{itemize}
 
+Key questions asked of each model:
+
+\begin{itemize}
+\item What is the shape of the compeition function emerging from the model? Is
+it gaussian? Is it symmetric?
+\item Does the shape of the compeition function vary with traits of the
+resident species?
+\item Does the shape of the compeition function vary with traits of density
+of the resident species?
+\end{itemize}
+
+
 \section{Models}
 
 % In the first paragraph, I guess we describe the entire approach as
 % well as possible.
-We use two models that feature competition emerging from the model.
-In both, competition emerges due to species competing for the same
-resources (as in the Lotka-Volterra equations), and species traits
-affect how species compete for resources.  We compute the quantities
-used in the Lotka-Volterra equations (growth rate, carrying capacity
-and per-capita rate of population increase) and from that infer the
-values of competition coefficients.
-% Make sure to hit all these points in the intro:
-We can do this over a range of trait values and investigate things
-about these kernels: in particular if they have Gaussian shape, if
-they are symmetrical and if they are density independent.
+
+We invetsigated the dynamics of two quite different models -- TREE and RStar
+-- where the compeitive imnpact of one species on another arises via the
+effect of individuals on a shared resource. In each model, species traits
+influence the dynamics of resource use and thus compeititive interactions. For
+each model, we compute the core quantities used in the Lotka-Volterra
+equations (growth rate, carrying capacity,  per-capita rate of population
+increase) and from that infer the shapes of competition functions.
+
+The standard Lotka-Volterra equations express the per capita rate of incraese
+in the abundnance $N_i$ of species $i$ as a product of two terms. The first
+gives the maximum possible per-capita growth rate $r_i$. The second expresses
+the degree to which that maximum is realised, and thus includes any reductions
+due to compeiton. A commonly used form for Lotka-Volterra dyanmics is
+
+\begin{equation}
+\label{eq:LV}
+\frac{\ud N_i}{\ud t} \frac{1}{N_i} =  r_i \left(1 - \sum_j
+                                      \frac{\alpha(i,j) N_j}{K_i}\right),
+\end{equation}
+
+where $K_i$ is the euqilibirum value for $N_i$ when species-$i$ is grown in a
+monoculture  (i.e. carrying capacity), and $\alpha(i,j)$ is the per-capita
+compeitive effect of species-$j$ on species-$i$. (There are other forms for eq
+\ref{eq:LV} that we do not consider further here. While these differ subtly in
+the nature of density dependence, alternative forms retain the same overall
+structure of a maximum possible rate multiplied by some reduction due to
+competition). By convention, comptitive efefcts are expressed as the effct of
+species-$j$ on species-$i$, relative to the effct of species-$i$ on itself.
+Thus $\alpha(i, i) \equiv 1$.
+
+We are inetrested in situations where the different parameters in eq.
+\ref{\label{eq:LV}} are functions  of traits. Moreover, we restrict our
+attention to situations where a single mutatnt type invading type with traits
+$x_I$ is trying to invade a community of single residnet type with traits
+$x_R$. The reason for this narrowing of focus is that it is not possible to
+infer the shapes of competition coefficients in  sitautions with more than one
+resident, because the number of unknowns increases faster than the number of
+species. (?)  The invasion fitness $f(x_I, x_R)$ of the mutant type is then
+
+\begin{equation}
+  \label{eq:LVi}
+   f(x_I, x_R) =
+    r(x_I)\left(1 - \frac{\alpha(x_I, x_R) N(x_R)}{K(x_I)}\right).
+\end{equation}
+
+To estimate the shapes of competition coefffiecients
+embedded within the Rstar and TREE models, we use those models to calculate all
+the tarit-dependent terms in eq. \ref{eq:LVi} except $\alpha(x_I, x_R)$. We can
+then solve for $\alpha(x_I, x_R)$ by rearranging  \ref{eq:LVi} to give:
+
+\begin{equation}
+  \label{eq:alpha}
+ \alpha(x_I, x_R) = \frac{K(x_I)}{N(x_R)}
+  \left(1 - \frac{f(x_I, x_R)}{r(x_I)}\right).
+\end{equation}
+
+We maniuplated the models
+such that the following quantities
+could be extracted: i) $N$ --- a meausre of current density, ii) $r(x)$ ---
+this is the rate of growth in an empty environment (i.e., mutant fitness
+in the empty environment) iii) $K(x)$ --- this is maximum population
+density (equilibrium seed rain in a monoculture).
 
 
 \subsection{Tilman's R-star model}
 
-Competition for soil resources with
+In the first model (R-star) individuals compete for two soil resources.
+
 
 \begin{itemize}
 \item As originally formulated, R* does not include traits
@@ -170,29 +235,35 @@ Competition for soil resources with
   measure of specialisation/generalisation.
 \end{itemize}
 
-
 \subsection{TREE}
-Competition for light in a size-structured metapopulation with
 
-\begin{itemize}
-\item Originally described by \citet{Falster-2011}
-\item Species compete for light in a stand
-\item Average light environment constructed, averaged over the
-  expected disturbance regime of a patch in an infinite metapopulation
-  with island model dispersal.
-\item Things we need for the model:
-  \begin{itemize}
-  \item $N$ --- seed rain
-  \item $r(x)$ --- this is the rate of growth in an empty environment
-    (i.e., mutant fitness in the empty environment)
-  \item $K(x)$ --- this is maximum population density (equilibrium
-    seed rain in a monoculture)
-  \end{itemize}
-\end{itemize}
+In the second model (TREE) individual plants compete for light within a patch
+and size-structured metapopulation \citet{Falster-2011, Falster-2015}.
+Vegetation in this model comprises a large number of patches subject to a
+prevailing disturbance. Disturbances remove establisghed vegetation within a
+patch, which is then recolonosied via seed dispersal from other patches.
+Indiivdual plants progress through their lifecycle, from seeds until mature
+adults, with growth survival and fecundity rates determined by the combined
+effect of an individual's traits, its current size and the degree of shading
+from other plants within the same patch. The amount of shading at a given
+height is computed from the cumulative leaf area above that height; short-term
+competitive effects are therfore size-asymmetric. The sole effect of shading
+is to alter an individual's photosynthetic income. Following
+\citep{Falster-2015}, the fitness of individuals with a given type is
+calculated by integrating seed output across the entire metapopulation.
 
+We use the TREE model was to estimate trait-based compeitive coefficients for
+two traits whose evolutionary dyanmics have recently been investigated
+\citet{Falster-2015}: leaf mass per area (LMA) and height at maturation
+(HMAT). In the model, LMA moderates a physiological trade-off between the cost
+of building an extra unit of leaf area and the rate of leaf turnover.
+Variation in LMA thereby undeprins a trade-off between height growth rate and
+shade-tolerance of seedlings. Meanwhile, HMAT moderates the allocation of
+suplus energy between growth and seed production, as an indivdual increases in
+size.
 
 \subsection{Measuring competition}
-Lotka Volterra system
+
 
 
 \clearpage

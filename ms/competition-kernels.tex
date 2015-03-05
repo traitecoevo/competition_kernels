@@ -143,6 +143,62 @@ competition kernels in mechanstic models of growth and reproduction.
   in natural systems.
 \end{itemize}
 
+\section{Models}
+
+% In the first paragraph, I guess we describe the entire approach as
+% well as possible.
+We use two models that feature competition emerging from the model.
+In both, competition emerges due to species competing for the same
+resources (as in the Lotka-Volterra equations), and species traits
+affect how species compete for resources.  We compute the quantities
+used in the Lotka-Volterra equations (growth rate, carrying capacity
+and per-capita rate of population increase) and from that infer the
+values of competition coefficients.
+% Make sure to hit all these points in the intro:
+We can do this over a range of trait values and investigate things
+about these kernels: in particular if they have Gaussian shape, if
+they are symmetrical and if they are density independent.
+
+
+\subsection{Tilman's R-star model}
+
+Competition for soil resources with
+
+\begin{itemize}
+\item As originally formulated, R* does not include traits
+\item We adapt a formulation (due to whom?) where a ``trait'' is a
+  measure of specialisation/generalisation.
+\end{itemize}
+
+
+\subsection{TREE}
+Competition for light in a size-structured metapopulation with
+
+\begin{itemize}
+\item Originally described by \citet{Falster-2011}
+\item Species compete for light in a stand
+\item Average light environment constructed, averaged over the
+  expected disturbance regime of a patch in an infinite metapopulation
+  with island model dispersal.
+\item Things we need for the model:
+  \begin{itemize}
+  \item $N$ --- seed rain
+  \item $r(x)$ --- this is the rate of growth in an empty environment
+    (i.e., mutant fitness in the empty environment)
+  \item $K(x)$ --- this is maximum population density (equilibrium
+    seed rain in a monoculture)
+  \end{itemize}
+\end{itemize}
+
+
+\subsection{Measuring competition}
+Lotka Volterra system
+
+
+\clearpage
+
+\section{Results}
+
 \clearpage
 \section{Discussion}
 

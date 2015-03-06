@@ -19,6 +19,7 @@
 
 \newcommand{\ud}{\ensuremath{\mathrm{d}}}
 \newcommand{\sign}{\mathop{\mathrm{sign}}\nolimits}
+\newcommand{\Rstar}{\ensuremath{R^*}}
 
 \begin{document}
 
@@ -35,89 +36,123 @@
 
 \section{Introduction}
 
-\textit{Competition kernels are widely used in both models and arguments}
-\begin{itemize}
-\item A fundamental measure of community dynamics: kernels represent
-  the fitness landscape drawdown
-\item example usage:
-  \begin{itemize}
-  \item limiting similarity \citet{MacArthur-1967}
-  \item coexistence
-  \item character displacement \citep[e.g.,][]{Taper-1985, Case-2000,
-      Goldberg-2006}
-  \item game theory \citep[e.g.,][]{Brown-1987, Brown-1987-140}
-  \item disruptive selection and adaptive dynamics \citep{Dieckmann-1999}
-  \end{itemize}
-\item Species packing remains a hugely influential concept: the
-  niche is usually reprensented as a Gaussian disstribution in one
-  dimension (e.g., Ricklefs' textbooks over the years: p 602 in
-  1999, v4).
-\end{itemize}
+% Competition kernels are widely used in both models and arguments
+%
+% * A fundamental measure of community dynamics: kernels represent the
+%   fitness landscape drawdown
+% * Example usage
+%   - limiting similarity \citet{MacArthur-1967}
+%   - coexistence
+%   - character displacement \citep[e.g.,][]{Taper-1985, Case-2000,
+%     Goldberg-2006}
+%   - game theory \citep[e.g.,][]{Brown-1987, Brown-1987-140}
+%   - disruptive selection and adaptive dynamics \citep{Dieckmann-1999}
+% * Species packing remains a hugely influential concept: the
+%   niche is usually reprensented as a Gaussian disstribution in one
+%   dimension (e.g., Ricklefs' textbooks over the years: p 602 in
+%   1999, v4).
+%
+% Keep this section nice and general: avoid specific mentions of LV,
+% etc but bring in the key points.
+Arranging species along a trait or resource axis and supposing that
+species ``repel'' each other is deeply ingrained in ecological thought
+(Figure \ref{fig:competition-kernels}).
+%
+The widths of species preferences along an axis somehow represents
+their realised niche \citep[\textit{sensu}][]{Hutchinson-1957}, and
+the force that keeps species separated is competition.
+% Argh, where is the link?
+Imagining species as having roughly Gaussian niches in one dimension\ldots
+% Meh, this bit is shit:
+These ingredients are foundational in models of limiting similarity
+\citep{MacArthur-1967}, character displacement \citep{Taper-1985,
+  Case-2000, Goldberg-2006}, sympatric speciation
+\citep{Dieckmann-1999} and coexistence.
 
-\textit{Competition kernels, and models of competition, are largely
-  unchanged from their original formulation in the 1960s.}
-\begin{itemize}
-\item Based on Lotka-Volterra equations (\citealt{MacArthur-1967}
-  references Volterra 1926), with a function for competition in terms
-  of a pair of species traits; the main fomulation due to
-  \citet{MacArthur-1967}
-\item These models have been criticised from the outset:
-\begin{itemize}
-\item \citet{Andrewartha-1953}
-\item \citet{May-1972}
-\item \citet{Neill-1974}: competition functions not meaningful
-  properties of species pairs, are density and context dependent.
-\item \citet{Abrams-1975}: sensitive to details about how resources
-  are used.
-\item \citet{Abrams-1980}: implicit assumptions likely to be violated
-  leading to density dependent competition
-\end{itemize}
-\item Surprisingly, most of the criticism of shape focusses on the
-  ease with which \emph{continuous coexistence} is possible, rather
-  than focussing on what shapes are meaningful: we have very little
-  information on the likely shapes in nature aside from the assertion
-  that a Gaussian is a likely reasonable low-order approximation.
-\end{itemize}
+% Competition kernels, and models of competition, are largely
+%   unchanged from their original formulation in the 1960s.
+%
+% * Based on Lotka-Volterra equations (\citealt{MacArthur-1967}
+%   references Volterra 1926), with a function for competition in terms
+%   of a pair of species traits; the main fomulation due to
+%   \citet{MacArthur-1967}
+% * These models have been criticised from the outset:
+%   - Andrewartha-1953:
+%   - May-1972
+%   - Neill-1974: competition functions not meaningful
+%     properties of species pairs, are density and context dependent.
+%   - Abrams-1975: sensitive to details about how resources
+%     are used
+%   - Abrams-1980: implicit assumptions likely to be violated leading
+%     to density dependent competition
+% * Surprisingly, most of the criticism of shape focusses on the
+%   ease with which \emph{continuous coexistence} is possible, rather
+%   than focussing on what shapes are meaningful: we have very little
+%   information on the likely shapes in nature aside from the assertion
+%   that a Gaussian is a likely reasonable low-order approximation.
+Despite their centrality in modelling and ecological thought, models
+of competition remain largely unchanged from their original
+formulation in the 1960's, with the most popular version due to
+\citet{MacArthur-1967}.
+% Probably point at the methods here.
+Generally species are assumed to inteact following the Lotka-Volterra
+equations (REFS), with the intensity of competition between two
+species ($\alpha_{ij}$) being some function of the two species traits
+(for a trait axis $x$, $\alpha_{ij} = \alpha(x_i, x_j)$; see Methods).
+%
+This formulation implies among other things that competition is linear
+in intensity with species abundances, is additive across multiple
+competing species, and that the \emph{shape} of competition is an
+intrinsic (i.e., not context-dependent) property of pairs of species.
+%
+While possibly justifiable as low-order approximations, these
+assumptions have been widely criticised as long as the models have
+been used
+\citep[e.g.][]{Andrewartha-1953,May-1972,Abrams-1975}.
 
-\textit{There is a shift in the 1980s from modelling limiting
-  similarity in terms of resources to modelling trait
-  divergence/convergence and disruptive selection.}
-\begin{itemize}
-\item Begins with \citet{Taper-1985} and \citet{Brown-1987-140}; these
-  make explicit a direct 1:1 trait:resource mapping implied by the
-  previous models.
-\item Continued as the models were used in adaptive dynamics
-  \citep[e.g.,][]{Dieckmann-1999} and then picked up by physicists
-  \citep[e.g.,][]{Leimar-2013}
-\item For vertebrate animals, this connection has always been fairly
-  defendable for the sorts of traits people think about (e.g., finch
-  beak size --- Lack), but for plants the resource axis is hard: most
-  plants would rather more light.  Shifting to traits with some
-  complicated nonlinear map between traits and resources offers a way
-  forward, though it makes the links to resources and underlying
-  process muddier.
-\end{itemize}
+% TODO: I'd love something here where we can report on any attempts to
+% measure the *shape* (not intensity) of competition in nature.
+%
+% NOTE: I'm very loose with using trait and resource here, and
+% probably we need to make that connection so that we can use traits
+% below -- I've added the shift here so we probably just want to
+% strictly talk about resources above?
+The shape of the competition kernel with respect to resources and
+species traits has recieved less attention \citep[but
+see][]{Abrams-2008,Leimar-2013}; typically a Gaussian or a form of
+$\alpha(x_i, x_j) \propto \exp((x_i - x_j)^4)$ is used, or more rarely
+an asymmetric logistic.
+%
+While originally concieved as functions with respect to a resource,
+and connnecting through traits via some ``utilisation function''
+\citep{MacArthur-1967}, competition functions have increasingly
+shifted to be expressed with respect to traits.
+%
+This shift seems to start with work on character displacement
+\citep{Taper-1985} and has continued as the focus moves from
+competition as a mechanism for structuring communities and to
+affecting evolution of species traits.
+%
+Surprisingly, most of the focus on shape has focussed on the
+possibility of ``continuous coexistence'' or ``limiting similarity'',
+and less on what shapes are likely or meaningful.
+% OK, this dribbles off.  Could delete this sentence or replace with
+% something stronger?
+For many models (e.g., character displacement) the detailed form of
+competition is not the focus of study, but some form of competition
+must be assumed to make the models run.
+% NOTE: Perhaps worth a mention of the difficulty of measuring the
+% shape (not intensity) of competition in nature here?
+%
+% NOTE: Fundamentally the issue here is that modellers are studying
+% the behaviour of the models, but that's become a cottage industry
+% itself.
 
-\textit{At the same time, other strands of modelling aimed to link
-  species traits, competition and coexistence via more explicit
-  representation of resoucres.}
-\begin{itemize}
-\item Soil resources, via R* \citep{Tilman-1980,Tilman-1982}. this line of theory
-  aimed to link  resource
-  dynamics to competition via species competing for different pools of
-  resources.  It contains many of the same ingredients as the
-  \citet{MacArthur-1967} model, but with slower replenishment of
-  resources.
-\item Space, via Sessile dynamics, lottery models, competition-colonisation
-  models, through to neutral theory. All assumed total number of fixed sites,
-  with individuals competing for these.
-\item Light, via models of successional turnover \citep{Huston-1987, Kohyama-1993}.
-  Focus on size-structure and assymetric nature of competition.
-\item Important point in all of these is that compeitive affect of one species
-  on another operates via competition for resource. This makes the shape of
-  competiton coefficents are an emergent  property of system.
-\end{itemize}
+% NOTE: Might be worth motivating that this work is useful because it
+% provides more promising avenues for actually linking models to the
+% field.
 
+% I wonder if this goes above?
 \textit{If we understood competition kernels with respect to traits,
   we could}
 \begin{itemize}
@@ -133,27 +168,67 @@
   even know their shape seems like a house of cards.
 \end{itemize}
 
-\textit{Aim of this paper}: to investigate the shape and behaviour of
-competition kernels in mechanstic models of growth and reproduction.
-\begin{itemize}
-\item In a sense our approach is similar to \citet{Draghi-2012}; we're
-  going to look at models that are simple enough to push around but
-  complicated enough that we don't immediately know the emergent
-  behaviours and use this as a proxy to do things we can't easily do
-  in natural systems.
-\end{itemize}
+% At the same time, other strands of modelling aimed to link species
+%   traits, competition and coexistence via more explicit representation
+%   of resoucres.
+%
+% * Soil resources, via R* \citep{Tilman-1980,Tilman-1982}. this line of theory
+%   aimed to link  resource dynamics to competition via species
+%   competing for different pools of  resources.  It contains many of
+%   the same ingredients as the  \citet{MacArthur-1967} model, but
+%   with slower replenishment of resources.
+% * Space, via Sessile dynamics, lottery models, competition-colonisation
+%   models, through to neutral theory. All assumed total number of fixed sites,
+%   with individuals competing for these.
+% * Light, via models of successional turnover \citep{Huston-1987,
+%   Kohyama-1993}.
+%   Focus on size-structure and assymetric nature of competition.
+% * Important point in all of these is that compeitive affect of one species
+%   on another operates via competition for resource. This makes the shape of
+%   competiton coefficents are an emergent  property of system.
+Parallel sets of research have linked species traits, competition and
+coexistence via more explicit representation of resources.
+%
+The ``\Rstar'' model of \citet{Tilman-1982} includes many of the same
+ingredients (resources, population growth) framed in a similar way to
+the \citet{MacArthur-1967} model, but with slow replenishment of
+resources.
+% OK, this is one I can't really write well.  It just seems too
+% literature review-y.  Also note that the C/C models might also be LV
+% models -- that point might want highlighting in the discussion.
+\ldots
+%
+Important point in all of these is that compeitive affect of one
+species on another operates via competition for resource, like
+\citet{MacArthur-1967}, but while explicitly considering the resources
+dynamics.  This makes the effect of competition, including its shape
+with respect to species traits, an emergent property of a system.
+
+% **Aim of this paper** to investigate the shape and behaviour of
+% competition kernels in mechanstic models of growth and reproduction.
+%
+% In a sense our approach is similar to \citet{Draghi-2012}; we're
+% going to look at models that are simple enough to push around but
+% complicated enough that we don't immediately know the emergent
+% behaviours and use this as a proxy to do things we can't easily do
+% in natural systems.
+%
+% This makes it sound a lot grander than what we're actually going to
+% do.  I know people always overestimate how much is required in a
+% paper, but are we actually going to *do* enough?
+Here, we investigate the shape and behvaiour of competition kernels in
+mechanistic models of growth and reproduction.
 
 Key questions asked of each model:
 
 \begin{itemize}
-\item What is the shape of the compeition function emerging from the model? Is
-it gaussian? Is it symmetric?
-\item Does the shape of the compeition function vary with traits of the
-resident species?
-\item Does the shape of the compeition function vary with traits of density
-of the resident species?
+\item What is the shape of the compeition function emerging from the
+  model? Is it gaussian? Is it symmetric?
+\item Does the shape of the compeition function vary with traits of
+  the resident species?
+\item Does the shape of the compeition function vary with traits of
+  density of the resident species?
 \end{itemize}
-
 
 \section{Models}
 
@@ -345,7 +420,22 @@ size.
     density dependent.
   \end{itemize}
 \item Hmat competition estimation
+  \begin{itemize}
+  \item Choose a case where we don't have coexistence to keep it
+    separate.
+  \item First because it most closely matches \citet{Kisdi-1999} and
+    because the results are really simple and don't look too weird.
+  \end{itemize}
 \item LMA competition estimation
+  \begin{itemize}
+  \item For LMA we want to get the curve into a bifurcation like point
+    where coexistence is possible on both sides
+  \item Show that the points that coexistence is possible on the RHS
+    are the dips in the competition function to make the case that
+    this is a fundamentally different way that competition might allow
+    coexistence in models with nonlinear density dependent
+    competition.
+  \end{itemize}
 \item Density dependence in competition models
   \begin{itemize}
   \item Something showing that the competition kernels are density
@@ -447,6 +537,24 @@ size.
   gradually been entirely replaced by trait axes.  We argue that
   neither are likely to exhibit behaviour like the
   \citet{MacArthur-1967} model in natural systems.
+\item There is a shift in the 1980s from modelling limiting
+  similarity in terms of resources to modelling trait
+  divergence/convergence and disruptive selection.
+  \begin{itemize}
+  \item Begins with \citet{Taper-1985} and \citet{Brown-1987-140}; these
+    make explicit a direct 1:1 trait:resource mapping implied by the
+    previous models.
+  \item Continued as the models were used in adaptive dynamics
+    \citep[e.g.,][]{Dieckmann-1999} and then picked up by physicists
+    \citep[e.g.,][]{Leimar-2013}
+  \item For vertebrate animals, this connection has always been fairly
+    defendable for the sorts of traits people think about (e.g., finch
+    beak size --- Lack), but for plants the resource axis is hard: most
+    plants would rather more light.  Shifting to traits with some
+    complicated nonlinear map between traits and resources offers a way
+    forward, though it makes the links to resources and underlying
+    process muddier.
+  \end{itemize}
 \item It's hard to bridge between abstract models of competition that
   inform most theory with the sort of traits and species data that we
   have for plant communities.
@@ -456,6 +564,22 @@ size.
 \begin{itemize}
 \item Coming up with a positive note here might be hard.
 \end{itemize}
+
+\section{Figures}
+
+% * Classic niche packing
+%   - Possibly from old and new textbooks
+%   - Point is that these ideas are deeply ingrained in biologists,
+%     and that all readers will have seen this before.
+%   - Krebs figure that has remained unchanged since 1973 could be a
+%     nice one; we can make the point that it is unchanged rather than
+%     drawing it twice.
+\begin{figure}[h]
+  \centering
+  % \includegraphics{figs/competition-kernels}
+  \caption{Competition kernels}
+  \label{fig:competition-kernels}
+\end{figure}
 
 \clearpage
 \bibliographystyle{amnat}

@@ -95,7 +95,7 @@ of competition remain largely unchanged from their original
 formulation in the 1960's, with the most popular version due to
 \citet{MacArthur-1967}.
 % Probably point at the methods here.
-Generally species are assumed to inteact following the Lotka-Volterra
+Generally species are assumed to interact following the Lotka-Volterra
 equations (REFS), with the intensity of competition between two
 species ($\alpha_{ij}$) being some function of the two species traits
 (for a trait axis $x$, $\alpha_{ij} = \alpha(x_i, x_j)$; see Methods).
@@ -118,7 +118,7 @@ been used
 % below -- I've added the shift here so we probably just want to
 % strictly talk about resources above?
 The shape of the competition kernel with respect to resources and
-species traits has recieved less attention \citep[but
+species traits has received less attention \citep[but
 see][]{Abrams-2008,Leimar-2013}; typically a Gaussian or a form of
 $\alpha(x_i, x_j) \propto \exp((x_i - x_j)^4)$ is used, or more rarely
 an asymmetric logistic.
@@ -133,7 +133,7 @@ This shift seems to start with work on character displacement
 competition as a mechanism for structuring communities and to
 affecting evolution of species traits.
 %
-Surprisingly, most of the focus on shape has focussed on the
+Surprisingly, most of the focus on shape has centred on the
 possibility of ``continuous coexistence'' or ``limiting similarity'',
 and less on what shapes are likely or meaningful.
 % OK, this dribbles off.  Could delete this sentence or replace with
@@ -228,7 +228,7 @@ Key questions asked of each model:
   the resident species?
 \item Does the shape of the competition function vary with traits of
   density of the resident species?
-end{itemize}
+\end{itemize}
 
 \section{Models}
 
@@ -244,44 +244,45 @@ equations (growth rate, carrying capacity,  per-capita rate of population
 increase) and from that infer the shapes of competition functions.
 
 The standard Lotka-Volterra equations express the per capita rate of increase
-in the abundance $N_i$ of species $i$ as a product of two terms. The first
+in the abundance $N_i$ of species-$i$as a product of two terms. The first
 gives the maximum possible per-capita growth rate $r_i$. The second expresses
 the degree to which that maximum is realised, and thus includes any reductions
-due to competition. A commonly used form for Lotka-Volterra dynamics is
-
+due to competition with other species. A commonly used form for Lotka-Volterra dynamics
+is
 \begin{equation}
 \label{eq:LV}
 \frac{\ud N_i}{\ud t} \frac{1}{N_i} =  r_i \left(1 - \sum_j
-                                      \frac{\alpha(i,j) N_j}{K_i}\right),
+                                      \frac{\alpha_{ij} N_j}{K_i}\right),
 \end{equation}
-
 where $K_i$ is the equilibrium value for $N_i$ when species-$i$ is grown in a
-monoculture  (i.e. carrying capacity), and $\alpha(i,j)$ is the per-capita
-competitive effect of species-$j$ on species-$i$. (There are other forms for eq
-\ref{eq:LV} that we do not consider further here. While these differ subtly in
-the nature of density dependence, alternative forms retain the same overall
-structure of a maximum possible rate multiplied by some reduction due to
-competition). By convention, competition functions are expressed as the effect
-of species-$j$ on species-$i$, relative to the effect of species-$i$ on itself.
-Thus $\alpha(i, i) \equiv 1$.
+monoculture  (i.e. carrying capacity), and $\alpha_{ij}$ is the per-capita
+competitive effect of species-$j$ on species-$i$. By convention, competition
+functions are expressed as the effect of species-$j$ on species-$i$, relative
+to the effect of species-$i$ on itself. Thus $\alpha_{ii}\equiv 1$. It is
+also worth noting, that there are other forms for eq. \ref{eq:LV}. The alternative
+forms differ subtly in the nature of density dependence, but retain the same
+overall structure of \ref{eq:LV}, wherein a maximum possible growth rate is multiplied
+by a second term incorporating reductions due to competition. For simplicity,
+we focus on a single version of the Lotka-Volterra dynamics.
 
 We are interested in situations where the different parameters in eq.
 \ref{eq:LV} are functions  of traits. Moreover, we restrict our
 attention to situations where a single type with traits
-$x_I$ is trying to invade a community of single resident type with traits
-$x_R$. The reason for this narrowing of focus is that it is not possible to
-infer the shapes of competition coefficients in situations with more than one
-resident, because the number of unknowns increases faster than the number of
-species (refs?).  The fitness $f(x_I, x_R)$ of the invading type is
+$x_I$ is trying to invade a community comprising a single resident type with
+traits $x_R$.  The fitness $f(x_I, x_R)$ of the invading type is
 then
 \begin{equation}
   \label{eq:LVi}
-   f(x_I, x_R) = \frac{\ud N(x_I)}{\ud t} \frac{1}{N(x_I)} =
+   f(x_I, x_R) = \frac{\ud N_i)}{\ud t} \frac{1}{N_i} =
     r(x_I)\left(1 - \alpha(x_I, x_R) \frac{K(x_R)}{K(x_I)}\right).
 \end{equation}
+The reason for this narrowing of focus is that it is not possible to
+infer the shapes of competition functions in situations with more than one
+resident, because the number of unknowns increases faster than the number of
+species (refs?).
 
-To estimate the shapes of competition coefficients embedded within the R-star
-and TREE models, we use those models to calculate all the trait-dependent
+To estimate the shapes of competition functions embedded within the R-star
+and TREE models, we use those models to calculate all of the trait-dependent
 terms in eq. \ref{eq:LVi} except $\alpha(x_I, x_R)$:
 \begin{enumerate}
   \item $f(x_I, x_R)$: fitness of rare invader with traits $x_I$  in competition
@@ -303,26 +304,27 @@ We then solved for $\alpha(x_I, x_R)$ by rearranging  \ref{eq:LVi} to give:
 In the first model (R-star) individuals compete for two essential and
 depletable resources. This model is one of the best studied and cited models
 of resource competition \citep{Tilman-1977, Tilman-1982, Huisman-1999},
-originating from a study on exploitative competition for any generic resource
-\citet{Leon-1975}. We implemented a version where the specific growth rates
-follow a Monod equation \citet{Huisman-1999}, but which is otherwise similar
-to the widely-cited implementation by Tilman \citep{Tilman-1977, Tilman-1982}.
+originating from a study on exploitative competition for any pair of generic
+resources \citep{Leon-1975}. The model is unstructured, with the per capita
+growth rates for each species simply depending on the availability of two
+resources. We assume both resources are necessary (i.e. non-substitutable), so
+the growth rate of each species is determined by the resource which is
+currently most limiting. We implemented a version where the specific growth
+rates follow a Monod equation \citet{Huisman-1999}, but which is otherwise
+similar to the widely-cited implementation by Tilman \citep{Tilman-1977,
+Tilman-1982}.  The resource availabilities, in turn, depend on the rates of
+resource supply and consumption. Individuals compete with one another by
+drawing down the joint resource pools. Such a system is easily described via a
+minimal set of equations (Appendix \ref{Rstar}).
 
-In the R-star model, per capita growth rates for each species depend on the
-availabilities of two resources. We assume both resources are necessary (i.e.
-non-substitutable), so the growth rate of each species is determined by the
-resource which is currently most limiting. The resource availabilities, in
-turn, depend on  the rates of resource supply and consumption. Individuals
-compete with one another by drawing down the joint resource pools. Such a
-system is easily described via a minimal set of equations (Appendix
-\ref{App:Rstar}).
 
-Following previous authors \citep{Tilman-1985, Schreiber-2003, Fox-2008} our
-analyses focus on a trait determining the relative amounts of each resource
+Following previous authors \citep{Tilman-1985, Schreiber-2003, Fox-2008} we
+focus on a trait determining the relative amount of the two resources
 required for growth, i.e. the stoichiometry of resource needs. Species can
 vary from requiring mostly resource 1, to equals amounts of both resources, to
 mostly resource 2. This dependence is achieved by making uptake saturation
-constants for resource 1 inversely related to the requirement of resource 2:
+constants (see appendix  \ref{Rstar} for details) for resource 1 inversely related
+to the requirement of resource 2:
 \begin{equation}
 \label{eq:R3}
 U_{1i} = 1-U_{2i}.
@@ -331,7 +333,7 @@ U_{1i} = 1-U_{2i}.
 \subsection{TREE model}
 
 In the second model (TREE) individual plants compete for light within a patch
-and size-structured metapopulation \citet{Falster-2011, Falster-2015}.
+and size-structured metapopulation \citep{Falster-2011, Falster-2015}.
 Vegetation in this model comprises a large number of patches subject to a
 prevailing disturbance. Disturbances remove established vegetation within a
 patch, which is then recolonised via seed dispersal from other patches.
@@ -345,9 +347,9 @@ is to alter an individual's photosynthetic income. Following
 \citep{Falster-2015}, the fitness of individuals with a given type is
 calculated by integrating seed output across the entire metapopulation.
 
-We use the TREE model to estimate trait-based competitive coefficients for
+We use the TREE model to estimate trait-based competitive functions for
 two traits whose evolutionary dynamics have recently been investigated
-\citet{Falster-2015}: leaf mass per area (LMA) and height at maturation
+\citep{Falster-2015}: leaf mass per area (LMA) and height at maturation
 (HMAT). In the model, LMA moderates a physiological trade-off between the cost
 of building an extra unit of leaf area and the rate of leaf turnover.
 Variation in LMA thereby underpins a trade-off between height growth rate and
@@ -414,13 +416,13 @@ size.
   \item Show that the points that coexistence is possible on the RHS
     are the dips in the competition function to make the case that
     this is a fundamentally different way that competition might allow
-    coexistence in models with nonlinear density dependent
+    coexistence in models with non-linear density dependent
     competition.
   \end{itemize}
 \item Density dependence in competition models
   \begin{itemize}
   \item Something showing that the competition kernels are density
-    depdenent.  Because this is a three dimensional functions (trait,
+    dependent.  Because this is a three dimensional functions (trait,
     competition strength and resident density) we can only show slices
     through two of these.  At different densities show how the
     kernels look with respect to traits.  Possibly do that at two
@@ -437,11 +439,11 @@ size.
 \begin{itemize}
 \item No clear generalisation yet about competition kernel shapes.
   \begin{itemize}
-  \item our lma kernel looks a little like the
+  \item our LMA kernel looks a little like the
     \citet{Roughgarden-1979} offset Gaussian, but the ridges are
     likely important for later species (we need to actually show this
     however)
-  \item our hmat kernel looks like the \citet{Kisdi-1999} asymmetric
+  \item our HMAT kernel looks like the \citet{Kisdi-1999} asymmetric
     kernel, and the dynamics are fairly similar (needs
     demonstrating).
   \item The R* kernels just look weird, but that's because the
@@ -449,21 +451,21 @@ size.
     the trait is the preference for two different resources, which
     can't map onto any single resource very well.
   \end{itemize}
-\item Kernels other than Gaussian may lead to coexistance more easily
+\item Kernels other than Gaussian may lead to coexistence more easily
   than Gaussian.
   \begin{itemize}
-  \item It's not all bad news; kernels like the lma kernel look
+  \item It's not all bad news; kernels like the LMA kernel look
     ridiculous and you're not going to be allowed to propose them for
     a modelling paper.
   \item But they arise from size-structured dynamics in the model, so
     may not be that uncommon (worth noting that almost all the models
     are really of discrete exchangeable adults and that size/age
-    structure was flagged as an issue arges ago but I've lost the
+    structure was flagged as an issue ages ago but I've lost the
     paper).
   \end{itemize}
 \item Density dependent competition emerged in every model, as
   predicted by \citet{Abrams-1980}, who argued that not satisfying
-  implicit assumptions would lead to widespread nonconstant density
+  implicit assumptions would lead to widespread non-constant density
   dependence.
 \item More than density dependence, the \emph{shape} of the kernel
   changes with density, moving in position as the resident population
@@ -500,9 +502,9 @@ size.
   some community.
 \item Because original, \citet{MacArthur-1967}, version of competition
   kernels was designed around resource utilisation functions, it
-  should be possible to estimate competition coefficients and kernels
+  should be possible to estimate competition functions and kernels
   from shapes of those functions if they were estimatable.
-\item Does our way offer any better way forward?  The nonmanipulative
+\item Does our way offer any better way forward?  The non-manipulative
   work that Georges is doing with the working group data, or that
   James is looking at with the BCI data might help; we have large data
   sets of traits and growth; the signature of competition may show up
@@ -529,10 +531,10 @@ size.
     \citep[e.g.,][]{Dieckmann-1999} and then picked up by physicists
     \citep[e.g.,][]{Leimar-2013}
   \item For vertebrate animals, this connection has always been fairly
-    defendable for the sorts of traits people think about (e.g., finch
+    defensible for the sorts of traits people think about (e.g., finch
     beak size --- Lack), but for plants the resource axis is hard: most
     plants would rather more light.  Shifting to traits with some
-    complicated nonlinear map between traits and resources offers a way
+    complicated non-linear map between traits and resources offers a way
     forward, though it makes the links to resources and underlying
     process muddier.
   \end{itemize}
@@ -569,28 +571,33 @@ size.
 
 \section{Appendices}
 
-\subsection{Details about Lotka-Volterra equations}\label{App:LV}
+\subsection{Details about Lotka-Volterra equations}\label{LV}
 
-\subsection{Details about R-star model}\label{App:Rstar}
+\subsection{Details about R-star model}\label{Rstar}
 
 We consider an unstructured system where individuals compete for two
 resources. Let $N_i$ be the abundance of species-$i$ and $R_1, R_2$ be the
-abundances of the two resources. The population of species-$i$ increases at
+abundances of the two resources. The population of species-$i$ increases with
+per-capita
 growth rate $\mu_i(R_1,R_2)$, a function of the resource availabilities, and
-decreases with mortality rate $m$. Species-$i$ thus depletes each resource at
-rate $c_{ji} \,  N_i \, \mu_i(R_1,R_2)$, where $j = 1, 2$. Resources are replenished
-with supply rate $S_j$ and turnover at rate $D_j$. under these assumptions, the dynamics of species and resource abundance are given by
+decreases with per-capita mortality rate $m$. Species-$i$ depletes resource-$j$
+at rate $c_{ji} \,  N_i \, \mu_i(R_1,R_2)$, where $j = 1, 2$ and $c_{ji}$ is
+the content of resource-$j$ in species-$i$. Resources
+are replenished
+with supply rate $S_j$ and decay at rate $D_j$. Under these assumptions, the
+dynamics of species and resource abundance are given by
 \begin{subequations}
   \begin{align}
 \label{eq:R1}
 \frac{dN_i}{dt} &= N_i \, \mu_i(R_1,R_2) - N_i \, m \\
 \frac{dR_j}{dt} &= D \, (S_j- R_j) - \sum_{i=1}^{n}{c_{ji} \, N_i \,
-  \mu_i(R_1, R_2)}.
+  \mu_i(R_1, R_2)},
 \end{align}
 \end{subequations}
+where $n$ is the number of species and $j=1,2$ is the number of resources.
 
-The specific growth rates for each species are assumed to follow a Monod equation,
-and be determined by the resource which is most limiting:
+The birth rate $\mu$ for each species are assumed to follow a Monod equation,
+and be determined by the resource which is most limiting, such that
 \begin{equation}
 \label{eq:R2}
 \mu_i(R_1, R_2) = r_i \, \min \left(\frac{R_1}{U_{1i} + R_1},
@@ -599,11 +606,13 @@ and be determined by the resource which is most limiting:
 % NOTE: In above equation `U` was previously labelled `K`. I suggest we use U
 % over K because K is already used in the Lotka Volterra equations, so reusing
 % same symbol here is likely to cause confusion.
+In eq. \ref{eq:R2} $r_i$ is the maximal growth rate rate of species $i$, $U_
+{ji}$ is the half saturation constant for species-$i$limited by resource $j$.
 
-In eq. \ref{eq:R2} $r_i$ is the maximal growth rate rate of species i, $U_
-{ji}$ is the half saturation constant for species $i$ limited by resource $j$.
+\subsection{Details about TREE model}\label{TREE}
 
-\subsection{Details about TREE model}\label{App:TREE}
+Excerpt from  TREE model. Hold off writing this until know whether paper describing
+the model has been published or not.
 
 \end{document}
 

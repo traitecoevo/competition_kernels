@@ -278,7 +278,7 @@ traits $x_R$.  The fitness $f(x_I, x_R)$ of the invading type is
 then
 \begin{equation}
   \label{eq:LVi}
-   f(x_I, x_R) = \frac{\ud N_i)}{\ud t} \frac{1}{N_i} =
+   f(x_I, x_R) = \frac{\ud N_i}{\ud t} \frac{1}{N_i} =
     r(x_I)\left(1 - \alpha(x_I, x_R) \frac{K(x_R)}{K(x_I)}\right).
 \end{equation}
 The reason for this narrowing of focus is that it is not possible to
@@ -642,21 +642,21 @@ resources. Let $N_i$ be the abundance of species-$i$ and $R_1, R_2$ be the
 abundances of the two resources. The population of species-$i$ increases with
 per-capita
 growth rate $\mu_i(R_1,R_2)$, a function of the resource availabilities, and
-decreases with per-capita mortality rate $m$. Species-$i$ depletes resource-$j$
-at rate $c_{ji} \,  N_i \, \mu_i(R_1,R_2)$, where $j = 1, 2$ and $c_{ji}$ is
-the content of resource-$j$ in species-$i$. Resources
+decreases with per-capita mortality rate $m$. Species-$i$ depletes resource-$k$
+at rate $c_{ki} \,  N_i \, \mu_i(R_1,R_2)$, where $k = 1, 2$ and $c_{ki}$ is
+the content of resource-$k$ in species-$i$. Resources
 are replenished
-with supply rate $S_j$ and decay at rate $D_j$. Under these assumptions, the
+with supply rate $S_k$ and decay at rate $D_k$. Under these assumptions, the
 dynamics of species and resource abundance are given by
 \begin{subequations}
   \begin{align}
 \label{eq:R1}
 \frac{dN_i}{dt} &= N_i \, \mu_i(R_1,R_2) - N_i \, m \\
-\frac{dR_j}{dt} &= D \, (S_j- R_j) - \sum_{i=1}^{n}{c_{ji} \, N_i \,
+\frac{dR_k}{dt} &= D \, (S_k- R_k) - \sum_{i=1}^{n}{c_{ki} \, N_i \,
   \mu_i(R_1, R_2)},
 \end{align}
 \end{subequations}
-where $n$ is the number of species and $j=1,2$ is the number of resources.
+where $n$ is the number of species and $k=1,2$ is the number of resources.
 
 The birth rate $\mu$ for each species are assumed to follow a Monod equation,
 and be determined by the resource which is most limiting, such that
@@ -668,8 +668,8 @@ and be determined by the resource which is most limiting, such that
 % NOTE: In above equation `U` was previously labelled `K`. I suggest we use U
 % over K because K is already used in the Lotka Volterra equations, so reusing
 % same symbol here is likely to cause confusion.
-In eq. \ref{eq:R2} $r_i$ is the maximal growth rate rate of species $i$, $U_
-{ji}$ is the half saturation constant for species-$i$limited by resource $j$.
+In eq. \ref{eq:R2}, $r_i$ is the maximal growth rate rate of species $i$, $U_
+{ki}$ is the half saturation constant for species-$i$limited by resource $k$.
 
 \subsection{Details about TREE model}\label{TREE}
 

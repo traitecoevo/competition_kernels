@@ -90,6 +90,11 @@ These ingredients are foundational in models of limiting similarity
 %   than focussing on what shapes are meaningful: we have very little
 %   information on the likely shapes in nature aside from the assertion
 %   that a Gaussian is a likely reasonable low-order approximation.
+%
+% * Claim of Gaussian "we assume that the competition function is
+%   Gaussian, which is typi- cally assumed in much of the literature
+%   (e.g., Dieckmann and Doebeli 1999; Bolnick 2006):" in Birand-2014,
+%   so I'm not totally out to lunch.
 Despite their centrality in modelling and ecological thought, models
 of competition remain largely unchanged from their original
 formulation in the 1960's, with the most popular version due to
@@ -301,6 +306,10 @@ We then solved for $\alpha(x_I, x_R)$ by rearranging  \ref{eq:LVi} to give:
 
 \subsection{R-star model}
 
+% \item As originally formulated, \Rstar\ does not include traits
+% \item We adapt a formulation (due to whom?) where a ``trait'' is a
+%   measure of specialisation/generalisation.
+
 In the first model (R-star) individuals compete for two essential and
 depletable resources. This model is one of the best studied and cited models
 of resource competition \citep{Tilman-1977, Tilman-1982, Huisman-1999},
@@ -360,6 +369,22 @@ size.
 \clearpage
 
 \section{Results}
+
+Main results:
+
+\begin{itemize}
+\item We saw evidence of asymmetric kernels from height competition,
+  as expected and as exist in the literature
+\item We saw kernels that didn't look remotely Gaussian
+\item Carrying capacities were more Gaussian for TREE, I think.
+\end{itemize}
+
+Other things to look into
+
+\begin{itemize}
+\item Show that the bumps in the LMA landscape facilitate coexistance,
+  and see if we can remap the trait/resource axis onto time somehow?
+\end{itemize}
 
 \subsection{Figures}
 
@@ -543,6 +568,43 @@ size.
   have for plant communities.
 \end{itemize}
 
+% Other ported notes:
+% \item The \Rstar\ model is formulated with the same ingredients as LV
+%   but gives totally different results.  This is a concern if the most
+%   commonly used models of explicit and implicit competition do not
+% \item Kernels such as the LMA one may promote coexistence in ways that
+%   are totally different from the models based on the Gaussian
+%   kernels.  As such, thinking narrowly about competition facilitating
+%   coexistance in this way may be misleading.
+% \item The arguments about limiting similarity are probably very
+%   sensitive to the assumptions about constant per-capita rate of
+%   competition.  If competition increases or decreases with the density
+%   of species, this should affect how closesly they can pack.  These
+%   ideas have previously been explored by Abrams I believe.
+% \item If we let $r$ and $K$ vary with species traits and let
+%   $\alpha(x, y)$ vary with traits and densities in an arbitrary way,
+%   do we hae anything tractable?  Is this just saying ``it's all
+%   hopeless''?  Are there simple LV-style models we could possibly come
+%   up with that mimic complex models or realistic situations in ways
+%   that make any sense?
+%   agree.
+% \item This is not meant to be a criticism of simple models \textit{per
+%     se}; simple models are essential to ecology, and there are many
+%   resons to model competition and anything much more complicated than
+%   Gaussian kernels quickly becomes intractable.  More concerning is
+%   that we don't have a strong idea about how departures from the
+%   Gaussian kernel will impact models of coexistance or of other models
+%   for which competition is a key ingredient.  There is some quite
+%   theoretical work on this (e.g. some recent Doebeli work), but it's
+%   still a long way removed from the weird shapes here.
+% \item Ideally we can odentify features that mechanistic models, models
+%   with implicit competition, and emprical data have in common and make
+%   sure that our models that invoke explicit competition are robust to
+%   these features.
+% \item Can measuring competition in mechanistic models help
+%   bridge theory and data? May help interpret data fromnonmanipulative
+%   estimation of competition intensity (e.g., Georges' work).
+
 \textit{Conclusions}
 \begin{itemize}
 \item Coming up with a positive note here might be hard.
@@ -565,9 +627,9 @@ size.
 \end{figure}
 
 \clearpage
+
 \bibliographystyle{amnat}
 \bibliography{references}
-
 
 \section{Appendices}
 

@@ -25,18 +25,20 @@ tree_competition <- function(x_resident, obj, n=101L) {
   obj
 }
 
-tree_competition_prepare <- function(trait, bounds=NULL, p0=NULL,
-                                     check_viable=TRUE,
-                                     n=20L, parallel=FALSE) {
+tree_competition_prepare <- function(trait, p0=NULL, n=20L,
+                                     parallel=FALSE) {
   if (is.null(p0)) {
     p0 <- tree_base_parameters()
   }
-  if (check_viable || is.null(bounds)) {
-    if (is.null(bounds)) {
-      bounds <- bounds_infinite(trait)
-    }
-    bounds <- viable_fitness(bounds, p0)
+
+  if (trait == "hmat") {
+    ## TODO: The lower bound here is wrong, but needs work - see
+    ## https://github.com/richfitz/tree2/issues/1
+    bounds <- bounds(hmat=c(2.0, Inf))
+  } else {
+    bounds <- bounds_infinite(trait)
   }
+  bounds <- viable_fitness(bounds, p0)
   bounds <- check_bounds(bounds)
 
   x <- seq_log_range(bounds, n)

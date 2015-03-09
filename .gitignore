@@ -33,3 +33,7 @@ wiki
 *.pdf
 .DS_Store
 .Rhistory
+
+ms/figures
+.remake/
+ignore/

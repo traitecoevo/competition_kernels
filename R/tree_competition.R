@@ -32,9 +32,10 @@ tree_competition_prepare <- function(trait, p0=NULL, n=20L,
   }
 
   if (trait == "hmat") {
-    ## TODO: The lower bound here is wrong, but needs work - see
-    ## https://github.com/richfitz/tree2/issues/1
-    bounds <- bounds(hmat=c(2.0, Inf))
+    ## There is no lower limit to hmat, so we need to specify
+    ## something.  1m tall is pretty daft for trees, so that should
+    ## work.
+    bounds <- bounds(hmat=c(1.0, Inf))
   } else {
     bounds <- bounds_infinite(trait)
   }

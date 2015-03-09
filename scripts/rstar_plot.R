@@ -16,12 +16,21 @@ rstar_plot <- function(x, parameters,
 
   R.eq <- apply(rs, 1, max)
   # This only makes sense for some cases?
-  points(R.eq[1], R.eq[2], pch=19)
+  points(R.eq[1], R.eq[2], pch=19, col=col)
 
   C <- parameters$C(x)
   for (i in seq_len(n)) {
     abcline(R.eq[1], R.eq[2], C[2,i] / C[1,i], col=col[i], lty=2)
   }
+}
+
+rstar_lines <- function(x, parameters, col) {
+  if (parameters$k != 2) {
+    stop("Can only plot 2 resource case at the moment")
+  }
+  rs <- rstar_Rstar(x, parameters)
+  segments(rs[1,], rs[2,], rs[1,], par("usr")[4], col=col)
+  segments(rs[1,], rs[2,], par("usr")[2], rs[2,], col=col)
 }
 
 rstar_trajectory <- function(x, N, parameters,

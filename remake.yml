@@ -15,6 +15,7 @@ targets:
       # - glob("ms/figures/*")
       - ms/figures/kernel.pdf
       - ms/figures/components.pdf
+      - ms/figures/rstar.pdf
 
   # Data common to all _resident_ communities, but specific to one set
   # of parameter values.
@@ -50,3 +51,8 @@ targets:
   ms/figures/components.pdf:
     command: fig_components()
     plot: true
+  ms/figures/rstar.pdf:
+    command: fig_rstar()
+    plot:
+      height: 6
+      width: 8

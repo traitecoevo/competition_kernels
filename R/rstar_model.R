@@ -1,6 +1,23 @@
 ## TODO: I'm handling the 'x' parameters in the opposite direction to
 ## tree2; should be each column represents traits and each row
 ## represents species.
+rstar_competition <- function(x_resident, p, n=301L) {
+  x_invade <- rbind(seq(0, 1, length.out=n))
+
+  eq <- rstar_single_equilibrium(x_resident, p)
+  K_invade <- rstar_carrying_capacity(x_invade, p)
+  r_invade <- rstar_max_growth_rate(x_invade, p)
+  w_invade <- rstar_fitness_given_R(x_invade, eq$R, p)
+  
+  list(p=p,
+       x_resident=x_resident,
+       x_invade=x_invade,
+       N_resident=eq$N,
+       R_eq=eq$R,
+       K_invade=K_invade,
+       w_invade=w_invade,
+       alpha=compute_alpha(w_invade, r_invade, K_invade, eq$N))
+}
 
 rstar_parameters <- function(K, C, S, r=1, m=0.25, D=0.25) {
   mat <- rstar_matrices(K, C)

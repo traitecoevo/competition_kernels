@@ -19,12 +19,6 @@ fig_rstar <- function() {
 
   xx <- seq(0, 1, length.out=6)
 
-  ## TODO: probably better in absolute size?
-  black_bar <- function(x, y, col="black") {
-    usr <- par("usr")
-    rect(x[1], usr[3], x[2], usr[3] + y, col=col, border=col)
-  }
-
   ylim_alpha <- c(.45, 1.75)
   ybar <- 0.05
 

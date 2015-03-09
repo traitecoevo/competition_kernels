@@ -33,7 +33,7 @@ targets:
   tree_lma_1:
     command: tree_competition(0.2, tree_lma_shared)
   tree_lma_2:
-    command: tree_competition(0.3, tree_lma_shared)
+    command: tree_competition(0.11, tree_lma_shared)
   tree_hmat_1:
     command: tree_competition(5.0, tree_hmat_shared)
   tree_hmat_2:
@@ -56,3 +56,7 @@ targets:
     plot:
       height: 6
       width: 8
+  ms/figures/tree_hmat.pdf:
+    command: fig_tree_hmat(tree_hmat_1, tree_hmat_2)
+  ms/figures/tree_lma.pdf:
+    command: fig_tree_lma(tree_lma_1, tree_lma_2)

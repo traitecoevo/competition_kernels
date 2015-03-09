@@ -1,7 +1,3 @@
-## 1: Why is the optimal strategy all the way over at 0.9
-## 2: Fix the break point in simulations
-## 3: Different measures in main paper or on SM?
-
 source("rstar_new.R")
 source("rstar_support.R")
 source("rstar_plot.R")

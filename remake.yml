@@ -8,6 +8,7 @@ targets:
   all:
     depends:
       - tree_data
+      - figures
   # NOTE: some issues getting dependencies to behave sensibly here
   # (manuscript rebuilding when figures change but tex does not)
   figures:
@@ -18,17 +19,20 @@ targets:
       - ms/figures/rstar.pdf
       - ms/figures/tree_hmat.pdf
       - ms/figures/tree_lma.pdf
+  tree_data:
+    depends:
+      - tree_lma_1
+      - tree_lma_2
+      - tree_hmat_1
+      - tree_hmat_2
 
   # Data common to all _resident_ communities, but specific to one set
   # of parameter values.
   tree_lma_shared:
     command: tree_competition_prepare(I("lma"), parallel=TRUE)
     quiet: false
-  # TODO: The lower bound here is wrong, but needs work - see tree2/issues/1
   tree_hmat_shared:
-    command: |
-      tree_competition_prepare(I("hmat"), bounds=I(bounds(hmat=c(2.0, Inf))),
-        parallel=TRUE)
+    command: tree_competition_prepare(I("hmat"), parallel=TRUE)
     quiet: false
 
   # NOTE: having the parameters here is kind of weird.
@@ -39,13 +43,7 @@ targets:
   tree_hmat_1:
     command: tree_competition(5.0, tree_hmat_shared)
   tree_hmat_2:
-    command: tree_competition(10.0, tree_hmat_shared)
-  tree_data:
-    depends:
-      - tree_lma_1
-      - tree_lma_2
-      - tree_hmat_1
-      - tree_hmat_2
+    command: tree_competition(17.0, tree_hmat_shared)
 
   ms/figures/kernel.pdf:
     command: fig_kernel()
@@ -60,5 +58,7 @@ targets:
       width: 8
   ms/figures/tree_hmat.pdf:
     command: fig_tree_hmat(tree_hmat_1, tree_hmat_2)
+    plot: true
   ms/figures/tree_lma.pdf:
     command: fig_tree_lma(tree_lma_1, tree_lma_2)
+    plot: true

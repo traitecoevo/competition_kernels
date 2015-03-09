@@ -16,6 +16,8 @@ targets:
       - ms/figures/kernel.pdf
       - ms/figures/components.pdf
       - ms/figures/rstar.pdf
+      - ms/figures/tree_hmat.pdf
+      - ms/figures/tree_lma.pdf
 
   # Data common to all _resident_ communities, but specific to one set
   # of parameter values.
@@ -38,12 +40,12 @@ targets:
     command: tree_competition(5.0, tree_hmat_shared)
   tree_hmat_2:
     command: tree_competition(10.0, tree_hmat_shared)
-  tree_lma:
-    command: list(tree_lma_1, tree_lma_2)
-  tree_hmat:
-    command: list(tree_hmat_1, tree_hmat_2)
   tree_data:
-    depends: [tree_lma, tree_hmat]
+    depends:
+      - tree_lma_1
+      - tree_lma_2
+      - tree_hmat_1
+      - tree_hmat_2
 
   ms/figures/kernel.pdf:
     command: fig_kernel()

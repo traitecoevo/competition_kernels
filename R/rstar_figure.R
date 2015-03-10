@@ -79,3 +79,69 @@ fig_rstar_components <- function(i) {
   plot_components(d$x, d$r, d$K, d$x1, d$x2, d$N1, d$N2,
                   d$w1, d$w2, d$a1, d$a2)
 }
+
+rstar_add_abrams <- function() {
+  dat <- dat_rstar()
+  lapply(dat, rstar_add_abrams1)
+}
+
+rstar_add_abrams1 <- function(d) {
+  p <- d$p
+  x_invade <- d$x
+
+  f_dgi_dNj <- function(N_res, x_res) {
+    rstar_fitness_given_N(rbind(x_invade), rbind(x_res), N_res, p)
+  }
+  dgi_dNj1 <- drop(numDeriv::jacobian(f_dgi_dNj, d$N1, x_res=d$x1))
+  dgi_dNj2 <- drop(numDeriv::jacobian(f_dgi_dNj, d$N2, x_res=d$x2))
+
+  f_dgi_dNi <- function(N_invade, N_res, x_res) {
+    f <- function(x) {
+      rstar_fitness_given_N(cbind(x),
+                            cbind(x_res, x),
+                            c(N_res, N_invade), p)
+    }
+    sapply(x_invade, f)
+  }
+  dN <- 1e-4
+  dgi_dNi1 <- (f_dgi_dNi(dN, d$N1, d$x1) - d$w1) / dN
+  dgi_dNi2 <- (f_dgi_dNi(dN, d$N2, d$x2) - d$w2) / dN
+
+  d$X1 <- dgi_dNj1 / dgi_dNi1
+  d$X2 <- dgi_dNj2 / dgi_dNi2
+
+  d
+}
+
+fig_rstar_abrams <- function(d) {
+  d1 <- d[[1]]
+  d2 <- d[[2]]
+
+  ylim <- c(.45, 1.75)
+
+  par(mfrow=c(2, 2), mar=rep(.5, 4), oma=c(2, 2, 0, 0))
+
+  plot(d1$x, d1$X1, type="l", ylim=ylim, las=1, xaxt="n")
+  axis(1, labels=FALSE)
+  lines(d1$x, d1$a1, lty=2)
+  abline(v=d1$x1, h=1, lty=3)
+  points(d1$x1, 1, pch=19)
+
+  plot(d1$x, d1$X2, type="l", ylim=ylim, las=1, xaxt="n", yaxt="n")
+  axis(1, labels=FALSE)
+  axis(2, labels=FALSE)
+  lines(d1$x, d1$a2, lty=2)
+  abline(v=d1$x2, h=1, lty=3)
+  points(d1$x2, 1, pch=19)
+
+  plot(d2$x, d2$X1, type="l", ylim=ylim, las=1)
+  lines(d2$x, d2$a1, lty=2)
+  abline(v=d2$x1, h=1, lty=3)
+  points(d2$x1, 1, pch=19)
+
+  plot(d2$x, d2$X2, type="l", ylim=ylim, las=1, yaxt="n")
+  axis(1, labels=FALSE)
+  lines(d2$x, d2$a2, lty=2)
+  abline(v=d2$x2, h=1, lty=3)
+  points(d2$x2, 1, pch=19)
+}

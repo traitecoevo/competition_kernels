@@ -14,7 +14,9 @@ targets:
     depends:
       - tree_data
       - figures
+      - figures_sm
       - ms/competition-kernels.pdf
+
   # NOTE: some issues getting dependencies to behave sensibly here
   # (manuscript rebuilding when figures change but tex does not)
   figures:
@@ -30,6 +32,7 @@ targets:
     depends:
       - ms/figures/sm_rstar_components1.pdf
       - ms/figures/sm_rstar_components2.pdf
+      - ms/figures/sm_rstar_abrams.pdf
       - ms/figures/sm_tree_lma_components.pdf
       - ms/figures/sm_tree_hmat_components.pdf
 
@@ -99,3 +102,9 @@ targets:
   ms/figures/sm_tree_hmat_components.pdf:
     command: fig_tree_components(tree_hmat_1, tree_hmat_2)
     plot: tall
+
+  dat_rstar_abrams:
+    command: rstar_add_abrams()
+  ms/figures/sm_rstar_abrams.pdf:
+    command: fig_rstar_abrams(dat_rstar_abrams)
+    plot: true

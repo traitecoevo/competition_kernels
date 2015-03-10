@@ -381,21 +381,6 @@ Other things to look into
 
 
 \begin{enumerate}
-\item Ingredients in models of competition (multipanel figure)
-  \begin{itemize}
-  \item First two panels are $r$ and $K$, which are constant for a
-    given set of parameters, and hold for all resident communities
-    (but would vary with traits/parameters).
-  \item Next panel is fitness, with some indication of who can
-    invade.  We have some disagreement about the importance of this
-    function, so might not be too prominent in final version.
-  \item Bottom panel is inferred competition.  Because we'll be
-    dealing with \citet{Dieckmann-1999} or something, all the
-    competition metrics should line up.  Do the bottom two panels for
-    two different resident communities showing that the competition
-    kernels simply move around but stay the same shape.  We can only
-    handle a single resident for some of the competition measures.
-  \end{itemize}
 \item R-star competition estimation
   \begin{itemize}
   \item general shape
@@ -618,6 +603,25 @@ Other things to look into
   % Ricklefs-1999: Fig 29.19, pg 602
   \label{fig:competition-kernels}
 \end{figure}
+
+\begin{figure}[h]
+  \centering
+  % \includegraphics{figs/components}
+  \caption{\textbf{Method for estimating the shape the competition function embedded
+  in a mechansitic resource-based model. To illustrate the method, we present 
+  results from a model with known solution \citet{Dieckmann-1999}}. For each
+  model
+  we estimate: (a) the fitness of a rare invader growing without competition,
+  (b) the equilibrium population density of invader when growing in monoculture,
+  (c1, c2) the fitness of a rare invader growing in competition with an established
+  resident. From these elsements, we can estimate the shape of the competition
+  function (d1,d2). Panels a-b do not vary with the resident community whereas
+  panels c-d may.  As intended the method recovers the Guassian-shaped competition
+  functions assumed by this toy model. Moreover, comparison of panels d1 \& d2
+  shows that the shape of the function does not vary with resdient trait.}   
+  \label{fig:components}
+\end{figure}
+
 
 \clearpage
 

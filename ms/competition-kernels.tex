@@ -499,12 +499,11 @@ Other things to look into
 
 \begin{figure}[h]
   \centering
-  % \includegraphics{figs/components}
-  \caption{\textbf{Method for estimating the shape the competition function embedded
-  in a mechansitic resource-based model. To illustrate the method, we present 
-  results from a model with known solution \citet{Dieckmann-1999}}. For each
-  model
-  we estimate: (a) the fitness of a rare invader growing without competition,
+ \caption{\textbf{Method for estimating the shape the competition function embedded
+  in a mechansitic resource-based model.} To illustrate the method, we present 
+  results from a model with known solution \citep{Dieckmann-1999} (see Appendix
+  \ref{DD99} for details). For each
+  model we estimate: (a) the fitness of a rare invader growing without competition,
   (b) the equilibrium population density of invader when growing in monoculture,
   (c1, c2) the fitness of a rare invader growing in competition with an established
   resident. From these elsements, we can estimate the shape of the competition
@@ -523,7 +522,25 @@ Other things to look into
 
 \section{Appendices}
 
-\subsection{Details about Lotka-Volterra equations}\label{LV}
+\subsection{Details about generic Lotka-Volterra model with 
+Gaussian competition}\label{DD99}
+
+\citet{Dieckmann-1999} analyse a system following the Lotka-Volterra dynamics
+described in equation eq. \ref{eq:LVi}, where maximum growth rate is constant
+across species, carrying capacity is a Gaussian
+function of the invader trait, and the competition function is a Gaussian 
+based on the difference between traits of the invader and resident:
+\begin{subequations}
+\begin{align}
+\label{eq:DD}
+r(x_I) &= r_0, \\
+K(x_I) &= K_0 \exp\left(-\frac{\left(x_I-x_0\right)^2}{2\sigma^2_K}\right),\\
+\alpha(x_I, x_R) &= \exp\left(-\frac{\left(x_I-x_R\right)^2}{2\sigma^2_C}\right).
+\end{align}
+\end{subequations}
+
+For the analyses presented in Figure \ref{fig:components} we let $r_0=1.0$, $K_0=500$,
+ $s2_C=1$, and $s2_C=0.16$.
 
 \subsection{Details about R-star model}\label{Rstar}
 

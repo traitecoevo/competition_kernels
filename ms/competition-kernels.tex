@@ -4,6 +4,7 @@
 \usepackage{natbib}
 \usepackage{graphicx}
 \usepackage{caption}
+\usepackage[labelfont=bf]{caption} % make label for figure bold
 
 % Allow referencing into the supporting information, once that exists.
 \IfFileExists{./competition-kernels-supporting.tex}{%
@@ -597,8 +598,8 @@ Other things to look into
 \begin{figure}[h]
   \centering
   % \includegraphics{figs/competition-kernels}
-  \caption{Classic text-book view of niche differentiation.
-  Along the x-axis is a resource to be partitioned, such as food or prey size. Lines
+  \caption{\textbf{Classic text-book view of niche differentiation.
+  Along the x-axis is a resource to be partitioned, such as food or prey size.} Lines
   represent hypothetical resource utilisation curves for five different species,
   indicating the propernsity of that species to use resources of a given size.
   The inetnsity of competition between two species is indicated by the degree

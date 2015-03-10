@@ -25,10 +25,14 @@ targets:
       - ms/figures/rstar.pdf
       - ms/figures/tree_hmat.pdf
       - ms/figures/tree_lma.pdf
+
   figures_sm:
     depends:
       - ms/figures/sm_rstar_components1.pdf
       - ms/figures/sm_rstar_components2.pdf
+      - ms/figures/sm_tree_lma_components.pdf
+      - ms/figures/sm_tree_hmat_components.pdf
+
   tree_data:
     depends:
       - tree_lma_1
@@ -88,4 +92,10 @@ targets:
     plot: tall
   ms/figures/sm_rstar_components2.pdf:
     command: fig_rstar_components(2)
+    plot: tall
+  ms/figures/sm_tree_lma_components.pdf:
+    command: fig_tree_components(tree_lma_1, tree_lma_2)
+    plot: tall
+  ms/figures/sm_tree_hmat_components.pdf:
+    command: fig_tree_components(tree_hmat_1, tree_hmat_2)
     plot: tall

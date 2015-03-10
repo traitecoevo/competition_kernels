@@ -32,4 +32,3 @@ build_pdf <- function(texfile) {
                        ".fdb_latexmk"))
   file.remove(aux_files[file.exists(aux_files)])
 }
-

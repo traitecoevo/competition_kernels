@@ -4,16 +4,24 @@ black_bar <- function(x, y, col="black") {
   rect(x[1], usr[3], x[2], usr[3] + y, col=col, border=col)
 }
 
+expand_range <- function(r, p) {
+  if (length(p) == 1L) {
+    p <- rep_len(p, 2L)
+  }
+  d <- diff(r)
+  r + d * c(-1, 1) * p
+}
+
 build_pdf <- function(texfile) {
   owd <- setwd("ms")
   on.exit(setwd(owd))
   texfile <- basename(texfile)
   command <- sprintf('latexmk -pdf -pdflatex=\"%s\" %s',
-  									"pdflatex -interaction=nonstopmode", texfile)
- 	res <- system(command, intern=FALSE)
- 	# TODO: how to catch errors? Above does not quite work because res behaves
-  # stranegly (no contents, not length)
- 	#	res <- system(command, intern=TRUE)
+                     "pdflatex -interaction=nonstopmode", texfile)
+  res <- system(command, intern=FALSE)
+  # TODO: how to catch errors? Above does not quite work because res behaves
+  # strangely (no contents, not length)
+  #	res <- system(command, intern=TRUE)
   # code <- attr(res, "status")
   # browser()
   # if (code != 0L) {
@@ -24,3 +32,4 @@ build_pdf <- function(texfile) {
                        ".fdb_latexmk"))
   file.remove(aux_files[file.exists(aux_files)])
 }
+

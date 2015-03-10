@@ -4,6 +4,11 @@ packages:
 sources:
   - R
 
+plot_options:
+  tall:
+    height: 8
+    width: 5.5
+
 targets:
   all:
     depends:
@@ -20,6 +25,10 @@ targets:
       - ms/figures/rstar.pdf
       - ms/figures/tree_hmat.pdf
       - ms/figures/tree_lma.pdf
+  figures_sm:
+    depends:
+      - ms/figures/sm_rstar_components1.pdf
+      - ms/figures/sm_rstar_components2.pdf
   tree_data:
     depends:
       - tree_lma_1
@@ -36,6 +45,10 @@ targets:
 
   # Data common to all _resident_ communities, but specific to one set
   # of parameter values.
+  #
+  # I'm pretty tempted to make these check: exists, because they are a
+  # total hassle to regenerate and I don't think we should be doing
+  # that lightly.
   tree_lma_shared:
     command: tree_competition_prepare(I("lma"), parallel=TRUE)
     quiet: false
@@ -43,7 +56,6 @@ targets:
     command: tree_competition_prepare(I("hmat"), parallel=TRUE)
     quiet: false
 
-  # NOTE: having the parameters here is kind of weird.
   tree_lma_1:
     command: tree_competition(0.2, tree_lma_shared)
   tree_lma_2:
@@ -70,3 +82,10 @@ targets:
   ms/figures/tree_lma.pdf:
     command: fig_tree_lma(tree_lma_1, tree_lma_2)
     plot: true
+
+  ms/figures/sm_rstar_components1.pdf:
+    command: fig_rstar_components(1)
+    plot: tall
+  ms/figures/sm_rstar_components2.pdf:
+    command: fig_rstar_components(2)
+    plot: tall

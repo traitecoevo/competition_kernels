@@ -14,6 +14,7 @@ rstar_competition <- function(x_resident, p, n=301L) {
        x_invade=x_invade,
        N_resident=eq$N,
        R_eq=eq$R,
+       r_invade=r_invade,
        K_invade=K_invade,
        w_invade=w_invade,
        alpha=compute_alpha(w_invade, r_invade, K_invade, eq$N))

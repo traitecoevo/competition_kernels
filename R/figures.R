@@ -14,19 +14,11 @@ fig_kernel <- function() {
 }
 
 fig_components <- function() {
-  mat <- rbind(c(0, 1, 1, 0),
-               c(0, 2, 2, 0),
-               c(3, 3, 4, 4),
-               c(5, 5, 6, 6))
-  xlim <- c(-2, 2)
-  xx <- seq(xlim[[1]], xlim[[2]], length.out=200)
   p <- dd99_parameters()
-  cex <- .66
-
+  xx <- seq(-2, 2, length.out=200)
   x1 <- -1.0
   x2 <- 0.0
  
-  ## First, r (it's a straight line)
   r <- dd99_max_growth_rate(xx, p)
   K <- dd99_carrying_capacity(xx, p)
   N1 <- dd99_carrying_capacity(x1, p)
@@ -36,34 +28,57 @@ fig_components <- function() {
   a1 <- compute_alpha(w1, r, K, N1)
   a2 <- compute_alpha(w2, r, K, N2)
 
+  plot_components(xx, r, K, x1, x2, N1, N2, w1, w2, a1, a2)
+}
+
+plot_components <- function(x, r, K, x1, x2, N1, N2, w1, w2, a1, a2,
+                            xlab="Ecological character (trait)",
+                            ylim_r=NULL, ylim_K=NULL, ylim_w=NULL,
+                            ylim_a=NULL) {
+  mat <- rbind(c(0, 1, 1, 0),
+               c(0, 2, 2, 0),
+               c(3, 3, 4, 4),
+               c(5, 5, 6, 6))
+  cex <- .66
+
+  if (is.null(ylim_r)) {
+    ylim_r <- expand_range(c(0, max(r)), c(0, 0.1))
+  }
+  if (is.null(ylim_K)) {
+    ylim_K <- expand_range(c(0, max(K)), c(0, 0.1))
+  }
+  if (is.null(ylim_w)) {
+    ylim_w <- expand_range(range(w1, w2), 0.1)
+  }
+  if (is.null(ylim_a)) {
+    ylim_a <- expand_range(range(a1, a2, na.rm=TRUE), 0.1)
+  }
+
   layout(mat)
   par(mar=c(2, 2, .5, .5), oma=c(2, 2, 0, 0))
   
-  plot(xx, r, las=1, ylim=c(0, 1.2), type="l")
+  plot(x, r, las=1, ylim=ylim_r, type="l")
   mtext("Max growth rate (r)", 2, xpd=NA, line=3, cex=cex)
 
-  plot(xx, K, las=1, type="l", ylim=c(0, max(K) * 1.1))
+  plot(x, K, las=1, type="l", ylim=ylim_K)
   mtext("Carrying capacity (K)", 2, xpd=NA, line=3, cex=cex)
 
-  ## TODO: Add 5% buffer.
-  ylim_w <- c(min(w1, w2), 1.2)
-  plot(xx, w1, las=1, type="l", ylim=ylim_w)
+  plot(x, w1, las=1, type="l", ylim=ylim_w)
   mtext("Fitness (w)", 2, xpd=NA, line=3, cex=cex)
   points(x1, 0.0, pch=19)
   abline(h=0, v=x1, lty=2)
   
-  plot(xx, w2, las=1, type="l", ylim=ylim_w)
+  plot(x, w2, las=1, type="l", ylim=ylim_w)
   points(x2, 0.0, pch=19)
   abline(h=0, v=x2, lty=2)
 
-  ylim_a <- c(0, 1)
-  plot(xx, a1, las=1, type="l", ylim=ylim_a)
+  plot(x, a1, las=1, type="l", ylim=ylim_a)
   mtext("Competition (a)", 2, xpd=NA, line=3, cex=cex)
   mtext("Ecological character (trait)", 1, xpd=NA, line=2, cex=cex)    
   points(x1, 1.0, pch=19)
   abline(h=1.0, v=x1, lty=2)
   
-  plot(xx, a2, las=1, type="l", ylim=ylim_a)
+  plot(x, a2, las=1, type="l", ylim=ylim_a)
   mtext("Ecological character (trait)", 1, xpd=NA, line=2, cex=cex)
   points(x2, 1.0, pch=19)
   abline(h=1.0, v=x2, lty=2)

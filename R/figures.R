@@ -6,7 +6,7 @@ fig_kernel <- function() {
   xx <- seq(xlim[1], xlim[2], length.out=400)
 
   plot(NA, xlim=xlim, ylim=c(0, 1.1), xaxt="n", yaxt="n",
-       xlab="Resource", ylab="Utilisation", mgp=c(.5, 0, 0))
+       xlab="Resource continuum", ylab="Utilisation", mgp=c(.5, 0, 0))
   for (xi in x) {
     lines(xx, dnorm(xx, xi) / dnorm(0))
   }

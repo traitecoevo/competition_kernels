@@ -145,3 +145,62 @@ fig_rstar_abrams <- function(d) {
   abline(v=d2$x2, h=1, lty=3)
   points(d2$x2, 1, pch=19)
 }
+
+## R* density dependence
+fig_rstar_density <- function() {
+  d <- dat_rstar()
+  d1 <- d[[1]]
+  d2 <- d[[2]]
+
+  ## Come up with a vector of densities:
+  scal <- c(0.25, 0.5, 1, 2)
+
+  d1_scal1 <- lapply(scal, function(s)
+    rstar_competition(rbind(d1$x1), d1$p, d1$N1 * s))
+  d1_scal2 <- lapply(scal, function(s)
+    rstar_competition(rbind(d1$x2), d1$p, d1$N2 * s))
+  d2_scal1 <- lapply(scal, function(s)
+    rstar_competition(rbind(d2$x1), d2$p, d2$N1 * s))
+  d2_scal2 <- lapply(scal, function(s)
+    rstar_competition(rbind(d2$x2), d2$p, d2$N2 * s))
+
+  a11 <- sapply(d1_scal1, "[[", "alpha")
+  a12 <- sapply(d1_scal2, "[[", "alpha")
+  a21 <- sapply(d2_scal1, "[[", "alpha")
+  a22 <- sapply(d2_scal2, "[[", "alpha")
+
+  x <- d1$x
+  ylim <- c(.45, 1.75)
+  col <- grey(seq(.8, 0, length.out=4))
+
+  par(mfrow=c(2, 2), mar=rep(.5, 4), oma=c(2, 2, 0, 0))
+
+  ## Hmm: competition should always be 1 for self, no?  Suggests I've
+  ## got something a bit wrong?
+  ##
+  ## This suggests that per-capita competition *decreases* with
+  ## increasing density (decelerating competition).
+  matplot(x, a11, type="l", lty=1, col=col,
+          ylim=ylim, las=1, xaxt="n")
+  axis(1, labels=FALSE)
+  abline(v=d1$x1, h=1, lty=3)
+  points(d1$x1, 1, pch=19)
+
+  matplot(x, a12, type="l", lty=1, col=col,
+          ylim=ylim, las=1, xaxt="n", yaxt="n")
+  axis(1, labels=FALSE)
+  axis(2, labels=FALSE)
+  abline(v=d1$x2, h=1, lty=3)
+  points(d1$x2, 1, pch=19)
+
+  matplot(x, a21, type="l", lty=1, col=col,
+          ylim=ylim, las=1)
+  abline(v=d2$x1, h=1, lty=3)
+  points(d2$x1, 1, pch=19)
+
+  matplot(x, a22, type="l", lty=1, col=col,
+          ylim=ylim, las=1, yaxt="n")
+  axis(2, labels=FALSE)
+  abline(v=d2$x2, h=1, lty=3)
+  points(d2$x2, 1, pch=19)
+}

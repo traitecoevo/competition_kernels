@@ -33,6 +33,7 @@ targets:
       - ms/figures/sm_rstar_components1.pdf
       - ms/figures/sm_rstar_components2.pdf
       - ms/figures/sm_rstar_abrams.pdf
+      - ms/figures/sm_rstar_density.pdf
       - ms/figures/sm_tree_lma_components.pdf
       - ms/figures/sm_tree_hmat_components.pdf
 
@@ -107,4 +108,7 @@ targets:
     command: rstar_add_abrams()
   ms/figures/sm_rstar_abrams.pdf:
     command: fig_rstar_abrams(dat_rstar_abrams)
+    plot: true
+  ms/figures/sm_rstar_density.pdf:
+    command: fig_rstar_density()
     plot: true

@@ -270,54 +270,6 @@ Other things to look into
   and see if we can remap the trait/resource axis onto time somehow?
 \end{itemize}
 
-\subsection{Figures}
-
-
-\begin{enumerate}
-\item R-star competition estimation
-  \begin{itemize}
-  \item general shape
-  \item Change in shape with parameters and/or resident position --
-    residents probably more important though as parameters should
-    change kernels extensively in most modls.
-  \item Not many panels for each figure to keep it simple.  But make
-    figures like 2 for the SM that show the different ingredients that
-    are going into the calculation.
-  \item Show the different measures of compettion provided that they
-    all fit on the page nicely; \citet{Abrams-2008} makes the point
-    that if different measures don't line up then competition is
-    density dependent.
-  \end{itemize}
-\item Hmat competition estimation
-  \begin{itemize}
-  \item Choose a case where we don't have coexistence to keep it
-    separate.
-  \item First because it most closely matches \citet{Kisdi-1999} and
-    because the results are really simple and don't look too weird.
-  \end{itemize}
-\item LMA competition estimation
-  \begin{itemize}
-  \item For LMA we want to get the curve into a bifurcation like point
-    where coexistence is possible on both sides
-  \item Show that the points that coexistence is possible on the RHS
-    are the dips in the competition function to make the case that
-    this is a fundamentally different way that competition might allow
-    coexistence in models with non-linear density dependent
-    competition.
-  \end{itemize}
-\item Density dependence in competition models
-  \begin{itemize}
-  \item Something showing that the competition kernels are density
-    dependent.  Because this is a three dimensional functions (trait,
-    competition strength and resident density) we can only show slices
-    through two of these.  At different densities show how the
-    kernels look with respect to traits.  Possibly do that at two
-    different resident communities.
-  \item Need to pick a model to do this with - could be any of the
-    three and for completeness we might want to add them to the SM.
-  \end{itemize}
-\end{enumerate}
-
 \clearpage
 \section{Discussion}
 
@@ -498,42 +450,80 @@ Other things to look into
 \end{figure}
 
 \begin{figure}[h]
-  \centering
+ \centering
+ % \includegraphics{figures/components}
  \caption{\textbf{Method for estimating the shape the competition function embedded
-  in a mechansitic resource-based model.} To illustrate the method, we present 
+  in a mechanistic resource-based model.} To illustrate the method, we present 
   results from a model with known solution \citep{Dieckmann-1999} (see Appendix
   \ref{DD99} for details). For each
   model we estimate: (a) the fitness of a rare invader growing without competition,
   (b) the equilibrium population density of invader when growing in monoculture,
   (c1, c2) the fitness of a rare invader growing in competition with an established
-  resident. From these elsements, we can estimate the shape of the competition
+  resident. From these elements, we can estimate the shape of the competition
   function (d1,d2). Panels a-b do not vary with the resident community whereas
-  panels c-d may.  As intended the method recovers the Guassian-shaped competition
+  panels c-d may.  As intended the method recovers the Gaussian-shaped competition
   functions assumed by this toy model. Moreover, comparison of panels d1 \& d2
-  shows that the shape of the function does not vary with resdient trait.}   
-  \label{fig:components}
+  shows that the shape of the function does not vary with resident trait.   
+  \label{fig:components}}
 \end{figure}
 
 \begin{figure}[h]
   \centering
   % \includegraphics{figures/rstar}
   \caption{\textbf{Shape of competition function embedded within the R-star model
-  for a trait determining the stoichiometry of uptake for two essential resources}. 
-  Panels a-c show results when consumpiton of the two resources is symmetric, whereas
+  for a trait determining the stoichiometry of uptake for two essential resources.}
+  Here we have only shown the derived  competition functions, see Figs. 
+  \ref{fig:sm_rstar_components1}-\ref{fig:sm_rstar_components2} for plot of all 
+  components used to derive these functions.
+  Panels a-c show results when consumption of the two resources is symmetric, whereas
   panels d-f show results for an instance when resource 2 is required more than
-  resource 1. Panels a \& d show zero-net-growth-isoclines (ZNGIs) for
+  resource 1. Panels a \& d show zero-net-growth-isocline (ZNGI) for
   the  model  (solid lines), these are the points at which population growth is zero. 
   The series of grey lines are for species differing in the stoichiometry trait.
   The red and blue lines show the ZNGI for a resident species in panels b and
   c, respectively. Panels b-c \& e-f show derived competition functions for a
-  communitiy with a single resident at location indicated by the dotted line.
+  community with a single resident at location indicated by the dashed line.
   Solid black lines indicate the competition felt by invading species. Solid
   black bars indicate regions where the invader has positive fitness, i.e. 
   could successfully establish. Parameters for the symmetric case, $c_{1i} =
   c_ {2i}=0.5$ and for the asymmetric case $c_{1i} = 0.3, c_ {2i}=0.7$. Resident
   trait values are: (b) 0.6, (c) 0.5, (e) 0.7, (f) 0.9. All other parameters
-  are given in Appendix \ref{Rstar}}   
-  \label{fig:Rstar}
+  are given in Appendix \ref{Rstar}.   
+  \label{fig:Rstar}}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  % \includegraphics{figures/tree_hmat}
+  \caption{\textbf{Shape of competition function embedded within TREE model for
+  the trait height at maturation.}  
+  Here we have only shown the derived  competition functions, see Fig. 
+  \ref{fig:sm_tree_hmat_components} for plot of all components used to derive these functions.
+  Solid lines show the derived competition functions for a community with a
+  single resident, whose location is indicated by the dashed line. 
+  Resident trait values are: (a) XXX, (b) XXX.
+  \label{fig:tree_hmat}}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  % \includegraphics{figures/tree_lma}
+  \caption{\textbf{Shape of competition function embedded within TREE model for
+  the trait leaf mass per area.}  
+  Here we have only shown the derived  competition functions, see Fig. 
+  \ref{fig:sm_tree_lma_components} for plot of all components used to derive these functions.
+  Solid lines show the derived competition functions for a community with a
+  single resident, whose location is indicated by the dashed line.
+  Resident trait values are: (a) XXX, (b) XXX.
+  \label{fig:tree_lma}}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  % \includegraphics{figures/tree_lma}
+  \caption{\textbf{Density dependence
+  ...}.
+  \label{fig:dd}}
 \end{figure}
 
 
@@ -605,6 +595,63 @@ In eq. \ref{eq:R2}, $r_i$ is the maximal growth rate rate of species $i$, $U_
 Excerpt from  TREE model. Hold off writing this until know whether paper describing
 the model has been published or not.
 
+\section{Supplementary figures}
+
+\begin{figure}[h]
+ \centering
+ % \includegraphics{figures/sm_rstar_components1}
+ \caption{\textbf{Components used to estimate competition functions shown in Figs.
+ \ref{fig:Rstar}b-c for R-star model with symmetric resource requirements.} 
+  Panels show: (a) the fitness of a rare invader growing without competition,
+  (b) the equilibrium population density of invader when growing in monoculture,
+  (c1, c2) the fitness of a rare invader growing in competition with an established
+  resident, whose location is indicated by dashed line, and (d1,d2) derived competition
+  functions for communities in panels  c1 \& c2. Parameters as in Fig. 
+  \ref{fig:Rstar}a-c.
+  \label{fig:sm_rstar_components1}}
+\end{figure}
+
+\begin{figure}[h]
+ \centering
+ % \includegraphics{figures/sm_rstar_components2}
+ \caption{\textbf{Components used to estimate competition functions shown in Figs.
+ \ref{fig:Rstar}e-f for R-star model with asymmetric resource requirements.} 
+  Panels show: (a) the fitness of a rare invader growing without competition,
+  (b) the equilibrium population density of invader when growing in monoculture,
+  (c1, c2) the fitness of a rare invader growing in competition with an established
+  resident, whose location is indicated by dashed line, and (d1,d2) derived competition
+  functions for communities in panels c1 \& c2. Parameters as in Fig. 
+  \ref{fig:Rstar}d-f.
+  \label{fig:sm_rstar_components2}}
+\end{figure}
+
+\begin{figure}[h]
+ \centering
+ % \includegraphics{figures/sm_tree_hmat_components}
+ \caption{\textbf{Components used to estimate competition functions shown in Figs.
+ \ref{fig:tree_hmat} for TREE model and the trait height at maturation.}
+  Panels show: (a) the fitness of a rare invader growing without competition,
+  (b) the equilibrium population density of invader when growing in monoculture,
+  (c1, c2) the fitness of a rare invader growing in competition with an established
+  resident, whose location is indicated by dashed line, and (d1,d2) derived competition
+  functions for communities in panels c1 \& c2. Parameters as in Fig. 
+  \ref{fig:tree_hmat}.
+  \label{fig:sm_tree_hmat_components}}
+\end{figure}
+
+\begin{figure}[h]
+ \centering
+ % \includegraphics{figures/sm_tree_lma_components}
+ \caption{\textbf{Components used to estimate competition functions shown in Figs.
+ \ref{fig:tree_lma} for TREE model and the trait leaf mass per area.}
+  Panels show: (a) the fitness of a rare invader growing without competition,
+  (b) the equilibrium population density of invader when growing in monoculture,
+  (c1, c2) the fitness of a rare invader growing in competition with an established
+  resident, whose location is indicated by dashed line, and (d1,d2) derived competition
+  functions for communities in panels  c1 \& c2. Parameters as in Fig. 
+  \ref{fig:tree_lma}.
+  \label{fig:sm_tree_lma_components}}
+\end{figure}
 \end{document}
 
 %%% Local Variables:

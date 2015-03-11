@@ -270,6 +270,100 @@ Other things to look into
   and see if we can remap the trait/resource axis onto time somehow?
 \end{itemize}
 
+By model:
+
+\subsection{\Rstar}
+
+\begin{itemize}
+\item ``Symmetric'' case with $C = \{0.2, 0.2\}$
+  \begin{itemize}
+  \item A single resident at $x = 0.6$ (midway between pure generalist
+    and pure specialist on resource B).
+  \item The competitive effect of the resident on invaders was
+    strongest for invading specialists; these species ``felt'' more
+    competition than the resident exerted on itself ($\alpha(x, x)
+    \equiv 1$), while invaders that were \emph{more generalist} than
+    the resident (i.e., $|x - 0.5| < 0.1$) felt relatively less
+    competition than the resident exerted on itself.
+  \item This region lines up perfectly with the region of positive
+    fitness: invasion is possible on $(0.4, 0.6)$.
+  \item If the resident is moved to $x = 0.5$ (perfectly generalist)
+    then invasion is not possible.  In this case, the strength of
+    competition increases monotonically away from the resident.
+  \item Computing competition functions using the derivative approach
+    described in \citet{Abrams-2008} ($(\partial d_i / \partial N_j) /
+    (\partial d_i / \partial N_i) |_{N_i = 0, N_j = K_j}$) was
+    qualitatively similar, though picewise linear in species traits
+    and with higher departure from 1.
+  \item Competition is density dependent: increasing the resident
+    density changes the per-capita competitive impact (this is not the
+    case for models like the \citet{Dieckmann-1999} model where the
+    per-capita competitive effect stays constant).  However, the
+    \emph{shape} did not qualitatively change.
+  \end{itemize}
+\item ``Nonsymmetric'' case with $C = \{0.3, 0.7\}$
+  \begin{itemize}
+  \item In the asymmetric case, consumption rates are higher for
+    resource $B$ than resource $A$; this shifts the model in favour of
+    species that can most efficiently use resource $B$.
+  \item With a single resident at $x = 0.7$, invasion is possible for
+    species that use $B$ more efficiently ($x$ in $(0.7, \approx
+    0.99)$).
+  \item The density dependent effect was more complicated than the
+    symmetric case; changing the resident density changed both the
+    per-capita competitive effect of the residents on invaders, but
+    also the \emph{shape} of this relationship.
+  \end{itemize}
+\end{itemize}
+
+\subsection{Figures}
+
+
+\begin{enumerate}
+\item R-star competition estimation
+  \begin{itemize}
+  \item general shape
+  \item Change in shape with parameters and/or resident position --
+    residents probably more important though as parameters should
+    change kernels extensively in most modls.
+  \item Not many panels for each figure to keep it simple.  But make
+    figures like 2 for the SM that show the different ingredients that
+    are going into the calculation.
+  \item Show the different measures of compettion provided that they
+    all fit on the page nicely; \citet{Abrams-2008} makes the point
+    that if different measures don't line up then competition is
+    density dependent.
+  \end{itemize}
+\item Hmat competition estimation
+  \begin{itemize}
+  \item Choose a case where we don't have coexistence to keep it
+    separate.
+  \item First because it most closely matches \citet{Kisdi-1999} and
+    because the results are really simple and don't look too weird.
+  \end{itemize}
+\item LMA competition estimation
+  \begin{itemize}
+  \item For LMA we want to get the curve into a bifurcation like point
+    where coexistence is possible on both sides
+  \item Show that the points that coexistence is possible on the RHS
+    are the dips in the competition function to make the case that
+    this is a fundamentally different way that competition might allow
+    coexistence in models with non-linear density dependent
+    competition.
+  \end{itemize}
+\item Density dependence in competition models
+  \begin{itemize}
+  \item Something showing that the competition kernels are density
+    dependent.  Because this is a three dimensional functions (trait,
+    competition strength and resident density) we can only show slices
+    through two of these.  At different densities show how the
+    kernels look with respect to traits.  Possibly do that at two
+    different resident communities.
+  \item Need to pick a model to do this with - could be any of the
+    three and for completeness we might want to add them to the SM.
+  \end{itemize}
+\end{enumerate}
+
 \clearpage
 \section{Discussion}
 
@@ -652,6 +746,7 @@ the model has been published or not.
   \ref{fig:tree_lma}.
   \label{fig:sm_tree_lma_components}}
 \end{figure}
+
 \end{document}
 
 %%% Local Variables:

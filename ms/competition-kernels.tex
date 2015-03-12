@@ -214,7 +214,7 @@ similar to the widely-cited implementation by Tilman \citep{Tilman-1977,
 Tilman-1982}.  The resource availabilities, in turn, depend on the rates of
 resource supply and consumption. Individuals compete with one another by
 drawing down the joint resource pools. Such a system is easily described via a
-minimal set of equations (Appendix \ref{Rstar}).
+minimal set of equations (Appendix \ref{sec:Rstar}).
 
 
 Following previous authors \citep{Tilman-1985, Schreiber-2003, Fox-2008} we
@@ -222,7 +222,7 @@ focus on a trait determining the relative amount of the two resources
 required for growth, i.e. the stoichiometry of resource needs. Species can
 vary from requiring mostly resource 1, to equals amounts of both resources, to
 mostly resource 2. This dependence is achieved by making uptake saturation
-constants (see appendix  \ref{Rstar} for details) for resource 1 inversely related
+constants (see appendix  \ref{sec:Rstar} for details) for resource 1 inversely related
 to the requirement of resource 2:
 \begin{equation}
 \label{eq:R3}
@@ -401,53 +401,6 @@ By model:
     region where competition $\approx 1$ -- that doesn't make much
     sense!}.
 \end{itemize}
-
-\subsection{Figures}
-
-\begin{enumerate}
-\item \Rstar\ competition estimation
-  \begin{itemize}
-  \item general shape
-  \item Change in shape with parameters and/or resident position --
-    residents probably more important though as parameters should
-    change kernels extensively in most models.
-  \item Not many panels for each figure to keep it simple.  But make
-    figures like 2 for the SM that show the different ingredients that
-    are going into the calculation.
-  \item Show the different measures of competition provided that they
-    all fit on the page nicely; \citet{Abrams-2008} makes the point
-    that if different measures don't line up then competition is
-    density dependent.
-  \end{itemize}
-\item Hmat competition estimation
-  \begin{itemize}
-  \item Choose a case where we don't have coexistence to keep it
-    separate.
-  \item First because it most closely matches \citet{Kisdi-1999} and
-    because the results are really simple and don't look too weird.
-  \end{itemize}
-\item LMA competition estimation
-  \begin{itemize}
-  \item For LMA we want to get the curve into a bifurcation like point
-    where coexistence is possible on both sides
-  \item Show that the points that coexistence is possible on the RHS
-    are the dips in the competition function to make the case that
-    this is a fundamentally different way that competition might allow
-    coexistence in models with non-linear density dependent
-    competition.
-  \end{itemize}
-\item Density dependence in competition models
-  \begin{itemize}
-  \item Something showing that the competition kernels are density
-    dependent.  Because this is a three dimensional functions (trait,
-    competition strength and resident density) we can only show slices
-    through two of these.  At different densities show how the
-    kernels look with respect to traits.  Possibly do that at two
-    different resident communities.
-  \item Need to pick a model to do this with - could be any of the
-    three and for completeness we might want to add them to the SM.
-  \end{itemize}
-\end{enumerate}
 
 \clearpage
 \section{Discussion}
@@ -676,7 +629,7 @@ about biology.
  \caption{\textbf{Method for estimating the shape the competition function embedded
   in a mechanistic resource-based model.} To illustrate the method, we present
   results from a model with known solution \citep{Dieckmann-1999} (see Appendix
-  \ref{DD99} for details). For each
+  \ref{sec:DD99} for details). For each
   model we estimate: (a) the fitness of a rare invader growing without competition,
   (b) the equilibrium population density of invader when growing in monoculture,
   (c1, c2) the fitness of a rare invader growing in competition with an established
@@ -709,7 +662,7 @@ about biology.
   could successfully establish. Parameters for the symmetric case, $c_{1i} =
   c_ {2i}=0.5$ and for the asymmetric case $c_{1i} = 0.3, c_ {2i}=0.7$. Resident
   trait values are: (b) 0.6, (c) 0.5, (e) 0.7, (f) 0.9. All other parameters
-  are given in Appendix \ref{Rstar}.
+  are given in Appendix \ref{sec:Rstar}.
   \label{fig:Rstar}}
 \end{figure}
 
@@ -756,7 +709,7 @@ about biology.
 \section{Appendices}
 
 \subsection{Details about generic Lotka-Volterra model with
-Gaussian competition}\label{DD99}
+Gaussian competition}\label{sec:DD99}
 
 \citet{Dieckmann-1999} analyse a system following the Lotka-Volterra dynamics
 described in equation eq. \ref{eq:LVi}, where maximum growth rate is constant
@@ -775,7 +728,7 @@ K(x_I) &= K_0 \exp\left(-\frac{\left(x_I-x_0\right)^2}{2\sigma^2_K}\right),\\
 For the analyses presented in Figure \ref{fig:components} we let $r_0=1.0$, $K_0=500$,
  $s2_C=1$, and $s2_C=0.16$.
 
-\subsection{Details about \Rstar\ model}\label{Rstar}
+\subsection{Details about \Rstar\ model}\label{sec:Rstar}
 
 We consider an unstructured system where individuals compete for two
 resources. Let $N_i$ be the abundance of species-$i$ and $R_1, R_2$ be the
@@ -811,7 +764,7 @@ and be determined by the resource which is most limiting, such that
 In eq. \ref{eq:R2}, $r_i$ is the maximal growth rate rate of species $i$, $U_
 {ki}$ is the half saturation constant for species-$i$limited by resource $k$.
 
-\subsection{Details about \TREE\ model}\label{TREE}
+\subsection{Details about \TREE\ model}\label{sec:TREE}
 
 Excerpt from  \TREE\ model. Hold off writing this until know whether paper describing
 the model has been published or not.

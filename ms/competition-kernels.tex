@@ -256,6 +256,10 @@ shade-tolerance of seedlings. Meanwhile, HMAT moderates the allocation of
 surplus energy between growth and seed production, as an individual increases in
 size.
 
+% TODO: Something about how hmat leads to a fundamentally asymmetric
+% competition situation? -- i.e., talk about the *expectations* for
+% the different models.
+
 \clearpage
 
 \section{Results}
@@ -320,6 +324,39 @@ By model:
     per-capita competitive effect of the residents on invaders, but
     also the \emph{shape} of this relationship.
   \end{itemize}
+\end{itemize}
+
+\subsection{\TREE: hmat}
+
+\begin{itemize}
+\item Strategies that have different height of maturation (hmat) begin
+  to focus resources on reproduction at different ages.  Plants that
+  reproduce earlier get to ``lock in'' reproduction, but because they
+  allocate less resources to growth they risk being over-topped and
+  out-shaded by strategies that reproduce later.
+\item This leads to a strongly asymmetric competitive effect of taller
+  strategies suppressing the population growth of shorter strategies.
+\item We recover this result with \TREE: strategies exert more
+  competition on species that are shorter than them than are taller
+  than them (Figure \ref{fig:tree_hmat}).  As the resident strategy
+  increases in size, the strength of competition felt by smaller
+  species increases, and the slope of this competitive effect
+  increases (compare panels \textit{a} and \textit{b} in Figure
+  \ref{fig:tree_hmat}.
+\item Despite the consistent direction of competition, invasion
+  depends on the interplay between competitive effect, carrying
+  capacity and maximum growth rate; in the presence of a short
+  resident, taller strategies can invade (Figure
+  \ref{fig:sm_tree_hmat_components}c1), while in the presence of a
+  tall resident, shorter strategies can invade (Figure
+  \ref{fig:sm_tree_hmat_components}c2).
+\item This property is very similar to other models of asymmetric
+  competition \citep[e.g.,][]{Kisdi-1999}, where selection pushes
+  traits to an ``branching point'' (close to the resident in (Figure
+  \ref{fig:sm_tree_hmat_components}c2), and then repeated invasion to
+  the left of this point is possible.
+% TODO: SM figure showing the equilibrium community for each of the
+% scenarios presented (#31).
 \end{itemize}
 
 \subsection{Figures}

@@ -264,67 +264,72 @@ size.
 
 \section{Results}
 
-Main results:
-
-\begin{itemize}
-\item We saw evidence of asymmetric kernels from height competition,
-  as expected and as exist in the literature
-\item We saw kernels that didn't look remotely Gaussian
-\item Carrying capacities were more Gaussian for \TREE, I think.
-\end{itemize}
-
-Other things to look into
-
-\begin{itemize}
-\item Show that the bumps in the LMA landscape facilitate coexistance,
-  and see if we can remap the trait/resource axis onto time somehow?
-\end{itemize}
-
-By model:
-
 \subsection{\Rstar}
 
-\begin{itemize}
-\item ``Symmetric'' case with $C = \{0.2, 0.2\}$
-  \begin{itemize}
-  \item A single resident at $x = 0.6$ (midway between pure generalist
-    and pure specialist on resource B).
-  \item The competitive effect of the resident on invaders was
-    strongest for invading specialists; these species ``felt'' more
-    competition than the resident exerted on itself ($\alpha(x, x)
-    \equiv 1$), while invaders that were \emph{more generalist} than
-    the resident (i.e., $|x - 0.5| < 0.1$) felt relatively less
-    competition than the resident exerted on itself.
-  \item This region lines up perfectly with the region of positive
-    fitness: invasion is possible on $(0.4, 0.6)$.
-  \item If the resident is moved to $x = 0.5$ (perfectly generalist)
-    then invasion is not possible.  In this case, the strength of
-    competition increases monotonically away from the resident.
-  \item Computing competition functions using the derivative approach
-    described in \citet{Abrams-2008} ($(\partial d_i / \partial N_j) /
-    (\partial d_i / \partial N_i) |_{N_i = 0, N_j = K_j}$) was
-    qualitatively similar, though picewise linear in species traits
-    and with higher departure from 1.
-  \item Competition is density dependent: increasing the resident
-    density changes the per-capita competitive impact (this is not the
-    case for models like the \citet{Dieckmann-1999} model where the
-    per-capita competitive effect stays constant).  However, the
-    \emph{shape} did not qualitatively change.
-  \end{itemize}
-\item ``Nonsymmetric'' case with $C = \{0.3, 0.7\}$
-  \begin{itemize}
-  \item In the asymmetric case, consumption rates are higher for
-    resource $B$ than resource $A$; this shifts the model in favour of
-    species that can most efficiently use resource $B$.
-  \item With a single resident at $x = 0.7$, invasion is possible for
-    species that use $B$ more efficiently ($x$ in $(0.7, \approx
-    0.99)$).
-  \item The density dependent effect was more complicated than the
-    symmetric case; changing the resident density changed both the
-    per-capita competitive effect of the residents on invaders, but
-    also the \emph{shape} of this relationship.
-  \end{itemize}
-\end{itemize}
+For the \Rstar\ model we consider two cases: a ``symmetric
+consumption'' case with $C = \{0.2, 0.2\}$ and an ``asymmetric case''
+with $C = \{0.3, 0.7\}$.  Species vary only in their rate of resource
+conversion efficiency and the degree in which they specialise in the
+two resources.  For each case, we consider two resident communities;
+one in a position where invasion by other types is possible and one at
+the evolutionary optimum point.
+%
+Because $C$ does not vary by species, coexistence is not possible in
+this model \citep{Tilman-1982}; invasion is a sufficient condition for
+competitive replacement.
+
+In the asymmetric case, consumption rates are higher for
+resource $B$ than resource $A$; this shifts the model in favour of
+species that can most efficiently use resource $B$.
+%
+With a single resident at $x = 0.7$, invasion is possible for species
+that use $B$ more efficiently ($x$ in $(0.7, \approx 0.99)$).
+%
+The shape of the competition function was considerably more
+complicated than the symmetric case, though the region of invasion
+still corresponded to the region where competition was less than 1.
+
+In the symmetric model, we first consider a resident at $x = 0.6$
+(midway between pure generalist and pure specialist on resource B).
+%
+The resident species competes strongly with species that are more
+specialised than itself (self competition is $\alpha(x, x) \equiv
+1$), while invaders that were less specialised (i.e., closer to $x =
+0.5$ than the resident) experienced less competition from the resident
+than it exerted on itself (Figure \ref{fig:Rstar}b).
+%
+The region of competition $< 1$ lines up perfectly with the region
+where invasion is possible (black bar on Figure \ref{fig:Rstar}b,
+fitness greater than zero on Figure
+\ref{fig:sm_rstar_components1}c1).
+%
+When the resident is moved to $x = 0.5$ (perfectly generalist) then
+invasion is not possible for any type.  In this case, the strength of
+competition increases monotonically away from the resident.
+%
+Computing competition functions using the derivative approach
+described in \citet{Abrams-2008}
+($(\partial d_i / \partial N_j) / (\partial d_i / \partial N_i) |_{N_i
+  = 0, N_j = K_j}$)
+was qualitatively similar, though picewise linear in species traits
+and with higher departure from 1.
+
+
+In both the symmetric and asymmetric case, competition was density
+dependent.  Increasing the resident density changes the per-capita
+competitive impact (this is not the case for models like the
+\citet{Dieckmann-1999} model where the per-capita competitive effect
+stays constant).
+%
+In the symmetric model, the \emph{shape} did not qualitatively change,
+and competition was always saturating with increasing density.
+Increasing species density decreased the per-capita competitive effect
+(Figure \ref{fig:rstar_density_dependence}a--b).
+%
+In the asymmetric model, the shape of competition qualitatively
+changed, though on average per-capita competition appeared to decrease
+with increaing density (Figure
+\ref{fig:rstar_density_dependence}c--d).
 
 \subsection{\TREE: hmat}
 
@@ -825,6 +830,12 @@ the model has been published or not.
   functions for communities in panels  c1 \& c2. Parameters as in Fig.
   \ref{fig:tree_lma}.
   \label{fig:sm_tree_lma_components}}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \caption{Density dependence in \Rstar}
+  \label{fig:rstar_density_dependence}
 \end{figure}
 
 \end{document}

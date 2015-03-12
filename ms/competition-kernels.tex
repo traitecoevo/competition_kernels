@@ -18,10 +18,13 @@
 \runninghead{}
 \keywords{}
 
+\usepackage{color}
 \newcommand{\ud}{\ensuremath{\mathrm{d}}}
 \newcommand{\sign}{\mathop{\mathrm{sign}}\nolimits}
 \newcommand{\Rstar}{\ensuremath{R^*}}
 \newcommand{\TREE}{{\sc tree}}
+\newcommand{\hmat}{\ensuremath{h_{\text{mat}}}}
+\newcommand{\TODO}{{\color{red}\sc todo}}
 
 \begin{document}
 
@@ -264,6 +267,14 @@ size.
 
 \section{Results}
 
+% For each model there are a few things to discuss:
+%
+% - Non-equilibrium before equilibrium
+% - Density dependence after discussing each model
+% - Different measures of competition (where?)
+
+\subsection{\Rstar}
+
 For the \Rstar\ model we consider two cases: a ``symmetric
 consumption'' case with $C = \{0.2, 0.2\}$ and an ``asymmetric case''
 with $C = \{0.3, 0.7\}$.  Species vary only in their rate of resource
@@ -275,17 +286,6 @@ the evolutionary optimum point.
 Because $C$ does not vary by species, coexistence is not possible in
 this model \citep{Tilman-1982}; invasion is a sufficient condition for
 competitive replacement.
-
-In the asymmetric case, consumption rates are higher for
-resource $B$ than resource $A$; this shifts the model in favour of
-species that can most efficiently use resource $B$.
-%
-With a single resident at $x = 0.7$, invasion is possible for species
-that use $B$ more efficiently ($x$ in $(0.7, \approx 0.99)$).
-%
-The shape of the competition function was considerably more
-complicated than the symmetric case, though the region of invasion
-still corresponded to the region where competition was less than 1.
 
 In the symmetric model, we first consider a resident at $x = 0.6$
 (midway between pure generalist and pure specialist on resource B).
@@ -312,6 +312,16 @@ described in \citet{Abrams-2008}
 was qualitatively similar, though picewise linear in species traits
 and with higher departure from 1.
 
+In the asymmetric case, consumption rates are higher for
+resource $B$ than resource $A$; this shifts the model in favour of
+species that can most efficiently use resource $B$.
+%
+With a single resident at $x = 0.7$, invasion is possible for species
+that use $B$ more efficiently ($x$ in $(0.7, \approx 0.99)$).
+%
+The shape of the competition function was considerably more
+complicated than the symmetric case, though the region of invasion
+still corresponded to the region where competition was less than 1.
 
 In both the symmetric and asymmetric case, competition was density
 dependent.  Increasing the resident density changes the per-capita
@@ -331,79 +341,85 @@ with increaing density (Figure
 
 \subsection{\TREE: hmat}
 
-\begin{itemize}
-\item Strategies that have different height of maturation (hmat) begin
-  to focus resources on reproduction at different ages.  Plants that
-  reproduce earlier get to ``lock in'' reproduction, but because they
-  allocate less resources to growth they risk being over-topped and
-  out-shaded by strategies that reproduce later.
-\item This leads to a strongly asymmetric competitive effect of taller
-  strategies suppressing the population growth of shorter strategies.
-\item We recover this result with \TREE: strategies exert more
-  competition on species that are shorter than them than are taller
-  than them (Figure \ref{fig:tree_hmat}).  As the resident strategy
-  increases in size, the strength of competition felt by smaller
-  species increases, and the slope of this competitive effect
-  increases (compare panels \textit{a} and \textit{b} in Figure
-  \ref{fig:tree_hmat}.
-\item Despite the consistent direction of competition, invasion
-  depends on the interplay between competitive effect, carrying
-  capacity and maximum growth rate; in the presence of a short
-  resident, taller strategies can invade (Figure
-  \ref{fig:sm_tree_hmat_components}c1), while in the presence of a
-  tall resident, shorter strategies can invade (Figure
-  \ref{fig:sm_tree_hmat_components}c2).
-\item This property is very similar to other models of asymmetric
-  competition \citep[e.g.,][]{Kisdi-1999}, where selection pushes
-  traits to an ``branching point'' (close to the resident in (Figure
-  \ref{fig:sm_tree_hmat_components}c2), and then repeated invasion to
-  the left of this point is possible.
+In the \TREE\ model, Strategies that have different height of
+maturation (\hmat) begin to focus resources on reproduction at
+different ages.  Plants that reproduce earlier get to ``lock in''
+reproduction, but because they allocate less resources to growth they
+risk being over-topped and out-shaded by strategies that reproduce
+later.  This leads to a strongly asymmetric competitive effect of
+taller strategies suppressing the population growth of shorter
+strategies.
+
+We recover competition functions that are asymmetric in this case:
+strategies exert more competition on species that are shorter than
+them than are taller than them (Figure \ref{fig:tree_hmat}).  As the
+resident strategy increases in size, the strength of competition felt
+by smaller species increases, and the slope of this competitive effect
+increases (compare panels \textit{a} and \textit{b} in Figure
+\ref{fig:tree_hmat}.
+%
+Despite the consistent direction of competition, invasion depends on
+the interaction between competitive effect, carrying capacity and
+maximum growth rate; in the presence of a short resident, taller
+strategies can invade (Figure \ref{fig:sm_tree_hmat_components}\,c1),
+while in the presence of a tall resident, shorter strategies can
+invade (Figure \ref{fig:sm_tree_hmat_components}\,c2).
+
+This property is very similar to other models of asymmetric
+competition \citep[e.g.,][]{Kisdi-1999}, where selection pushes traits
+to an ``branching point'' (close to the resident in (Figure
+\ref{fig:sm_tree_hmat_components}c2), and then repeated invasion to
+the left of this point is possible.
 % TODO: SM figure showing the equilibrium community for each of the
 % scenarios presented (#31).
-\item Even though the shape of the function is not exactly sigmoidal,
-  the evolutionary dynamics are similar.
+Even though the shape of the function is not exactly sigmoidal, the
+evolutionary dynamics are similar (\TODO).
 % TODO: Run out the evolutionary dynamics of tree/hmat and Kisdi to
 % show that things do actually look similar with continual reinvasion
 % of mutants to the left.
-\end{itemize}
+% TODO: density dependence
+% TODO: Abrams kernel calculation
 
 \subsection{\TREE: lma}
-\begin{itemize}
-\item Strategies that have different leaf mass per unit area
-  (\textsc{lma}) values are different points in the ``leaf economic
-  spectrum'' \citep{Reich-1997,Wright-2004}.  We modelled LMA as a
-  trade-off between the cost of deploying a unit of cost of building
-  an extra unit of leaf area and the rate of leaf turnover (so high
-  LMA leaves are costly to deploy but turn over more slowly so that
-  they can contribute to carbon gain for longer, or conversely require
-  rebuilding less often).
-\item The shape of the competition function is complex and does not
-  conform to any of the simple shapes in wide use.
+Strategies that have different leaf mass per unit area (\textsc{lma})
+values are different points in the ``leaf economic spectrum''
+\citep{Reich-1997,Wright-2004}.  We modelled LMA as a trade-off
+between the cost of deploying a unit of cost of building an extra unit
+of leaf area and the rate of leaf turnover (so high LMA leaves are
+costly to deploy but turn over more slowly so that they can contribute
+to carbon gain for longer, or conversely require rebuilding less
+often).
+
+The shape of the competition function is complex and does not conform
+to any of the simple shapes in wide use.
 % Need to be clear that we're talking about the non attractor
 % situation first.
-\item Around the resident, competition is strongly asymmetric: the
-  resident exerts a large amount of competition on species with LMA
-  values higher than itself (``slow'' strategy species) and less on
-  species that have LMA values lower (``fast'' strategy species;
-  Figure \ref{fig:tree_lma}a).  Invasion is possible in the region
-  with LMA values smaller than the invader until growth and carrying
-  capacity reach a biological limit to invasion (Figure
-  \ref{fig:sm_tree_lma_components}c1).
-\item Despite the complex shape of fitness and competition, maximum
-  growth rate has a simple form and carrying capacity is approximately
-  Gaussian (Figure \ref{fig:sm_tree_lma_components}a and b).
-\item Above the resident LMA value, the competition function is
-  sawtooth shaped, before eventually declining steeply.
-\item Moving the resident towards the evolutionary attractor, invasion
-  is possible through a broad range of trait values (both avove and
-  below the resident value).
-\item \textit{How do we make the case that the sawtoothness
-    \textbf{probably} corresponds to differences in how time is
-    partitioned?}
-\item \textit{How is it the case that invasion is possible through the
-    region where competition $\approx 1$ -- that doesn't make much
-    sense!}.
-\end{itemize}
+In the region of trait space close to the resident species,
+competition is strongly asymmetric: the resident exerts a large amount
+of competition on species with LMA values higher than itself (``slow''
+strategy species) and less on species that have LMA values lower
+(``fast'' strategy species; Figure \ref{fig:tree_lma}a).  Invasion is
+possible in the region with LMA values smaller than the invader until
+growth and carrying capacity reach a biological limit to invasion
+(Figure \ref{fig:sm_tree_lma_components}c1).
+%
+Above the resident LMA value, the competition function is sawtooth
+shaped, before eventually declining steeply.
+%
+In contrast to the complex shape of fitness and competition, maximum
+growth rate has a simple form and carrying capacity is approximately
+Gaussian (Figure \ref{fig:sm_tree_lma_components}\,a and b).
+
+Moving the resident towards the evolutionary attractor, invasion is
+possible through a broad range of trait values (both avove and below
+the resident value).
+%
+Make the case that the sawtoothness \textbf{probably} corresponds to
+differences in how time is partitioned (\TODO).
+%
+Explain how is it the case that invasion is possible through the
+region where competition $\approx 1$ -- that doesn't make much sense!
+It's similar to the situation with \hmat\ though (\TODO).
 
 \clearpage
 \section{Discussion}
@@ -895,3 +911,8 @@ the model has been published or not.
 %%% TeX-master: t
 %%% TeX-PDF-mode: t
 %%% End:
+
+Overall shading caused by communities as an alternative way forward:
+if all we're tying to predict is whether or not a species can invade
+then the low order approximation that an invader does not affect shade
+level is OK and equilvanet to invasion fitness.

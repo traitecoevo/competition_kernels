@@ -21,7 +21,7 @@
 \newcommand{\ud}{\ensuremath{\mathrm{d}}}
 \newcommand{\sign}{\mathop{\mathrm{sign}}\nolimits}
 \newcommand{\Rstar}{\ensuremath{R^*}}
-\newcommand{\TREE}{\textsc{tree}}
+\newcommand{\TREE}{{\sc tree}}
 
 \begin{document}
 
@@ -357,10 +357,52 @@ By model:
   the left of this point is possible.
 % TODO: SM figure showing the equilibrium community for each of the
 % scenarios presented (#31).
+\item Even though the shape of the function is not exactly sigmoidal,
+  the evolutionary dynamics are similar.
+% TODO: Run out the evolutionary dynamics of tree/hmat and Kisdi to
+% show that things do actually look similar with continual reinvasion
+% of mutants to the left.
+\end{itemize}
+
+\subsection{\TREE: lma}
+\begin{itemize}
+\item Strategies that have different leaf mass per unit area
+  (\textsc{lma}) values are different points in the ``leaf economic
+  spectrum'' \citep{Reich-1997,Wright-2004}.  We modelled LMA as a
+  trade-off between the cost of deploying a unit of cost of building
+  an extra unit of leaf area and the rate of leaf turnover (so high
+  LMA leaves are costly to deploy but turn over more slowly so that
+  they can contribute to carbon gain for longer, or conversely require
+  rebuilding less often).
+\item The shape of the competition function is complex and does not
+  conform to any of the simple shapes in wide use.
+% Need to be clear that we're talking about the non attractor
+% situation first.
+\item Around the resident, competition is strongly asymmetric: the
+  resident exerts a large amount of competition on species with LMA
+  values higher than itself (``slow'' strategy species) and less on
+  species that have LMA values lower (``fast'' strategy species;
+  Figure \ref{fig:tree_lma}a).  Invasion is possible in the region
+  with LMA values smaller than the invader until growth and carrying
+  capacity reach a biological limit to invasion (Figure
+  \ref{fig:sm_tree_lma_components}c1).
+\item Despite the complex shape of fitness and competition, maximum
+  growth rate has a simple form and carrying capacity is approximately
+  Gaussian (Figure \ref{fig:sm_tree_lma_components}a and b).
+\item Above the resident LMA value, the competition function is
+  sawtooth shaped, before eventually declining steeply.
+\item Moving the resident towards the evolutionary attractor, invasion
+  is possible through a broad range of trait values (both avove and
+  below the resident value).
+\item \textit{How do we make the case that the sawtoothness
+    \textbf{probably} corresponds to differences in how time is
+    partitioned?}
+\item \textit{How is it the case that invasion is possible through the
+    region where competition $\approx 1$ -- that doesn't make much
+    sense!}.
 \end{itemize}
 
 \subsection{Figures}
-
 
 \begin{enumerate}
 \item \Rstar\ competition estimation

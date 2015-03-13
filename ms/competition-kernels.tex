@@ -424,11 +424,11 @@ It's similar to the situation with \hmat\ though (\TODO).
 \clearpage
 \section{Discussion}
 
-We inferred the shape of trait-based competition functions  embedded within
+We inferred the shape of trait-based competition functions embedded within
 two mechanistic models of resource competition, focussing on the special (but
 important) case of a single resident preventing or allowing invasion of a new
 phenotype by competing with it. In the models we looked at, the competition
-functions were: i) density dependent, implying non-linear per-capita
+functions: i) were density dependent, implying non-linear per-capita
 competitive effects \citep{Abrams-1980}; ii) varied qualitatively and
 quantitatively with resident phenotype, implying that they are not actually
 kernels but functions, and iii) had shapes that were distinctly non-Gaussian,
@@ -436,7 +436,7 @@ suggesting limited connection with the wide array of theoretical models
 assuming Gaussian shapes. Trivially, our results demonstrate that the \Rstar\
 and \TREE\  models are not well approximated by a Lotka-Volterra system, at
 least for two of the three traits we investigated. This fact alone is not
-surprising, as it might be hoped that the more complex resource-based  models
+surprising: it should certainly be hoped that more complex resource-based models
 are in some way richer that the standard LV equations. Moreover, we are in
 some cases simply reaffirming known shortcomings of LV systems for capturing
 important features of biological systems (REFS). More substantially, the
@@ -450,67 +450,74 @@ of LV systems. This perhaps suggest that we have been focussing our
 theoretical investigations on an unnecessarily restricted region of possible
 model space.
 
-
 \subsection{Competition functions in our plant models are anything but fixed 
 Gaussian kernels}
 
+In only one of the three cases studied here did our derived competition
+functions closely resemble any of the three dominant curves used in most
+theoretical investigations. The common forms are the Gaussian, asymmetric
+Gaussian \citet{Roughgarden-1979} and Logistic  \citep{e.g.
+Kisdi-1999,Law-1997}. The derived function from the HMAT model looks a lot
+like the logistic kernels used in models investigating asymmetric competition
+\citep{e.g. Kisdi-1999, Law-1997}.  An asymmetric kernel is also implicit in
+the widely used competition-colonisation models  \citep{Geritz-1999,
+Calcagno-2006}, which can be reformulated in form of LV system
+\citep{Calcagno-2006}. The competition function for our LMA model looks
+vaguely resembles the asymmetric Gaussian, but the ridges along the top are
+distinctly non-Gaussian and arise from real biological features of the system. 
+(\citet{Falster-2011} showed how the amount of shading undulates through 
+successional time. here this translates into undulations in fitness with
+respect to traits.) It is hard to generalise about these findings; what we
+can say is that none of the functions even closely resemble straight Gaussian
+kernels. 
 
-No clear generalisation yet about competition kernel shapes
+We also found that, for all three of the models, the derived competition
+functions were density dependent. It was not only the amplitude of the
+function that changed, but also its \emph{shape} (Figs xx). This result was
+predicted by \citet{Abrams-1980}, who argued that not satisfying the implicit
+of LV dynamics would lead to widespread non-constant density dependence. The
+idea that competitive effects are non-linear in density (i.e. non additive) is
+widely established within other more empirical realms of plant ecology, e.g.
+in the self thinning law \citep{Westoby-1984}, and the law of constant final
+yield \citep{Weiner-2010}. In both cases, the dynamics mirror are similar to
+those we observe: initially effects in either biomass or competition increase with population
+density (as would be expected with a constant per capita effect), but then
+once a saturating population density has been reached, addition of more seed
+has little impact on the community. As such, the per-capita effects changed
+sharply with density. (Do we have more to list ??). Similar findings
+exist for animals: already by 1980 there were  multiple reports showing that
+competition coefficients were not independent of population density
+\citep{Abrams-1980}.
 
-\begin{itemize}
-\item our LMA kernel looks a little like the
-  \citet{Roughgarden-1979} offset Gaussian, but the ridges are
-  likely important for later species (we need to actually show this
-  however)
-\item our HMAT kernel looks like the \citet{Kisdi-1999} asymmetric
-  kernel, and the dynamics are fairly similar (needs
-  demonstrating).
-\item The \Rstar\ kernels just look weird, but that's because the
-  \emph{trait} doesn't really map onto the resource very directly;
-  the trait is the preference for two different resources, which
-  can't map onto any single resource very well.
-\end{itemize}
-
-Density dependence
-
-\begin{itemize} 
-\item Density dependent competition emerged in every model, as
-  predicted by \citet{Abrams-1980}, who argued that not satisfying
-  implicit assumptions would lead to widespread non-constant density
-  dependence.
-\item More than density dependence, the \emph{shape} of the kernel
-  changes with density, moving in position as the resident population
-  density changes.  Kernels of this type simply haven't been studied
-  and it's not actually very clear if kernels of this type might
-  stretch the concept beyond its useful limit.
-\item Outcome of competition is governed by the relative shapes of r,
-  K and $\alpha$ but most modelling focusses only on the competition
-  kernel, setting $K$ to be uniform or Gaussian and setting $r$ to be
-  uniform.  The exception is asymmetric competition studies that tend
-  to use asymmetric $r$ functions (pointing in the opposite direction
-  of competitive ability). We don't know what \emph{any} of these look
-  like in nature.
-\end{itemize}
-
-\textit{Linking to field measurement of competition.}
-\begin{itemize}
-\item Most manipulative measures of competition in the field are going
-  to give \emph{discrete} estimates of $\alpha$: the amount of
-  competition exerted by or felt by a single species in the context of
-  some community.
-\item Because original, \citet{MacArthur-1967}, version of competition
-  kernels was designed around resource utilisation functions, it
-  should be possible to estimate competition functions and kernels
-  from shapes of those functions if they were estimatable.
-\item Does our way offer any better way forward?  The non-manipulative
-  work that Georges is doing with the working group data, or that
-  James is looking at with the BCI data might help; we have large data
-  sets of traits and growth; the signature of competition may show up
-  there (perhaps we could put it on a manifold\ldots).
-\end{itemize}
-
+One of the primary reasons we used models to study the shapes of competition
+functions was due the difficulty of estimating these in the field.
+Interestingly, \citet{Ricklefs-1973} suggests one might use the exact  method
+we have applied to estimating competition functions, i.e. by measuring the
+different elements of eq. \ref{eq:LVi} then using these to estimate the
+competitive interaction (fig. \ref{\fig:components}). And indeed some
+estimates have been made \citep{Ricklefs-1973}. However, nearly all
+manipulative measures of competition in the field are going to give
+\emph{discrete} estimates of $\alpha$: the amount of competition exerted by
+or felt by a single species in the context of some community. However, as
+the number of species increases, the number of pairwise competition
+coefficients needed increases quadratically with the number of species. This is
+one reason for seeking to define competition kernels on the basis of
+trait differences, so as to reduce the number of parameters needed (refs).
+However, estimating the shapes of trait-based competition kernels requires
+that lots of pairwise comparisons to made, which introduces new issues.
+Species usually differ in multiple traits, plus the need to estimate fitness
+across the life-cycle makes the task nigh impossible. Models are attractive
+because they allow us to rune experiments in ways that are simply not
+possible in real systems. 
 
 \subsection{Suitability of LV as a basis for modelling biological phenomena}
+
+Together, our findings imply  that the deeply ingrained assumption that
+competition kernels can be defined on basis of differences in trait values
+alone (without reference to population size, or absolute value of traits)
+is simply not defensible for the resource-based competition in plant
+communities. This raises 
+
 
 Difficult to link with traits
 
@@ -611,6 +618,13 @@ survival process rather than lifetime fitness.
 
 \subsection{Conclusions, where next with models of competition?}
 
+\emph{"The nearly complete dependence of theoretical community ecology on a
+limited number of simple models has resulted in the development of subsequent
+generations of deceptively simple constructs that may often confuse our
+understanding of the underlying biology rather than improve it. The 
+Lotka-Volterra competition equations and the community matrix are one such 
+pair of constructs."} \citep{Neill-1974}
+
 \begin{itemize}
 \item Despite being difficult to quantify in the field and relate to
   models, competition is likely an important force in structuring
@@ -683,13 +697,13 @@ survival process rather than lifetime fitness.
   another, via the width of the utilisation curve. Soon after it's publication,
   this idea of `limiting similarity` appeared in ecology textbooks, with similar
   figures to the one shown appearing in the earliest and also the most recent
-  editions of leading textbooks \citep{begon-1986, begon-2006, Krebs-1978, Krebs-2013,
+  editions of leading textbooks \citep{Begon-1986, begon-2006, Krebs-1978, Krebs-2013,
   Ricklefs-1973, Ricklefs-1999}.}
   % begon-1986: Fig 7.9, pg 263
   % begon-2006: Fig 8.29, pg 257
   % Krebs-1978: Fig 12.2, pg 233
   % Krebs-2013: ??
-  % Ricklefs-1973: Fig. 36.13, pg 526
+  % Ricklefs-1973: Fig. 36.13, pg 525
   % Ricklefs-1999: Fig 29.19, pg 602
   \label{fig:competition-kernels}
 \end{figure}

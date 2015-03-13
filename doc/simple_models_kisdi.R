@@ -35,10 +35,11 @@ matplot(x.mutant, t(m_k$competition(x.mutant, sys_k$x)), type="l", lty=1,
 abline(v=sys_k$x, col=1:2, lty=1:2)
 
 ## In the D+D model, we didn't really have to specify much about the
-## species exerting and receiving competition, but here we do.  This
+## species exerting and receiving competition, but here we do. **Why??**  This
 ## is the amount that a mutant whose trait is at a position on the x
 ## axis has its growth reduced by the black and the red species; so
-## this is competition *felt*.
+## this is competition *felt* ?? by the mutant, or competition
+## *exerted* by the resident.
 
 ## In contrast, this is how much competition is *exerted* by the
 ## mutants on the black and the red species:
@@ -47,7 +48,7 @@ matplot(x.mutant, m_k$competition(sys_k$x, x.mutant), type="l", lty=1,
         xlab="Trait", ylab="Competitive effect")
 abline(v=sys_k$x, col=1:2, lty=1:2)
 
-## We can jump straight to the derivatives:
+## We can jump straight to the derivatives **of ...what**:
 ##+ k_derivative
 z_k <- model_jacobian_density(x.mutant, sys_k, m_k)
 matplot(x.mutant, z_k, type="l", lty=1,
@@ -55,7 +56,7 @@ matplot(x.mutant, z_k, type="l", lty=1,
 abline(v=sys_k$x, lty=3, col=1:2)
 abline(h=0, lty=3)
 
-## Here, a competitive effect of zero means that the species is
+## Here, a derivative **(??)** of zero means that the species is
 ## unaffected by changing density of the resident.  So a mutant
 ## species around 1.5 is basically unaffected by the black species,
 ## while a species at -0.5 has its growth strongly suppressed by both

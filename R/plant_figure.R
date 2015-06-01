@@ -1,11 +1,11 @@
-tree_trait_lab <- function(trait) {
+plant_trait_lab <- function(trait) {
   switch(trait,
          lma="Leaf mass per area (lma; kg / m^2)",
          hmat="Height at maturation (m)",
          stop("Unknown trait ", trait))
 }
 
-fig_tree_lma <- function(d1, d2) {
+fig_plant_lma <- function(d1, d2) {
   ybar <- 0.05
   par(mfrow=c(1, 2), mar=c(4.1, 1, .5, .5), oma=c(0, 2, 0, 0))
   plot(d1$x_mutant, d1$alpha, log="x", type="l", ylim=c(0, 1.5), las=1,
@@ -26,7 +26,7 @@ fig_tree_lma <- function(d1, d2) {
   black_bar(range(d2$x_resident, d2$x_mutant[d2$w > 0]), ybar)
 }
 
-fig_tree_hmat <- function(d1, d2) {
+fig_plant_hmat <- function(d1, d2) {
   ybar <- 0.05
   ylim <- range(d1$alpha, d2$alpha)
   par(mfrow=c(1, 2), mar=c(4.1, 1, .5, .5), oma=c(0, 2, 0, 0))
@@ -46,8 +46,8 @@ fig_tree_hmat <- function(d1, d2) {
   black_bar(range(d2$x_resident, d2$x_mutant[d2$w > 0]), ybar)
 }
 
-fig_tree_components <- function(d1, d2) {
-  xlab <- tree_trait_lab(d1$trait)
+fig_plant_components <- function(d1, d2) {
+  xlab <- plant_trait_lab(d1$trait)
   x <- d1$x_mutant
   if (d1$trait == "hmat") {
     ylim_a <- c(-1, 40)

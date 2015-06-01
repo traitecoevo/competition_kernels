@@ -22,7 +22,7 @@
 \newcommand{\ud}{\ensuremath{\mathrm{d}}}
 \newcommand{\sign}{\mathop{\mathrm{sign}}\nolimits}
 \newcommand{\Rstar}{\ensuremath{R^*}}
-\newcommand{\TREE}{{\sc tree}}
+\newcommand{\plant}{{\tt plant}}
 \newcommand{\hmat}{\ensuremath{h_{\text{mat}}}}
 \newcommand{\TODO}{{\color{red}\sc todo}}
 
@@ -133,7 +133,7 @@ an asymmetric logistic.
 % In the first paragraph, I guess we describe the entire approach as
 % well as possible.
 
-We investigated the dynamics of two quite different models -- \TREE\ and \Rstar\
+We investigated the dynamics of two quite different models -- \plant\ and \Rstar\
 -- where the competitive impact of one species on another arises via the
 effect of individuals on a shared resource. In each model, species traits
 influence the dynamics of resource use and thus competitive interactions. For
@@ -180,7 +180,7 @@ resident, because the number of unknowns increases faster than the number of
 species (refs?).
 
 To estimate the shapes of competition functions embedded within the \Rstar\
-and \TREE\ models, we use those models to calculate all of the trait-dependent
+and \plant\ models, we use those models to calculate all of the trait-dependent
 terms in eq. \ref{eq:LVi} except $\alpha(x_I, x_R)$:
 \begin{enumerate}
   \item $f(x_I, x_R)$: fitness of rare invader with traits $x_I$  in competition
@@ -232,9 +232,9 @@ to the requirement of resource 2:
 U_{1i} = 1-U_{2i}.
 \end{equation}
 
-\subsection{\TREE\ model}
+\subsection{\plant\ model}
 
-In the second model (\TREE) individual plants compete for light within a patch
+In the second model (\plant) individual plants compete for light within a patch
 and size-structured metapopulation \citep{Falster-2011, Falster-2015}.
 Vegetation in this model comprises a large number of patches subject to a
 prevailing disturbance. Disturbances remove established vegetation within a
@@ -249,7 +249,7 @@ is to alter an individual's photosynthetic income. Following
 \citep{Falster-2015}, the fitness of individuals with a given type is
 calculated by integrating seed output across the entire metapopulation.
 
-We use the \TREE\ model to estimate trait-based competitive functions for
+We use the \plant\ model to estimate trait-based competitive functions for
 two traits whose evolutionary dynamics have recently been investigated
 \citep{Falster-2015}: leaf mass per area (LMA) and height at maturation
 (HMAT). In the model, LMA moderates a physiological trade-off between the cost
@@ -339,9 +339,9 @@ changed, though on average per-capita competition appeared to decrease
 with increaing density (Figure
 \ref{fig:rstar_density_dependence}c--d).
 
-\subsection{\TREE: hmat}
+\subsection{\plant: hmat}
 
-In the \TREE\ model, Strategies that have different height of
+In the \plant\ model, Strategies that have different height of
 maturation (\hmat) begin to focus resources on reproduction at
 different ages.  Plants that reproduce earlier get to ``lock in''
 reproduction, but because they allocate less resources to growth they
@@ -352,35 +352,35 @@ strategies.
 
 We recover competition functions that are asymmetric in this case:
 strategies exert more competition on species that are shorter than
-them than are taller than them (Figure \ref{fig:tree_hmat}).  As the
+them than are taller than them (Figure \ref{fig:plant_hmat}).  As the
 resident strategy increases in size, the strength of competition felt
 by smaller species increases, and the slope of this competitive effect
 increases (compare panels \textit{a} and \textit{b} in Figure
-\ref{fig:tree_hmat}.
+\ref{fig:plant_hmat}.
 %
 Despite the consistent direction of competition, invasion depends on
 the interaction between competitive effect, carrying capacity and
 maximum growth rate; in the presence of a short resident, taller
-strategies can invade (Figure \ref{fig:sm_tree_hmat_components}\,c1),
+strategies can invade (Figure \ref{fig:sm_plant_hmat_components}\,c1),
 while in the presence of a tall resident, shorter strategies can
-invade (Figure \ref{fig:sm_tree_hmat_components}\,c2).
+invade (Figure \ref{fig:sm_plant_hmat_components}\,c2).
 
 This property is very similar to other models of asymmetric
 competition \citep[e.g.,][]{Kisdi-1999}, where selection pushes traits
 to an ``branching point'' (close to the resident in (Figure
-\ref{fig:sm_tree_hmat_components}c2), and then repeated invasion to
+\ref{fig:sm_plant_hmat_components}c2), and then repeated invasion to
 the left of this point is possible.
 % TODO: SM figure showing the equilibrium community for each of the
 % scenarios presented (#31).
 Even though the shape of the function is not exactly sigmoidal, the
 evolutionary dynamics are similar (\TODO).
-% TODO: Run out the evolutionary dynamics of tree/hmat and Kisdi to
+% TODO: Run out the evolutionary dynamics of plant/hmat and Kisdi to
 % show that things do actually look similar with continual reinvasion
 % of mutants to the left.
 % TODO: density dependence
 % TODO: Abrams kernel calculation
 
-\subsection{\TREE: lma}
+\subsection{\plant: lma}
 Strategies that have different leaf mass per unit area (\textsc{lma})
 values are different points in the ``leaf economic spectrum''
 \citep{Reich-1997,Wright-2004}.  We modelled LMA as a trade-off
@@ -398,17 +398,17 @@ In the region of trait space close to the resident species,
 competition is strongly asymmetric: the resident exerts a large amount
 of competition on species with LMA values higher than itself (``slow''
 strategy species) and less on species that have LMA values lower
-(``fast'' strategy species; Figure \ref{fig:tree_lma}a).  Invasion is
+(``fast'' strategy species; Figure \ref{fig:plant_lma}a).  Invasion is
 possible in the region with LMA values smaller than the invader until
 growth and carrying capacity reach a biological limit to invasion
-(Figure \ref{fig:sm_tree_lma_components}c1).
+(Figure \ref{fig:sm_plant_lma_components}c1).
 %
 Above the resident LMA value, the competition function is sawtooth
 shaped, before eventually declining steeply.
 %
 In contrast to the complex shape of fitness and competition, maximum
 growth rate has a simple form and carrying capacity is approximately
-Gaussian (Figure \ref{fig:sm_tree_lma_components}\,a and b).
+Gaussian (Figure \ref{fig:sm_plant_lma_components}\,a and b).
 
 Moving the resident towards the evolutionary attractor, invasion is
 possible through a broad range of trait values (both avove and below
@@ -434,7 +434,7 @@ quantitatively with resident phenotype, implying that they are not actually
 kernels but functions, and iii) had shapes that were distinctly non-Gaussian,
 suggesting limited connection with the wide array of theoretical models
 assuming Gaussian shapes. Trivially, our results demonstrate that the \Rstar\
-and \TREE\  models are not well approximated by a Lotka-Volterra system, at
+and \plant\  models are not well approximated by a Lotka-Volterra system, at
 least for two of the three traits we investigated. This fact alone is not
 surprising: it should certainly be hoped that more complex resource-based models
 are in some way richer that the standard LV equations. Moreover, we are in
@@ -774,33 +774,33 @@ pair of constructs."} \citep{Neill-1974}
 
 \begin{figure}[h]
   \centering
-  % \includegraphics{figures/tree_hmat}
-  \caption{\textbf{Shape of competition function embedded within \TREE\ model for
+  % \includegraphics{figures/plant_hmat}
+  \caption{\textbf{Shape of competition function embedded within \plant\ model for
   the trait height at maturation.}
   Here we have only shown the derived  competition functions, see Fig.
-  \ref{fig:sm_tree_hmat_components} for plot of all components used to derive these functions.
+  \ref{fig:sm_plant_hmat_components} for plot of all components used to derive these functions.
   Solid lines show the derived competition functions for a community with a
   single resident, whose location is indicated by the dashed line.
   Resident trait values are: (a) XXX, (b) XXX.
-  \label{fig:tree_hmat}}
+  \label{fig:plant_hmat}}
 \end{figure}
 
 \begin{figure}[h]
   \centering
-  % \includegraphics{figures/tree_lma}
-  \caption{\textbf{Shape of competition function embedded within \TREE\ model for
+  % \includegraphics{figures/plant_lma}
+  \caption{\textbf{Shape of competition function embedded within \plant\ model for
   the trait leaf mass per area.}
   Here we have only shown the derived  competition functions, see Fig.
-  \ref{fig:sm_tree_lma_components} for plot of all components used to derive these functions.
+  \ref{fig:sm_plant_lma_components} for plot of all components used to derive these functions.
   Solid lines show the derived competition functions for a community with a
   single resident, whose location is indicated by the dashed line.
   Resident trait values are: (a) XXX, (b) XXX.
-  \label{fig:tree_lma}}
+  \label{fig:plant_lma}}
 \end{figure}
 
 \begin{figure}[h]
   \centering
-  % \includegraphics{figures/tree_lma}
+  % \includegraphics{figures/plant_lma}
   \caption{\textbf{Density dependence
   ...}.
   \label{fig:dd}}
@@ -870,9 +870,9 @@ and be determined by the resource which is most limiting, such that
 In eq. \ref{eq:R2}, $r_i$ is the maximal growth rate rate of species $i$, $U_
 {ki}$ is the half saturation constant for species-$i$limited by resource $k$.
 
-\subsection{Details about \TREE\ model}\label{sec:TREE}
+\subsection{Details about \plant\ model}\label{sec:plant}
 
-Excerpt from  \TREE\ model. Hold off writing this until know whether paper describing
+Excerpt from  \plant\ model. Hold off writing this until know whether paper describing
 the model has been published or not.
 
 \section{Supplementary figures}
@@ -907,30 +907,30 @@ the model has been published or not.
 
 \begin{figure}[h]
  \centering
- % \includegraphics{figures/sm_tree_hmat_components}
+ % \includegraphics{figures/sm_plant_hmat_components}
  \caption{\textbf{Components used to estimate competition functions shown in Figs.
- \ref{fig:tree_hmat} for \TREE\ model and the trait height at maturation.}
+ \ref{fig:plant_hmat} for \plant\ model and the trait height at maturation.}
   Panels show: (a) the fitness of a rare invader growing without competition,
   (b) the equilibrium population density of invader when growing in monoculture,
   (c1, c2) the fitness of a rare invader growing in competition with an established
   resident, whose location is indicated by dashed line, and (d1,d2) derived competition
   functions for communities in panels c1 \& c2. Parameters as in Fig.
-  \ref{fig:tree_hmat}.
-  \label{fig:sm_tree_hmat_components}}
+  \ref{fig:plant_hmat}.
+  \label{fig:sm_plant_hmat_components}}
 \end{figure}
 
 \begin{figure}[h]
  \centering
- % \includegraphics{figures/sm_tree_lma_components}
+ % \includegraphics{figures/sm_plant_lma_components}
  \caption{\textbf{Components used to estimate competition functions shown in Figs.
- \ref{fig:tree_lma} for \TREE\ model and the trait leaf mass per area.}
+ \ref{fig:plant_lma} for \plant\ model and the trait leaf mass per area.}
   Panels show: (a) the fitness of a rare invader growing without competition,
   (b) the equilibrium population density of invader when growing in monoculture,
   (c1, c2) the fitness of a rare invader growing in competition with an established
   resident, whose location is indicated by dashed line, and (d1,d2) derived competition
   functions for communities in panels  c1 \& c2. Parameters as in Fig.
-  \ref{fig:tree_lma}.
-  \label{fig:sm_tree_lma_components}}
+  \ref{fig:plant_lma}.
+  \label{fig:sm_plant_lma_components}}
 \end{figure}
 
 \begin{figure}[h]

@@ -1,5 +1,5 @@
 packages:
-  - tree2
+  - plant
 
 sources:
   - R
@@ -12,7 +12,7 @@ plot_options:
 targets:
   all:
     depends:
-      - tree_data
+      - plant_data
       - figures
       - figures_sm
       - ms/competition-kernels.pdf
@@ -25,8 +25,8 @@ targets:
       - ms/figures/kernel.pdf
       - ms/figures/components.pdf
       - ms/figures/rstar.pdf
-      - ms/figures/tree_hmat.pdf
-      - ms/figures/tree_lma.pdf
+      - ms/figures/plant_hmat.pdf
+      - ms/figures/plant_lma.pdf
 
   figures_sm:
     depends:
@@ -34,15 +34,15 @@ targets:
       - ms/figures/sm_rstar_components2.pdf
       - ms/figures/sm_rstar_abrams.pdf
       - ms/figures/sm_rstar_density.pdf
-      - ms/figures/sm_tree_lma_components.pdf
-      - ms/figures/sm_tree_hmat_components.pdf
+      - ms/figures/sm_plant_lma_components.pdf
+      - ms/figures/sm_plant_hmat_components.pdf
 
-  tree_data:
+  plant_data:
     depends:
-      - tree_lma_1
-      - tree_lma_2
-      - tree_hmat_1
-      - tree_hmat_2
+      - plant_lma_1
+      - plant_lma_2
+      - plant_hmat_1
+      - plant_hmat_2
 
   ms/competition-kernels.pdf:
     depends:
@@ -57,21 +57,21 @@ targets:
   # I'm pretty tempted to make these check: exists, because they are a
   # total hassle to regenerate and I don't think we should be doing
   # that lightly.
-  tree_lma_shared:
-    command: tree_competition_prepare(I("lma"), parallel=TRUE)
+  plant_lma_shared:
+    command: plant_competition_prepare(I("lma"), parallel=TRUE)
     quiet: false
-  tree_hmat_shared:
-    command: tree_competition_prepare(I("hmat"), parallel=TRUE)
+  plant_hmat_shared:
+    command: plant_competition_prepare(I("hmat"), parallel=TRUE)
     quiet: false
 
-  tree_lma_1:
-    command: tree_competition(0.2, tree_lma_shared)
-  tree_lma_2:
-    command: tree_competition(0.11, tree_lma_shared)
-  tree_hmat_1:
-    command: tree_competition(5.0, tree_hmat_shared)
-  tree_hmat_2:
-    command: tree_competition(17.0, tree_hmat_shared)
+  plant_lma_1:
+    command: plant_competition(0.2, plant_lma_shared)
+  plant_lma_2:
+    command: plant_competition(0.11, plant_lma_shared)
+  plant_hmat_1:
+    command: plant_competition(5.0, plant_hmat_shared)
+  plant_hmat_2:
+    command: plant_competition(17.0, plant_hmat_shared)
 
   ms/figures/kernel.pdf:
     command: fig_kernel()
@@ -84,11 +84,11 @@ targets:
     plot:
       height: 6
       width: 8
-  ms/figures/tree_hmat.pdf:
-    command: fig_tree_hmat(tree_hmat_1, tree_hmat_2)
+  ms/figures/plant_hmat.pdf:
+    command: fig_plant_hmat(plant_hmat_1, plant_hmat_2)
     plot: true
-  ms/figures/tree_lma.pdf:
-    command: fig_tree_lma(tree_lma_1, tree_lma_2)
+  ms/figures/plant_lma.pdf:
+    command: fig_plant_lma(plant_lma_1, plant_lma_2)
     plot: true
 
   ms/figures/sm_rstar_components1.pdf:
@@ -97,11 +97,11 @@ targets:
   ms/figures/sm_rstar_components2.pdf:
     command: fig_rstar_components(2)
     plot: tall
-  ms/figures/sm_tree_lma_components.pdf:
-    command: fig_tree_components(tree_lma_1, tree_lma_2)
+  ms/figures/sm_plant_lma_components.pdf:
+    command: fig_plant_components(plant_lma_1, plant_lma_2)
     plot: tall
-  ms/figures/sm_tree_hmat_components.pdf:
-    command: fig_tree_components(tree_hmat_1, tree_hmat_2)
+  ms/figures/sm_plant_hmat_components.pdf:
+    command: fig_plant_components(plant_hmat_1, plant_hmat_2)
     plot: tall
 
   dat_rstar_abrams:

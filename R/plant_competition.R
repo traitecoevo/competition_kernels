@@ -1,4 +1,4 @@
-tree_competition <- function(x_resident, obj, n=101L) {
+plant_competition <- function(x_resident, obj, n=101L) {
   x_resident <- check_point(trait_matrix(x_resident, obj$trait),
                             obj$bounds)
   x_mutant <- seq_log_range(obj$bounds, n)
@@ -25,10 +25,10 @@ tree_competition <- function(x_resident, obj, n=101L) {
   obj
 }
 
-tree_competition_prepare <- function(trait, p0=NULL, n=20L,
+plant_competition_prepare <- function(trait, p0=NULL, n=20L,
                                      parallel=FALSE) {
   if (is.null(p0)) {
-    p0 <- tree_base_parameters()
+    p0 <- plant_base_parameters()
   }
 
   if (trait == "hmat") {
@@ -56,7 +56,7 @@ tree_competition_prepare <- function(trait, p0=NULL, n=20L,
        K=splinefun_loglog(x, K))
 }
 
-tree_base_parameters <- function() {
+plant_base_parameters <- function() {
   p <- ebt_base_parameters()
   p$control$equilibrium_nsteps <- 30
   p$control$equilibrium_solver_name <- "hybrid"
@@ -65,6 +65,6 @@ tree_base_parameters <- function() {
   ## Will be overriden in specific models:
   p$hmat <- 15.0
   p$lma  <- 0.2
-  
+
   p
 }

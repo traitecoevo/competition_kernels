@@ -1,5 +1,5 @@
 ## TODO: I'm handling the 'x' parameters in the opposite direction to
-## tree2; should be each column represents traits and each row
+## plant; should be each column represents traits and each row
 ## represents species.
 rstar_competition <- function(x_resident, p, N_resident=NULL, n=301L) {
   x_invade <- rbind(seq(0, 1, length.out=n))

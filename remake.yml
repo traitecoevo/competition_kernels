@@ -113,3 +113,6 @@ targets:
   ms/figures/sm_rstar_density.pdf:
     command: fig_rstar_density()
     plot: true
+
+  comp.lotka.tilman.pdf:
+    command: build_pdf_knit("comp.lotka.tilman.Rmd")

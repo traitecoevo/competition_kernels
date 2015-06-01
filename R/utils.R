@@ -55,3 +55,14 @@ build_pdf <- function(texfile) {
   file.remove(aux_files[file.exists(aux_files)])
   invisible(NULL)
 }
+
+build_pdf_knit <- function(MD_file){
+
+    require(knitr)
+    name_file <- sub(".Rmd", "", MD_file)
+    knit(paste0(name_file, '.Rmd'))
+    args <- paste0(name_file, ".md", " -o ", name_file,".pdf")
+    print(args)
+    suppressWarnings(system2("pandoc", args, stdout=TRUE, stderr=TRUE))
+  }
+

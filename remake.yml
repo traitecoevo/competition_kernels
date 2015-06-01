@@ -1,5 +1,6 @@
 packages:
   - plant
+  - rootSolve
 
 sources:
   - R

@@ -130,69 +130,108 @@ an asymmetric logistic.
 % In the first paragraph, I guess we describe the entire approach as
 % well as possible.
 
-We investigated the dynamics of two quite different models -- \plant\ and \Rstar\
--- where the competitive impact of one species on another arises via the
-effect of individuals on a shared resource. In each model, species traits
-influence the dynamics of resource use and thus competitive interactions. For
-each model, we compute the core quantities used in the Lotka-Volterra
-equations (growth rate, carrying capacity,  per-capita rate of population
-increase) and from that infer the shapes of competition functions.
+% NOTE: This is hard to introduce properly because the Abrams kernels
+% need dealing with explicitly.  But of course we don't really use
+% them (yet -- see issue #35), and note that not all are even possible
+% (some require that coexistance is possible).
+We investigated the dynamics of two quite different models -- \plant\
+and \Rstar\ -- where the competitive impact of one species on another
+arises via the effect of individuals on a shared resource. In each
+model, species traits influence the dynamics of resource use, which in
+turn affects competitive interactions through the common resource.
+Several ways of computing competition coefficients are possible
+\citep[e.g.,][]{Abrams-1987,Abrams-2008}.  When the underlying
+dynamics follow Lotka-Volterra dynamics (density independent
+competition, etc), then the different coefficients will be the same.
 
-The standard Lotka-Volterra equations express the per capita rate of increase
-in the abundance $N_i$ of species-$i$ as a product of two terms. The first
-gives the maximum possible per-capita growth rate $r_i$. The second expresses
-the degree to which that maximum is realised, and thus includes any reductions
-due to competition with other species. A commonly used form for Lotka-Volterra dynamics
-is
+For each model, we compute the core quantities used in the
+Lotka-Volterra equations (growth rate, carrying capacity, per-capita
+rate of population increase and strength of competition).  The
+standard Lotka-Volterra equations express the per capita rate of
+increase in the abundance $N_i$ of species-$i$ as a product of two
+terms.
+%
+The first is the maximum possible per-capita growth rate $r_i$. The
+second expresses the degree to which that maximum is realised, and
+thus includes any reductions due to competition with other species. A
+commonly used form for Lotka-Volterra dynamics is
+%
 \begin{equation}
 \label{eq:LV}
-\frac{\ud N_i}{\ud t} \frac{1}{N_i} =  r_i \left(1 - \sum_j
-                                      \frac{\alpha_{ij} N_j}{K_i}\right),
+\frac{\ud N_i}{\ud t} \frac{1}{N_i} =
+r_i \left(1 - \sum_j \frac{\alpha_{ij} N_j}{K_i}\right),
 \end{equation}
-where $K_i$ is the equilibrium value for $N_i$ when species-$i$ is grown in a
-monoculture  (i.e. carrying capacity), and $\alpha_{ij}$ is the per-capita
-competitive effect of species-$j$ on species-$i$. By convention, competition
-functions are expressed as the effect of species-$j$ on species-$i$, relative
-to the effect of species-$i$ on itself. Thus $\alpha_{ii}\equiv 1$. It is
-also worth noting, that there are other forms for eq. \ref{eq:LV}. The alternative
-forms differ subtly in the nature of density dependence, but retain the same
-overall structure of \ref{eq:LV}, wherein a maximum possible growth rate is multiplied
-by a second term incorporating reductions due to competition. For simplicity,
-we focus on a single version of the Lotka-Volterra dynamics.
+%
+where $K_i$ is the equilibrium value for $N_i$ when species-$i$ is
+grown in a monoculture (i.e., the carrying capacity), and
+$\alpha_{ij}$ is the per-capita competitive effect of species-$j$ on
+species-$i$.  By convention, competition functions are expressed as
+the effect of species-$j$ on species-$i$, relative to the effect of
+species-$i$ on itself, so $\alpha_{ii}\equiv 1$.
+%
+Other forms of equation (\ref{eq:LV}) exist that differ subtly in the
+nature of density dependence \citep[e.g.][]{Leimar-2013}, but for
+simplicity we focus on a single version.
 
-We are interested in situations where the different parameters in eq.
-\ref{eq:LV} are functions  of traits. Moreover, we restrict our
-attention to situations where a single type with traits
-$x_I$ is trying to invade a community comprising a single resident type with
-traits $x_R$.  The fitness $f(x_I, x_R)$ of the invading type is
-then
+We are interested in situations where the different parameters in
+equation (\ref{eq:LV}) are functions of traits.  We restrict our
+analysis to the simplest situation where a single invading type with
+trait $x_I$ is trying to invade a community comprising a single
+resident type with trait $x_R$.  The fitness $f_I(x_I, x_R)$ of the
+invading type is then
+%
 \begin{equation}
   \label{eq:LVi}
-   f(x_I, x_R) = \frac{\ud N_i}{\ud t} \frac{1}{N_i} =
+   f_I(x_I, x_R) = \frac{\ud N_i}{\ud t} \frac{1}{N_i} =
     r(x_I)\left(1 - \alpha(x_I, x_R) \frac{K(x_R)}{K(x_I)}\right).
 \end{equation}
-The reason for this narrowing of focus is that it is not possible to
-infer the shapes of competition functions in situations with more than one
-resident, because the number of unknowns increases faster than the number of
-species (refs?).
+% TODO: Move this into the discussion, I think.  This is the
+% "classical" criticism of LV as a useful device for doing anything in
+% natural systems.
+%
+%   The reason for this narrowing of focus is that it is not possible to
+%   infer the shapes of competition functions in situations with more
+%   than one resident, because the number of unknowns increases faster
+%   than the number of species (refs?).
 
 To estimate the shapes of competition functions embedded within the \Rstar\
 and \plant\ models, we use those models to calculate all of the trait-dependent
 terms in eq. \ref{eq:LVi} except $\alpha(x_I, x_R)$:
 \begin{enumerate}
-  \item $f(x_I, x_R)$: fitness of rare invader with traits $x_I$  in competition
-  with a established resident with traits $x_R$
-  \item $r(x_I)$: maximum possible fitness of invader, i.e. in absence of competition,
-  \item $K(x_I)$: equilibrium population density of invader when growing in monoculture.
-  \item $K(x_R)$: equilibrium population density of resident when growing in
-  monoculture.
+\item $f_I(x_I, x_R)$: fitness of rare invader with traits $x_I$  in
+  competition with a established resident with traits $x_R$
+\item $r(x_I)$: maximum possible fitness of invader, i.e. fitness in
+  the empty environment.
+\item $K(x_I)$: equilibrium population density of invader when growing
+  in monoculture.
+\item $K(x_R)$: equilibrium population density of resident when
+  growing in monoculture.
 \end{enumerate}
 We then solved for $\alpha(x_I, x_R)$ by rearranging  \ref{eq:LVi} to give:
 \begin{equation}
   \label{eq:alpha}
- \alpha(x_I, x_R) = \frac{K(x_I)}{K(x_R)}
-  \left(1 - \frac{f(x_I, x_R)}{r(x_I)}\right).
+  \alpha(x_I, x_R) = \frac{K(x_I)}{K(x_R)}
+  \left(1 - \frac{f_I(x_I, x_R)}{r(x_I)}\right).
 \end{equation}
+
+In addition, we will also use one of the coefficients described in
+\citet{Abrams-2008}: $\chi_{ij}^{*}$:
+%
+\begin{equation}
+  \label{eq:abrams-coef}
+  \chi_{IR}^{*} =
+  \frac{\partial f_I(x_I, x_R, N_I, N_R) /  \partial N_R}%
+  {\partial f_I(x_I, x_R, N_I, N_R) / \partial N_I}
+  \bigg|_{N_I=0; N_R=K_{R}}
+\end{equation}
+%
+where the numerator is the derivative of invasion fitness with respect
+to resident density, the denominator is the derivative of invasion
+fitness with respect to invader density, and this is evaluated at the
+situation where the resident is at equilibrium and the invader is at
+trivial density.  This index therefore measures the extent to which
+the resident depresses the growth of an invader relative to the amount
+that the invader depresses its own growth.
 
 \subsection{\Rstar\ model}
 
@@ -201,20 +240,22 @@ We then solved for $\alpha(x_I, x_R)$ by rearranging  \ref{eq:LVi} to give:
 %   measure of specialisation/generalisation.
 
 In the first model (\Rstar) individuals compete for two essential and
-depletable resources. This model is one of the best studied and cited models
-of resource competition \citep{Tilman-1977, Tilman-1982, Huisman-1999},
-originating from a study on exploitative competition for any pair of generic
-resources \citep{Leon-1975}. The model is unstructured, with the per capita
-growth rates for each species simply depending on the availability of two
-resources. We assume both resources are necessary (i.e. non-substitutable), so
-the growth rate of each species is determined by the resource which is
-currently most limiting. We implemented a version where the specific growth
-rates follow a Monod equation \citet{Huisman-1999}, but which is otherwise
-similar to the widely-cited implementation by Tilman \citep{Tilman-1977,
-Tilman-1982}.  The resource availabilities, in turn, depend on the rates of
-resource supply and consumption. Individuals compete with one another by
-drawing down the joint resource pools. Such a system is easily described via a
-minimal set of equations (Appendix \ref{sec:Rstar}).
+depletable resources. This model is one of the best studied and cited
+models of resource competition \citep{Tilman-1977, Tilman-1982,
+  Huisman-1999}, originating from a study on exploitative competition
+for any pair of generic resources \citep{Leon-1975}. The model is
+unstructured, with the per capita growth rates for each species simply
+depending on the availability of two resources. We assume both
+resources are necessary (i.e. non-substitutable), so the growth rate
+of each species is determined by the resource which is currently most
+limiting. We implemented a version where the specific growth rates
+follow a Monod equation \citet{Huisman-1999}, but which is otherwise
+similar to the widely-cited implementation by Tilman
+\citep{Tilman-1977, Tilman-1982}.  The resource availabilities, in
+turn, depend on the rates of resource supply and
+consumption. Individuals compete with one another by drawing down the
+joint resource pools. Such a system is easily described via a minimal
+set of equations (Appendix \ref{sec:Rstar}).
 
 
 Following previous authors \citep{Tilman-1985, Schreiber-2003, Fox-2008} we

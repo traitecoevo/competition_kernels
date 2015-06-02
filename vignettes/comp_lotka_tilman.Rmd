@@ -45,26 +45,26 @@ comp[etition kernel derivated in Abrams (1987), for a modified version of Tilman
 
 \begin{equation}
 \chi_{IR} = \frac{\partial f(x_I, x_R, N_I, N_R) / \partial
-N_R}{\partial f(x_I, x_R, N_I, N_R) / \partial N_Y} \bigg|
+N_R}{\partial f(x_I, x_R, N_I, N_R) / \partial N_I} \bigg|
 _{N_I=0;N_R=N_{RA}}
 \end{equation}
 
 # Comparison of Lotka Volterra and R* model at equilibrium
 This is based on the Chapter 7 of Tilman 1982. The basic idea of the chapter 7 of Tilman is to take the R* model at
 equilibrium and rework out the equation to match the same structure as
-these two equations and see what match $K$ and $\alpha$, so as $alpha_{ij}$ in Abrams et al. (2008).
+these two equations and see what match $K$ and $\alpha$, so as $\alpha_{ij}$ in Abrams et al. (2008).
 
 ## R* model based on Huisman & Weissing equations:
 
 Here I follow the notation of Huisman & Weissing (2001) because this is what we have used so far. This is different from Tilman chapter 7.
 
 \begin{equation}
-\frac{dN_i}{dt} \, \frac{1}{N_i}=   (min(p_{1i}(R_1), p_{2i}(R_2))-m)
+\frac{dN_i}{dt} \, \frac{1}{N_i}=   (\min(p_{1i}(R_1), p_{2i}(R_2))-m)
 \end{equation}
 
 \begin{equation}
 \frac{dR_j}{dt} = D \times (S_j-R_j) - \sum_{i=1}^I {C_{ji} N_i
-min(p_{1i}(R_1),p_{2i}(R_2))}
+\min(p_{1i}(R_1),p_{2i}(R_2))}
 \end{equation}
 
 \begin{equation}
@@ -76,8 +76,8 @@ j and i in 1, 2.
 We assume $D=m$.
 
 A species $i$ is defined by two vectors of parameters (of length two for two resources):
-- $K_{.i}$ which is the half saturation constant for each resource ($K_{1i}$ for resource $R_1$ and $K_{2i}$ for resource $R_2$).
-- $C_{.i}$ which is the consumption rate (or the content of nutriment) for each resource ($C_{1i}$ for resource $R_1$ and $C_{2i}$ for resource $R_2$).
+- $K_{\bullet i}$ which is the half saturation constant for each resource ($K_{1i}$ for resource $R_1$ and $K_{2i}$ for resource $R_2$).
+- $C_{\bullet i}$ which is the consumption rate (or the content of nutriment) for each resource ($C_{1i}$ for resource $R_1$ and $C_{2i}$ for resource $R_2$).
 
 The resource requirement of species $i$ is defined by:
 $R_{11}^* = \frac{m K_{11}}{r-m}$
@@ -88,9 +88,9 @@ I assume that species 1 as the minimum $R^*$ for $R_1$ and species 2 for $R_2$.
 
 At equilibrium $\frac{dN}{dt} = 0$ and $\frac{dR}{dt} = 0$.
 
-$min(p_{1i}(R_1), p_{2i}(R_2)) = m$.
+$\min(p_{1i}(R_1), p_{2i}(R_2)) = m$.
 
-### If $R_1$ is the limting factor for both species
+### If $R_1$ is the limiting factor for both species
 
 $N_{1A}$ is defined as the equilibrium population when
 single species. Which is:
@@ -118,7 +118,7 @@ In the same way:
 
 $\alpha_{12} = \frac{C_{11}}{C_{12}}$
 
-### If $R_2$ is the limting factor for both species
+### If $R_2$ is the limiting factor for both species
 
 Applying the same approach as for when $R_1$ is limiting gives:
 
@@ -128,7 +128,7 @@ and
 
 $\alpha_{12} = \frac{C_{21}}{C_{22}}$
 
-### If $R_1$ is the limting factor for species 1 and $R_2$ for species 2.
+### If $R_1$ is the limiting factor for species 1 and $R_2$ for species 2.
 
 Applying the same approach as for when $R_1$ is limiting gives:
 
@@ -161,11 +161,11 @@ $\frac{S_2}{S_1} < \frac{1-x}{x}$ and $R_1$ limited if inverse.
 Abrams assume that resources are at their equilibrium values $R_j^*$. Based on this assumption the four differential equations of the R* model can be simplified to only two.
 
 \begin{equation}
-\frac{dN_1}{dt} \, \frac{1}{N_1}=   (min(p_{11}(R_1), p_{21}(R_2^*))-m)
+\frac{dN_1}{dt} \, \frac{1}{N_1}=   (\min(p_{11}(R_1), p_{21}(R_2^*))-m)
 \end{equation}
 
 \begin{equation}
-\frac{dN_2}{dt} \, \frac{1}{N_2}=   (min(p_{12}(R_1), p_{22}(R_2^*))-m)
+\frac{dN_2}{dt} \, \frac{1}{N_2}=   (\min(p_{12}(R_1), p_{22}(R_2^*))-m)
 \end{equation}
 
 If 1 and 2 are limited per resource $R_1$, then
@@ -213,7 +213,7 @@ NEED TO FINISH FROM HERE BY WORKING ALL CASES OF WHICH RESOURCES IS LIMITING FOR
 
 \pagebreak
 
-## R function to plot alpha and beta in function of x
+## R function to plot $\alpha$ and $\beta$ as functions of $x$
 
 With the trait x of species 1 varying from 0 to 1 and the species 2 fixed at x = 0.4.
 

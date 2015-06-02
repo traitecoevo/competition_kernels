@@ -11,7 +11,7 @@
   \usepackage{xr}%
   \externaldocument{competition-kernels-sm}}{}
 
-\title{competition kernels: shapes and consequences}
+\title{Competition kernels: shapes and consequences}
 \author{}
 \date{}
 \affiliation{}
@@ -37,36 +37,117 @@
 
 \section{Introduction}
 
-%MW version starting here
-Central to community ecology has been the metaphor of species packing. The community is seen as fitted into a volume of niche space. Each species that is a potential community member has a fundamental niche somewhere in the volume. The fundamental niche is compressed by competition into a realised niche, as species are packed in alongside each other (Figure \ref{fig:competition-kernels} for one-dimensional version found in [almost all] textbooks). Roots of the species packing metaphor trace to the competitive exclusion principle \cite{Lotka-1925, Volterra-1926, Gause-1934} whereby if species have identical niches or compete for a single resource, all but one are competitively excluded. \citet{Hutchinson-1957} added the n-dimensional hypervolume. The  competitive exclusion principle was converted [inverted? made more quantitative?] into the question how dissimilar two species need to be in order to coexist. This question included "limiting similarity" \citep{MacArthur-1967}, and also "character displacement" \citep{brown-1956}, the evolution of wider trait differences between species where they coexist. By the 1970s, a new generation of textbooks \citep{Whittaker-1970,Krebs-1972,Ricklefs-1973,pianka-1974} built their account of community ecology around three alternative ways of getting more species into a community: larger total niche space, more overlap between adjacent niches, or narrower niches for each species [could potentially give page or diagram references here?]. Often, these alternatives were discussed as hypotheses for why there are more species in the tropics compared to the temperate zone.
+There is a rich history in ecology of investigating how communities are assembled
+and, more recently, how physiological traits enable niche differentiation
+\cite[e.g.][]{Gause-1934,MacArthur-1967,Leimar-2013}.
+%
+The challenge is particularly acute for plants communities,
+where most species use same few resources \citep{Whittaker-1970,Grime-1979,
+, Hubbell-2001, Westoby-2002}.
+%
+Currently, researchers are approaching questions about niche diversification
+from at least 3 different perspectives: 
+i) theoretical models based on competition kernels 
+\cite[e.g.][]{MacArthur-1967,Case-1982,Dieckmann-1999,Leimar-2013},
+ii) model in which resources are modelled more explicitly 
+\citep[e.g.][]{Tilman-1977,Huston-1987, Kohyama-1993, Falster-2011},
+and  iii) via strategy schemes that seek to organise the diversity of
+growth strategies observed across species into a useful framework 
+\citep[e.g.][]{Grime-1979,Weiher-1999,Westoby-2002}. 
+% ignoring 4th  approach for now, via ecological drift / neutrality)
+Broadly these different literatures represent different ways of addressing 
+the same core question rather addressing fundamentally different hypotheses. 
+Yet, despite this similarity, the literature strands have remained largely isolated
+from one-another, with little cross-fertilisation between them. 
 
-%MW Haven't yet said anything about the empirical literature looking for overdispersion of traits in communities -- is it important to our Intro, and if so where should it go? Maybe leave till Discussion?
+In the first strand, individuals from different species interact via a 
+``competition kernel'' -  a function describing how per-capita rates of growth
+for the population of one species are reduced by the abundance of another species.
+% 
+Such kernels are used to summarise the effects of competition for resources within
+models that otherwise seek to explore dynamics of diverse phenomena, including
+character displacement \citep{Taper-1985, Case-2000}, 
+species coexistence / community assembly \citet{MacArthur-1967, Calcagno-2006,
+Leimar-2013}, and sympatric speciation \citep{Dieckmann-1999}.
+% 
+While initially competition kernels were described via actual 
+resource utilisation curves \citep{MacArthur-1967,Roughgarden-1979,Abrams-1983}, 
+there was an almost complete switch to expressing kernels based on difference
+in trait values, starting from papers investigating character displacement
+ \citep{Slatkin-1980,Taper-1985}.
+%
+Mostly researchers have focussed on a limited number of kernel shapes, in particular
+ Gaussian, asymmetric Gaussian or logistic shapes
+\cite{Taper-1985, Kisdi-1999, Dieckmann-1999, Leimar-2013}.
+% 
+However, recent work has shown that the precise shape of kernel being used can
+drastically effect the nature of coexistence that can occur within the model 
+\citep{Calcagno-2006, Scheffer-2006, Pigolotti-2007, Leimar-2013}.
+%
+Broadly, these findings connect with imagery of community assembly presented
+in textbooks from 1970s through to the present day -- where the dynamics
+of species packing are influenced by shape of competition kernel 
+\citep{Krebs-1972,Ricklefs-1973,Ricklefs-1999,Krebs-2013}.
 
-In 1960s theory and 1970s textbooks, niches were typically thought of as utilization functions along a continuous resource axis. The resource in question would be depletable or pre-emptable, in order for overlap of utilization functions to translate into competition. Pairwise competition coefficients (such as alphas in Lotka-Volterra competition) could be calculated from overlap of utilizations functions. If a trait was used as a niche index, it was chosen on grounds of mapping tidily on to a depletable resource, such as beak size for seed-eating finches. Beginning in the 1980s, two different theory strands represented traits more explicitly. One was theory for character (= trait) displacement \citep[e.g.,][]{Taper-1985, Case-2000, Goldberg-2006}. This flowed on into game theoretical and eventually adaptive-dynamic modeling of trait divergence \citep{Brown-1987,Geritz-1998,Geritz-1999,Dieckmann-1999,Abrams-2001}. The other was Tilman's \citeyear{Tilman-1982} \Rstar\ model, where the "trait" was the level to which a species could deplete a resource while still sustaining its population. The resource was homogeneous, such as dissolved nitrate in a water body, and this was a distinct break from the formulation of a resource with such as seeds with a continuously varying property such as seed size. Tilman's \citeyear{Tilman-1982} model would have a single winner on a single resource (the species with lowest \Rstar), but given two or more resources multiple species could coexist on different ratios between resources.
+Resource based models differ from the kernel-based approaches in that, rather
+than being inferred from a trait-based kernel, competitive interactions are 
+moderated via a resource whose abundance is modelled explicitly.
+%  
+Two main classes of resource-based models have been investigated for plants. 
+%
+The first is Tilman's  \Rstar\ model \citep{Tilman-1977,Tilman-1982}, which focusses
+on the minimal level at which individuals from a species can maintain growth. 
+Similar to the kernel-based models, populations are not size-structured, so 
+competitive interactions occur within a ``mean field''.
+% 
+The second type of model are successional niche models, which
+allow for size- and trait-driven interactions within a metapopulation of patches
+\citep{Huston-1987,Kohyama-1993,Moorcroft-2001,Falster-2011}.
+Although competition for below ground resources may also be considered, 
+competitive occur largely via shading of smaller plants by taller plants within
+a patch. 
+% also models in which individuals compete for space. But these actually fall in 
+% with kernel based models - competition-colonisation models
+In both types of model, traits modify how species use the resource, but to the
+extent they exist,  any species-level competition-kernel arises only as emergent property
+of the entire system.
+% Extra sentence - perhaps not needed
+% Beyond the handling of competitive interactions, the dynamics of character evolution
+% and species coexistence are modelled in largely the same way as in kernel-based models
+% \citep[e.g.][]{Falster-2015}.
 
-%MW possibly better to leave \Rstar\ and the nature of coexistence made possible till it is introduced for analysis?
+The third lineage -- ecological  strategy schemes -- is more empirically
+oriented. Strategy schemes arose as an attempt to classify the wide range 
+of growth strategies observed among plant species
+\citep{Grime-1974,Grime-1979,Southwood-1977,Weiher-1999,Westoby-2002}, with
+trait-based approaches \citep{Weiher-1999,Westoby-2002} being currently
+the most popular.
+%
+Prominent traits include morphological and physiological characteristics
+of individual tissues such as Leaf Mass per Area (\textsc{lma}), and features
+affecting allocation, such as height at maturation (\textsc{hmat})
+%
 
-Competition kernels are best thought of within the adaptive-dynamics tradition of fitness landscapes. Species exist, coexist and evolve on a landscape where the axes are evolvable traits. A competition kernel represents the impact of a species on this landscape -- the drawdown of fitness across the landscape as it relates to the trait-values both of the species exerting a competitive effect and of the species experiencing the effect. Competition kernels are absolutely central to the question how species interact in competitive communities. And yet, surprisingly little is known about alternative possible shapes for competition kernels and their consequences for community assembly.
+Existing strategy schemes lack precise theory illustrating how trait-based
+community might work \citep{Adler-2013}, however, attempts have been made to
+link with both kernel-based and resource-based models via statistical metrics.
+%
+Such metrics include measures of trait over-dispersion \citep[e.g.][]{Kraft-2008}
+and statical correlations between growth rate and mortality 
+\citep[e.g.][]{Wright-2010}.
+% anything where kernels measured?
+%
+From these we can infer processes that may be structuring the community.
+% 
+The quality of these inferences thus depends crucially on the validity of
+the insights drawn from the two other more-theoretical approaches.
 
-By far the most common type of utilization curve or competition kernel in textbooks and in theoretical literature is that they are unimodal, decreasing with trait-distance away from the species that is exerting the competitive effect. For example \citep{Birand-2014} wrote "we assume that the competition function is Gaussian, which is typically assumed in much of the literature".
 
-%MW If we wanted to abbreviate the history, we could maybe at this point go straight to the theory that shows you don't necessarily get species-spacing from Gaussian kernels
+Ideally, these different approaches to studying community assembly would
+mutually reinforce each other, yet to date literatures remain unhelpfully
+isolated from one another. 
 
-The species packing metaphor has persisted up to the present day as the mainstream approach to community ecology. (Indeed,  \citet{Krebs-2013}, \citet{Ricklefs-1999} and \citet{Pianka-1999} continue also.) Yet in parallel, three other strands of thinking had already been established by the 1970s.
-
-Terrestrial plant ecology had always found it difficult to accept the idea that different species can only coexist by using different resources, since plant species clearly all use the same sources of light, soil water and mineral nutrients as each other, with only limited opportunities for differentiation by soil depth and by chemical forms of nutrients. One possibility arises from species subdividing a successional-time niche axis in landscapes envisaged as disturbance mosaics \citep{Connell-1978}. If plant species make most contribution to their population increase in different years following disturbance, then they certainly are depleting different light and water from each other, and quite possibly different soil nutrients \citep{Huston-1987, Kohyama-1993}.
-%[MW -- these refs imported from Rich's notes -- need to check whether they're appropriate for this point].
-
-In a more radical break from subdividing continuous niche axes, models arose that visualised communities as a chessboard of living sites, each able to be occupied by one sessile individual \citep{Yodzis-1978}. Coexistence could arise by colonization-competition trade-offs \citep{Levins-1969,Levins-1971}. Where competition is size-asymmetric as in plants competing for light (\citep{Harper-1977,Weiner-1990}, or where there is advantage to individuals established in territories, as in some coral reef fish, then chance effects in the occupation of vacant living sites can slow competitive exclusion by "lottery" \citep{Sale-1977}( or "storage effect" \citep{Chesson-1981} processes. There have been several theory-lineages within this "sessile dynamics framework" \citep{Fagerstrom-1997}, and "neutral theory" \citep{Hubbell-2001} also envisions the world as a (very large) chessboard of living sites on which stochastic processes occur.
-
-Another strand of thinking parallel to the species packing metaphor has been ecological strategy theory 
-\citep[e.g.][]{Grime-1974, Grime-1977, Grime-1979, Grime-1988, Southwood-1977, 
-Greenslade-1983}. In the best-developed 'CSR' version of this, species were arrayed on a triangle with competition-winning, stress-tolerating and ruderal strategies at the corners. Stress-tolerating included persistence under competition. Predictions arose about the strategy-mixture expected in different physical settings and at different stages of succession \citep{Grime-1979,Grime-2001}. Then during the 1990s the suggestion was made to sidestep continuing disputes about the definition of competitiveness by focusing instead on measurable traits and using them as strategy axes \citep{Westoby-1998, Weiher-1999, Westoby-2002}. This suggestion made possible studies of coordination and trade-offs between traits on a worldwide scale \citep[e.g.][]{Wright-2004, Zanne-2010, Cornwell-2014}. However, this "trait ecology" has yet to return successfully to the question how species fit together in communities. By being registered on trait axes, competition kernels have the potential to link this world-scale empirical trait ecology back to questions of species assembly into communities.
-
-A third strand of thinking, already established during the 1970s in parallel with the species packing metaphor, was theory showing that with Gaussian kernels along a single niche axis, there is in fact no limit to similarity \citep{May-1972, Abrams-1975, Abrams-1983}. Competitive exclusion can become slow because two competitors are similar in their resource use as well as because they are different. "Continuous coexistence" is a theoretically possible outcome, with resources occupied by many species spaced from each other in resource use by very small amounts. Although this strand of theory might have been expected to undermine the mainstream approach to community ecology via the species packing metaphor, in actuality it did not have the effect of dislodging species packing from standard textbooks, probably because it did not really offer an alternative program for connecting theory to field measurement.  After 2000, this line of theory began to explore more systematically the consequences of possible kernel-shapes for community assembly \citep{Scheffer-2006}, other literature, \citep{Leimar-2013}.
-
-In summary, the current situation is that it is clear competition kernels on fitness landscapes must be the key to understanding community assembly, and clear also that symmetric unimodal or Gaussian kernels are realistic for only a minority of real-world communities. At the same time, the menagerie of possible competition kernels has only begun to be catalogued. Much less have the implications of different kernels for community assembly been worked through. The literature up to the present has mainly been focused on Gaussian kernels, perhaps because they were mistakenly thought to be prevalent, or out of fascination with the "continuous coexistence" they can produce. Surprisingly little attention has been paid to the question what shapes are actually likely for competition kernels, given known mechanisms for resource depletion in relation to traits. We argue that clarifying plausible shapes for competition kernels and their consequences will be an essential foundation before a robust community ecology can be constructed.
-
+% Material drawn straight from old work 
 In this paper we investigate competition kernels that are produced in selected models of growth and reproduction where competition and the mechanics of the resource being depleted are represented mechanistically. In other words, competition kernels are emergent properties from these models, not assumptions adopted into them. In so doing, we
 \begin{itemize}
 \item
@@ -75,6 +156,7 @@ In this paper we investigate competition kernels that are produced in selected m
 \item ask whether the shape of the competition function varies with traits of the resident species
 \item ask whether the shape of the competition function varies with density of the resident species
 \end{itemize}
+%Extends work of Abrams, who asked how R* connected with resource utilization curves. 
 
 \textit{This work is undertaken in the belief that if competition kernels with respect to traits were better understood, this could open a constructive path to}
 \begin{itemize}
@@ -84,46 +166,10 @@ In this paper we investigate competition kernels that are produced in selected m
 
 
 
-
-%MW bits left over from Rich's notes
-Despite their centrality in modelling and ecological thought, models
-of competition remain largely unchanged from their original
-formulation in the 1960's, with the most popular version due to
-\citet{MacArthur-1967}.
-% Probably point at the methods here.
-Generally species are assumed to interact following the Lotka-Volterra
-equations (REFS), with the intensity of competition between two
-species ($\alpha_{ij}$) being some function of the two species traits
-(for a trait axis $x$, $\alpha_{ij} = \alpha(x_i, x_j)$; see Methods).
-%
-This formulation implies among other things that competition is linear
-in intensity with species abundances, is additive across multiple
-competing species, and that the \emph{shape} of competition is an
-intrinsic (i.e., not context-dependent) property of pairs of species.
-%
-While possibly justifiable as low-order approximations, these
-assumptions have been widely criticised as long as the models have
-been used
-\citep[e.g.][]{Andrewartha-1953,May-1972,Abrams-1975}.
-%MW question: do we want to cite Andrewartha? -- what is his criticism exactly?
-% TODO: I'd love something here where we can report on any attempts to
-% measure the *shape* (not intensity) of competition in nature.
-%
-%MW well there's Georges's work I suppose
-The shape of the competition kernel with respect to resources and
-species traits has received less attention \citep[but
-see][]{Abrams-2008,Leimar-2013}; typically a Gaussian or a form of
-$\alpha(x_i, x_j) \propto \exp((x_i - x_j)^4)$ is used, or more rarely
-an asymmetric logistic.
-%
-
-
-
-
 \section{Models}
 
-% NOTE: Thoughout, decide how to use the terms "competition kernel"
-% and "competition function"; in the usual use they are roughly
+% NOTE: Thoughout, decide how to use the terms ``competition kernel''
+% and ``competition function''; in the usual use they are roughly
 % equivalent but here they are probably not: see
 % http://math.stackexchange.com/questions/22133/difference-between-kernel-and-function
 

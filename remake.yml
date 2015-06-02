@@ -30,7 +30,7 @@ targets:
       - figures_sm
       - ms/competition-kernels.pdf
       - ms/competition-kernels-sm.pdf
-      - vignettes/comp_lotka_tilman.html
+      - vignettes/comp_lotka_tilman.pdf
 
   # NOTE: some issues getting dependencies to behave sensibly here
   # (manuscript rebuilding when figures change but tex does not)
@@ -135,5 +135,5 @@ targets:
 
   vignettes/comp_lotka_tilman.md:
     knitr: vignette
-  vignettes/comp_lotka_tilman.html:
-    command: render("vignettes/comp_lotka_tilman.md", quiet=TRUE)
+  vignettes/comp_lotka_tilman.pdf:
+    command: render_pdf("vignettes/comp_lotka_tilman.md")

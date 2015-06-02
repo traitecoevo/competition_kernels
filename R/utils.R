@@ -41,3 +41,11 @@ label <- function(text, px=0.03, py=NULL, ..., adj=c(0, 1)) {
 label_panel <- function(i, ...) {
   label(sprintf("%s)", letters[i]), ...)
 }
+
+render_pdf <- function(filename) {
+  owd <- setwd(dirname(filename))
+  on.exit(setwd(owd))
+  filename <- basename(filename)
+  dest <- paste0(sub("\\.md", "", filename), ".pdf")
+  callr::call_system(Sys_which("pandoc"), c(filename, "-o", dest))
+}

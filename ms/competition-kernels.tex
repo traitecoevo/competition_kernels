@@ -242,66 +242,71 @@ that the invader depresses its own growth.
 In the first model (\Rstar) individuals compete for two essential and
 depletable resources. This model is one of the best studied and cited
 models of resource competition \citep{Tilman-1977, Tilman-1982,
-  Huisman-1999}, originating from a study on exploitative competition
+  Huisman-2001}, originating from a study on exploitative competition
 for any pair of generic resources \citep{Leon-1975}. The model is
 unstructured, with the per capita growth rates for each species simply
-depending on the availability of two resources. We assume both
+depending on the availability of two resources.  We assume both
 resources are necessary (i.e. non-substitutable), so the growth rate
 of each species is determined by the resource which is currently most
-limiting. We implemented a version where the specific growth rates
-follow a Monod equation \citet{Huisman-1999}, but which is otherwise
-similar to the widely-cited implementation by Tilman
-\citep{Tilman-1977, Tilman-1982}.  The resource availabilities, in
-turn, depend on the rates of resource supply and
-consumption. Individuals compete with one another by drawing down the
-joint resource pools. Such a system is easily described via a minimal
-set of equations (Appendix \ref{sec:Rstar}).
+limiting.  We implemented a version where the specific growth rates
+follow a Monod equation \citet{Huisman-2001}, but which is otherwise
+similar to the widely-used version described by \citet{Tilman-1977,
+  Tilman-1982}.  The resource availabilities, in turn, depend on the
+rates of resource supply and consumption. Individuals compete with one
+another by drawing down the joint resource pools. Such a system is
+easily described via a minimal set of equations (Appendix
+\ref{sec:Rstar}).
 
-
-Following previous authors \citep{Tilman-1985, Schreiber-2003, Fox-2008} we
-focus on a trait determining the relative amount of the two resources
-required for growth, i.e. the stoichiometry of resource needs. Species can
-vary from requiring mostly resource 1, to equals amounts of both resources, to
-mostly resource 2. This dependence is achieved by making uptake saturation
-constants (see appendix  \ref{sec:Rstar} for details) for resource 1 inversely related
-to the requirement of resource 2:
+Following previous authors \citep{Tilman-1985, Schreiber-2003,
+  Fox-2008} we focus on a trait determining the relative amount of the
+two resources required for growth, i.e. the stoichiometry of resource
+needs. Species can vary from requiring mostly resource 1, to equals
+amounts of both resources, to mostly resource 2. This dependence is
+achieved by making uptake saturation constants (see appendix
+\ref{sec:Rstar} for details) for resource 1 inversely related to the
+requirement of resource 2:
 \begin{equation}
+% NOTE: the U's here are K's in Huisman-2001, but we're using U to
+% avoid confusion with carrying capacity.
 \label{eq:R3}
-U_{1i} = 1-U_{2i}.
+U_{1i} = 1 - U_{2i}.
 \end{equation}
 
 \subsection{\plant\ model}
 
-In the second model (\plant) individual plants compete for light within a patch
-and size-structured metapopulation \citep{Falster-2011, Falster-2015}.
-Vegetation in this model comprises a large number of patches subject to a
-prevailing disturbance. Disturbances remove established vegetation within a
-patch, which is then recolonised via seed dispersal from other patches.
-Individual plants progress through their life-cycle, from seeds until mature
-adults, with growth survival and fecundity rates determined by the combined
-effect of an individual's traits, its current size and the degree of shading
-from other plants within the same patch. The amount of shading at a given
-height is computed from the cumulative leaf area above that height; short-term
-competitive effects are therefore size-asymmetric. The sole effect of shading
-is to alter an individual's photosynthetic income. Following
-\citep{Falster-2015}, the fitness of individuals with a given type is
-calculated by integrating seed output across the entire metapopulation.
+The second model, \plant, is a mechanistic model of plant competition
+for light in a size-structured metapopulation \citep{Falster-2011,
+  Falster-2015}.
+%
+Vegetation in this model comprises a large number of patches subject
+to a prevailing disturbance regime.  Disturbances remove established
+vegetation within a patch, which is then recolonised via seed
+dispersal from other patches.  Individual plants progress through
+their life-cycle, from seeds until mature adults, with growth survival
+and fecundity rates determined by the combined effect of an
+individual's traits, its current size and the degree of shading from
+other plants within the same patch. The amount of shading at a given
+height is computed from the cumulative leaf area above that height;
+short-term competitive effects are therefore size-asymmetric. The sole
+effect of shading is to alter an individual's photosynthetic
+income. Following \citep{Falster-2015}, the fitness of individuals
+with a given type is calculated by integrating seed output across the
+entire metapopulation.
 
-We use the \plant\ model to estimate trait-based competitive functions for
-two traits whose evolutionary dynamics have recently been investigated
-\citep{Falster-2015}: leaf mass per area (LMA) and height at maturation
-(HMAT). In the model, LMA moderates a physiological trade-off between the cost
-of building an extra unit of leaf area and the rate of leaf turnover.
-Variation in LMA thereby underpins a trade-off between height growth rate and
-shade-tolerance of seedlings. Meanwhile, HMAT moderates the allocation of
-surplus energy between growth and seed production, as an individual increases in
-size.
+We use the \plant\ model to estimate trait-based competitive functions
+for two traits whose evolutionary dynamics have recently been
+investigated \citep{Falster-2015}: leaf mass per area (\textsc{lma})
+and height at maturation (\hmat). In the model, \textsc{lma} moderates
+a physiological trade-off between the cost of building an extra unit
+of leaf area and the rate of leaf turnover.  Variation in \textsc{lma}
+thereby underpins a trade-off between height growth rate and
+shade-tolerance of seedlings. Meanwhile, \hmat\ moderates the
+allocation of surplus energy between growth and seed production, as an
+individual increases in size.
 
 % TODO: Something about how hmat leads to a fundamentally asymmetric
 % competition situation? -- i.e., talk about the *expectations* for
 % the different models.
-
-\clearpage
 
 \section{Results}
 
@@ -377,7 +382,7 @@ changed, though on average per-capita competition appeared to decrease
 with increaing density (Figure
 \ref{fig:rstar_density_dependence}c--d).
 
-\subsection{\plant: hmat}
+\subsection{\plant: \hmat}
 
 In the \plant\ model, Strategies that have different height of
 maturation (\hmat) begin to focus resources on reproduction at
@@ -421,9 +426,9 @@ evolutionary dynamics are similar (\TODO).
 \subsection{\plant: lma}
 Strategies that have different leaf mass per unit area (\textsc{lma})
 values are different points in the ``leaf economic spectrum''
-\citep{Reich-1997,Wright-2004}.  We modelled LMA as a trade-off
+\citep{Reich-1997,Wright-2004}.  We modelled \textsc{lma} as a trade-off
 between the cost of deploying a unit of cost of building an extra unit
-of leaf area and the rate of leaf turnover (so high LMA leaves are
+of leaf area and the rate of leaf turnover (so high \textsc{lma} leaves are
 costly to deploy but turn over more slowly so that they can contribute
 to carbon gain for longer, or conversely require rebuilding less
 often).
@@ -434,14 +439,14 @@ to any of the simple shapes in wide use.
 % situation first.
 In the region of trait space close to the resident species,
 competition is strongly asymmetric: the resident exerts a large amount
-of competition on species with LMA values higher than itself (``slow''
-strategy species) and less on species that have LMA values lower
+of competition on species with \textsc{lma} values higher than itself (``slow''
+strategy species) and less on species that have \textsc{lma} values lower
 (``fast'' strategy species; Figure \ref{fig:plant_lma}a).  Invasion is
-possible in the region with LMA values smaller than the invader until
+possible in the region with \textsc{lma} values smaller than the invader until
 growth and carrying capacity reach a biological limit to invasion
 (Figure \ref{fig:sm_plant_lma_components}c1).
 %
-Above the resident LMA value, the competition function is sawtooth
+Above the resident \textsc{lma} value, the competition function is sawtooth
 shaped, before eventually declining steeply.
 %
 In contrast to the complex shape of fitness and competition, maximum
@@ -459,7 +464,6 @@ Explain how is it the case that invasion is possible through the
 region where competition $\approx 1$ -- that doesn't make much sense!
 It's similar to the situation with \hmat\ though (\TODO).
 
-\clearpage
 \section{Discussion}
 
 We inferred the shape of trait-based competition functions embedded within
@@ -495,12 +499,12 @@ In only one of the three cases studied here did our derived competition
 functions closely resemble any of the three dominant curves used in most
 theoretical investigations. The common forms are the Gaussian, asymmetric
 Gaussian \citet{Roughgarden-1979} and Logistic  \citep[e.g.][]{Kisdi-1999,
-Law-1997}. The derived function from the HMAT model looks a lot
+Law-1997}. The derived function from the $h_\mathrm{mat}$ model looks a lot
 like the logistic kernels used in models investigating asymmetric competition
 \citep{Kisdi-1999, Law-1997}.  An asymmetric kernel is also implicit in
 the widely used competition-colonisation models  \citep{Geritz-1999,
 Calcagno-2006}, which can be reformulated in form of LV system
-\citep{Calcagno-2006}. The competition function for our LMA model looks
+\citep{Calcagno-2006}. The competition function for our \textsc{lma} model looks
 vaguely resembles the asymmetric Gaussian, but the ridges along the top are
 distinctly non-Gaussian and arise from real biological features of the system. 
 (\citet{Falster-2011} showed how the amount of shading undulates through 
@@ -591,7 +595,7 @@ Kernels other than Gaussian may lead to coexistence more easily
   than Gaussian
 
 \begin{itemize}
-\item It's not all bad news; kernels like the LMA kernel look
+\item It's not all bad news; kernels like the \textsc{lma} kernel look
   ridiculous and you're not going to be allowed to propose them for
   a modelling paper.
 \item But they arise from size-structured dynamics in the model, so
@@ -706,7 +710,7 @@ pair of constructs."} \citep{Neill-1974}
 % \item The \Rstar\ model is formulated with the same ingredients as LV
 %   but gives totally different results.  This is a concern if the most
 %   commonly used models of explicit and implicit competition do not
-% \item Kernels such as the LMA one may promote coexistence in ways that
+% \item Kernels such as the \textsc{lma} one may promote coexistence in ways that
 %   are totally different from the models based on the Gaussian
 %   kernels.  As such, thinking narrowly about competition facilitating
 %   coexistence in this way may be misleading.
@@ -847,7 +851,6 @@ pair of constructs."} \citep{Neill-1974}
   \label{fig:dd}}
 \end{figure}
 
-
 \clearpage
 
 \bibliographystyle{amnat}
@@ -877,39 +880,47 @@ For the analyses presented in Figure \ref{fig:components} we let $r_0=1.0$, $K_0
 
 \subsection{Details about \Rstar\ model}\label{sec:Rstar}
 
+The version of the \Rstar\ model here generally follows
+\citet{Huisman-2001}, with the parameter trade-offs assumed by
+\citet{Fox-2008}.
+%
 We consider an unstructured system where individuals compete for two
-resources. Let $N_i$ be the abundance of species-$i$ and $R_1, R_2$ be the
-abundances of the two resources. The population of species-$i$ increases with
-per-capita
-growth rate $\mu_i(R_1,R_2)$, a function of the resource availabilities, and
-decreases with per-capita mortality rate $m$. Species-$i$ depletes resource-$k$
-at rate $c_{ki} \,  N_i \, \mu_i(R_1,R_2)$, where $k = 1, 2$ and $c_{ki}$ is
-the content of resource-$k$ in species-$i$. Resources
-are replenished
-with supply rate $S_k$ and decay at rate $D_k$. Under these assumptions, the
-dynamics of species and resource abundance are given by
-\begin{subequations}
-  \begin{align}
-\label{eq:R1}
-\frac{dN_i}{dt} &= N_i \, \mu_i(R_1,R_2) - N_i \, m \\
-\frac{dR_k}{dt} &= D \, (S_k- R_k) - \sum_{i=1}^{n}{c_{ki} \, N_i \,
-  \mu_i(R_1, R_2)},
-\end{align}
-\end{subequations}
-where $n$ is the number of species and $k=1,2$ is the number of resources.
-
-The birth rate $\mu$ for each species are assumed to follow a Monod equation,
-and be determined by the resource which is most limiting, such that
+resources. Let $N_i$ be the abundance of species-$i$ and $R_1, R_2$ be
+the abundances of the two resources.
+%
+The change in population size of species $i$ ($N_i$) is:
 \begin{equation}
-\label{eq:R2}
-\mu_i(R_1, R_2) = r_i \, \min \left(\frac{R_1}{U_{1i} + R_1},
-                                    \frac{R_2}{U_{2i} + R_2} \right).
+  \label{eq:rstar-n}
+  \frac{\ud N_i}{\ud t} = N_i \, (\min(p_{1i}(R_1), p_{2i}(R_2)) - m)
 \end{equation}
-% NOTE: In above equation `U` was previously labelled `K`. I suggest we use U
-% over K because K is already used in the Lotka Volterra equations, so reusing
-% same symbol here is likely to cause confusion.
-In eq. \ref{eq:R2}, $r_i$ is the maximal growth rate rate of species $i$, $U_
-{ki}$ is the half saturation constant for species-$i$limited by resource $k$.
+where $m$ is the mortality rate and where $p_{ji}(R_j)$ is the
+specific growth rate of species $i$ given the availability of resource
+$j$, $R_j$, and which follows the Monod funtion:
+\begin{equation}
+  \label{eq:rstar-p}
+  p_{ji}(R_j) = \frac{r_i R_j}{U_{ji} + R_j}.
+\end{equation}
+%
+The parameter $U_{ji}$ represents the efficiency of conversion of
+resource $j$ into new offspring; the higher $U_{ji}$, the less
+resources need to be acquired for a given growth rate.  (Note that $U$
+here is $K$ in \citealt{Huisman-2001} but we avoid $K$ to prevent
+confusion with carrying capacity in the Lotka--Volterra model.)
+%
+The dynamics of the resources themselves follow the equations:
+\begin{equation}
+  \label{eq:rstar-r}
+  \frac{\ud R_j}{\ud t} =
+  D \times (S_j - R_j) - \sum_{i=1}^n {C_{ji} N_i
+    \min(p_{1i}(R_1), p_{2i}(R_2))}
+\end{equation}
+where $D$ is the resource turnover rate, $S_j$ is the supply rate of
+resource $j$ and where the sum is over all species in the community.
+% TODO: Do we have a better definition of this?
+The term $C_{ji}$ represents the rate of consumption of resouce $j$.
+
+% NOTE: is there anything else about the model we need to detail?
+% The carrying capacity, etc, are all analytic.
 
 \subsection{Details about \plant\ model}\label{sec:plant}
 

@@ -295,7 +295,7 @@ depending on the availability of two resources.  We assume both
 resources are necessary (i.e. non-substitutable), so the growth rate
 of each species is determined by the resource which is currently most
 limiting.  We implemented a version where the specific growth rates
-follow a Monod equation \citet{Huisman-2001}, but which is otherwise
+follow a Monod equation as in \citet{Huisman-2001}, which is closely
 similar to the widely-used version described by \citet{Tilman-1977,
   Tilman-1982}.  The resource availabilities, in turn, depend on the
 rates of resource supply and consumption. Individuals compete with one
@@ -305,8 +305,7 @@ easily described via a minimal set of equations (Appendix
 
 Following previous authors \citep{Tilman-1985, Schreiber-2003,
   Fox-2008} we focus on a trait determining the relative amount of the
-two resources required for growth, i.e. the stoichiometry of resource
-needs. Species can vary from requiring mostly resource 1, to equals
+two resources required for growth. Species can vary from requiring mostly resource 1, to equals
 amounts of both resources, to mostly resource 2. This dependence is
 achieved by making uptake saturation constants (see appendix
 \ref{sec:Rstar} for details) for resource 1 inversely related to the
@@ -317,6 +316,8 @@ requirement of resource 2:
 \label{eq:R3}
 U_{1i} = 1 - U_{2i}.
 \end{equation}
+
+The rate of consumption of resouce $j$ by species $i$ is determined by $c_{ki}$ the content of resource $k$ in species $i$. We assumed that the conetent was similar across species. GEORGES COMMENT IF WE KEEP USING THIS FORMULATION WE NEED TO EXPLAIN C HERE OTHERWISE IT SHOW UP IN THE RESULTS WITHOUT ANY DEFINITION. IF WE ASSUME C=U THIS MAY HELP TO SIMPLIFY THIS SECTION?
 
 \subsection{\plant\ model}
 
@@ -583,14 +584,14 @@ Interestingly, \citet{Ricklefs-1973} suggests one might use the exact  method
 we have applied to estimating competition functions, i.e. by measuring the
 different elements of eq. \ref{eq:LVi} then using these to estimate the
 competitive interaction (Fig. \ref{fig:components}). And indeed some
-estimates have been made \citep{Ricklefs-1973}. However, nearly all
+estimates have been made \citep{Ricklefs-1973, kraft-2015}. However, nearly all
 manipulative measures of competition in the field are going to give
 \emph{discrete} estimates of $\alpha$: the amount of competition exerted by
 or felt by a single species in the context of some community. However, as
 the number of species increases, the number of pairwise competition
 coefficients needed increases quadratically with the number of species. This is
 one reason for seeking to define competition kernels on the basis of
-trait differences, so as to reduce the number of parameters needed (refs).
+trait differences, so as to reduce the number of parameters needed \citep{kraft-2015}.
 However, estimating the shapes of trait-based competition kernels requires
 that lots of pairwise comparisons to made, which introduces new issues.
 Species usually differ in multiple traits, plus the need to estimate fitness

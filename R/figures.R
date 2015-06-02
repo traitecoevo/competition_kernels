@@ -59,27 +59,36 @@ plot_components <- function(x, r, K, x1, x2, N1, N2, w1, w2, a1, a2,
 
   plot(x, r, las=1, ylim=ylim_r, type="l", log=log)
   mtext("Max growth rate (r)", 2, xpd=NA, line=3, cex=cex)
+  label_panel(1)
 
   plot(x, K, las=1, type="l", ylim=ylim_K, log=log)
   mtext("Carrying capacity (K)", 2, xpd=NA, line=3, cex=cex)
+  label_panel(2)
 
   plot(x, w1, las=1, type="l", ylim=ylim_w, log=log)
   mtext("Fitness (w)", 2, xpd=NA, line=3, cex=cex)
   points(x1, 0.0, pch=19)
   abline(h=0, v=x1, lty=2)
+  label_panel(3)
 
-  plot(x, w2, las=1, type="l", ylim=ylim_w, log=log)
+  plot(x, w2, las=1, type="l", ylim=ylim_w, log=log, yaxt="n")
+  axis(2, labels=FALSE)
   points(x2, 0.0, pch=19)
   abline(h=0, v=x2, lty=2)
+  label_panel(4)
 
   plot(x, a1, las=1, type="l", ylim=ylim_a, log=log)
+
   mtext("Competition (a)", 2, xpd=NA, line=3, cex=cex)
   mtext(xlab, 1, xpd=NA, line=2, cex=cex)
   points(x1, 1.0, pch=19)
   abline(h=1.0, v=x1, lty=2)
+  label_panel(5)
 
-  plot(x, a2, las=1, type="l", ylim=ylim_a, log=log)
+  plot(x, a2, las=1, type="l", ylim=ylim_a, log=log, yaxt="n")
+  axis(2, labels=FALSE)
   mtext(xlab, 1, xpd=NA, line=2, cex=cex)
   points(x2, 1.0, pch=19)
   abline(h=1.0, v=x2, lty=2)
+  label_panel(6)
 }

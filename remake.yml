@@ -23,6 +23,7 @@ targets:
       - figures
       - figures_sm
       - ms/competition-kernels.pdf
+      - ms/competition-kernels-sm.pdf
 
   # NOTE: some issues getting dependencies to behave sensibly here
   # (manuscript rebuilding when figures change but tex does not)
@@ -53,10 +54,15 @@ targets:
 
   ms/competition-kernels.pdf:
     depends:
-      - ms/references.bib
+      - ms/competition-kernels-sm.pdf
       - ms/ms.sty
       - ms/amnat.bst
-    command: build_pdf("ms/competition-kernels.tex")
+    command: latex_build("ms/competition-kernels.tex", "ms/references.bib", clean=TRUE)
+
+  ms/competition-kernels-sm.pdf:
+    depends:
+      - ms/suppmat.sty
+    command: latex_build("ms/competition-kernels-sm.tex", clean=TRUE)
 
   # Data common to all _resident_ communities, but specific to one set
   # of parameter values.

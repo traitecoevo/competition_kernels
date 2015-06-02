@@ -9,6 +9,12 @@ plot_options:
   tall:
     height: 8
     width: 5.5
+  wide:
+    height: 3
+    width: 5.5
+  square:
+    height: 5.5
+    width: 5.5
 
 targets:
   all:
@@ -76,21 +82,19 @@ targets:
 
   ms/figures/kernel.pdf:
     command: fig_kernel()
-    plot: true
+    plot: wide
   ms/figures/components.pdf:
     command: fig_components()
-    plot: true
+    plot: tall
   ms/figures/rstar.pdf:
     command: fig_rstar()
-    plot:
-      height: 6
-      width: 8
+    plot: wide
   ms/figures/plant_hmat.pdf:
     command: fig_plant_hmat(plant_hmat_1, plant_hmat_2)
-    plot: true
+    plot: wide
   ms/figures/plant_lma.pdf:
     command: fig_plant_lma(plant_lma_1, plant_lma_2)
-    plot: true
+    plot: wide
 
   ms/figures/sm_rstar_components1.pdf:
     command: fig_rstar_components(1)

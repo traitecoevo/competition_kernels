@@ -1,0 +1,111 @@
+\documentclass[10pt,twoside]{article}
+
+\usepackage{suppmat}
+\usepackage{listings}
+
+\usepackage{graphicx}
+
+\usepackage{color}
+
+% this doesn't work:
+% \IfFileExists{./competition-kernels.tex}{%
+%   \usepackage{xr}%
+%   \externaldocument{competition-kernels}}{}
+
+\input{common-defs}
+
+% We will generate all images so they have a width \maxwidth. This means
+% that they will get their normal width if they fit onto the page, but
+% are scaled down if they would overflow the margins.
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\renewcommand{\thefigure}{S\@arabic\c@figure}
+\makeatother
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+\title{competition kernels: shapes and consequences}
+\date{}
+
+% \usepackage{natbib}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{secnumdepth}{1}
+
+\begin{figure}[h]
+ \centering
+ \includegraphics{figures/sm_rstar_components1}
+ \caption{\textbf{Components used to estimate competition functions shown in Figs.
+ {\figRstar}b-c for \Rstar\ model with symmetric resource requirements.}
+  Panels show: (a) the fitness of a rare invader growing without competition,
+  (b) the equilibrium population density of invader when growing in monoculture,
+  (c1, c2) the fitness of a rare invader growing in competition with an established
+  resident, whose location is indicated by dashed line, and (d1,d2) derived competition
+  functions for communities in panels  c1 \& c2. Parameters as in Fig.
+  {\figRstar}a-c.
+  \label{fig:sm_rstar_components1}}
+\end{figure}
+
+\begin{figure}[h]
+ \centering
+ \includegraphics{figures/sm_rstar_components2}
+ \caption{\textbf{Components used to estimate competition functions shown in Figs.
+ {\figRstar}e-f for \Rstar\ model with asymmetric resource requirements.}
+  Panels show: (a) the fitness of a rare invader growing without competition,
+  (b) the equilibrium population density of invader when growing in monoculture,
+  (c1, c2) the fitness of a rare invader growing in competition with an established
+  resident, whose location is indicated by dashed line, and (d1,d2) derived competition
+  functions for communities in panels c1 \& c2. Parameters as in Fig.
+  {\figRstar}d-f.
+  \label{fig:sm_rstar_components2}}
+\end{figure}
+
+\begin{figure}[h]
+ \centering
+ \includegraphics{figures/sm_plant_hmat_components}
+ \caption{\textbf{Components used to estimate competition functions shown in Figs.
+ {\figPlantHmat} for \plant\ model and the trait height at maturation.}
+  Panels show: (a) the fitness of a rare invader growing without competition,
+  (b) the equilibrium population density of invader when growing in monoculture,
+  (c1, c2) the fitness of a rare invader growing in competition with an established
+  resident, whose location is indicated by dashed line, and (d1,d2) derived competition
+  functions for communities in panels c1 \& c2. Parameters as in Fig.
+  {\figPlantHmat}.
+  \label{fig:sm_plant_hmat_components}}
+\end{figure}
+
+\begin{figure}[h]
+ \centering
+ \includegraphics{figures/sm_plant_lma_components}
+ \caption{\textbf{Components used to estimate competition functions shown in Figs.
+ {\figPlantLma} for \plant\ model and the trait leaf mass per area.}
+  Panels show: (a) the fitness of a rare invader growing without competition,
+  (b) the equilibrium population density of invader when growing in monoculture,
+  (c1, c2) the fitness of a rare invader growing in competition with an established
+  resident, whose location is indicated by dashed line, and (d1,d2) derived competition
+  functions for communities in panels  c1 \& c2. Parameters as in Fig.
+  {\figPlantLma}.
+  \label{fig:sm_plant_lma_components}}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{figures/sm_rstar_density}
+  \caption{Density dependence in \Rstar}
+  \label{fig:rstar_density_dependence}
+\end{figure}
+
+% \clearpage
+% \bibliographystyle{amnat}
+% \bibliography{references}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-PDF-mode: t
+%%% End:

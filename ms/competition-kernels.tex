@@ -7,9 +7,9 @@
 \usepackage[labelfont=bf]{caption} % make label for figure bold
 
 % Allow referencing into the supporting information, once that exists.
-\IfFileExists{./competition-kernels-supporting.tex}{%
+\IfFileExists{./competition-kernels-sm.tex}{%
   \usepackage{xr}%
-  \externaldocument{competition-kernels-supporting}}{}
+  \externaldocument{competition-kernels-sm}}{}
 
 \title{competition kernels: shapes and consequences}
 \author{}
@@ -19,12 +19,8 @@
 \keywords{}
 
 \usepackage{color}
-\newcommand{\ud}{\ensuremath{\mathrm{d}}}
-\newcommand{\sign}{\mathop{\mathrm{sign}}\nolimits}
-\newcommand{\Rstar}{\ensuremath{R^*}}
-\newcommand{\plant}{{\tt plant}}
-\newcommand{\hmat}{\ensuremath{h_{\text{mat}}}}
-\newcommand{\TODO}{{\color{red}\sc todo}}
+
+\input{common-defs}
 
 \begin{document}
 
@@ -40,7 +36,6 @@
 % \end{abstract}
 
 \section{Introduction}
-
 
 %MW version starting here
 Central to community ecology has been the metaphor of species packing. The community is seen as fitted into a volume of niche space. Each species that is a potential community member has a fundamental niche somewhere in the volume. The fundamental niche is compressed by competition into a realised niche, as species are packed in alongside each other (Figure \ref{fig:competition-kernels} for one-dimensional version found in [almost all] textbooks). Roots of the species packing metaphor trace to the competitive exclusion principle (Lotka 1925, Volterra 1926, Gause 1934) whereby if species have identical niches or compete for a single resource, all but one are competitively excluded. Hutchinson (1957) added the n-dimensional hypervolume. The  competitive exclusion principle was converted [inverted? made more quantitative?] into the question how dissimilar two species need to be in order to coexist. This question included "limiting similarity" (MacArthur and Levins 1967) \citep{MacArthur-1967}, and also "character displacement" (Brown and Wilson 1956), the evolution of wider trait differences between species where they coexist. By the 1970s, a new generation of textbooks (Whittaker 1970, Krebs 1972, Ricklefs 1973, Pianka 1974) built their account of community ecology around three alternative ways of getting more species into a community: larger total niche space, more overlap between adjacent niches, or narrower niches for each species [could potentially give page or diagram references here?]. Often, these alternatives were discussed as hypotheses for why there are more species in the tropics compared to the temperate zone.
@@ -707,19 +702,22 @@ pair of constructs."} \citep{Neill-1974}
 
 \begin{figure}[h]
   \centering
- % \includegraphics{figures/kernel}
-  \caption{\textbf{Classic text-book view of niche differentiation.
-  Along the x-axis is a resource to be partitioned, such as food or prey size.} Lines
-  represent hypothetical resource utilisation curves for five different species,
-  indicating the propensity of that species to use resources of a given size.
-  The intensity of competition between two species is indicated by the degree
-  of overlap in their resource utilisation curves. \citet{MacArthur-1967} proposed
-  that competition would limit how closely species could sit relative to one
-  another, via the width of the utilisation curve. Soon after it's publication,
-  this idea of `limiting similarity` appeared in ecology textbooks, with similar
-  figures to the one shown appearing in the earliest and also the most recent
-  editions of leading textbooks \citep{Begon-1986, Begon-2006, Krebs-1978, Krebs-2013,
-  Ricklefs-1973, Ricklefs-1999}.}
+  \includegraphics{figures/kernel}
+  \caption{Classic text-book view of niche differentiation.  Along the
+    x-axis is a resource to be partitioned, such as food or prey size,
+    or alternatively a trait axis.  Lines represent hypothetical
+    resource utilisation curves for five different species, indicating
+    the propensity of that species to use resources of a given size.
+    The intensity of competition between two species is indicated by
+    the degree of overlap in their resource utilisation
+    curves. \citet{MacArthur-1967} proposed that competition would
+    limit how closely species could sit relative to one another, via
+    the width of the utilisation curve. Soon after it's publication,
+    this idea of `limiting similarity` appeared in ecology textbooks,
+    with similar figures to the one shown appearing in the earliest
+    and also the most recent editions of leading textbooks
+    \citep{Begon-1986, Begon-2006, Krebs-1978, Krebs-2013,
+      Ricklefs-1973, Ricklefs-1999}.}
   % begon-1986: Fig 7.9, pg 263
   % begon-2006: Fig 8.29, pg 257
   % Krebs-1978: Fig 12.2, pg 233
@@ -731,9 +729,9 @@ pair of constructs."} \citep{Neill-1974}
 
 \begin{figure}[h]
  \centering
- % \includegraphics{figures/components}
- \caption{\textbf{Method for estimating the shape the competition function embedded
-  in a mechanistic resource-based model.} To illustrate the method, we present
+ \includegraphics{figures/components}
+ \caption{Method for estimating the shape the competition function embedded
+  in a mechanistic resource-based model. To illustrate the method, we present
   results from a model with known solution \citep{Dieckmann-1999} (see Appendix
   \ref{sec:DD99} for details). For each
   model we estimate: (a) the fitness of a rare invader growing without competition,
@@ -749,9 +747,9 @@ pair of constructs."} \citep{Neill-1974}
 
 \begin{figure}[h]
   \centering
-  % \includegraphics{figures/rstar}
-  \caption{\textbf{Shape of competition function embedded within the \Rstar\ model
-  for a trait determining the stoichiometry of uptake for two essential resources.}
+  \includegraphics{figures/rstar}
+  \caption{Shape of competition function embedded within the \Rstar\ model
+  for a trait determining the stoichiometry of uptake for two essential resources.
   Here we have only shown the derived  competition functions, see Figs.
   \ref{fig:sm_rstar_components1}-\ref{fig:sm_rstar_components2} for plot of all
   components used to derive these functions.
@@ -774,7 +772,7 @@ pair of constructs."} \citep{Neill-1974}
 
 \begin{figure}[h]
   \centering
-  % \includegraphics{figures/plant_hmat}
+  \includegraphics{figures/plant_hmat}
   \caption{\textbf{Shape of competition function embedded within \plant\ model for
   the trait height at maturation.}
   Here we have only shown the derived  competition functions, see Fig.
@@ -787,7 +785,7 @@ pair of constructs."} \citep{Neill-1974}
 
 \begin{figure}[h]
   \centering
-  % \includegraphics{figures/plant_lma}
+  \includegraphics{figures/plant_lma}
   \caption{\textbf{Shape of competition function embedded within \plant\ model for
   the trait leaf mass per area.}
   Here we have only shown the derived  competition functions, see Fig.
@@ -874,70 +872,6 @@ In eq. \ref{eq:R2}, $r_i$ is the maximal growth rate rate of species $i$, $U_
 
 Excerpt from  \plant\ model. Hold off writing this until know whether paper describing
 the model has been published or not.
-
-\section{Supplementary figures}
-
-\begin{figure}[h]
- \centering
- % \includegraphics{figures/sm_rstar_components1}
- \caption{\textbf{Components used to estimate competition functions shown in Figs.
- \ref{fig:Rstar}b-c for \Rstar\ model with symmetric resource requirements.}
-  Panels show: (a) the fitness of a rare invader growing without competition,
-  (b) the equilibrium population density of invader when growing in monoculture,
-  (c1, c2) the fitness of a rare invader growing in competition with an established
-  resident, whose location is indicated by dashed line, and (d1,d2) derived competition
-  functions for communities in panels  c1 \& c2. Parameters as in Fig.
-  \ref{fig:Rstar}a-c.
-  \label{fig:sm_rstar_components1}}
-\end{figure}
-
-\begin{figure}[h]
- \centering
- % \includegraphics{figures/sm_rstar_components2}
- \caption{\textbf{Components used to estimate competition functions shown in Figs.
- \ref{fig:Rstar}e-f for \Rstar\ model with asymmetric resource requirements.}
-  Panels show: (a) the fitness of a rare invader growing without competition,
-  (b) the equilibrium population density of invader when growing in monoculture,
-  (c1, c2) the fitness of a rare invader growing in competition with an established
-  resident, whose location is indicated by dashed line, and (d1,d2) derived competition
-  functions for communities in panels c1 \& c2. Parameters as in Fig.
-  \ref{fig:Rstar}d-f.
-  \label{fig:sm_rstar_components2}}
-\end{figure}
-
-\begin{figure}[h]
- \centering
- % \includegraphics{figures/sm_plant_hmat_components}
- \caption{\textbf{Components used to estimate competition functions shown in Figs.
- \ref{fig:plant_hmat} for \plant\ model and the trait height at maturation.}
-  Panels show: (a) the fitness of a rare invader growing without competition,
-  (b) the equilibrium population density of invader when growing in monoculture,
-  (c1, c2) the fitness of a rare invader growing in competition with an established
-  resident, whose location is indicated by dashed line, and (d1,d2) derived competition
-  functions for communities in panels c1 \& c2. Parameters as in Fig.
-  \ref{fig:plant_hmat}.
-  \label{fig:sm_plant_hmat_components}}
-\end{figure}
-
-\begin{figure}[h]
- \centering
- % \includegraphics{figures/sm_plant_lma_components}
- \caption{\textbf{Components used to estimate competition functions shown in Figs.
- \ref{fig:plant_lma} for \plant\ model and the trait leaf mass per area.}
-  Panels show: (a) the fitness of a rare invader growing without competition,
-  (b) the equilibrium population density of invader when growing in monoculture,
-  (c1, c2) the fitness of a rare invader growing in competition with an established
-  resident, whose location is indicated by dashed line, and (d1,d2) derived competition
-  functions for communities in panels  c1 \& c2. Parameters as in Fig.
-  \ref{fig:plant_lma}.
-  \label{fig:sm_plant_lma_components}}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-  \caption{Density dependence in \Rstar}
-  \label{fig:rstar_density_dependence}
-\end{figure}
 
 \end{document}
 

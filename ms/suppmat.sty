@@ -28,7 +28,7 @@
 \RequirePackage{textcase}
 
 % Hyperlinks:
-\usepackage{xcolor}
+\usepackage{color}
 \definecolor{navy}{rgb}{0,0,0.4}
 \usepackage[colorlinks,citecolor=navy,linkcolor=navy,urlcolor=navy]{hyperref}
 
@@ -37,14 +37,15 @@
 %   https://gist.github.com/richfitz/2324707
 % So this switches between Minion Pro and Palatino, which at least
 % looks substantially nicer than Computer Modern.
-\IfFileExists{MinionPro.sty}{
-\RequirePackage[mathlf,minionint]{MinionPro}
-\RequirePackage[protrusion=true,expansion=false,verbose=silent]{microtype}
-}{
+% \IfFileExists{MinionPro.sty}{
+% \RequirePackage[mathlf,minionint]{MinionPro}
+% \RequirePackage[protrusion=true,expansion=false,verbose=silent]{microtype}
+% }{
 \RequirePackage[osf]{mathpazo}
 \def\textssc{\textsc}
+\def\sscshape{\scshape}
 \RequirePackage[tracking=smallcaps,protrusion=true,expansion=false,verbose=silent]{microtype}
-}
+%}
 
 \DeclareRobustCommand{\spacedsmallcaps}[1]{\textls[50]{\scshape{#1}}}%
 \DeclareRobustCommand{\spacedallcaps}[1]{\textssc{\MakeTextUppercase{#1}}}
@@ -123,5 +124,9 @@
   \vskip 1em}
 
 \newcommand{\email}[1]{\href{mailto:#1}{\texttt{#1}}}
-
-\renewcommand*\listfigurename{Supplementary figures}
+\titleprefix{Supporting information}
+\runninghead{TREE}
+\author{Richard G. FitzJohn, Daniel S. Falster, Georges Kunstler and Mark Westoby}
+\address{Department of Biological Sciences, Macquarie University,
+  Sydney, Australia}
+\emailaddress{rich.fitzjohn@gmail.com}

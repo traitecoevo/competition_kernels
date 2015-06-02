@@ -1,6 +1,7 @@
 packages:
   - plant
   - rootSolve
+  - rmarkdown
 
 sources:
   - R
@@ -16,6 +17,11 @@ plot_options:
     height: 5.5
     width: 5.5
 
+knitr_options:
+  vignette:
+    auto_figure_prefix: true
+    chdir: true
+
 targets:
   all:
     depends:
@@ -24,6 +30,7 @@ targets:
       - figures_sm
       - ms/competition-kernels.pdf
       - ms/competition-kernels-sm.pdf
+      - vignettes/comp_lotka_tilman.html
 
   # NOTE: some issues getting dependencies to behave sensibly here
   # (manuscript rebuilding when figures change but tex does not)
@@ -57,11 +64,13 @@ targets:
       - ms/competition-kernels-sm.pdf
       - ms/ms.sty
       - ms/amnat.bst
+      - figures
     command: latex_build("ms/competition-kernels.tex", "ms/references.bib", clean=TRUE)
 
   ms/competition-kernels-sm.pdf:
     depends:
       - ms/suppmat.sty
+      - figures_sm
     command: latex_build("ms/competition-kernels-sm.tex", clean=TRUE)
 
   # Data common to all _resident_ communities, but specific to one set
@@ -124,5 +133,7 @@ targets:
     command: fig_rstar_density()
     plot: true
 
-  comp.lotka.tilman.pdf:
-    command: build_pdf_knit("comp.lotka.tilman.Rmd")
+  vignettes/comp_lotka_tilman.md:
+    knitr: vignette
+  vignettes/comp_lotka_tilman.html:
+    command: render("vignettes/comp_lotka_tilman.md", quiet=TRUE)

@@ -37,3 +37,6 @@ wiki
 ms/figures
 .remake/
 ignore/
+
+vignettes/*.md
+vignettes/*.html

@@ -39,150 +39,183 @@ Abstract goes here\ldots
 
 \section{Introduction}
 
-There is a rich history in ecology of investigating how communities are assembled
-and, more recently, how physiological traits enable niche differentiation
-\cite[e.g.][]{Gause-1934,MacArthur-1967,Leimar-2013}.
+% TODO: in one of the first three sentences: get across the "core
+% question" of:
 %
-The challenge is particularly acute for plants communities,
-where most species use same few resources \citep{Whittaker-1970,Grime-1979,
-Hubbell-2001, Westoby-2002}.
+%   How do traits and resources (via competition) structure communities?
+Ecological communities are structured by the nature of the
+interactions within them;
+% Wondering here if thisis a good place to cite Dolphs "Adaptive
+% Radiations" book, as it gets close to some of this.
+in particular competition for common resources structures niches by
+excluding some species and allowing others to survive
+\citep[e.g.][]{Gause-1934,Lack-1947,MacArthur-1967}.
+% TODO: I have a paper *somewhere*, probably from Quarterly Review of
+% Biology that asks (skeptically) the question of whether plants
+% see/use fewer resources than animals do.
 %
-Currently, researchers are approaching questions about niche diversification
-from at least 3 different perspectives: 
-i) theoretical models based on competition kernels 
-\cite[e.g.][]{MacArthur-1967,Case-1982,Dieckmann-1999,Leimar-2013},
-ii) model in which resources are modelled more explicitly 
-\citep[e.g.][]{Tilman-1977,Huston-1987, Kohyama-1993, Falster-2011},
-and  iii) via strategy schemes that seek to organise the diversity of
-growth strategies observed across species into a useful framework 
-\citep[e.g.][]{Grime-1979,Weiher-1999,Westoby-2002}. 
-% ignoring 4th  approach for now, via ecological drift / neutrality)
-Broadly these different literatures represent different ways of addressing 
-the same core question rather addressing fundamentally different hypotheses. 
-Yet, despite this similarity, the literature strands have remained largely isolated
-from one-another, with little cross-fertilisation between them. 
+% NOTE: this is not great, but we need a solid link through to
+% resources.
+If species differentially consume different resources, or different
+types of a given resource, this can regions of trait space that
+different species can stably occupy and coexist.
+%
+The idea of species arranged along niche axes (e.g., Figure
+\ref{fig:competition-kernels}) is iconic within community ecology and
+is almost universally present in textbooks from 1970s through to the
+present \citep[e.g.,][]{Krebs-1972, Ricklefs-1973, Ricklefs-1999,
+  Krebs-2013}.
+%
+However, this worldview is particularly challenging for plant
+communities, where most species use same few resources
+\citep[e.g.,][]{Whittaker-1970, Grime-1979, Hubbell-2001,
+  Westoby-2002}.
 
-In the first strand, individuals from different species interact via a 
-``competition kernel'' -  a function describing how per-capita rates of growth
-for the population of one species are reduced by the abundance of another species.
-% 
-Such kernels are used to summarise the effects of competition for resources within
-models that otherwise seek to explore dynamics of diverse phenomena, including
-character displacement \citep{Taper-1985, Case-2000}, 
-species coexistence / community assembly \citet{MacArthur-1967, Calcagno-2006,
-Leimar-2013}, and sympatric speciation \citep{Dieckmann-1999}.
-% 
-While initially competition kernels were described via actual 
-resource utilisation curves \citep{MacArthur-1967,Roughgarden-1979,Abrams-1983}, 
-there was an almost complete switch to expressing kernels based on difference
-in trait values, starting from papers investigating character displacement
- \citep{Slatkin-1980,Taper-1985}.
+Currently, at least three perspectives are popular in investigating
+the relationship between resources, species traits and coexistance:
 %
-Mostly researchers have focussed on a limited number of kernel shapes, in particular
- Gaussian, asymmetric Gaussian or logistic shapes
-\cite{Taper-1985, Kisdi-1999, Dieckmann-1999, Leimar-2013}.
-% 
-However, recent work has shown that the precise shape of kernel being used can
-drastically effect the nature of coexistence that can occur within the model 
-\citep{Calcagno-2006, Scheffer-2006, Pigolotti-2007, Leimar-2013}.
+i) Theoretical models based on explicit ``competition kernels'' and
+simple Lotka-Volterra dynamics
+\citep[e.g.][]{MacArthur-1967,Case-1982,Dieckmann-1999,Leimar-2013}.
 %
-Broadly, these findings connect with imagery of community assembly presented
-in textbooks from 1970s through to the present day -- where the dynamics
-of species packing are influenced by shape of competition kernel 
-\citep{Krebs-1972,Ricklefs-1973,Ricklefs-1999,Krebs-2013}.
+ii) Models in which resources are modelled explicitly, and species
+interactions emerge from competition for the resources
+\citep[e.g.][]{Tilman-1977, Huston-1987, Kohyama-1993, Falster-2011}.
+%
+iii) Empirical, generally correlative, approaches that seek to
+describe major axes of trait variation among species and relate that
+to underlying differences in competition for resources
+\citep[e.g.][]{Grime-1979, Weiher-1999, Westoby-2002}.
+% NOTE: ignoring 4th approach for now, via ecological drift /
+% neutrality, but it falls most closely into the 3rd approach.  Framed
+% as above, in terms of "traits / resources / competition" neutral
+% theory is not as relevant anyway.
+Broadly these different literatures represent different ways of
+addressing the same core question rather addressing fundamentally
+different hypotheses.  Despite this similarity they have remained
+largely isolated from one-another.
 
-Resource based models differ from the kernel-based approaches in that, rather
-than being inferred from a trait-based kernel, competitive interactions are 
-moderated via a resource whose abundance is modelled explicitly.
-%  
-So far, two main classes of resource-based model have been investigated.
-
+In the first strand, individuals from different species interact via a
+``competition kernel'' --- a function describing how rates of
+population growth of one species are reduced by the abundance of
+another species with respect to resource preferences or traits of the
+two species.
 %
-The first is Tilman's  \Rstar model \citep{Tilman-1977,Tilman-1982}, which focusses
-on the minimal level of resource abundance that individuals from a species
-can tolerate (\Rstar).
-Similar to the kernel-based models, populations are unstructured, so 
-competitive interactions occur within a ``mean field''.
+While initially competition kernels were derived via resource
+utilisation curves, and expressed relative to a resource axis
+\citep{MacArthur-1967, Roughgarden-1979}, there has been an almost
+complete switch to expressing kernels based on difference in trait
+values.
 % 
-The second type of model are successional niche models, which
-allow for size- and trait-driven interactions within a metapopulation of patches
+Competition kernel--based models have been usd to model dynamics of
+character displacement \citep{Taper-1985, Case-2000}, species
+coexistence and community assembly \citep{MacArthur-1967,
+  Calcagno-2006, Leimar-2013}, and sympatric speciation
+\citep{Dieckmann-1999}.
+%
+These models are amenable to analysis and it is possible to determine
+the outcome of competition from subtle changes to the competition
+kernel \citep{Calcagno-2006, Scheffer-2006, Pigolotti-2007,
+  Leimar-2013}.
+%
+In practice, researchers have focussed on a limited number of kernel
+shapes, in particular Gaussian, asymmetric Gaussian or logistic shapes
+(Table \ref{tab:kernel-shapes})
+
+Resource based models differ from the kernel-based approaches in that,
+rather than being inferred from a trait-based kernel, competitive
+interactions are moderated via a resource whose abundance is modelled
+explicitly.  As such, the competitive effects ``emerge'' from the
+model, and the shape of competitive interactions with respect to
+species traits is not specified.
+%
+In this paper, we will consider two classes of resource-based model.
+%
+The first is Tilman's ``\Rstar'' model \citep{Tilman-1977,
+  Tilman-1982}, which focusses on the minimal level of resource
+abundance that individuals from a species can tolerate.
+% Direct species intereractions are absent, and resources do not
+% instantly replenish.  Trait link is low.
+%
+% I don't think this matters here?:
+%
+% Similar to the kernel-based models, populations are unstructured, so
+% competitive interactions occur within a ``mean field''.
+The second type are mechanistic niche models, which allow for size-and
+trait-driven interactions within size-structured communities or
+meta-communities
 \citep{Huston-1987,Kohyama-1993,Moorcroft-2001,Falster-2011}.
-Although competition for below ground resources may also be considered, 
-competitive occur largely via shading of smaller plants by taller plants within
-a patch. 
-% also models in which individuals compete for space. But these actually fall in 
-% with kernel based models - competition-colonisation models
-In both types of model, traits modify how species use the resource, but to the
-extent they exist,  any species-level competition-kernel arises only as emergent property
-of the entire system.
+% Dropped:
+% Although competition for below ground resources may also be
+% considered, competitive occur largely via shading of smaller plants by
+% taller plants within a patch.
+% ----
+% also models in which individuals compete for space. But these
+% actually fall in with kernel based models - competition-colonisation
+% models
+% In both types of model, traits modify how species use the resource, but to the
+% extent they exist,  any species-level competition-kernel arises only as emergent property
+% of the entire system.
 % Extra sentence - perhaps not needed
 % Beyond the handling of competitive interactions, the dynamics of character evolution
 % and species coexistence are modelled in largely the same way as in kernel-based models
 % \citep[e.g.][]{Falster-2015}.
 
-The third lineage -- ecological  strategy schemes -- is more empirically
-oriented. Strategy schemes arose as attempts to classify the wide range 
-of growth strategies observed among plant species
-\citep{Grime-1974,Grime-1979,Southwood-1977,Weiher-1999,Westoby-2002}, with
-trait-based approaches \citep{Weiher-1999,Westoby-2002} being currently
-the most popular.
+The empirical approach to investigating how species traits affect
+coexistence attempts to classify species into different strategy
+schemes
+\citep{Grime-1974,Grime-1979,Southwood-1977,Weiher-1999,Westoby-2002}.
 %
-Prominent traits include morphological and physiological characteristics
-of individual tissues such as Leaf Mass per Area (\textsc{lma}), and features
-affecting allocation, such as height at maturation (\textsc{hmat}) 
-\citep{Westoby-2002}.
+% For plants, prominent traits include morphological and physiological
+% characteristics of individual tissues such as leaf mass per area
+% (\textsc{lma}), and features affecting allocation, such as height at
+% maturation (\textsc{hmat}) \citep{Westoby-2002}.
 %
-Existing strategy schemes lack precise theory illustrating how trait-based
-community might work \citep{Adler-2013}, however, attempts have been made to
-link with both kernel-based and resource-based models via statistical metrics,
- from which processes is inferred.
+Existing strategy schemes lack explicit theory illustrating how
+trait-based community might work \citep{Adler-2013}.
+% TODO: this feels weak still:
+However, characteristics such as trait over-dispersion may be
+signatures of niche diversification \citep[e.g.][]{Kraft-2008} while
+correlations amongst traits and growth rates may indicate
+diversification along successional niche \citep[e.g.][]{Wright-2010}.
 %
-Such metrics include measures of trait over-dispersion \citep[e.g.][]{Kraft-2008}
--- indicating niche-diversification --
-and statical correlations between growth rate and mortality 
-\citep[e.g.][]{Wright-2010} -- indicating diversification along successional niche.
-% anything where kernels measured?
-% 
-Crucially, the validity of these inferences depends on the insights drawn from
-the two other more-theoretical approaches.
+The validity of these inferences depends on the insights drawn from
+the two more theoretical approaches.
 
-
-Ideally, these different approaches to studying community assembly would
-mutually reinforce each other, yet to date the literatures remain unhelpfully
-isolated from one another. In this paper we try to bridge this divide, by asking
-whether the signature of competitive interactions that emerges from resource-based
-models reflects the trait-based kernels used in kernel-based approaches. 
+Ideally, these different approaches to studying community assembly
+would mutually reinforce each other, yet to date the literatures
+remain relatively isolated from one another.
+%
+In this paper we try to bridge this divide, by asking whether the
+signature of competitive interactions that emerges from resource-based
+models reflects the trait-based kernels used in kernel-based
+approaches.
 % 
-To achieve this we look at the shape of the competition functions that
-are produced in two different models where
-competition and the mechanics of the resource being depleted are represented mechanistically.
+To achieve this we determine the shape of the competition functions
+that are produced in two different models where competition and the
+mechanics of the resource being depleted are represented explicitly.
 %
-This analysis thereby extends work of Abrams \citet{Abrams-2008}, who found a
-poor match between the \Rstar model and approach of modelling assembly via resource
-utilization curves. We extend that study by focussing
-on trait-based kernels and including a second class of resource-based
-model -- those involving successional niche differentiation. 
+This approach is not new; \citet{Abrams-2008} found that \Rstar\ model
+satisfies few of the assumptions that underpin Lotka-Volterra
+dynamics.
 %
-More specifically, we assess whether several assumptions embedded within
+We extend this approach by focussing on trait-based kernels and by
+including a second class of resource-based model involving
+successional niche differentiation.
+%
+Specifically, we assess whether several assumptions embedded within
 most kernel-based analyses are compatible with the behaviour of the
-resource-based models, via the following questions.
-\begin{itemize}
-\item What is the shape of the competition function emerging from resource-based
-models -- Is it Gaussian or logistic as commonly assumed in kernel-based models?
-\item Does the shape of the competition function remain constant with
-respect to the traits of species in the community, as is commonly assumed in kernel-
-based models? 
-\item Does the shape of the competition function remain constant with
-respect to the density of the species in the community, as commonly assumed in
-kernel-based models?
-\end{itemize}
-
-
-This work is undertaken in an attempt to sterngthen the connection between disparate
-strands of research and in the belief that if competition kernels with respect
-to traits were better understood, this could open a constructive path towards
-measure real competition kernels in nature and predicting trait-mixtures in plant
-communities.
+resource-based models and ask;
+%
+i) what is the shape of the competition function emerging from resource-based
+models?
+%
+ii) does the shape of the competition function remain constant with
+respect to the traits of species in the community?
+%
+iii) does the shape of the competition function remain constant with
+respect to the density of the species in the community, as commonly
+assumed in kernel-based models?
 
 \section{Models}
 

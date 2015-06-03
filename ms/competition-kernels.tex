@@ -56,6 +56,7 @@ excluding some species and allowing others to survive
 %
 % NOTE: this is not great, but we need a solid link through to
 % resources.
+% TODO: @richfitz "this can" below unclear
 If species differentially consume different resources, or different
 types of a given resource, this can regions of trait space that
 different species can stably occupy and coexist.
@@ -67,10 +68,13 @@ present \citep[e.g.,][]{Krebs-1972, Ricklefs-1973, Ricklefs-1999,
   Krebs-2013}.
 %
 However, this worldview is particularly challenging for plant
-communities, where most species use same few resources
+communities, where most species use the same few resources
 \citep[e.g.,][]{Whittaker-1970, Grime-1979, Hubbell-2001,
   Westoby-2002}.
 
+% TODO: @richfitz Feels like this is really about plants -  mention at top
+% somewhere. If you want it to be more general we should expand reference
+% list to include animal examples
 Currently, at least three perspectives are popular in investigating
 the relationship between resources, species traits and coexistance:
 %
@@ -120,28 +124,29 @@ kernel \citep{Calcagno-2006, Scheffer-2006, Pigolotti-2007,
 %
 In practice, researchers have focussed on a limited number of kernel
 shapes, in particular Gaussian, asymmetric Gaussian or logistic shapes
-(Table \ref{tab:kernel-shapes})
+(Table \ref{tab:shapes})
 
 Resource based models differ from the kernel-based approaches in that,
 rather than being inferred from a trait-based kernel, competitive
 interactions are moderated via a resource whose abundance is modelled
 explicitly.  As such, the competitive effects ``emerge'' from the
-model, and the shape of competitive interactions with respect to
-species traits is not specified.
+model -- i.e. the shape of competitive function with respect to
+species traits is not specified, rather it is an output of the model.
 %
 In this paper, we will consider two classes of resource-based model.
 %
 The first is Tilman's ``\Rstar'' model \citep{Tilman-1977,
   Tilman-1982}, which focusses on the minimal level of resource
 abundance that individuals from a species can tolerate.
-% Direct species intereractions are absent, and resources do not
+% Direct species interactions are absent, and resources do not
 % instantly replenish.  Trait link is low.
 %
 % I don't think this matters here?:
 %
 % Similar to the kernel-based models, populations are unstructured, so
 % competitive interactions occur within a ``mean field''.
-The second type are mechanistic niche models, which allow for size-and
+The second type are mechanistic niche models, which allow for 
+differentiation in successional strategy via size-and
 trait-driven interactions within size-structured communities or
 meta-communities
 \citep{Huston-1987,Kohyama-1993,Moorcroft-2001,Falster-2011}.
@@ -174,11 +179,13 @@ schemes
 Existing strategy schemes lack explicit theory illustrating how
 trait-based community might work \citep{Adler-2013}.
 % TODO: this feels weak still:
-However, characteristics such as trait over-dispersion may be
+However, characteristics such as trait over-dispersion are often
+interpreted as
 signatures of niche diversification \citep[e.g.][]{Kraft-2008} while
 correlations amongst traits and growth rates may indicate
-diversification along successional niche \citep[e.g.][]{Wright-2010}.
+diversification along in successional strategy \citep[e.g.][]{Wright-2010}.
 %
+% TODO: @richfitz last sentence could be stronger
 The validity of these inferences depends on the insights drawn from
 the two more theoretical approaches.
 
@@ -189,7 +196,7 @@ remain relatively isolated from one another.
 In this paper we try to bridge this divide, by asking whether the
 signature of competitive interactions that emerges from resource-based
 models reflects the trait-based kernels used in kernel-based
-approaches.
+models.
 % 
 To achieve this we determine the shape of the competition functions
 that are produced in two different models where competition and the
@@ -227,9 +234,10 @@ growth rate of another is intractable.
 An alternative approach is to analyse models where the competitive
 effects emerge from lower-level interactions
 \citep[e.g.,][]{Draghi-2012}.  Mechanistic models make more direct
+% TODO: @richfitz which phenomenological models did you mean?
 connections to the natural world than the phenomenological models,
 while still remaining tractable.  This does not require or assume that
-the mechansitic models are correct or complete descriptions of the
+the mechanistic models are correct or complete descriptions of the
 natural world.
 
 % NOTE: Thoughout, decide how to use the terms ``competition kernel''
@@ -255,6 +263,8 @@ In each model, species traits influence the dynamics of resource use,
 which in turn affects competitive interactions through the common
 resource.  Several ways of computing competition coefficients are
 possible \citep[e.g.,][]{Abrams-1987,Abrams-2008}.  When the
+% TODO: @richfitz clarify - what else is in the brackets, it's not LV per se
+% is it, rather the density independence?
 underlying dynamics follow Lotka-Volterra dynamics (density
 independent competition, etc), then the different coefficients will be
 the same.  We use another formulation based on simply solving for the
@@ -264,10 +274,12 @@ For each model, we compute the core quantities used in the
 Lotka-Volterra equations (growth rate, carrying capacity, per-capita
 rate of population increase and strength of competition).  The
 standard Lotka-Volterra equations express the rate of increase in the
-abundance of species $i$ ($N_i$) as a product of two terms.
+abundance of species $i$ as a product of three terms.
 %
-The first is the maximum possible per-capita growth rate, $r_i$. The
-second expresses the degree to which that maximum is realised, and
+The first is the abundance of species $i$, $N_i$.
+%
+The second is the maximum possible per-capita growth rate, $r_i$. The
+third expresses the degree to which that maximum is realised, and
 thus includes any reductions due to competition with other species. A
 commonly used form for Lotka-Volterra dynamics is
 %
@@ -282,7 +294,8 @@ grown in a monoculture (i.e., the carrying capacity), and
 $\alpha_{ij}$ is the per-capita competitive effect of species-$j$ on
 species-$i$.  By convention, competition functions are expressed as
 the effect of species-$j$ on species-$i$, relative to the effect of
-species-$i$ on itself, so $\alpha_{ii}\equiv 1$, so an $\alpha_{ij} >
+species-$i$ on itself. Thus $\alpha_{ii}\equiv 1$, while $\alpha_{ij}
+>
 1$ implies stronger iterspecific competition than intraspecific
 competition.  The sum is over all species in the population, with
 competitive effects assumed to be additive across species and density
@@ -295,7 +308,7 @@ consider a single version.
 We are interested in situations where the different parameters in
 equation (\ref{eq:LV}) are functions of traits; that is replacing the
 subscripts in the above equations as continuous functions of species
-traits $x$.  In particular the coefficients $\alpha_{ij}$ becomes a
+traits $x$.  In particular the coefficient $\alpha_{ij}$ becomes a
 function $\alpha(x_i, x_j)$.
 %
 We restrict our analysis to the simplest situation where a single
@@ -339,7 +352,7 @@ We then solved for $\alpha(x_R, x_I)$ by rearranging  \ref{eq:LVi} to give:
   \left(1 - \frac{f_I(x_I, x_R)}{r(x_I)}\right).
 \end{equation}
 
-In addition, we will also use one of the coefficients described in
+In addition, we also calculate one of the coefficients described in
 \citet{Abrams-2008}: $\chi_{ij}^{*}$:
 %
 \begin{equation}
@@ -360,7 +373,7 @@ that the invader depresses its own growth.
 
 \subsection{\Rstar\ model}
 
-% \item As originally formulated, \Rstar does not include traits
+% \item As originally formulated, \Rstar\ does not include traits
 % \item We adapt a formulation (due to whom?) where a ``trait'' is a
 %   measure of specialisation/generalisation.
 
@@ -387,7 +400,7 @@ Following previous authors \citep{Tilman-1985, Schreiber-2003,
 two resources required for growth. Species can vary from requiring
 mostly resource 1, to equals amounts of both resources, to mostly
 resource 2. This dependence is achieved by making uptake saturation
-constants (see appendix \ref{sec:Rstar} for details) for resource 1
+constants (see Appendix \ref{sec:Rstar} for details) for resource 1
 inversely related to the requirement of resource 2:
 \begin{equation}
 \label{eq:R3}
@@ -396,7 +409,10 @@ U_{1i} = 1 - U_{2i}.
 (Note that the $U$'s here are $K$'s in \citet{Huisman-2001}, but we
 use $U$ to avoid confusion with carrying capacity.)
 %
-The rate of consumption of resouce $j$ by species $i$ is determined by
+% TODO: @richfitz Below we refer to big C, is that the same as $c_{ki}$?
+% If so we allow it to vary among species, i.e. not constant as implied ins
+% sentences below.
+The rate of consumption of resource $j$ by species $i$ is determined by
 $c_{ki}$ the content of resource $k$ in species $i$. We assumed that
 the content was similar across species.
 
@@ -456,7 +472,7 @@ production, as an individual increases in size.
 
 \subsection{\Rstar}
 
-For the \Rstar model we consider two cases: a ``symmetric
+For the \Rstar\ model we consider two cases: a ``symmetric
 consumption'' case with $C = \{0.2, 0.2\}$ and an ``asymmetric case''
 with $C = \{0.3, 0.7\}$.  Species vary only in their rate of resource
 conversion efficiency and the degree in which they specialise in the
@@ -465,7 +481,7 @@ one in a position where invasion by other types is possible and one at
 the evolutionary optimum point.
 %
 Because $C$ does not vary by species, coexistence is not possible in
-this model \citep{Tilman-1982}; invasion is a sufficient condition for
+this model \citep{Tilman-1982}; invasion is thus a sufficient condition for
 competitive replacement.
 
 In the symmetric model, we first consider a resident at $x = 0.6$
@@ -490,8 +506,10 @@ Computing competition functions using the derivative approach
 described in \citet{Abrams-2008}
 ($(\partial d_i / \partial N_j) / (\partial d_i / \partial N_i) |_{N_i
   = 0, N_j = K_j}$)
-was qualitatively similar, though picewise linear in species traits
-and with higher departure from 1.
+was qualitatively similar, though piecewise linear in species traits
+and with higher departure from 1. 
+Either way, the shape of the kernels produced looks nothing like any of the
+common shapes depicted in Table \ref{tab:shapes}
 
 In the asymmetric case, consumption rates are higher for
 resource $B$ than resource $A$; this shifts the model in favour of
@@ -506,9 +524,7 @@ still corresponded to the region where competition was less than 1.
 
 In both the symmetric and asymmetric case, competition was density
 dependent.  Increasing the resident density changes the per-capita
-competitive impact (this is not the case for models like the
-\citet{Dieckmann-1999} model where the per-capita competitive effect
-stays constant).
+competitive impact.
 %
 In the symmetric model, the \emph{shape} did not qualitatively change,
 and competition was always saturating with increasing density.
@@ -522,9 +538,9 @@ with increasing density (Figure
 
 \subsection{\plant: \hmat}
 
-In the \plant model, Strategies that have different height of
+In the \plant\ model, strategies that have different height of
 maturation (\hmat) begin to focus resources on reproduction at
-different ages.  Plants that reproduce earlier get to ``lock in''
+different sizes.  Plants that reproduce earlier get to ``lock in''
 reproduction, but because they allocate less resources to growth they
 risk being over-topped and out-shaded by strategies that reproduce
 later.  This leads to a strongly asymmetric competitive effect of
@@ -565,14 +581,14 @@ evolutionary dynamics are similar (\TODO).
 Strategies that have different leaf mass per unit area (\textsc{lma})
 values are different points in the ``leaf economic spectrum''
 \citep{Reich-1997,Wright-2004}.  We modelled \textsc{lma} as a trade-off
-between the cost of deploying a unit of cost of building an extra unit
+between the cost of deploying an extra unit
 of leaf area and the rate of leaf turnover (so high \textsc{lma} leaves are
 costly to deploy but turn over more slowly so that they can contribute
 to carbon gain for longer, or conversely require rebuilding less
 often).
 
 The shape of the competition function is complex and does not conform
-to any of the simple shapes in wide use.
+to any of the simple shapes in wide use, as depicted in Table \ref{tab:shapes}.
 % Need to be clear that we're talking about the non attractor
 % situation first.
 In the region of trait space close to the resident species,
@@ -614,7 +630,7 @@ quantitatively with resident phenotype, implying that they are not actually
 kernels but functions, and iii) had shapes that were distinctly non-Gaussian,
 suggesting limited connection with the wide array of theoretical models
 assuming Gaussian shapes. Trivially, our results demonstrate that the \Rstar
-and \plant  models are not well approximated by a Lotka-Volterra system, at
+and \plant\ models are not well approximated by a Lotka-Volterra system, at
 least for two of the three traits we investigated. That the kernel-based models
 do not perfectly approximate the resource-based models in itself  is not
 surprising: it should certainly be hoped that more complex resource-based models
@@ -988,7 +1004,7 @@ self-competition'' \citep{Barabas-2012}.}
 \begin{figure}[h]
   \centering
   \includegraphics{figures/rstar}
-  \caption{Shape of competition function embedded within the \Rstar model
+  \caption{Shape of competition function embedded within the \Rstar\ model
   for a trait determining the stoichiometry of uptake for two essential resources.
   Here we have only shown the derived  competition functions, see Figs.
   \ref{fig:sm_rstar_components1}-\ref{fig:sm_rstar_components2} for plot of all
@@ -1013,7 +1029,7 @@ self-competition'' \citep{Barabas-2012}.}
 \begin{figure}[h]
   \centering
   \includegraphics{figures/plant_hmat}
-  \caption{\textbf{Shape of competition function embedded within \plant model for
+  \caption{\textbf{Shape of competition function embedded within \plant\ model for
   the trait height at maturation.}
   Here we have only shown the derived  competition functions, see Fig.
   \ref{fig:sm_plant_hmat_components} for plot of all components used to derive these functions.
@@ -1026,7 +1042,7 @@ self-competition'' \citep{Barabas-2012}.}
 \begin{figure}[h]
   \centering
   \includegraphics{figures/plant_lma}
-  \caption{\textbf{Shape of competition function embedded within \plant model for
+  \caption{\textbf{Shape of competition function embedded within \plant\ model for
   the trait leaf mass per area.}
   Here we have only shown the derived  competition functions, see Fig.
   \ref{fig:sm_plant_lma_components} for plot of all components used to derive these functions.
@@ -1071,9 +1087,9 @@ K(x_I) &= K_0 \exp\left(-\frac{\left(x_I-x_0\right)^2}{2\sigma^2_K}\right),\\
 For the analyses presented in Figure \ref{fig:components} we let $r_0=1.0$, $K_0=500$,
  $s2_C=1$, and $s2_C=0.16$.
 
-\subsection{Details about \Rstar model}\label{sec:Rstar}
+\subsection{Details about \Rstar\ model}\label{sec:Rstar}
 
-The version of the \Rstar model here generally follows
+The version of the \Rstar\ model here generally follows
 \citet{Huisman-2001}, with the parameter trade-offs assumed by
 \citet{Fox-2008}.
 %
@@ -1115,9 +1131,9 @@ The term $C_{ji}$ represents the rate of consumption of resouce $j$.
 % NOTE: is there anything else about the model we need to detail?
 % The carrying capacity, etc, are all analytic.
 
-\subsection{Details about \plant model}\label{sec:plant}
+\subsection{Details about \plant\ model}\label{sec:plant}
 
-Excerpt from  \plant model. Hold off writing this until know whether paper describing
+Excerpt from  \plant\ model. Hold off writing this until know whether paper describing
 the model has been published or not.
 
 \end{document}

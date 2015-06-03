@@ -219,6 +219,19 @@ assumed in kernel-based models?
 
 \section{Models}
 
+In general, we would like to know what the shape of competition
+functions look like in natural systems.  However, holding all else
+constant and isolating the effect of one species on the population
+growth rate of another is intractable.
+%
+An alternative approach is to analyse models where the competitive
+effects emerge from lower-level interactions
+\citep[e.g.,][]{Draghi-2012}.  Mechanistic models make more direct
+connections to the natural world than the phenomenological models,
+while still remaining tractable.  This does not require or assume that
+the mechansitic models are correct or complete descriptions of the
+natural world.
+
 % NOTE: Thoughout, decide how to use the terms ``competition kernel''
 % and ``competition function''; in the usual use they are roughly
 % equivalent but here they are probably not: see
@@ -234,32 +247,34 @@ assumed in kernel-based models?
 % need dealing with explicitly.  But of course we don't really use
 % them (yet -- see issue #35), and note that not all are even possible
 % (some require that coexistance is possible).
-We investigated the dynamics of two quite different models -- \plant
-and \Rstar -- where the competitive impact of one species on another
-arises via the effect of individuals on a shared resource. In each
-model, species traits influence the dynamics of resource use, which in
-turn affects competitive interactions through the common resource.
-Several ways of computing competition coefficients are possible
-\citep[e.g.,][]{Abrams-1987,Abrams-2008}.  When the underlying
-dynamics follow Lotka-Volterra dynamics (density independent
-competition, etc), then the different coefficients will be the same.
+We investigate the dynamics of two quite different models --- \plant\
+and \Rstar\ --- where the competitive impact of one species on another
+arises via the effect of individuals on a shared resource.
+%
+In each model, species traits influence the dynamics of resource use,
+which in turn affects competitive interactions through the common
+resource.  Several ways of computing competition coefficients are
+possible \citep[e.g.,][]{Abrams-1987,Abrams-2008}.  When the
+underlying dynamics follow Lotka-Volterra dynamics (density
+independent competition, etc), then the different coefficients will be
+the same.  We use another formulation based on simply solving for the
+competition coefficient in the Lotka-Volterra equation.
 
 For each model, we compute the core quantities used in the
 Lotka-Volterra equations (growth rate, carrying capacity, per-capita
 rate of population increase and strength of competition).  The
-standard Lotka-Volterra equations express the per capita rate of
-increase in the abundance $N_i$ of species-$i$ as a product of two
-terms.
+standard Lotka-Volterra equations express the rate of increase in the
+abundance of species $i$ ($N_i$) as a product of two terms.
 %
-The first is the maximum possible per-capita growth rate $r_i$. The
+The first is the maximum possible per-capita growth rate, $r_i$. The
 second expresses the degree to which that maximum is realised, and
 thus includes any reductions due to competition with other species. A
 commonly used form for Lotka-Volterra dynamics is
 %
 \begin{equation}
 \label{eq:LV}
-\frac{\ud N_i}{\ud t} \frac{1}{N_i} =
-r_i \left(1 - \sum_j \frac{\alpha_{ij} N_j}{K_i}\right),
+\frac{\ud N_i}{\ud t} =
+N_i r_i \left(1 - \sum_j \frac{\alpha_{ij} N_j}{K_i}\right),
 \end{equation}
 %
 where $K_i$ is the equilibrium value for $N_i$ when species-$i$ is
@@ -267,23 +282,32 @@ grown in a monoculture (i.e., the carrying capacity), and
 $\alpha_{ij}$ is the per-capita competitive effect of species-$j$ on
 species-$i$.  By convention, competition functions are expressed as
 the effect of species-$j$ on species-$i$, relative to the effect of
-species-$i$ on itself, so $\alpha_{ii}\equiv 1$.
+species-$i$ on itself, so $\alpha_{ii}\equiv 1$, so an $\alpha_{ij} >
+1$ implies stronger iterspecific competition than intraspecific
+competition.  The sum is over all species in the population, with
+competitive effects assumed to be additive across species and density
+independent within a species.
 %
-Other forms of equation (\ref{eq:LV}) exist that differ subtly in the
-nature of density dependence \citep[e.g.][]{Leimar-2013}, but for
-simplicity we focus on a single version.
+Other forms of equation (\ref{eq:LV}) exist that differ in the nature
+of density dependence \citep[e.g.][]{Leimar-2013}, but for simplicity
+consider a single version.
 
 We are interested in situations where the different parameters in
-equation (\ref{eq:LV}) are functions of traits.  We restrict our
-analysis to the simplest situation where a single invading type with
-trait $x_I$ is trying to invade a community comprising a single
-resident type with trait $x_R$.  The fitness $f_I(x_I, x_R)$ of the
-invading type is then
+equation (\ref{eq:LV}) are functions of traits; that is replacing the
+subscripts in the above equations as continuous functions of species
+traits $x$.  In particular the coefficients $\alpha_{ij}$ becomes a
+function $\alpha(x_i, x_j)$.
+%
+We restrict our analysis to the simplest situation where a single
+invading type with trait $x_I$ and a community comprising a single
+resident type with trait $x_R$ at equilibrium.  The fitness $f_I(x_I,
+x_R)$ of the invading type is its per capita rate of increase when
+rare ($N_I = 0$), or:
 %
 \begin{equation}
   \label{eq:LVi}
    f_I(x_I, x_R) = \frac{\ud N_i}{\ud t} \frac{1}{N_i} =
-    r(x_I)\left(1 - \alpha(x_I, x_R) \frac{K(x_R)}{K(x_I)}\right).
+    r(x_I)\left(1 - \alpha(x_R, x_I) \frac{K(x_R)}{K(x_I)}\right).
 \end{equation}
 % TODO: Move this into the discussion, I think.  This is the
 % "classical" criticism of LV as a useful device for doing anything in
@@ -294,9 +318,10 @@ invading type is then
 %   than one resident, because the number of unknowns increases faster
 %   than the number of species (refs?).
 
-To estimate the shapes of competition functions embedded within the \Rstar
-and \plant models, we use those models to calculate all of the trait-dependent
-terms in eq. \ref{eq:LVi} except $\alpha(x_I, x_R)$:
+To estimate the shapes of competition functions embedded within the
+\Rstar\ and \plant\ models, we use those models to calculate all of
+the trait-dependent terms in eq. \ref{eq:LVi} except $\alpha(x_R,
+x_I)$:
 \begin{enumerate}
 \item $f_I(x_I, x_R)$: fitness of rare invader with traits $x_I$  in
   competition with a established resident with traits $x_R$
@@ -307,10 +332,10 @@ terms in eq. \ref{eq:LVi} except $\alpha(x_I, x_R)$:
 \item $K(x_R)$: equilibrium population density of resident when
   growing in monoculture.
 \end{enumerate}
-We then solved for $\alpha(x_I, x_R)$ by rearranging  \ref{eq:LVi} to give:
+We then solved for $\alpha(x_R, x_I)$ by rearranging  \ref{eq:LVi} to give:
 \begin{equation}
   \label{eq:alpha}
-  \alpha(x_I, x_R) = \frac{K(x_I)}{K(x_R)}
+  \alpha(x_R, x_I) = \frac{K(x_I)}{K(x_R)}
   \left(1 - \frac{f_I(x_I, x_R)}{r(x_I)}\right).
 \end{equation}
 
@@ -333,7 +358,7 @@ trivial density.  This index therefore measures the extent to which
 the resident depresses the growth of an invader relative to the amount
 that the invader depresses its own growth.
 
-\subsection{\Rstar model}
+\subsection{\Rstar\ model}
 
 % \item As originally formulated, \Rstar does not include traits
 % \item We adapt a formulation (due to whom?) where a ``trait'' is a
@@ -359,28 +384,38 @@ easily described via a minimal set of equations (Appendix
 
 Following previous authors \citep{Tilman-1985, Schreiber-2003,
   Fox-2008} we focus on a trait determining the relative amount of the
-two resources required for growth. Species can vary from requiring mostly resource 1, to equals
-amounts of both resources, to mostly resource 2. This dependence is
-achieved by making uptake saturation constants (see appendix
-\ref{sec:Rstar} for details) for resource 1 inversely related to the
-requirement of resource 2:
+two resources required for growth. Species can vary from requiring
+mostly resource 1, to equals amounts of both resources, to mostly
+resource 2. This dependence is achieved by making uptake saturation
+constants (see appendix \ref{sec:Rstar} for details) for resource 1
+inversely related to the requirement of resource 2:
 \begin{equation}
-% NOTE: the U's here are K's in Huisman-2001, but we're using U to
-% avoid confusion with carrying capacity.
 \label{eq:R3}
 U_{1i} = 1 - U_{2i}.
 \end{equation}
+(Note that the $U$'s here are $K$'s in \citet{Huisman-2001}, but we
+use $U$ to avoid confusion with carrying capacity.)
+%
+The rate of consumption of resouce $j$ by species $i$ is determined by
+$c_{ki}$ the content of resource $k$ in species $i$. We assumed that
+the content was similar across species.
 
-The rate of consumption of resouce $j$ by species $i$ is determined by $c_{ki}$ the content of resource $k$ in species $i$. We assumed that the conetent was similar across species. GEORGES COMMENT IF WE KEEP USING THIS FORMULATION WE NEED TO EXPLAIN C HERE OTHERWISE IT SHOW UP IN THE RESULTS WITHOUT ANY DEFINITION. IF WE ASSUME C=U THIS MAY HELP TO SIMPLIFY THIS SECTION?
+% GEORGES COMMENT IF WE KEEP USING THIS FORMULATION WE NEED TO EXPLAIN
+% C HERE OTHERWISE IT SHOW UP IN THE RESULTS WITHOUT ANY
+% DEFINITION. IF WE ASSUME C=U THIS MAY HELP TO SIMPLIFY THIS SECTION?
+%
+% Yes - I (RGF) agree - just need to port the model over to use the
+% formulation that you prefer.
 
-\subsection{\plant model}
+\subsection{\plant\ model}
 
 The second model, \plant, is a mechanistic model of plant competition
 for light in a size-structured metapopulation \citep{Falster-2011,
-Falster-2015}. \plant is used here as an example of a broader group of models
-dealing with successional turnover \citep{Huston-1987,Kohyama-1993,Moorcroft-2001,Falster-2011}.
+  Falster-2015}. \plant\ is used here as an example of a broader group
+of models dealing with successional turnover
+\citep{Huston-1987,Kohyama-1993,Moorcroft-2001,Falster-2011}.
 
-Vegetation in the \plant model comprises a large number of patches subject
+Vegetation in the \plant\ model comprises a large number of patches subject
 to a prevailing disturbance regime.  Disturbances remove established
 vegetation within a patch, which is then recolonised via seed
 dispersal from other patches.  Individual plants progress through
@@ -395,16 +430,17 @@ income. Following \citep{Falster-2015}, the fitness of individuals
 with a given type is calculated by integrating seed output across the
 entire metapopulation.
 
-We use the \plant model to estimate trait-based competitive functions
+We use the \plant\ model to estimate trait-based competitive functions
 for two traits whose evolutionary dynamics have recently been
 investigated \citep{Falster-2015}: leaf mass per area (\textsc{lma})
 and height at maturation (\hmat). In the model, \textsc{lma} moderates
 a physiological trade-off between the cost of building an extra unit
 of leaf area and the rate of leaf turnover.  Variation in \textsc{lma}
 thereby underpins a trade-off between height growth rate and
-shade-tolerance of seedlings. Meanwhile, \hmat\ moderates the
-allocation of surplus energy between growth and seed production, as an
-individual increases in size.
+shade-tolerance of seedlings, and is a key comonent of the so-called
+``leaf economics spectrum'' \citep{Wright-2004}. Meanwhile, \hmat\
+moderates the allocation of surplus energy between growth and seed
+production, as an individual increases in size.
 
 % TODO: Something about how hmat leads to a fundamentally asymmetric
 % competition situation? -- i.e., talk about the *expectations* for
@@ -1138,7 +1174,7 @@ based on the difference between traits of the invader and resident:
 \label{eq:DD}
 r(x_I) &= r_0, \\
 K(x_I) &= K_0 \exp\left(-\frac{\left(x_I-x_0\right)^2}{2\sigma^2_K}\right),\\
-\alpha(x_I, x_R) &= \exp\left(-\frac{\left(x_I-x_R\right)^2}{2\sigma^2_C}\right).
+\alpha(x_R, x_I) &= \exp\left(-\frac{\left(x_I-x_R\right)^2}{2\sigma^2_C}\right).
 \end{align}
 \end{subequations}
 

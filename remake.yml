@@ -71,7 +71,8 @@ targets:
     depends:
       - ms/suppmat.sty
       - figures_sm
-    command: latex_build("ms/competition-kernels-sm.tex", clean=TRUE)
+    # NOTE: clean is FALSE here because we need the '.aux' file for above.
+    command: latex_build("ms/competition-kernels-sm.tex", clean=FALSE)
 
   # Data common to all _resident_ communities, but specific to one set
   # of parameter values.

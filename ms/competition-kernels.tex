@@ -66,9 +66,8 @@ excluding some species and allowing others to survive
 %
 % NOTE: this is not great, but we need a solid link through to
 % resources.
-% TODO: @richfitz "this can" below unclear
 If species differentially consume different resources, or different
-types of a given resource, this can regions of trait space that
+types of a given resource, this can create regions of trait space that
 different species can stably occupy and coexist.
 %
 The idea of species arranged along niche axes (e.g., Figure
@@ -85,6 +84,9 @@ communities, where most species use the same few resources
 % TODO: @richfitz Feels like this is really about plants -  mention at top
 % somewhere. If you want it to be more general we should expand reference
 % list to include animal examples
+%   - RGF: I think that the first one is definitely more animally than
+%   plant, the second is mixed and the third is planty.  Perhaps
+%   that's interesting in itself...
 Currently, at least three perspectives are popular in investigating
 the relationship between resources, species traits and coexistance:
 %
@@ -397,6 +399,7 @@ Surprisingly little attention has been paid to the question what
 shapes are actually likely for competition kernels, given known
 mechanisms for resource depletion in relation to traits, and the
 parallel focus on resource based models such as \Rstar.
+
 \section{Models}
 
 In general, we would like to know what the shape of competition
@@ -408,7 +411,8 @@ An alternative approach is to analyse models where the competitive
 effects emerge from lower-level interactions
 \citep[e.g.,][]{Draghi-2012}.  Mechanistic models make more direct
 % TODO: @richfitz which phenomenological models did you mean?
-connections to the natural world than the phenomenological models,
+%  - RGF: Ah, I meant the LV type models.  I guess that's not clear then.
+connections to the natural world than the simple models,
 while still remaining tractable.  This does not require or assume that
 the mechanistic models are correct or complete descriptions of the
 natural world.
@@ -436,12 +440,10 @@ In each model, species traits influence the dynamics of resource use,
 which in turn affects competitive interactions through the common
 resource.  Several ways of computing competition coefficients are
 possible \citep[e.g.,][]{Abrams-1987,Abrams-2008}.  When the
-% TODO: @richfitz clarify - what else is in the brackets, it's not LV per se
-% is it, rather the density independence?
-underlying dynamics follow Lotka-Volterra dynamics (density
-independent competition, etc), then the different coefficients will be
-the same.  We use another formulation based on simply solving for the
-competition coefficient in the Lotka-Volterra equation.
+underlying dynamics follow the Lotka-Volterra equations, then the
+different coefficients will be the same.  We use another formulation
+based on simply solving for the competition coefficient in the
+Lotka-Volterra equation.
 
 For each model, we compute the core quantities used in the
 Lotka-Volterra equations (growth rate, carrying capacity, per-capita
@@ -590,8 +592,10 @@ use $U$ to avoid confusion with carrying capacity.)
 % TODO: @richfitz Below we refer to big C, is that the same as $c_{ki}$?
 % If so we allow it to vary among species, i.e. not constant as implied ins
 % sentences below.
+%   - RGF: Fixed to big C.  It's fixed at the moment, but see #42 for
+%   more on this.
 The rate of consumption of resource $j$ by species $i$ is determined by
-$c_{ki}$ the content of resource $k$ in species $i$. We assumed that
+$C_{ki}$ the content of resource $k$ in species $i$. We assumed that
 the content was similar across species.
 
 % GEORGES COMMENT IF WE KEEP USING THIS FORMULATION WE NEED TO EXPLAIN
@@ -786,15 +790,16 @@ growth rate has a simple form and carrying capacity is approximately
 Gaussian (Figure \ref{fig:sm_plant_lma_components}\,a and b).
 
 Moving the resident towards the evolutionary attractor, invasion is
-possible through a broad range of trait values (both avove and below
+possible through a broad range of trait values (both above and below
 the resident value).
-%
-Make the case that the sawtoothness \textbf{probably} corresponds to
-differences in how time is partitioned (\TODO).
-%
-Explain how is it the case that invasion is possible through the
-region where competition $\approx 1$ -- that doesn't make much sense!
-It's similar to the situation with \hmat\ though (\TODO).
+\begin{itemize}
+\item Make the case that the sawtoothness \textbf{probably} corresponds to
+  differences in how time is partitioned (\TODO).
+
+\item Explain how is it the case that invasion is possible through the
+  region where competition $\approx 1$ -- that doesn't make much sense!
+  It's similar to the situation with \hmat\ though (\TODO).
+\end{itemize}
 
 \section{Discussion}
 

@@ -42,13 +42,15 @@ targets:
       - ms/figures/rstar.pdf
       - ms/figures/plant_hmat.pdf
       - ms/figures/plant_lma.pdf
+      - ms/figures/plant_lma_density.pdf
 
   figures_sm:
     depends:
       - ms/figures/sm_rstar_components1.pdf
       - ms/figures/sm_rstar_components2.pdf
       - ms/figures/sm_rstar_abrams.pdf
-      - ms/figures/sm_rstar_density.pdf
+      - ms/figures/sm_rstar_density1.pdf
+      - ms/figures/sm_rstar_density2.pdf
       - ms/figures/sm_plant_lma_components.pdf
       - ms/figures/sm_plant_hmat_components.pdf
 
@@ -104,13 +106,13 @@ targets:
     command: plant_competition(17.0, plant_hmat_shared)
 
   plant_lma_density_1:
-    command: plant_competition(plant_lma_1)
+    command: plant_competition_density(plant_lma_1)
   plant_lma_density_2:
-    command: plant_competition(plant_lma_2)
+    command: plant_competition_density(plant_lma_2)
   plant_hmat_density_1:
-    command: plant_competition(plant_hmat_1)
+    command: plant_competition_density(plant_hmat_1)
   plant_hmat_density_2:
-    command: plant_competition(plant_hmat_2)
+    command: plant_competition_density(plant_hmat_2)
 
   ms/figures/kernel.pdf:
     command: fig_kernel()
@@ -127,6 +129,9 @@ targets:
   ms/figures/plant_lma.pdf:
     command: fig_plant_lma(plant_lma_1, plant_lma_2)
     plot: wide
+  ms/figures/plant_lma_density.pdf:
+    command: fig_plant_density(plant_lma_density_1, plant_lma_density_2)
+    plot: wide
 
   ms/figures/sm_rstar_components1.pdf:
     command: fig_rstar_components(1)
@@ -140,14 +145,20 @@ targets:
   ms/figures/sm_plant_hmat_components.pdf:
     command: fig_plant_components(plant_hmat_1, plant_hmat_2)
     plot: tall
+  ms/figures/sm_plant_hmat_density.pdf:
+    command: fig_plant_density(plant_hmat_density_1, plant_hmat_density_2)
+    plot: wide
 
   dat_rstar_abrams:
     command: rstar_add_abrams()
   ms/figures/sm_rstar_abrams.pdf:
     command: fig_rstar_abrams(dat_rstar_abrams)
     plot: true
-  ms/figures/sm_rstar_density.pdf:
-    command: fig_rstar_density()
+  ms/figures/sm_rstar_density1.pdf:
+    command: fig_rstar_density(1)
+    plot: true
+  ms/figures/sm_rstar_density2.pdf:
+    command: fig_rstar_density(2)
     plot: true
 
   vignettes/comp_lotka_tilman.md:

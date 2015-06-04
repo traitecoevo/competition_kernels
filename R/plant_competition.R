@@ -29,10 +29,10 @@ plant_competition <- function(x_resident, obj, n=101L, N_resident=NULL) {
 
 plant_competition_density <- function(d) {
   f <- function(s) {
-    plant_competition(d$x_resident, d, n, s * d$N_resident)
+    plant_competition(d$x_resident, d, N_resident=s * d$N_resident)
   }
   scal <- seq_log(0.25, 2.0, 40)
-  dat <- mclapply(scal, f)
+  dat <- parallel::mclapply(scal, f)
   list(scal=scal, x=d$x_mutant, dat=dat)
 }
 

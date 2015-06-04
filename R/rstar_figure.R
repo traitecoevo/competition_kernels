@@ -140,7 +140,8 @@ fig_rstar_abrams <- function(d) {
 }
 
 ## R* density dependence
-fig_rstar_density <- function() {
+## I might keep this one as an additional supplementary figure?
+fig_rstar_density_lines <- function() {
   d <- dat_rstar()
   d1 <- d[[1]]
   d2 <- d[[2]]
@@ -196,4 +197,69 @@ fig_rstar_density <- function() {
   axis(2, labels=FALSE)
   abline(v=d2$x2, h=1, lty=3)
   points(d2$x2, 1, pch=19)
+}
+
+fig_rstar_density <- function(type) {
+  d <- dat_rstar()[[type]]
+
+  ## Come up with a vector of densities:
+  scal <- seq_log(0.25, 2.0, 50)
+
+  d_scal1 <- lapply(scal, function(s)
+                    rstar_competition(rbind(d$x1), d$p, d$N1 * s))
+  d_scal2 <- lapply(scal, function(s)
+                    rstar_competition(rbind(d$x2), d$p, d$N2 * s))
+
+  ## TODO: massive overlap here.
+  a1 <- sapply(d_scal1, "[[", "alpha")
+  a2 <- sapply(d_scal2, "[[", "alpha")
+
+  i <- which.min(abs(scal - 1))
+  n <- length(scal)
+  b1 <- a1 / matrix(rep(a1[, i], n), ncol=n)
+  b2 <- a2 / matrix(rep(a2[, i], n), ncol=n)
+
+  cols <- c("#B2182B", "#D6604D", "#F4A582", "#FDDBC7", "#F7F7F7",
+            "#D1E5F0", "#92C5DE", "#4393C3", "#2166AC")
+  cols2 <- colorRampPalette(rev(cols))(51)
+
+  r <- range(a1, a2, na.rm=TRUE)
+  zmax <- max(abs(r - 1))
+  zlim <- c(-zmax, zmax) + 1
+
+  r <- range(b1[i, ], b2[i, ], na.rm=TRUE)
+  bmax <- max(abs(r - 1))
+  blim <- c(-bmax, bmax) + 1
+
+  x <- d$x
+
+  par(mfrow=c(2, 2), mar=rep(1, 4), oma=c(3, 3, 0, 0))
+  image(x, scal, a1, log="y", col=cols2, zlim=zlim, xaxt="n", las=1)
+  axis(1, labels=FALSE)
+  contour(x, scal, a1, add=TRUE, levels=1, drawlabels=FALSE)
+  abline(h=1, v=d$x1, lty=3)
+  points(d$x1, 1, pch=19)
+  label_panel(1)
+
+  image(x, scal, a2, log="y", col=cols2, zlim=zlim, xaxt="n", yaxt="n")
+  axis(1, labels=FALSE)
+  axis(2, labels=FALSE)
+  contour(x, scal, a2, add=TRUE, levels=1, drawlabels=FALSE)
+  abline(h=1, v=d$x2, lty=3)
+  points(d$x2, 1, pch=19)
+  label_panel(2)
+
+  image(x, scal, b1, log="y", col=cols2, zlim=zlim, las=1)
+  abline(h=1, v=d$x1, lty=3)
+  points(d$x1, 1, pch=19)
+  label_panel(3)
+
+  image(x, scal, b2, log="y", col=cols2, zlim=zlim, yaxt="n")
+  axis(2, labels=FALSE)
+  abline(h=1, v=d$x2, lty=3)
+  points(d$x2, 1, pch=19)
+  label_panel(4)
+
+  mtext("Relative population size", 2, 1.8, outer=TRUE)
+  mtext("Trait value", 1, 1.8, outer=TRUE)
 }

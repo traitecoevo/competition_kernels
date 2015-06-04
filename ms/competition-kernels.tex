@@ -11,6 +11,16 @@
   \usepackage{xr}%
   \externaldocument{competition-kernels-sm}}{}
 
+% We will generate all images so they have a width \maxwidth. This means
+% that they will get their normal width if they fit onto the page, but
+% are scaled down if they would overflow the margins.
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+
 \title{Competition kernels: shapes and consequences}
 \author{Richard G. FitzJohn, Daniel S. Falster, Georges Kunstler and Mark Westoby}
 \date{}

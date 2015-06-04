@@ -193,10 +193,10 @@ However, characteristics such as trait over-dispersion are often
 interpreted as
 signatures of niche diversification \citep[e.g.][]{Kraft-2008} while
 correlations amongst traits and growth rates may indicate
-diversification along in successional strategy \citep[e.g.][]{Wright-2010}.
+diversification in successional strategy \citep[e.g.][]{Wright-2010}.
 %
-% TODO: @richfitz last sentence could be stronger
-The validity of these inferences depends on the insights drawn from
+The connection between statistical signal and theory therefore depends
+critically on the validity of insights drawn from
 the two more theoretical approaches.
 
 Ideally, these different approaches to studying community assembly
@@ -205,24 +205,26 @@ remain relatively isolated from one another.
 %
 In this paper we try to bridge this divide, by asking whether the
 signature of competitive interactions that emerges from resource-based
-models reflects the trait-based kernels used in kernel-based
+models resembles the trait-based kernels used in kernel-based
 approaches.
 %
 To achieve this we determine the shape of the competition functions
 that are produced in two different models where competition and the
 mechanics of the resource being depleted are represented explicitly.
 %
-This approach is not new; \citet{Abrams-2008} found that \Rstar\ model
-satisfies few of the assumptions that underpin Lotka-Volterra
+This approach is not entirely new; \citet{Abrams-2008} found the \Rstar\
+model
+to satisfy few of the assumptions that underpin Lotka-Volterra
 dynamics.
 %
-We extend this approach by focussing on trait-based kernels and by
+We extend \citeauthor{Abrams-2008} approach by focussing on trait-based kernels and
+by
 including a second class of resource-based model involving
 successional niche differentiation.
 %
 Specifically, we assess whether several assumptions embedded within
 most kernel-based analyses are compatible with the behaviour of the
-resource-based models and ask;
+resource-based models by asking;
 %
 i) what is the shape of the competition function emerging from resource-based
 models?
@@ -249,7 +251,7 @@ assumed in kernel-based models?
 % case.
 
 % NOTE: trying the history bit way up here, see if that helps.
-The metaphor of species packing has long beeen central to community
+The metaphor of species packing has long been central to community
 ecology.  This idea supposes there is a volume of niche space, and
 each potential community member has a ``fundamental niche'' within
 that volume.  The fundamental niche is compressed by competition into
@@ -257,12 +259,13 @@ a realised niche, as species are packed in alongside each other
 (Figure \ref{fig:competition-kernels} for one-dimensional version
 found in many textbooks).
 %
-The toots of the species packing metaphor trace to the competitive
+The roots of the species packing metaphor trace to the competitive
 exclusion principle \citep{Lotka-1925, Volterra-1926, Gause-1934}
-whereby if species have identical niches or compete for a single
-resource, all but one are competitively excluded.
-\citet{Hutchinson-1957} generalised this to consider $n$-dimensional
-hypervolume.
+whereby if species have identical niches or compete for the same resource
+units, all but one are competitively excluded.
+\citet{Hutchinson-1957} generalised this concept to consider multiple
+resources, creating an $n$-dimensional hyper-volume for the fundamental
+niche.
 %
 The competitive exclusion principle was thereby converted into the
 question how dissimilar two species need to be in order to coexist
@@ -302,7 +305,8 @@ evolution \citep{Brown-1987,Geritz-1998,Geritz-1999,Dieckmann-1999,
 % transform that one can jump straight from kernel to assembly.
 % That's pretty cool.
 Trait-based competition kernels are best thought of within the
-adaptive- dynamics tradition of fitness landscapes. Species exist,
+adaptive- dynamics tradition of fitness landscapes [e.g.][]\citep
+{Geritz-1999}. Species exist,
 coexist and evolve on a landscape where the axes are evolvable
 traits. A competition kernel represents the impact of a species on
 this landscape --
@@ -325,13 +329,17 @@ the competitive effect. Other shapes have been considered, but for the
 most part these are variants on two forms: Gaussian and logistic
 (Table \ref{tab:shapes}).
 % TODO[RGF]: yeah, so this is wrong.
-Surprisingly little is known about alternative possible shapes for
-competition kernels and their consequences for community assembly.
+Recent work has shown that the subtle details about the exact shape of the
+kernel can substantially alter the possibilities for coexistence
+\citep{Calcagno-2006, Scheffer-2006, Pigolotti-2007,
+ Barabas-2012,Barabas-2013,DAndrea-2013,Leimar-2013}.
 
 % TODO[RGF]: The first half of this paragraph (up to "While
-% expressed") seems pretty redundant.
-In parallel, two other related strands of thinking that persist to current
-day were established. In a break from the idea of subdividing continuous
+% expressed") seems pretty redundant. -> DF: Added extra sentence at beginning
+% to make relevance clearer.
+Assumptions about the nature of competition also feature in two other 
+related strands of thinking that persist to current day were established. In
+a break from the idea of subdividing continuous
 niche axes, models arose
 that visualised communities as a chessboard of living sites, each able to be
 occupied by one sessile individual \citep{Yodzis-1978}. Coexistence could
@@ -339,15 +347,15 @@ arise by colonization-competition trade-offs \citep{Levins-1971,
 Geritz-1999, Calcagno-2006}; which required that competitive interactions
 be strongly size-asymmetric. Alternatively, if there is an advantage to
 already established individuals (another form of competitive asymmetry),
-then chance effects in the occupation of vacant living sites can slow
-competitive exclusion by pure demographic stochasticity (``lottery
-effects'')
-\citep {Sale-1977, Hubbell-2001} or through environmental fluctuations
-(``storage effects'') \citep{Chesson-1981}.
+chance successes in the colonisation of vacant sites  -- arising from 
+demographic stochasticity
+(``lottery effects'') \citep {Sale-1977, Hubbell-2001} -- can slow
+competitive exclusion and thereby promote coexistence. 
 %
-While expressed differently, it is important to note the models are
-compatible with kernel-based approaches -- the first using sharp
-logistic kernel and the second a flat, trait-independent kernel.
+Note that all models also make strong assumptions about the shape of
+the competition kernel being used -- a sharp
+logistic kernel in competition colonisation models and a
+flat, trait-independent kernel in neutral lottery models.
 
 % TODO[RGF]: I don't really see the difference here with the limiting
 % similarity/species packing arguments.  This is very much what
@@ -372,12 +380,15 @@ measurement.  After 2000, this line of theory began to explore more
 systematically the consequences of possible kernel-shapes for
 community assembly \citep{Scheffer-2006, Barabas-2013, Leimar-2013}.
 
-It is clear competition kernels on fitness landscapes could be key to
+It is clear that the shape of competition kernels 
+could be key to
 understanding community assembly. Yet, it is also likely that
-symmetric unimodal kernels are realistic for only a minority of
-real-world communities, and the menagerie of possible competition
-kernels has only begun to be catalogued (Table \ref{tab:shapes}).
-Much less have the implications of different kernels for community
+symmetric unimodal kernels that are most widely used are realistic for only
+a minority of
+real-world communities. The menagerie of possible
+competition
+kernels has only begun to be catalogued (Table \ref{tab:shapes}); much
+less have the implications of different kernels for community
 assembly been worked through
 \citep{Barabas-2012,Barabas-2013,DAndrea-2013,Leimar-2013}.  The
 literature up to the present has mainly been focused on Gaussian and
@@ -386,11 +397,6 @@ Surprisingly little attention has been paid to the question what
 shapes are actually likely for competition kernels, given known
 mechanisms for resource depletion in relation to traits, and the
 parallel focus on resource based models such as \Rstar.
-% TODO[RGF]: Hmm, this seems pretty extreme.
-We argue that clarifying plausible shapes for competition kernels and
-their consequences will be an essential foundation before a robust
-community ecology can be constructed.
-
 \section{Models}
 
 In general, we would like to know what the shape of competition
@@ -844,9 +850,12 @@ ridges along the top are distinctly non-Gaussian and arise from real
 biological features of the system.
 %
 \citet{Falster-2011} showed how the amount of shading undulates
-through successional time. here this translates into undulations in
-fitness with respect to traits; despite appearing to compete for light
-the important resource axis may be \emph{time}.
+through successional time; here this translates into undulations in
+the fitness of an invader with respect to traits. 
+% TODo @richfitz: next line commented out. Important, but this feels 
+% like the wrong place.
+%; despite appearing to compete for light
+% the important resource axis may be \emph{time}.
 %
 It is hard to generalise about these findings; all we can say is that
 none of the functions resemble Gaussian kernels.
@@ -886,7 +895,7 @@ property between two species is unlikely. This raises the question of
 whether we should be seeking to revise our ideas about competition
 kernels, or more generally about the usage Lotka-Volterra equations as
 a foundation for modelling biological phenomena.  Indeed, many authors
-have repeatedly raised such questions \citep[e.g.][]{Andrewartha-1953,
+have repeatedly raised similar questions \citep[e.g.][]{Andrewartha-1953,
   Neill-1974, Abrams-1975, Wangersky-1978,Abrams-1980, Tilman-1987,
   Abrams-2008}.
 
@@ -920,25 +929,25 @@ which must be derived from another model.''}\citep{Abrams-1975}
 
 Terrestrial plant ecology had always found it difficult to accept the
 idea that different species can only coexist by using different
-resources, as plant species clearly all require the same sources of
-light, soil water and mineral nutrients as each other. One possibility
+resources, as plant species clearly all require the same resources -- of
+light, soil water and mineral nutrients -- as each other. One possibility
 arises from species subdividing a successional-time niche axis in
 landscapes envisaged as disturbance mosaics \citep{Connell-1978}. If
 plant species make most contribution to their population increase in
 different years following disturbance, then they certainly are
 depleting different light and water from each other, and quite
 possibly different soil nutrients \citep{Moorcroft-2001}. Another
-possibility might arise via differentiation by soil depth and by
-chemical forms of nutrients \citep{Tilman-1977}.
+possibility might arise via differentiation in soil depth or by accessing
+alternative chemical forms of nutrients \citep{Tilman-1977}.
 
 % TODO: I'm confused about the flow here:
 One of the primary reasons we used models to study the nature of
 competition functions was due the difficulty of estimating these in
 the field.
 % TODO: move a mention of this up further!
-% TODO: was this in an empirical or a theoretical context?
-\citet{Ricklefs-1973} suggests one might use the exact method we have
-applied to estimating competition functions, i.e. by measuring the
+Thinking of empirical data, \citet{Ricklefs-1973} suggested one might use
+the exact method we have
+applied to estimating competition functions here, i.e. by measuring the
 different elements of eq. \ref{eq:LVi} then using these to estimate
 the competitive interaction (Fig. \ref{fig:components}).
 % TODO: can we do better than these refs, and this sentence?
@@ -957,14 +966,16 @@ differences, so as to reduce the number of parameters needed
 kernels requires that lots of pairwise comparisons to made, but as
 species differ in many traits that will affect competition, combined
 with the need to estimate fitness across the life- cycle makes the
-task nigh impossible. Models are attractive because they allow us to
+task nigh impossible. In summary, it is simply not feasible to measure the
+shape of a trait-based competition kernel in the wild. 
+Models are attractive because they allow us to
 run experiments in ways that are simply not possible in real systems.
 
 The nature of the competition functions generated by the
 resource-based models studied here raise an exciting possibility: we
 could substantially expand the range of competition functions
 currently being considered (Table \ref{tab:shapes}) and thereby expand
-possibilities of coexistence. Functions like the \textsc {lma} kernel
+possibilities for coexistence. Functions like the \textsc {lma} kernel
 (Fig. \ref{fig:plant_lma}) may look ridiculous compared with functions
 typically used, yet they arise naturally from size-structured
 dynamics.  It is likely kernels of this shape permit coexistence
@@ -972,49 +983,6 @@ through quite different dynamics than those well studied
 \citep[e.g.][]{Leimar-2013}, rendering coexistence easier (or harder)
 than we might otherwise suppose.
 
-\subsection{Future directions \& conclusions, where next with models of
-competition}
-
-Despite being difficult to quantify in the field and represent in
-models, competition is undoubtedly a powerful force in structuring
-communities.
-% TODO[RGF]: this is hard to parse
-Even neutral models, where the effect traits is removed, makes a
-strong assumption regarding competition --- that total abundance in
-the community is fixed.
-%
-Our results reinforce previous arguments that if competition is
-density dependent, non-additive across species, or if the shape of
-competition varies with species traits and not just distance, then the
-Lotka-Volterra equation will be not adequately capture the dynamics of
-real systems \cite{Andrewartha-1953, Neill-1974, Abrams-1975,
-  Wangersky-1978,Abrams-1980, Tilman-1987}.  It's difficult see what a
-new set of equations might look like.  However, as a first step we
-might more vigorously focus on models where resources are handled
-explicitly.  We also note that in contrast with the close attention
-paid to Lotka-Volterra based dynamics with explicit competition,
-relatively few models exist where competition emerges from the
-lower-level species interactions and that this is a potentially
-untapped source of insight into the nature of competition.
-
-Simultaneously, we should be looking to derive macroscopic
-approximations of the more detailed resource-based models.  While we
-have might appear rather negative of simple models, this is not meant
-to be a criticism of simple models \textit{per se}; simple models are
-highly desirable.  However, we argue that some simple models should be
-derived to approximate the behaviour of more complex models and
-empirical findings
-% \citep[e.g.][]{}.
-(REFS).
-% History of deriving higher-level approximations to detailed models.
-The problem with the Lotka-Volterra system of equations is that the
-model was formulated in isolation from the problem's to which it is
-now being applied; the model is analysed because it is what
-theoretical ecologists analyse, not becaue it is reflective of
-ecology.
-
-% TODO[RGF]: I don't know if this actually adds anything.  Merge the
-% salient bits higher?
 Similarly, it seems productive to further investigate the nature of
 competitive interactions as it relates to traits, but with increased
 emphasis on the nature of resource that is being contested. In the
@@ -1028,6 +996,45 @@ analyses test more directly the assumptions entering into
 resource-based models and thereby allow for tighter integration of
 theory with the sort of traits and species data that we have for plant
 communities.
+
+\subsection{Future directions \& conclusions, where next with models of
+competition}
+
+Despite being difficult to quantify in the field and represent in
+models, competition is undoubtedly a powerful force in structuring
+communities.
+% TODO[RGF]: this is hard to parse
+Even in neutral theory makes a
+strong assumption regarding competition --- that total abundance in
+the community is fixed \citep{Hubbell-2001}.
+%
+Our results reinforce previous arguments that if competition is
+density dependent, non-additive across species, or if the shape of
+competition varies with species traits and not just distance, then the
+Lotka-Volterra equation will be not adequately capture the dynamics of
+real systems \citep{Andrewartha-1953, Neill-1974, Abrams-1975,
+  Wangersky-1978,Abrams-1980, Tilman-1987}.  It's difficult see what a
+new set of equations might look like.  However, as a first step we
+might more vigorously focus on models where resources are handled
+explicitly.  We also note that in contrast with the close attention
+paid to Lotka-Volterra based dynamics with explicit competition,
+relatively few models exist where competition emerges from the
+lower-level species interactions and that this is a potentially
+untapped source of insight into the nature of competition.
+
+Simultaneously, we should be looking to derive macroscopic
+approximations of the more detailed resource-based models.  While we
+might appear rather disparaging of simple models, this is not meant
+to be a criticism of simple models \textit{per se}; simple models are
+highly desirable.  However, we argue that focus should be on simple models
+that were derived to approximate the behaviour of more complex models and
+empirical findings \citep[e.g.][]{Champagnat-2006}.
+% History of deriving higher-level approximations to detailed models.
+The problem with the Lotka-Volterra system of equations is that the
+model was formulated in isolation from the problem's to which it is
+now being applied; the model is analysed because it is what
+theoretical ecologists analyse, not because it is reflective of
+ecology.
 
 \clearpage
 

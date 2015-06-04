@@ -35,43 +35,36 @@ fig_rstar <- function() {
   ylim_alpha <- c(.45, 1.75)
   ybar <- 0.05
 
-  par(mfrow=c(2, 3), mar=rep(.5, 4), oma=c(2, 2, 0, 0))
+  ## TODO: Add helper labels; symm/asym, attractor/away.
+  par(mfrow=c(2, 2), mar=rep(.5, 4), oma=c(3, 3, 0, 0))
 
-  plot(NA, xlim=0:1, ylim=0:1, xlab="", ylab="", xaxt="n", yaxt="n")
-  for (i in xx) {
-    rstar_lines(rbind(i), dat1$p, col="grey")
-  }
-  rstar_lines(rbind(dat1$x1), dat1$p, col="red")
-  rstar_lines(rbind(dat1$x2), dat1$p, col="blue")
-  abline(0, 1, lty=2)
-
-  plot(dat1$x, dat1$a1, type="l", ylim=ylim_alpha)
+  plot(dat1$x, dat1$a1, type="l", ylim=ylim_alpha, las=1, xaxt="n")
+  axis(1, labels=FALSE)
   abline(h=1.0, v=dat1$x1, lty=2, col="darkgrey")
   points(dat1$x1, 1.0, pch=19)
   black_bar(range(dat1$x[dat1$w1 > 0]), ybar)
+  label_panel(1)
+  mtext("Competition coefficient", 2, 2, outer=TRUE)
+  mtext("Trait value", 1, 2, outer=TRUE)
 
-  plot(dat1$x, dat1$a2, type="l", ylim=ylim_alpha)
+  plot(dat1$x, dat1$a2, type="l", ylim=ylim_alpha, xaxt="n", yaxt="n")
+  axis(1, labels=FALSE)
+  axis(2, labels=FALSE)
   abline(h=1.0, v=dat1$x2, lty=2, col="darkgrey")
   points(dat1$x2, 1.0, pch=19)
+  label_panel(2)
 
-  plot(NA, xlim=0:1, ylim=0:1, xlab="", ylab="", xaxt="n", yaxt="n")
-  for (i in xx) {
-    rstar_lines(rbind(i), dat2$p, col="grey")
-  }
-  rstar_lines(rbind(dat2$x1), dat2$p, col="red")
-  rstar_lines(rbind(dat2$x2), dat2$p, col="blue")
-  R <- drop(rstar_Rstar(rbind(dat2$x2), dat2$p))
-  C <- dat2$p$C(rbind(dat2$x2))
-  abcline(R[1], R[2], C[2] / C[1], lty=2)
-
-  plot(dat2$x, dat2$a1, type="l", ylim=ylim_alpha)
+  plot(dat2$x, dat2$a1, type="l", ylim=ylim_alpha, las=1)
   abline(h=1.0, v=dat2$x1, lty=2, col="darkgrey")
   points(dat2$x1, 1.0, pch=19)
   black_bar(range(dat2$x[dat2$w1 > 0]), ybar)
+  label_panel(3)
 
-  plot(dat2$x, dat2$a2, type="l", ylim=ylim_alpha)
+  plot(dat2$x, dat2$a2, type="l", ylim=ylim_alpha, yaxt="n")
+  axis(2, labels=FALSE)
   abline(h=1.0, v=dat2$x2, lty=2, col="darkgrey")
   points(dat2$x2, 1.0, pch=19)
+  label_panel(4)
 }
 
 fig_rstar_components <- function(i) {

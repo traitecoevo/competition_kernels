@@ -11,7 +11,7 @@ plot_options:
     height: 8
     width: 5.5
   wide:
-    height: 3
+    height: 3.5
     width: 5.5
   square:
     height: 5.5

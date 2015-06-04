@@ -470,7 +470,11 @@ the effect of species-$j$ on species-$i$, relative to the effect of
 species-$i$ on itself. Thus $\alpha_{ii}\equiv 1$, while $\alpha_{ij}
 >
 1$ implies stronger iterspecific competition than intraspecific
-competition.  The sum is over all species in the population, with
+competition.
+% TODO: note that alpha of 1 is relative to intraspecific competition
+% *at equilibrium* and this is how we detect departures from constant
+% density dependence.
+The sum is over all species in the population, with
 competitive effects assumed to be additive across species and density
 independent within a species.
 %
@@ -521,9 +525,10 @@ x_I)$:
 We then solved for $\alpha(x_R, x_I)$ by rearranging  \ref{eq:LVi} to give:
 \begin{equation}
   \label{eq:alpha}
-  \alpha(x_R, x_I) = \frac{K(x_I)}{K(x_R)}
-  \left(1 - \frac{f_I(x_I, x_R)}{r(x_I)}\right).
+  \alpha(x_R, x_I) = \frac{K(x_I)}{N_R}
+  \left(1 - \frac{f_I(x_I, x_R)}{r(x_I)}\right)
 \end{equation}
+(note that at equilibrium $N_R = K(x_R)$).
 
 In addition, we also calculate one of the coefficients described in
 \citet{Abrams-2008}: $\chi_{ij}^{*}$:

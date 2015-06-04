@@ -59,6 +59,13 @@ targets:
       - plant_hmat_1
       - plant_hmat_2
 
+  plant_density_data:
+    depends:
+      - plant_lma_density_1
+      - plant_lma_density_2
+      - plant_hmat_density_1
+      - plant_hmat_density_2
+
   ms/competition-kernels.pdf:
     depends:
       - ms/competition-kernels-sm.pdf
@@ -95,6 +102,15 @@ targets:
     command: plant_competition(5.0, plant_hmat_shared)
   plant_hmat_2:
     command: plant_competition(17.0, plant_hmat_shared)
+
+  plant_lma_density_1:
+    command: plant_competition(plant_lma_1)
+  plant_lma_density_2:
+    command: plant_competition(plant_lma_2)
+  plant_hmat_density_1:
+    command: plant_competition(plant_hmat_1)
+  plant_hmat_density_2:
+    command: plant_competition(plant_hmat_2)
 
   ms/figures/kernel.pdf:
     command: fig_kernel()

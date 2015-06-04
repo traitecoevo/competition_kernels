@@ -1,9 +1,11 @@
-plant_competition <- function(x_resident, obj, n=101L) {
+plant_competition <- function(x_resident, obj, n=101L, N_resident=NULL) {
   x_resident <- check_point(trait_matrix(x_resident, obj$trait),
                             obj$bounds)
   x_mutant <- seq_log_range(obj$bounds, n)
   trait <- rownames(obj$bounds)
-  N_resident <- obj$K(x_resident)
+  if (is.null(N_resident)) {
+    N_resident <- obj$K(x_resident)
+  }
 
   message("*** Setting up resident population")
   p <- obj$p0
@@ -23,6 +25,15 @@ plant_competition <- function(x_resident, obj, n=101L) {
   obj$N_resident <- N_resident
   obj$alpha <- compute_alpha(obj$w, r, K, N_resident)
   obj
+}
+
+plant_competition_density <- function(d) {
+  f <- function(s) {
+    plant_competition(d$x_resident, d, n, s * d$N_resident)
+  }
+  scal <- seq_log(0.25, 2.0, 40)
+  dat <- mclapply(scal, f)
+  list(scal=scal, x=d$x_mutant, dat=dat)
 }
 
 plant_competition_prepare <- function(trait, p0=NULL, n=20L,

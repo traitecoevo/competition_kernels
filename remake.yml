@@ -53,6 +53,7 @@ targets:
       - ms/figures/sm_rstar_density2.pdf
       - ms/figures/sm_plant_lma_components.pdf
       - ms/figures/sm_plant_hmat_components.pdf
+      - ms/figures/sm_plant_hmat_density.pdf
 
   plant_data:
     depends:

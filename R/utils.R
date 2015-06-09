@@ -1,6 +1,6 @@
-## TODO: probably better in absolute size?
-black_bar <- function(x, y, col="black") {
+black_bar <- function(x, y, col="black", yp=0.025) {
   usr <- par("usr")
+  y <- (usr[4] - usr[3]) * yp
   rect(x[1], usr[3], x[2], usr[3] + y, col=col, border=col)
 }
 

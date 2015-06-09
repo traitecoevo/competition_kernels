@@ -33,7 +33,6 @@ fig_rstar <- function() {
 
   xx <- seq(0, 1, length.out=6)
   ylim_alpha <- c(.45, 1.75)
-  ybar <- 0.05
 
   ## TODO: Add helper labels; symm/asym, attractor/away.
   par(mfrow=c(2, 2), mar=rep(.5, 4), oma=c(3, 3, 0, 0))
@@ -42,7 +41,7 @@ fig_rstar <- function() {
   axis(1, labels=FALSE)
   abline(h=1.0, v=dat1$x1, lty=2, col="darkgrey")
   points(dat1$x1, 1.0, pch=19)
-  black_bar(range(dat1$x[dat1$w1 > 0]), ybar)
+  black_bar(range(dat1$x[dat1$w1 > 0]))
   label_panel(1)
   mtext("Competition coefficient", 2, 2, outer=TRUE)
   mtext("Trait value", 1, 2, outer=TRUE)
@@ -57,7 +56,7 @@ fig_rstar <- function() {
   plot(dat2$x, dat2$a1, type="l", ylim=ylim_alpha, las=1)
   abline(h=1.0, v=dat2$x1, lty=2, col="darkgrey")
   points(dat2$x1, 1.0, pch=19)
-  black_bar(range(dat2$x[dat2$w1 > 0]), ybar)
+  black_bar(range(dat2$x[dat2$w1 > 0]))
   label_panel(3)
 
   plot(dat2$x, dat2$a2, type="l", ylim=ylim_alpha, yaxt="n")

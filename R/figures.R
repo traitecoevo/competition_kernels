@@ -35,10 +35,6 @@ plot_components <- function(x, r, K, x1, x2, N1, N2, w1, w2, a1, a2,
                             xlab="Ecological character (trait)",
                             ylim_r=NULL, ylim_K=NULL, ylim_w=NULL,
                             ylim_a=NULL, log="") {
-  mat <- rbind(c(0, 1, 1, 0),
-               c(0, 2, 2, 0),
-               c(3, 3, 4, 4),
-               c(5, 5, 6, 6))
   cex <- .66
 
   if (is.null(ylim_r)) {
@@ -54,41 +50,61 @@ plot_components <- function(x, r, K, x1, x2, N1, N2, w1, w2, a1, a2,
     ylim_a <- expand_range(range(a1, a2, na.rm=TRUE), 0.1)
   }
 
-  layout(mat)
-  par(mar=c(2, 2, .5, .5), oma=c(2, 2, 0, 0))
+  ylab_r <- expression("Maximum growth rate (" * italic(r) * ")")
+  ylab_K <- expression("Carrying capacity (" * italic(K) * ")")
+  ylab_w <- expression("Fitness (" * italic(w) * ")")
+  ylab_a <- expression("Competition (" * alpha * ")")
 
-  plot(x, r, las=1, ylim=ylim_r, type="l", log=log)
-  mtext("Max growth rate (r)", 2, xpd=NA, line=3, cex=cex)
+  par(mfrow=c(3, 2), mar=c(2, 3.5, .5, .5), oma=c(2, 1, 0, 0),
+      mgp=c(2.5, 1, 0))
+
+  plot(x, r, las=1, ylim=ylim_r, type="l", log=log, ylab=ylab_r)
   label_panel(1)
-
-  plot(x, K, las=1, type="l", ylim=ylim_K, log=log)
-  mtext("Carrying capacity (K)", 2, xpd=NA, line=3, cex=cex)
+  plot(x, K, las=1, type="l", ylim=ylim_K, log=log, ylab=ylab_K)
   label_panel(2)
 
-  plot(x, w1, las=1, type="l", ylim=ylim_w, log=log)
-  mtext("Fitness (w)", 2, xpd=NA, line=3, cex=cex)
+  plot(x, w1, las=1, type="l", ylim=ylim_w, log=log, ylab=ylab_w)
+  abline(h=0, v=x1, lty=2, col="grey")
   points(x1, 0.0, pch=19)
-  abline(h=0, v=x1, lty=2)
   label_panel(3)
 
-  plot(x, w2, las=1, type="l", ylim=ylim_w, log=log, yaxt="n")
+  plot(x, w2, las=1, type="l", ylim=ylim_w, log=log, ylab="", yaxt="n")
   axis(2, labels=FALSE)
+  abline(h=0, v=x2, lty=2, col="grey")
   points(x2, 0.0, pch=19)
-  abline(h=0, v=x2, lty=2)
   label_panel(4)
 
-  plot(x, a1, las=1, type="l", ylim=ylim_a, log=log)
-
-  mtext("Competition (a)", 2, xpd=NA, line=3, cex=cex)
-  mtext(xlab, 1, xpd=NA, line=2, cex=cex)
+  plot(x, a1, las=1, type="l", ylim=ylim_a, log=log, ylab=ylab_a)
+  abline(h=1.0, v=x1, lty=2, col="grey")
   points(x1, 1.0, pch=19)
-  abline(h=1.0, v=x1, lty=2)
+  mtext(xlab, 1, xpd=NA, line=2.4, cex=cex)
   label_panel(5)
+  add_black_bar(x, w1)
 
-  plot(x, a2, las=1, type="l", ylim=ylim_a, log=log, yaxt="n")
+  plot(x, a2, las=1, type="l", ylim=ylim_a, log=log, ylab="", yaxt="n")
   axis(2, labels=FALSE)
-  mtext(xlab, 1, xpd=NA, line=2, cex=cex)
+  abline(h=1.0, v=x2, lty=2, col="grey")
   points(x2, 1.0, pch=19)
-  abline(h=1.0, v=x2, lty=2)
+  mtext(xlab, 1, xpd=NA, line=2.3, cex=cex)
   label_panel(6)
+  add_black_bar(x, w2)
+}
+
+add_black_bar <- function(x, w) {
+  usr <- par("usr")
+  ## Identify changes in sign in w, counting 0 as non-invasible:
+  sw <- sign(w)
+  sw[sw == 0] <- -1
+  i <- which(diff(sw) != 0)
+  xx <- (x[i] + x[i + 1]) / 2
+  if (sw[1] > 0) {
+    xx <- c(usr[1], xx)
+  }
+  if (sw[length(sw)] > 0) {
+    xx <- c(xx, usr[2])
+  }
+  xx <- matrix(xx, 2)
+  for (i in seq_len(ncol(xx))) {
+    black_bar(xx[, i])
+  }
 }

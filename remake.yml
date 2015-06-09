@@ -8,7 +8,7 @@ sources:
 
 plot_options:
   tall:
-    height: 8
+    height: 6.5
     width: 5.5
   wide:
     height: 3.5

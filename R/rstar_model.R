@@ -1,7 +1,7 @@
 ## TODO: I'm handling the 'x' parameters in the opposite direction to
 ## plant; should be each column represents traits and each row
 ## represents species.
-rstar_competition <- function(x_resident, p, N_resident=NULL, n=301L) {
+rstar_competition <- function(x_resident, p, N_resident=NULL, n=300L) {
   x_invade <- rbind(seq(0, 1, length.out=n))
 
   if (is.null(N_resident)) {

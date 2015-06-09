@@ -34,17 +34,17 @@ fig_rstar <- function() {
   xx <- seq(0, 1, length.out=6)
   ylim_alpha <- c(.45, 1.75)
 
-  ## TODO: Add helper labels; symm/asym, attractor/away.
-  par(mfrow=c(2, 2), mar=rep(.5, 4), oma=c(3, 3, 0, 0))
+  par(mfrow=c(2, 2), mar=rep(1, 4), oma=c(3, 3, 1, 1))
 
   plot(dat1$x, dat1$a1, type="l", ylim=ylim_alpha, las=1, xaxt="n")
   axis(1, labels=FALSE)
   abline(h=1.0, v=dat1$x1, lty=2, col="darkgrey")
   points(dat1$x1, 1.0, pch=19)
-  black_bar(range(dat1$x[dat1$w1 > 0]))
+  add_black_bar(dat1$x, dat1$w1)
   label_panel(1)
-  mtext("Competition coefficient", 2, 2, outer=TRUE)
-  mtext("Trait value", 1, 2, outer=TRUE)
+  mtext(expression("Competition (" * alpha * ")"), 2, 1.6, outer=TRUE)
+  mtext("Trait value", 1, 1.8, outer=TRUE)
+  mtext("Away from attractor", 3, 0.5, xpd=NA)
 
   plot(dat1$x, dat1$a2, type="l", ylim=ylim_alpha, xaxt="n", yaxt="n")
   axis(1, labels=FALSE)
@@ -52,11 +52,13 @@ fig_rstar <- function() {
   abline(h=1.0, v=dat1$x2, lty=2, col="darkgrey")
   points(dat1$x2, 1.0, pch=19)
   label_panel(2)
+  mtext("At attractor", 3, 0.5, xpd=NA)
+  mtext("Equal resource supply", 4, 0.5, xpd=NA)
 
   plot(dat2$x, dat2$a1, type="l", ylim=ylim_alpha, las=1)
   abline(h=1.0, v=dat2$x1, lty=2, col="darkgrey")
   points(dat2$x1, 1.0, pch=19)
-  black_bar(range(dat2$x[dat2$w1 > 0]))
+  add_black_bar(dat2$x, dat2$w1)
   label_panel(3)
 
   plot(dat2$x, dat2$a2, type="l", ylim=ylim_alpha, yaxt="n")
@@ -64,6 +66,7 @@ fig_rstar <- function() {
   abline(h=1.0, v=dat2$x2, lty=2, col="darkgrey")
   points(dat2$x2, 1.0, pch=19)
   label_panel(4)
+  mtext("Unequal resource supply", 4, 0.5, xpd=NA)
 }
 
 fig_rstar_components <- function(i) {

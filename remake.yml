@@ -103,9 +103,9 @@ targets:
     quiet: false
 
   plant_lma_1:
-    command: plant_competition(0.2, plant_lma_shared)
+    command: plant_competition(0.17, plant_lma_shared)
   plant_lma_2:
-    command: plant_competition(0.08, plant_lma_shared)
+    command: plant_competition(0.07, plant_lma_shared)
   plant_hmat_1:
     command: plant_competition(5.0, plant_hmat_shared)
   plant_hmat_2:
@@ -130,11 +130,11 @@ targets:
     command: fig_rstar()
     plot: wide
   ms/figures/plant_hmat.pdf:
-    command: fig_plant_hmat(plant_hmat_1, plant_hmat_2)
+    command: fig_plant(plant_hmat_1, plant_hmat_2)
     plot: skinny
   ms/figures/plant_lma.pdf:
-    command: fig_plant_lma(plant_lma_1, plant_lma_2)
-    plot: wide
+    command: fig_plant(plant_lma_1, plant_lma_2)
+    plot: skinny
   ms/figures/plant_lma_density.pdf:
     command: fig_plant_density(plant_lma_density_1, plant_lma_density_2)
     plot: wide

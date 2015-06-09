@@ -5,37 +5,26 @@ plant_trait_lab <- function(trait) {
          stop("Unknown trait ", trait))
 }
 
-fig_plant_lma <- function(d1, d2) {
-  par(mfrow=c(1, 2), mar=c(4.1, 1, .5, .5), oma=c(0, 2, 0, 0))
-  plot(d1$x_mutant, d1$alpha, log="x", type="l", ylim=c(0, 1.5), las=1,
-       xlab="Leaf mass per area (lma; kg / m^2)",
-       ylab="Competition")
-  points(d1$x_resident, 1.0, pch=19)
-  abline(v=d1$x_resident, h=1.0, lty=2)
-  black_bar(range(d1$x_resident, d1$x_mutant[d1$w > 0]))
-
-  ## TODO: The bifurcation will get missed on this plot because of
-  ## using range()
-  plot(d2$x_mutant, d2$alpha, log="x", type="l", ylim=c(0, 1.5), las=1,
-       xlab="Leaf mass per area (lma; kg / m^2)",
-       ylab="", yaxt="n")
-  axis(2, labels=FALSE)
-  points(d2$x_resident, 1.0, pch=19)
-  abline(v=d2$x_resident, h=1.0, lty=2)
-  black_bar(range(d2$x_resident, d2$x_mutant[d2$w > 0]))
-}
-
-fig_plant_hmat <- function(d1, d2) {
-  ylim <- function(y) {
-    expand_range(range(y), 0.05)
+fig_plant <- function(d1, d2) {
+  if (d1$trait == "lma") {
+    ylim1 <- ylim2 <- expand_range(range(range(d1$alpha, d2$alpha)), 0.05)
+    xlim <- exp(expand_range(log(range(d1$x_mutant)), c(0, 0)))
+    xlab <- "Leaf mass per area (lma; kg / m^2)"
+    xlab <- expression("Leaf mass per area (lma; kg / " ~  m ^ 2 * ")")
+    xlab_line <- 2.4
+  } else {
+    ylim1 <- expand_range(range(range(d1$alpha)), 0.05)
+    ylim2 <- expand_range(range(range(d2$alpha)), 0.05)
+    xlim <- exp(expand_range(log(range(d1$x_mutant)), c(0, 0)))
+    xlab <- "Height at maturation (m)"
+    xlab_line <- 2.1
   }
-  xlim <- exp(expand_range(log(range(d1$x_mutant)), c(0.08, 0)))
 
   ylab <- expression("Competition (" * alpha * ")")
   par(mfrow=c(2, 1), mar=c(1, 3.7, .5, .5), oma=c(2.3, 0, 0, 0),
       mgp=c(2.3, 1, 0))
   plot(d1$x_mutant, d1$alpha, log="x", type="l",
-       xlim=xlim, ylim=ylim(d1$alpha), las=1, xaxt="n", xlab="", ylab=ylab)
+       xlim=xlim, ylim=ylim1, las=1, xaxt="n", xlab="", ylab=ylab)
   axis(1, labels=FALSE)
   abline(v=d1$x_resident, h=1.0, lty=2, col="grey")
   points(d1$x_resident, 1.0, pch=19)
@@ -43,11 +32,11 @@ fig_plant_hmat <- function(d1, d2) {
   label_panel(1)
 
   plot(d2$x_mutant, d2$alpha, log="x", type="l",
-       xlim=xlim, ylim=ylim(d2$alpha), las=1, ylab=ylab)
+       xlim=xlim, ylim=ylim2, las=1, ylab=ylab)
   abline(v=d2$x_resident, h=1.0, lty=2, col="grey")
   points(d2$x_resident, 1.0, pch=19)
   add_black_bar(d2$x_mutant, d2$w)
-  mtext("Height at maturation (m)", 1, 2, xpd=NA)
+  mtext(xlab, 1, xlab_line, xpd=NA)
   label_panel(2)
 }
 
@@ -58,7 +47,7 @@ fig_plant_components <- function(d1, d2) {
     ylim_a <- c(-1, 40)
     ylim_w <- c(-5, 3)
   } else {
-    ylim_a <- c(0, 1.75)
+    ylim_a <- c(0, 2.5)
     ylim_w <- c(-8, 8)
   }
 

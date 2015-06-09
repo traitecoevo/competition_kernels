@@ -13,6 +13,7 @@ plot_options:
   wide:
     height: 3.5
     width: 5.5
+    pointsize: 10
   square:
     height: 5.5
     width: 5.5

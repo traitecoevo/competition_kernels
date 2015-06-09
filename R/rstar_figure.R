@@ -44,7 +44,7 @@ fig_rstar <- function() {
   label_panel(1)
   mtext(expression("Competition (" * alpha * ")"), 2, 1.6, outer=TRUE)
   mtext("Trait value", 1, 1.8, outer=TRUE)
-  mtext("Away from attractor", 3, 0.5, xpd=NA)
+  mtext("Away from attractor", 3, 0.5, xpd=NA, cex=.8)
 
   plot(dat1$x, dat1$a2, type="l", ylim=ylim_alpha, xaxt="n", yaxt="n")
   axis(1, labels=FALSE)
@@ -52,8 +52,8 @@ fig_rstar <- function() {
   abline(h=1.0, v=dat1$x2, lty=2, col="darkgrey")
   points(dat1$x2, 1.0, pch=19)
   label_panel(2)
-  mtext("At attractor", 3, 0.5, xpd=NA)
-  mtext("Equal resource supply", 4, 0.5, xpd=NA)
+  mtext("At attractor", 3, 0.5, xpd=NA, cex=.8)
+  mtext("Equal resources", 4, 0.5, xpd=NA, cex=.8)
 
   plot(dat2$x, dat2$a1, type="l", ylim=ylim_alpha, las=1)
   abline(h=1.0, v=dat2$x1, lty=2, col="darkgrey")
@@ -66,7 +66,7 @@ fig_rstar <- function() {
   abline(h=1.0, v=dat2$x2, lty=2, col="darkgrey")
   points(dat2$x2, 1.0, pch=19)
   label_panel(4)
-  mtext("Unequal resource supply", 4, 0.5, xpd=NA)
+  mtext("Unequal resources", 4, 0.5, xpd=NA, cex=.8)
 }
 
 fig_rstar_components <- function(i) {

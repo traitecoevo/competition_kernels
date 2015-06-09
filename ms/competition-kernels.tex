@@ -22,6 +22,8 @@
 
 
 \title{Competition kernels: shapes and consequences}
+% TODO: Given this word in the title, it somehow feels strange that we rarely use it in main text -- comes out as "competition function" and similar
+
 \author{Richard G. FitzJohn, Daniel S. Falster, Georges Kunstler and Mark Westoby}
 \date{}
 \affiliation{Department of Biological Sciences, Macquarie University,
@@ -45,6 +47,11 @@
 
 \begin{abstract}
 Abstract goes here\ldots
+Community assembly can be thought of in a trait space, where the problem is to understand what configurations of occupancy are possible. For this purpose a central concept is the competition kernel, which describes how a resident species draws down the fitness landscape around it in trait space. In textbooks since the 1970s competition kernels have most often been thought of as single-peaked and centred on the traits possessed by the resident. Intuitively arising from competition kernels of this shape has been the concept of species packing or limiting similarity, whereby coexisting species are expected to be spaced out from each other in trait space.
+Plants on land are usually thought of as competing for space. This means that they are not much differentiated in their usage of resources such as light, water and mineral nutrients. Further their depletion of these resources is local around the plant individual. There is often establishment advantage, meaning that tall individuals compete asymmetrically with short ones, especially for light. Because these features are poorly aligned with the standard limiting similarity model, a variety of alternative models have arisen to account for continuing coexistence in sessile communities, driven variously by resource ratios, by colonization-competition tradeoffs, by successional differentiation, by variation in response over time combined with demographic storage effects, and by stochasticity alone or in combination with other effects.
+Here we address the behaviour of two of these models by describing the competition kernels that are implicit in them, and comparing those with results long established for Lotka-Volterra competition with Gaussian kernels. We are concerned only with models where competition between species depends on their traits, and where therefore a predicted assemblage corresponds to a constellation in trait space. We present general methods for quantifying competition kernels for any given model.
+None [neither?] of the models investigated for sessile-community competition showed single-peaked kernels centred on the resident's trait values. Asymmetric drawdown of the fitness landscape was often a feature. Invasibility was often possible immediately adjacent to the resident's trait value. We argue that competition kernels are the best way to understand connections between the processes of resource depletion and competition and the trait-constellations that can coexist in assemblages. Accordingly characterizing competition kernels should be a priority for trait-based assemblage models.
+
 \end{abstract}
 
 \section{Introduction}
@@ -54,24 +61,23 @@ Abstract goes here\ldots
 %
 %   How do traits and resources (via competition) structure communities?
 Ecological communities are structured by the nature of the
-interactions within them.
-% Wondering here if thisis a good place to cite Dolphs "Adaptive
+% Wondering here if this is a good place to cite Dolphs "Adaptive
 % Radiations" book, as it gets close to some of this.
 In particular competition for common resources structures niches by
 excluding some species and allowing others to survive
 \citep[e.g.][]{Gause-1934,Lack-1947,MacArthur-1967}.
 % TODO: I have a paper *somewhere*, probably from Quarterly Review of
-% Biology that asks (skeptically) the question of whether plants
+% Biology that asks (sceptically) the question of whether plants
 % see/use fewer resources than animals do.
 %
 % NOTE: this is not great, but we need a solid link through to
 % resources.
 If species differentially consume different resources, or different
 types of a given resource, this can create regions of niche space where
-different species can stably coexist.
-% GEORGES: I have the feeling that 'traits' are coming out of the blue here 
-% a little bit. Later on we explain the link between traits and resources 
-% but may be we need to explained it here already. This is difficult as we 
+different species can stably occupy and coexist.
+% GEORGES: I have the feeling that 'traits' are coming out of the blue here
+% a little bit. Later on we explain the link between traits and resources
+% but may be we need to explained it here already. This is difficult as we
 % really need to introduce trait here are they are central in the next section
 The idea of species arranged along niche axes or traits representing the niche (e.g., Figure
 \ref{fig:competition-kernels}) is iconic within community ecology and
@@ -79,7 +85,7 @@ is almost universally present in textbooks from 1970s through to the
 present \citep[e.g.,][]{Krebs-1972, Ricklefs-1973, Ricklefs-1999,
   Krebs-2013}.
 %
-However, this worldview is particularly challenging for plant
+However, this world-view is particularly challenging for plant
 communities, where most species use the same few resources
 \citep[e.g.,][]{Whittaker-1970, Grime-1979, Hubbell-2001,
   Westoby-2002}.
@@ -93,33 +99,39 @@ communities, where most species use the same few resources
 Currently, at least three perspectives are popular in investigating
 the relationship between resources, species traits and coexistence:
 % GEORGES: again traits may be unclear here.
-i) Theoretical models based on explicit ``competition kernels'' and
-simple Lotka-Volterra dynamics
+i) Theoretical models or competitive exclusion or coexistence based on explicit ``competition kernels'' and simple Lotka-Volterra dynamics
 \citep[e.g.][]{MacArthur-1967,Case-1982,Dieckmann-1999,Leimar-2013}.
 %
-ii) Models in which resources are modelled explicitly, and species
-interactions emerge from competition for the resources
+ii) Models in which resources are modelled explicitly, and influences of species
+on each other emerge via depletion of resources
 \citep[e.g.][]{Tilman-1977, Huston-1987, Kohyama-1993, Falster-2011}.
 %
 iii) Empirical, generally correlative, approaches that seek to
-describe major axes of trait variation among species, a reasearch program 
-hoping to, eventually, relate these traits 
+describe major axes of trait variation among species, a reasearch program
+hoping to, eventually, relate these traits
 to underlying differences in competition for resources
 \citep[e.g.][]{Grime-1979, Weiher-1999, Westoby-2002}.
 % GEORGES: I think that 'relate that
 % to underlying differences in competition for resources' do not fully reflects
 %  the stat of progress in this approach. May be we can explain that this is in
-%  the hope of connecting traits to competition. 
+%  the hope of connecting traits to competition.
 % So far we no little about the link between traits and coexistence.
+
+% MW: seems to me the general point we're wanting to make is that models under either strand (i) or strand (ii) have implicitly had the purpose of  being compared with actual assemblages -- mostly comparing many-species with few-species assemblages, but sometimes saying something about actual traits. Simplest illustration of this is how Ricklefs (for example) uses his version of Fig 1 to discuss the different mechanisms through which you could get more species into an assemblage]
+
+% MW: I'm struggling to see this as a third line on the same question. It's true that Grime makes predictions about strategy-mixtures in communities, but he's not really into empirically testing those.
+% Maybe you're thinking here more of the recent literatures (Kraft, Shipley et al) where people have tested for spacing out in trait space in one way or another?
+
+
 % NOTE: ignoring 4th approach for now, via ecological drift /
 % neutrality, but it falls most closely into the 3rd approach.  Framed
 % as above, in terms of "traits / resources / competition" neutral
-% theory is not as relevant anyway.
+% theory is not as relevant anyway. [MW: true that it doesn't connect to traits -- are we in fact going to come back to it at all?]
 Broadly these different literatures represent different ways of
 addressing the same core question, rather than addressing fundamentally
 different hypotheses.  Despite this similarity they have remained
 largely isolated from one-another.
-% GEORGES: WIth the current structure we are repeating this idea of a 
+% GEORGES: WIth the current structure we are repeating this idea of a
 % lack of connection two times, but may be this is ok.
 
 In the first strand, individuals from different species interact via a
@@ -133,9 +145,9 @@ utilisation curves, and expressed relative to a continuous axis of theoretical r
 \citep{MacArthur-1967, Roughgarden-1979}, there has been an almost
 complete switch to expressing kernels based on difference in trait
 values with no more direct reference to resource use.
-% GEORGES: I think that to clarify the differences between 
-% strand 1 and 2 may be we need to explain that by using a continous 
-% resources axis this is refering to theoretical ressources 
+% GEORGES: I think that to clarify the differences between
+% strand 1 and 2 may be we need to explain that by using a continous
+% resources axis this is refering to theoretical ressources
 % unmeasurable in the field.
 Competition kernel--based models have been used to model dynamics of
 character displacement \citep{Taper-1985, Case-2000}, species
@@ -143,8 +155,8 @@ coexistence and community assembly \citep{MacArthur-1967,
   Calcagno-2006, Leimar-2013}, and sympatric speciation
 \citep{Dieckmann-1999}.
 %
-These models are amenable to analysis and it is possible to determine
-the outcome of competition from subtle changes to the competition
+These models are amenable to analysis and it is possible to describe how
+the outcome of competition shifts in response to subtle changes to the competition
 kernel \citep{Calcagno-2006, Scheffer-2006, Pigolotti-2007,
   Leimar-2013}.
 %
@@ -158,8 +170,8 @@ interactions are moderated via a limited number of essential resources whose abu
 explicitly.  As such, the competitive effects ``emerge'' from the
 model -- i.e. the shape of competitive function with respect to
 species traits is not specified, rather it is an output of the model.
-% GEORGES: From this sentence it is not totally clear how this differ 
-% from strand 1 as also based on resources. May be we need to explain 
+% GEORGES: From this sentence it is not totally clear how this differ
+% from strand 1 as also based on resources. May be we need to explain
 % that these model are based on competition for limited number of
 % REAL resources?
 %
@@ -167,10 +179,10 @@ The most classical model of this type is Tilman's ``\Rstar'' model \citep{Tilman
   Tilman-1982}, which focusses on the minimal level of resource
 abundance that individuals from a species can tolerate.
 % GEORGES COMMENT: I think that the distinction between model based on
-% unmeasurable traits or not easly measurable traits such as the R*
-% and model based on easily measurable traits that were developped in
-% the strategies (iii) (Grime Weiher and Westobty) of the intro is importamt here.
-% May be we should introduce only the R* here and introduce plant on the in the 
+% unmeasurable traits or not easily measurable traits such as the R*
+% and model based on easily measurable traits that were developed in
+% the strategies (iii) (Grime Weiher and Westobty) of the intro is important here.
+% May be we should introduce only the R* here and introduce plant on the in the
 % next paragraph on traits as  a link?
 %
 % Direct species interactions are absent, and resources do not
@@ -179,6 +191,12 @@ abundance that individuals from a species can tolerate.
 %
 % Similar to the kernel-based models, populations are unstructured, so
 % competitive interactions occur within a ``mean field''.
+
+The second type are mechanistic niche models, which allow for
+differentiation in successional strategy via size-and
+trait-driven interactions within size-structured communities or
+meta-communities
+\citep{Huston-1987,Kohyama-1993,Moorcroft-2001,Falster-2011}.
 % Dropped:
 % Although competition for below ground resources may also be
 % considered, competitive occur largely via shading of smaller plants by
@@ -205,31 +223,31 @@ schemes
 % (\textsc{lma}), and features affecting allocation, such as height at
 % maturation (\textsc{hmat}) \citep{Westoby-2002}.
 %
-Existing strategy schemes lack explicit theory illustrating how traits 
+Existing strategy schemes lack explicit theory illustrating how traits
 might drive species competition and coexistence \citep{Adler-2013}.
 % TODO: this feels weak still:
 % GEORGES: If we clarify in the section early on in the introduction
 %  that the link between traits and coexistence is missing here may
-% be we can explain that people have directly used normal competition 
+% be we can explain that people have directly used normal competition
 % kernel to traits without any good justification?
 However, characteristics such as trait over-dispersion are often
 interpreted as
 signatures of niche diversification \citep[e.g.][]{Kraft-2008} by
- studies that have directly transfered the gaussian kernel developped in the 
+ studies that have directly transfered the gaussian kernel developped in the
 first theoretical strand to field measured traits.
-% GEORGES: I think I see what you mean (coexistence of diff traits value 
-% because different they are selected at different time during succession), 
-% but this is not that that clear from the correlation with growth rate. 
+% GEORGES: I think I see what you mean (coexistence of diff traits value
+% because different they are selected at different time during succession),
+% but this is not that that clear from the correlation with growth rate.
 % In addition Wright-2010 is quite far away from proving coexistence.
 The connection between statistical signal and theory therefore depends
-critically on the generalitty of a gaussian competition kernel 
-connecting field measured traits to competition. 
+critically on the generalitty of a gaussian competition kernel
+connecting field measured traits to competition.
 % The connection with the theory is unclear, in addition I don't think a lot of studies have tried to test prediction in term of pattern of the successional 'niche of Wright-2010.
 
 Ideally, these different approaches to studying community assembly
 would mutually reinforce each other, yet to date the literatures
 remain relatively isolated from one another.
-% 
+%
 In this paper we try to bridge this divide, by asking whether the
 signature of competitive interactions that emerges from resource-based
 models resembles the trait-based kernels used in kernel-based
@@ -237,17 +255,17 @@ approaches.
 %
 To achieve this we determine the shape of the competition functions
 that are produced in two different models where competition and the
-mechanics of the resource being depleted are represented explicitly. 
+mechanics of the resource being depleted are represented explicitly.
 We consider two classes of resource-based models. The first is Tilman's
 \Rstar model, which is a model representing competition for essentials
 resources in which paramters of the model are not easily connected to
 traits measured in trhe field.
-The second model can be linked to a familly of mechanistic niche models, which allow for 
+The second model can be linked to a familly of mechanistic niche models, which allow for
 differentiation in successional strategy via interactions within size-structured communities or
 meta-communities
 \citep{Huston-1987,Kohyama-1993,Moorcroft-2001,Falster-2011}. One of
 the main originality of 'plant' model we use is that it is dirrectly
-connected to field measured traits citep{Falster-2011}. 
+connected to field measured traits citep{Falster-2011}.
 
 %
 This approach is not entirely new; \citet{Abrams-2008} found the \Rstar\
@@ -289,8 +307,8 @@ assumed in kernel-based models?
 % case.
 
 % NOTE: trying the history bit way up here, see if that helps.
-% GEORGES: I have the feeling this section is a bit long. 
-% And overall several paragraph seems not strongly connected 
+% GEORGES: I have the feeling this section is a bit long.
+% And overall several paragraph seems not strongly connected
 %to competition kernel (in contrast with the sub-section title).
 The metaphor of species packing has long been central to community
 ecology.  This idea supposes there is a volume of niche space, and
@@ -314,7 +332,7 @@ question how dissimilar two species niche need to be in order to coexist
 %
 By the 1970s, a new generation of textbooks \citep{Whittaker-1970,Krebs-1972,Ricklefs-1973,Pianka-1974} presented the species packing metaphor has the
 mainstream approach to community ecology, and this has persisted up to
-the present day. 
+the present day.
 % GEORGES: The idea whether this is a larger niche space, or more overlap
 %  are not so strongly connected to competition kernel, no?
 
@@ -327,7 +345,7 @@ $\alpha_{ij}$ parameters in Lotka-Volterra competition) could be
 calculated from the degree overlap between utilizations functions.
 If a trait was used as a niche index, it was chosen on grounds of
 mapping tidily on to a depletable resource, such as beak size for
-seed-eating finches. 
+seed-eating finches.
 % I think this link between traits and resources need to be introduced before in the intro.
 Beginning in the 1980s, a desire to model
 character displacement saw the concept of a utilisation function first
@@ -381,17 +399,17 @@ outcome, with resources occupied by many species spaced from each
 other in resource use by arbitrarily small amounts.
 % NOTE[RGF]: this seems entirely compatible with species packing to me
 % as a limit case?  Perhaps I'm missing somsething.
-% GEORGES: 1. I'm not sure this 'Continous coexistence' is a classical 
-% expression, 2. @Rich I think the main difference is that the limiting 
+% GEORGES: 1. I'm not sure this 'Continous coexistence' is a classical
+% expression, 2. @Rich I think the main difference is that the limiting
 % similarity tend to zero (so yes a limit case but in term of community
 % structure the prediction are quite drastically different). I have
 % try to move this bit here at it seem as the early step to Leimar.
 % GEORGES: The section below do no seems crucial to me.
-% GEORGES: overall i have the feeling that this section going beyond 
-% competition kernel, as it is discussiong the community level 
+% GEORGES: overall i have the feeling that this section going beyond
+% competition kernel, as it is discussiong the community level
 % consequence of a given competition kernel. The important point for us
 %  is may be simply that small deviation in the competition kernel shape
-% may have strong effect on the community structure? 
+% may have strong effect on the community structure?
 % Although this strand of theory might have been expected to undermine
 % the mainstream approach to community ecology via the species packing
 % metaphor, in actuality it did not have the effect of dislodging
@@ -408,7 +426,7 @@ kernel can substantially alter the possibilities for coexistence
 % TODO[RGF]: The first half of this paragraph (up to "While
 % expressed") seems pretty redundant. -> DF: Added extra sentence at beginning
 % to make relevance clearer.
-Assumptions about the nature of competition also feature in two other 
+Assumptions about the nature of competition also feature in two other
 related strands of thinking that persist to current day were established. In
 a break from the idea of subdividing continuous
 niche axes, models arose
@@ -418,10 +436,10 @@ arise by colonization-competition trade-offs \citep{Levins-1971,
 Geritz-1999, Calcagno-2006}; which required that competitive interactions
 be strongly size-asymmetric. Alternatively, if there is an advantage to
 already established individuals (another form of competitive asymmetry),
-chance successes in the colonisation of vacant sites  -- arising from 
+chance successes in the colonisation of vacant sites  -- arising from
 demographic stochasticity
 (``lottery effects'') \citep {Sale-1977, Hubbell-2001} -- can slow
-competitive exclusion and thereby promote coexistence. 
+competitive exclusion and thereby promote coexistence.
 %
 Note that all models also make strong assumptions about the shape of
 the competition kernel being used -- a sharp
@@ -434,7 +452,7 @@ flat, trait-independent kernel in neutral lottery models.
 
 % GEORGES: This seems very similar to the section with the table with
 % the list so I moved all the stuff on list of kernel used here.
-It is clear that the shape of competition kernels 
+It is clear that the shape of competition kernels
 could be key to
 understanding community assembly. Yet, it is also likely that
 symmetric unimodal kernels that are most widely used are realistic for only
@@ -451,7 +469,7 @@ Surprisingly little attention has been paid to the question what
 shapes are actually likely for competition kernels, given known
 mechanisms for resource depletion in relation to traits, and the
 parallel focus on resource based models such as \Rstar.
-% GEORGES: 'the parallel focus on resource based models such as \Rstar.' 
+% GEORGES: 'the parallel focus on resource based models such as \Rstar.'
 % is unclear for me.
 
 \section{Models}
@@ -501,7 +519,7 @@ underlying dynamics follow the Lotka-Volterra equations, then the
 different coefficients will be the same.  We use another formulation
 based on simply solving for the competition coefficient in the
 Lotka-Volterra equation.
-% GEORGES: Not clear that the second sentence is for the case where the 
+% GEORGES: Not clear that the second sentence is for the case where the
 % model do not follow the LV model.
 
 For each model, we compute the core quantities used in the
@@ -535,7 +553,7 @@ competition.
 % TODO: note that alpha of 1 is relative to intraspecific competition
 % *at equilibrium* and this is how we detect departures from constant
 % density dependence.
-The sum is over all species in the population, with
+The sum is over all species in the assemblage, with
 competitive effects assumed to be additive across species and density
 independent within a species.
 %
@@ -591,7 +609,7 @@ We then solved for $\alpha(x_R, x_I)$ by rearranging  \ref{eq:LVi} to give:
 \end{equation}
 (note that at equilibrium $N_R = K(x_R)$).
 
-In addition, we also calculate one of the coefficients described in
+We also calculate one of the coefficients described in
 \citet{Abrams-2008}: $\chi_{ij}^{*}$:
 %
 \begin{equation}
@@ -604,31 +622,27 @@ In addition, we also calculate one of the coefficients described in
 %
 where the numerator is the derivative of invasion fitness with respect
 to resident density, the denominator is the derivative of invasion
-fitness with respect to invader density, and this is evaluated at the
-situation where the resident is at equilibrium and the invader is at
-trivial density.  This index therefore measures the extent to which
-the resident depresses the growth of an invader relative to the amount
+fitness with respect to invader density, and their ratio is evaluated with the resident at equilibrium density and the invader at
+trivial density.  This index measures the extent to which an invader's growth is depressed by the resident relative to the amount
 that the invader depresses its own growth.
 
 \subsection{\Rstar\ model}
 
 % \item As originally formulated, \Rstar\ does not include traits
 % \item We adapt a formulation (due to whom?) where a ``trait'' is a
-%   measure of specialisation/generalisation.
+%   measure of specialisation or generalisation as between two resources.
 
 In the first model (\Rstar) individuals compete for two essential and
 depletable resources. This model is one of the best studied and cited
 models of resource competition \citep{Tilman-1977, Tilman-1982,
   Huisman-2001}, originating from a study on exploitative competition
-for any pair of generic resources \citep{Leon-1975}. The model is
-unstructured, with the per capita growth rates for each species simply
-depending on the availability of two resources.  We assume both
-resources are necessary (i.e. non-substitutable), so the growth rate
-of each species is determined by the resource which is currently most
+for any pair of generic resources \citep{Leon-1975}. Per capita growth rates for each species simply depend on the availability of two resources.  We assume both
+resources are necessary (non-substitutable), so the growth rate
+of each species is determined by the resource that is currently most
 limiting.  We implemented a version where the specific growth rates
 follow a Monod equation as in \citet{Huisman-2001}, which is closely
 similar to the widely-used version described by \citet{Tilman-1977,
-  Tilman-1982}. 
+  Tilman-1982}.
 % GEORGES: What is the difference with Tilman 1977?
  The resource availabilities, in turn, depend on the
 rates of resource supply and consumption. Individuals compete with one
@@ -639,10 +653,10 @@ easily described via a minimal set of equations (Appendix
 Following previous authors \citep{Tilman-1985, Schreiber-2003,
   Fox-2008} we focus on a trait determining the relative amount of the
 two resources required for growth. Species can vary from requiring
-mostly resource 1, to equals amounts of both resources, to mostly
+mostly resource 1, to equal amounts of both resources, to mostly
 resource 2. This dependence is achieved by making uptake saturation
 constants (see Appendix \ref{sec:Rstar} for details) for resource 1
-inversely related to the requirement of resource 2:
+inversely related to requirements for resource 2:
 \begin{equation}
 \label{eq:R3}
 U_{1i} = 1 - U_{2i}.
@@ -673,21 +687,20 @@ for light in a size-structured metapopulation \citep{Falster-2011,
   Falster-2015}. \plant\ is used here as an example of a broader group
 of models dealing with successional turnover
 \citep{Huston-1987,Kohyama-1993,Moorcroft-2001,Falster-2011}.
-% GEORGES: I think presenting 'plant' as similar to this model is 
+% GEORGES: I think presenting 'plant' as similar to this model is
 % hiding an originality which is that the model is dealing with real traits!
 
 Vegetation in the \plant\ model comprises a large number of patches subject
-to a prevailing disturbance regime.  Disturbances remove established
-vegetation within a patch, which is then recolonised via seed
+to a disturbance regime.  Disturbances clear established
+vegetation within a patch. It is then recolonised via seed
 dispersal from other patches.  Individual plants progress through
 their life-cycle, from seeds until mature adults, with growth survival
 and fecundity rates determined by the combined effect of an
 individual's traits, its current size and the degree of shading from
-other plants within the same patch. The amount of shading at a given
-height is computed from the cumulative leaf area above that height;
-short-term competitive effects are therefore size-asymmetric. The sole
+other plants within the same patch. Shading at a given
+height is computed from the cumulative leaf area above that height. Short-term competitive effects are therefore size-asymmetric. The sole
 effect of shading is to alter an individual's photosynthetic
-income. Following \citep{Falster-2015}, the fitness of individuals
+income. Following \citep{Falster-2015}, fitness of individuals
 with a given type is calculated by integrating seed output across the
 entire metapopulation.
 
@@ -698,7 +711,7 @@ and height at maturation (\hmat). In the model, \textsc{lma} moderates
 a physiological trade-off between the cost of building an extra unit
 of leaf area and the rate of leaf turnover.  Variation in \textsc{lma}
 thereby underpins a trade-off between height growth rate and
-shade-tolerance of seedlings, and is a key comonent of the so-called
+shade-tolerance of seedlings. It is a key component of the
 ``leaf economics spectrum'' \citep{Wright-2004}. Meanwhile, \hmat\
 moderates the allocation of surplus energy between growth and seed
 production, as an individual increases in size.
@@ -717,24 +730,25 @@ production, as an individual increases in size.
 
 \subsection{\Rstar}
 
-For the \Rstar\ model we consider two cases: a ``symmetric
-consumption'' case with $C = \{0.2, 0.2\}$ and an ``asymmetric case''
+For the \Rstar\ model we consider two cases: a symmetric
+consumption case with $C = \{0.2, 0.2\}$, and an asymmetric case
 with $C = \{0.3, 0.7\}$.  Species vary only in their rate of resource
 conversion efficiency and the degree in which they specialise in the
 two resources.  For each case, we consider two resident communities;
-one in a position where invasion by other types is possible and one at
+one in a position where invasion by other types is possible, and one at
 the evolutionary optimum point.
 %
 Because $C$ does not vary by species, coexistence is not possible in
-this model \citep{Tilman-1982}; invasion is thus a sufficient condition for
+this model \citep{Tilman-1982}. Invasion is thus a sufficient condition for
 competitive replacement.
 
-In the symmetric model, we first consider a resident at $x = 0.6$
-(midway between pure generalist and pure specialist on resource B).
+In the symmetric model, we first consider a resident at $x = 0.6$,
+intermediate between pure generalist at $x=0.5$ and pure specialist on resource B).
+% MW: Generalist somehow seems the wrong word, implies either resource would be OK
 %
 The resident species competes strongly with species that are more
 specialised than itself (self competition is $\alpha(x, x) \equiv
-1$), while invaders that were less specialised (i.e., closer to $x =
+1$).Invaders that were less specialised (i.e., closer to $x =
 0.5$ than the resident) experienced less competition from the resident
 than it exerted on itself (Figure \ref{fig:Rstar}b).
 %
@@ -744,7 +758,7 @@ fitness greater than zero on Figure
 \ref{fig:sm_rstar_components1}c1).
 %
 When the resident is moved to $x = 0.5$ (perfectly generalist) then
-invasion is not possible for any type.  In this case, the strength of
+invasion is not possible for any other type.  In this case, the strength of
 competition increases monotonically away from the resident.
 %
 Computing competition functions using the derivative approach
@@ -752,7 +766,8 @@ described in \citet{Abrams-2008}
 ($(\partial d_i / \partial N_j) / (\partial d_i / \partial N_i) |_{N_i
   = 0, N_j = K_j}$)
 was qualitatively similar, though piecewise linear in species traits
-and with higher departure from 1. 
+and with higher departure from 1.
+% Not clear to me -- means the function is discontinuous?
 Either way, the shape of the kernels produced looks nothing like any of the
 common shapes depicted in Table \ref{tab:shapes}
 
@@ -784,17 +799,17 @@ with increasing density (Figure
 \subsection{\plant: \hmat}
 
 In the \plant\ model, strategies that have different height of
-maturation (\hmat) begin to focus resources on reproduction at
-different sizes.  Plants that reproduce earlier get to ``lock in''
+maturation (\hmat) re-direct resources from growth to seed production at
+different sizes.  Plants that reproduce earlier ensure they achieve
 reproduction, but because they allocate less resources to growth they
 risk being over-topped and out-shaded by strategies that reproduce
-later.  This leads to a strongly asymmetric competitive effect of
+later.  This leads to a strongly asymmetric competition with
 taller strategies suppressing the population growth of shorter
 strategies.
+% MW: Vegetative growth certainly, is it really the population-level effect we're wanting to emphasize here?
 
-We recover competition functions that are asymmetric in this case:
-strategies exert more competition on species that are shorter than
-them than are taller than them (Figure \ref{fig:plant_hmat}).  As the
+Competition functions that emerge are asymmetric in this case. Strategies exert competition more strongly on species that are shorter than
+them, less strongly on species that are taller than them (Figure \ref{fig:plant_hmat}).  As the
 resident strategy increases in size, the strength of competition felt
 by smaller species increases, and the slope of this competitive effect
 increases (compare panels \textit{a} and \textit{b} in Figure
@@ -802,18 +817,20 @@ increases (compare panels \textit{a} and \textit{b} in Figure
 %
 Despite the consistent direction of competition, invasion depends on
 the interaction between competitive effect, carrying capacity and
-maximum growth rate; in the presence of a short resident, taller
+maximum growth rate. In the presence of a short resident, taller
 strategies can invade (Figure \ref{fig:sm_plant_hmat_components}\,c1),
 while in the presence of a tall resident, shorter strategies can
 invade (Figure \ref{fig:sm_plant_hmat_components}\,c2).
 
-This property is very similar to other models of asymmetric
+A similar property has been found in other models of asymmetric
 competition \citep[e.g.,][]{Kisdi-1999}, where selection pushes traits
-to an ``branching point'' (close to the resident in (Figure
+to a ``branching point'' (close to the resident in (Figure
 \ref{fig:sm_plant_hmat_components}c2), and then repeated invasion to
 the left of this point is possible.
 % TODO: SM figure showing the equilibrium community for each of the
 % scenarios presented (#31).
+% MW: Could be good to describe this in terms of the trait and its asymmetric effect
+
 Even though the shape of the function is not exactly sigmoidal, the
 evolutionary dynamics are similar (\TODO).
 % TODO: Run out the evolutionary dynamics of plant/hmat and Kisdi to
@@ -824,20 +841,18 @@ evolutionary dynamics are similar (\TODO).
 
 \subsection{\plant: lma}
 Strategies that have different leaf mass per unit area (\textsc{lma})
-values are different points in the ``leaf economic spectrum''
-\citep{Reich-1997,Wright-2004}.  We modelled \textsc{lma} as a trade-off
-between the cost of deploying an extra unit
-of leaf area and the rate of leaf turnover (so high \textsc{lma} leaves are
-costly to deploy but turn over more slowly so that they can contribute
+values reflect different compromises struck along the ``leaf economic spectrum''
+\citep{Reich-1997,Wright-2004}.  High \textsc{lma} leaves are
+costly to deploy but have longer lifespan so that they can contribute
 to carbon gain for longer, or conversely require rebuilding less
 often).
 
 The shape of the competition function is complex and does not conform
-to any of the simple shapes in wide use, as depicted in Table \ref{tab:shapes}.
+to any of the simple shapes in wide use (Table \ref{tab:shapes}).
 % Need to be clear that we're talking about the non attractor
 % situation first.
 In the region of trait space close to the resident species,
-competition is strongly asymmetric: the resident exerts a large amount
+competition is strongly asymmetric. The resident exerts a large amount
 of competition on species with \textsc{lma} values higher than itself (``slow''
 strategy species) and less on species that have \textsc{lma} values lower
 (``fast'' strategy species; Figure \ref{fig:plant_lma}a).  Invasion is
@@ -909,7 +924,7 @@ unnecessarily restricted region of possible model space.
 \subsection{Competition functions in resource-based models look nothing like
 fixed Gaussian kernels}
 
-% GEORGES: It is clear for me that the main message for the discussion is that models based on real competition for resources do not lead to gaussian like competition kernel and do not respect the asssumption of the LV model (denssity dependent) so we need based our understanding of plant communities on LV model with gaussian kernel. But thne I have the feeling is in unclear if the nex step is to say that we need to develop more complex model connecting traits and competition for resources forgetting about the concept of competition kernel in LV model or if it is still usefull to use this framework. 
+% GEORGES: It is clear for me that the main message for the discussion is that models based on real competition for resources do not lead to gaussian like competition kernel and do not respect the asssumption of the LV model (denssity dependent) so we need based our understanding of plant communities on LV model with gaussian kernel. But thne I have the feeling is in unclear if the nex step is to say that we need to develop more complex model connecting traits and competition for resources forgetting about the concept of competition kernel in LV model or if it is still usefull to use this framework.
 
 In only one of the three cases studied here did our derived
 competition functions closely resemble any of the three dominant
@@ -928,13 +943,13 @@ biological features of the system.
 %
 \citet{Falster-2011} showed how the amount of shading undulates
 through successional time; here this translates into undulations in
-the fitness of an invader with respect to traits. 
-% TODo @richfitz: next line commented out. Important, but this feels 
+the fitness of an invader with respect to traits.
+% TODo @richfitz: next line commented out. Important, but this feels
 % like the wrong place.
 %; despite appearing to compete for light
 % the important resource axis may be \emph{time}.
 %
-It is hard to generalise about these findings; all we can say is that
+The main generalisation about these findings is that
 none of the functions resemble Gaussian kernels.
 
 We also found that, for all three of the models, the derived
@@ -945,28 +960,31 @@ the amplitude of the function that changed, but also its \emph{shape}
 This result was predicted by \citet{Abrams-1980}, who argued that not
 satisfying the implicit of Lotka-Volterra dynamics would lead to
 widespread non-constant density dependence. The idea that competitive
+% MW Found this hard to follow - does it just mean that Abrams pointed
+% out the linear DD in LV wasn't likely in the real world? Or was there
+% some more theoretical argument being proposed?
 effects are non-linear in density (i.e. non additive) is widely
 established within other more empirical realms of plant ecology, e.g.
-in the self thinning law \citep{Westoby-1984}, and the law of constant
-final yield \citep{Weiner-2010}.
+in the self thinning law and the law of constant
+final yield \citep{Harper-1977}.
 % TODO[RGF]: When do we observe this?  I think all we get is the
 % saturating pattern, no?
 In both cases, the dynamics are similar to those we observe: initially
 effects in either biomass or competition increase with population
 density (as would be expected with a constant per capita effect), but
 then once a saturating population density has been reached, addition
-of more seed has little impact on the community. As such, the
-per-capita effects change sharply with density. Similar findings exist
+of more seed has little impact on the community. The
+per-capita effects change sharply rather than continuously with density. Similar findings exist
 for animals: already by 1980 there were multiple reports showing that
-competition coefficients were not independent of population density
+competition coefficients were not linear with population density
 \citep{Abrams-1980}.
 
-Together, these findings imply the deeply ingrained assumption that
+Together, these findings imply the convenient and deeply ingrained assumption that
 competition kernels can be defined by differences in trait values
 alone -- without reference to population size, or absolute value of
 traits -- seems inadequate for resource-based competition in plant
 communities.
-% GEORGES: May be the first point is that competition kenrel are 
+% GEORGES: May be the first point is that competition kenrel are
 % unlikely to be simple gaussian kernel!
 Similarly, the notion that a fixed competition coefficient exists as a
 property between two species is unlikely. This raises the question of
@@ -979,8 +997,8 @@ have repeatedly raised similar questions \citep[e.g.][]{Andrewartha-1953,
 
 It is certainly possible to expand the idea of a competition kernel to
 be a function not only of trait differences, but also of population
-density and species traits. The consequence of including functions of
-this type in traditional analyses about species-coexistence and
+densities and of the actual values of species traits. But clearly, with these complications it becomes less easy to intuit the influence of residents on invasibility and what configuration of species would not be invasible. The consequence of including functions of
+this complexity in traditional analyses about species-coexistence and
 character displacement are simply unknown.  Even just allowing density
 dependent competition could change the number of equilibria in the
 model and the stability of such equilibria.
@@ -995,8 +1013,8 @@ of an entire resident community on a potential invader.
 Our results suggest that such additivity is unlikely
 (Fig. \ref{fig:dd}). So in that case the competition kernel would be a
 function of the entire resident community.  At that point we are
-perhaps stretching he concept beyond its useful limit. We may as well
-just use a model with explicit handling of resources.
+perhaps stretching the kernel concept beyond its useful limit. We may as well
+model a multi-species assemblage with explicit depletion of resources.
 
 \subsection{Enhancing the scope of resource-based models}
 
@@ -1007,8 +1025,8 @@ which must be derived from another model.''}\citep{Abrams-1975}
 
 Terrestrial plant ecology had always found it difficult to accept the
 idea that different species can only coexist by using different
-resources, as plant species clearly all require the same resources -- of
-light, soil water and mineral nutrients -- as each other. One possibility
+resources, as plant species all require the same resources as each other --
+light, soil water and mineral nutrients. One alternative mode of coexistence
 arises from species subdividing a successional-time niche axis in
 landscapes envisaged as disturbance mosaics \citep{Connell-1978}. If
 plant species make most contribution to their population increase in
@@ -1022,6 +1040,7 @@ alternative chemical forms of nutrients \citep{Tilman-1977}.
 One of the primary reasons we used models to study the nature of
 competition functions was due the difficulty of estimating these in
 the field.
+%MW: I'd say rather, in the hope of making sensible predictions about composition of assemblages that can be tested
 % TODO: move a mention of this up further!
 Thinking of empirical data, \citet{Ricklefs-1973} suggested one might use
 the exact method we have
@@ -1045,7 +1064,7 @@ kernels requires that lots of pairwise comparisons to made, but as
 species differ in many traits that will affect competition, combined
 with the need to estimate fitness across the life- cycle makes the
 task nigh impossible. In summary, it is simply not feasible to measure the
-shape of a trait-based competition kernel in the wild. 
+shape of a trait-based competition kernel in the wild.
 Models are attractive because they allow us to
 run experiments in ways that are simply not possible in real systems.
 
@@ -1054,7 +1073,7 @@ resource-based models studied here raise an exciting possibility: we
 could substantially expand the range of competition functions
 currently being considered (Table \ref{tab:shapes}) and thereby expand
 possibilities for coexistence. Functions like the \textsc {lma} kernel
-(Fig. \ref{fig:plant_lma}) may look ridiculous compared with functions
+(Fig. \ref{fig:plant_lma}) look unusual compared with functions
 typically used, yet they arise naturally from size-structured
 dynamics.  It is likely kernels of this shape permit coexistence
 through quite different dynamics than those well studied
@@ -1078,7 +1097,7 @@ communities.
 \subsection{Future directions \& conclusions, where next with models of
 competition}
 
-Despite being difficult to quantify in the field and represent in
+Despite being difficult to quantify in the field and to represent in
 models, competition is undoubtedly a powerful force in structuring
 communities.
 % TODO[RGF]: this is hard to parse
@@ -1094,10 +1113,10 @@ real systems \citep{Andrewartha-1953, Neill-1974, Abrams-1975,
   Wangersky-1978,Abrams-1980, Tilman-1987}.  It's difficult see what a
 new set of equations might look like.  However, as a first step we
 might more vigorously focus on models where resources are handled
-explicitly.  We also note that in contrast with the close attention
-paid to Lotka-Volterra based dynamics with explicit competition,
+explicitly.  In contrast with the close attention
+paid to Lotka-Volterra based dynamics with competition coefficients,
 relatively few models exist where competition emerges from the
-lower-level species interactions and that this is a potentially
+interactions of speies with depletable resources. This is a potentially
 untapped source of insight into the nature of competition.
 
 Simultaneously, we should be looking to derive macroscopic
@@ -1120,8 +1139,8 @@ ecology.
 
 
 \begin{table}[h]
- \caption{Predominant kernel shapes used to date.
-`Kinked'' kernels that are ``non-differentiable at the point of
+ \caption{Kernel shapes investigated in the literature up to the present.
+`Kinked' kernels refers to those that are ``non-differentiable at the point of
 self-competition'' \citep{Barabas-2012}.}
 \centering
 {\footnotesize
@@ -1161,15 +1180,14 @@ self-competition'' \citep{Barabas-2012}.}
     x-axis is a resource to be partitioned, such as food or prey size,
     or alternatively a trait axis.  Lines represent hypothetical
     resource utilisation curves for five different species, indicating
-    the propensity of that species to use resources of a given size.
-    The intensity of competition between two species is indicated by
-    the degree of overlap in their resource utilisation
+    the propensity of that species to use resources of a given particle size.
+    Competition between two species will be proportional to
+    the overlap in their resource utilisation
     curves. \citet{MacArthur-1967} proposed that competition would
     limit how closely species could sit relative to one another, via
-    the width of the utilisation curve. Soon after it's publication,
-    this idea of `limiting similarity` appeared in ecology textbooks,
-    with similar figures to the one shown appearing in the earliest
-    and also the most recent editions of leading textbooks
+    the width of utilisation curves. Soon after its publication,
+    this idea of `limiting similarity` appeared in ecology textbooks. Figures similar to this appeared in the earliest
+ editions of leading textbooks, continuing up to recent editions
     \citep{Begon-1986, Begon-2006, Krebs-1978, Krebs-2013,
       Ricklefs-1973, Ricklefs-1999}.}
   % begon-1986: Fig 7.9, pg 263
@@ -1210,7 +1228,7 @@ self-competition'' \citep{Barabas-2012}.}
   components used to derive these functions.
   Panels a-b show results when consumption of the two resources is symmetric, whereas
   panels c-d show results for an instance when resource 2 is required more than
-  resource 1. 
+  resource 1.
   Solid black lines indicate the competition felt by invading species. Solid
   black bars indicate regions where the invader has positive fitness, i.e.
   could successfully establish. Parameters for the symmetric case, $c_{1i} =
@@ -1332,7 +1350,7 @@ The dynamics of the resources themselves follow the equations:
 where $D$ is the resource turnover rate, $S_j$ is the supply rate of
 resource $j$ and where the sum is over all species in the community.
 % TODO: Do we have a better definition of this?
-The term $C_{ji}$ represents the rate of consumption of resouce $j$.
+The term $C_{ji}$ represents the rate of consumption of resource $j$.
 
 % NOTE: is there anything else about the model we need to detail?
 % The carrying capacity, etc, are all analytic.
@@ -1353,4 +1371,4 @@ the model has been published or not.
 Overall shading caused by communities as an alternative way forward:
 if all we're tying to predict is whether or not a species can invade
 then the low order approximation that an invader does not affect shade
-level is OK and equilvanet to invasion fitness.
+level is OK and equivalent to invasion fitness.

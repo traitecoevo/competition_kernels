@@ -1,7 +1,8 @@
 plant_competition <- function(x_resident, obj, n=101L, N_resident=NULL) {
   x_resident <- check_point(trait_matrix(x_resident, obj$trait),
                             obj$bounds)
-  x_mutant <- seq_log_range(obj$bounds, n)
+  x_mutant <- seq_log_range(obj$bounds, n + 2L)
+  x_mutant <- x_mutant[-c(1, length(x_mutant))]
   trait <- rownames(obj$bounds)
   if (is.null(N_resident)) {
     N_resident <- obj$K(x_resident)
@@ -37,7 +38,7 @@ plant_competition_density <- function(d) {
 }
 
 plant_competition_prepare <- function(trait, p0=NULL, n=20L,
-                                     parallel=FALSE) {
+                                      parallel=FALSE) {
   if (is.null(p0)) {
     p0 <- plant_base_parameters()
   }
@@ -71,11 +72,11 @@ plant_base_parameters <- function() {
   p <- ebt_base_parameters()
   p$control$equilibrium_nsteps <- 30
   p$control$equilibrium_solver_name <- "hybrid"
-  p$disturbance_mean_interval <- 30.0
+  p$disturbance_mean_interval <- 20.0
 
   ## Will be overriden in specific models:
-  p$hmat <- 15.0
-  p$lma  <- 0.2
+  p$strategy_default$hmat <- 15.0
+  p$strategy_default$lma  <- 0.3
 
   p
 }

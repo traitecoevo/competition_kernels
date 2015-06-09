@@ -14,6 +14,10 @@ plot_options:
     height: 3.5
     width: 5.5
     pointsize: 10
+  skinny:
+    height: 4.5
+    width: 3
+    pointsize: 10
   square:
     height: 5.5
     width: 5.5
@@ -101,11 +105,11 @@ targets:
   plant_lma_1:
     command: plant_competition(0.2, plant_lma_shared)
   plant_lma_2:
-    command: plant_competition(0.11, plant_lma_shared)
+    command: plant_competition(0.08, plant_lma_shared)
   plant_hmat_1:
     command: plant_competition(5.0, plant_hmat_shared)
   plant_hmat_2:
-    command: plant_competition(17.0, plant_hmat_shared)
+    command: plant_competition(15.5, plant_hmat_shared)
 
   plant_lma_density_1:
     command: plant_competition_density(plant_lma_1)
@@ -127,7 +131,7 @@ targets:
     plot: wide
   ms/figures/plant_hmat.pdf:
     command: fig_plant_hmat(plant_hmat_1, plant_hmat_2)
-    plot: wide
+    plot: skinny
   ms/figures/plant_lma.pdf:
     command: fig_plant_lma(plant_lma_1, plant_lma_2)
     plot: wide

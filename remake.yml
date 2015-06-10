@@ -4,6 +4,9 @@ packages:
   - rmarkdown
   - BB
   - nleqslv
+  - numDeriv
+  - deSolve
+  - callr
 
 sources:
   - R

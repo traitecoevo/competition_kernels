@@ -91,11 +91,15 @@ on each other emerge via depletion of resources
 \citep[e.g.][]{Tilman-1977, Huston-1987, Kohyama-1993, Falster-2011}.
 %
 iii) Empirical, generally correlative, approaches that seek to
-describe major axes of trait variation and growth strategy among species
+describe major axes of trait variation and ecological strategy among
+species with the goal to connect these traits to species' resources use and thereby their
+competitive interactions
 \citep[e.g.][]{Grime-1979, Weiher-1999, Westoby-2002}.
 
+% GEORGES: Probably not perfect but I think we need to make clear how
+% the trait approach connect to competition.
+
 % MW: seems to me the general point we're wanting to make is that models under either strand (i) or strand (ii) have implicitly had the purpose of  being compared with actual assemblages -- mostly comparing many-species with few-species assemblages, but sometimes saying something about actual traits. Simplest illustration of this is how Ricklefs (for example) uses his version of Fig 1 to discuss the different mechanisms through which you could get more species into an assemblage]
-% GEORGES: I find the point iii) too short because it is unclear how this approach have something to say about coexistence.
 
 Broadly these different literatures represent different ways of
 addressing the same core question, rather than addressing fundamentally
@@ -141,11 +145,12 @@ species traits is not specified, rather it is an output of the model.
 The most classical model of this type is Tilman's ``\Rstar'' model \citep{Tilman-1977,
   Tilman-1982}, which focusses on the minimal level of resource
 abundance that individuals from a species can tolerate.
-The second type are successional niche models, which allow for
+The second type are successional size-structured communities or
+meta-communities models, which allow for
 differentiation in successional strategy via size-and
-trait-driven interactions within size-structured communities or
-meta-communities
+trait-driven resources depletion and thereby species interactions 
 \citep{Huston-1987,Kohyama-1993,Moorcroft-2001,Falster-2011}.
+% GEORGES: I think we need to make more clear how resources are include in this second type of model in this sentence this is not clear. I have try to edit this sentence but this is not perfect.
 
 % @richfitz - I'll leave you to rework this para
 The empirical approach to investigating how species traits affect
@@ -168,8 +173,7 @@ might drive species competition and coexistence \citep{Adler-2013}.
 However, characteristics such as trait over-dispersion are often
 interpreted as
 signatures of niche diversification \citep[e.g.][]{Kraft-2008} by
- studies that have directly transferred the Gaussian function developed in the
-first theoretical strand to field measured traits.
+ studies that have directly transferred the Gaussian competition function and the limitimg similarity principle  to field measured traits.
 % GEORGES: I think I see what you mean (coexistence of diff traits value
 % because different they are selected at different time during succession),
 % but this is not that that clear from the correlation with growth rate.
@@ -177,7 +181,7 @@ first theoretical strand to field measured traits.
 The connection between statistical signal and theory therefore depends
 critically on the generality of a Gaussian competition function
 connecting field measured traits to competition.
-% The connection with the theory is unclear, in addition I don't think a lot of studies have tried to test prediction in term of pattern of the successional 'niche of Wright-2010.
+% GEORGES: The connection with the theory is unclear, in addition I don't think a lot of studies have tried to test prediction in term of pattern of the successional 'niche of Wright-2010.
 
 Ideally, these different approaches to studying community assembly
 would mutually reinforce each other, yet to date the literatures
@@ -189,7 +193,7 @@ models resembles the trait-dependent functions used in kernel-based
 models.
 %
 To achieve this we determine the shape of the competition functions
-that are produced in two different models where competition and the
+that are produced in models where competition and the
 mechanics of the resource being depleted are represented explicitly.
 We consider two classes of resource-based models: Tilman's
 \Rstar\ model involving competition for essentials nutrients,
@@ -770,6 +774,8 @@ biological features of the system.
 through successional time; here this translates into undulations in
 the fitness of an invader with respect to traits.
 %
+In contrast, the competition functions in the different version of \Rstar\ model did not resemble either a Gaussian or a logistic function.
+%
 The main generalisation about these findings is that
 none of the functions resemble Gaussian functions.
 
@@ -831,7 +837,9 @@ of an entire resident community on a potential invader.
 %
 Our results suggest that such additivity is unlikely
 (Fig. \ref{fig:dd}). So in that case the competition would be a
-function of the entire resident community.  At that point we are
+function of the entire resident community. Previous studies based on the Lotka-Volterra model have already warned that interaction between three or more species in a community could not be easily predicted by pairwise interaction alone because of potential indirect effect between species \citep{Levine-1976}.
+% GEORGES: Not sure if this fit well here but I think it could be interesting to discuss previous paper that have shown that multiple species are quite different that the sum of teh pairs such as Levine.
+ At that point we are
 perhaps stretching the concept of a competition coefficient
 beyond its useful limit. We may as well
 model a multi-species assemblage with explicit depletion of resources.
@@ -870,17 +878,16 @@ than we might otherwise suppose.
 
 Similarly, it seems productive to further investigate the nature of
 competitive interactions as it relates to traits, but with increased
-emphasis on the nature of resource that is being contested. In the
+emphasis on the nature of resource that is being contested and the traits that control these resources use. In the
 case of traits such as \textsc{lma} and wood density, differentiation
 corresponds to a subdividing of successional time. 
-% GEORGES: I think we could also have a section showing these resources explicit models need to move toward traits that are measurable in the field as this will make their prediction comparable with field data. In addition, the approach Kunstler-Lasky-Kraft may allow to test separately sub-model of these models.
-There is also
-valuable insight to gained in applying the idea of trait-based functions
+
+There is also valuable insight to gained in applying the idea of 
+trait-based functions
 to process occurring over shorter time-frames, i.e. in growth or
 survival process rather than lifetime fitness
-\citep[e.g.][]{Kunstler-2012, Lasky-2015, Kraft-2015}.  The findings of such
-analyses test more directly the assumptions entering into
-resource-based models and thereby allow for tighter integration of
+\citep[e.g.][]{Kunstler-2012, Lasky-2015, Kraft-2015}.  Empirical studies and model could mutually reinforce each other. Models could help to select which traits may be linked to competitive interaction and should be test with field data. Field data could provide direct test of the assumptions entering into
+resource-based models and allow to identify missing processes. This could allow for tighter integration of
 theory with the sort of traits and species data that we have for plant
 communities.
 
@@ -909,9 +916,10 @@ Simultaneously, we should be looking to derive macroscopic
 approximations of the more detailed resource-based models.  While we
 might appear rather disparaging of simple models, this is not meant
 to be a criticism of simple models \textit{per se}; simple models are
-highly desirable.  However, we argue that focus should be on simple models
-that were derived to approximate the behaviour of more complex models and
-empirical findings \citep[e.g.][]{Champagnat-2006}.
+highly desirable.  Simple models are powerful tools to generate general assumption about mechanisms driving species interaction and coexistence. However, we argue that focus should be on simple models
+that can be derived from more complex and realistic models and
+empirical findings \citep[e.g.][]{Champagnat-2006}. For instance, a recent study \citep{Doebeli-2010} using simple Lotka-Volterra model has shown that when competition is driven by multiple traits, interactive effect between traits has the potential to make coexistence much more likely that with competition function based on fewer dimension. It would be crucial to explore how models of competition for multiple traits and resources may trigger such interaction.
+% GEORGES: not perfect but I think Doebeli-2010 is important.
 The problem with the Lotka-Volterra system of equations is that the
 model was formulated in isolation from the problem's to which it is
 now being applied; the model is analysed because it is what

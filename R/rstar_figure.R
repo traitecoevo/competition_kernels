@@ -1,3 +1,5 @@
+## NOTE: If changing parameters, be sure to update (manually) the
+## values in appendix sec:Rstar.
 dat_rstar <- function() {
   C1 <- c(.2, .2) * 10
   C2 <- c(.3, .7)

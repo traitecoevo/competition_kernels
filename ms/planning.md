@@ -1,3 +1,12 @@
+# jobs
+
+* intro needs shrinking by a few hundred words.  Tighten here and there.
+* shrink the history section, and ask people if it's worth keeping.  It will be necessary to reference it in the discussion.
+* the results for plant are not finished
+
+# old
+
+
 ## Introduction
 
 Competition kernels are widely used in both models and arguments.  They represent the fitness landscape drawdown.

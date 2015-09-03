@@ -529,13 +529,17 @@ constants (see Appendix \ref{sec:Rstar} for details) for resource 1
 inversely related to requirements for resource 2:
 \begin{equation}
 \label{eq:R3}
-U_{1i} = 1 - U_{2i}.
+x = U_{1i} = 1 - U_{2i}.
 \end{equation}
 (Note that the $U$'s here are $K$'s in \citet{Huisman-2001}, but we
 use $U$ to avoid confusion with carrying capacity.)  The rate of
 consumption of resource $j$ by species $i$ is determined by $C_{ki}$
 the content of resource $k$ in species $i$. We assumed that the
 content was identical across species.
+% TODO[RGF]: See Rstar results for another discussion here, but we
+% need to tidy up what x is.  If we hinge C on the same trait axis
+% then we will definitely need the $x$ rather than explicitly talking
+% about U here.
 
 % GEORGES COMMENT IF WE KEEP USING THIS FORMULATION WE NEED TO EXPLAIN
 % C HERE OTHERWISE IT SHOW UP IN THE RESULTS WITHOUT ANY
@@ -546,11 +550,8 @@ content was identical across species.
 
 \subsection{\plant\ model}
 
-The second model, \plant, is a mechanistic model of plant competition
-for light in a size-structured metapopulation
-\citep{Falster-2011, Falster-2015, Falster-2016}.
-
-\plant\ is used here as an example of a broader group
+The second model, \plant, is an individual-based model of plant competition
+for light in a size-structured metapopulation \citep{Falster-2016,Falster-2015,Falster-2016}. \plant\ is used here as an example of a broader group
 of models dealing with successional turnover
 \citep{Huston-1987,Kohyama-1993,Moorcroft-2001,Falster-2011}.
 %
@@ -594,8 +595,13 @@ production, as an individual increases in size.
 % TODO[RGF]: It's entirely unclear what is meant by symmetric and
 % asymmetric here.  I think we could have done this equivalently by
 % scaling the *supply* which would be much easier to explain at least.
+
+% TODO[RGF]: We use $x$ here but $U$ in the text above.  Determine
+% exactly which U $x$ is and decide if we talk about U_{..} or x in
+% the text.
+
 For the \Rstar\ model we considered two cases: a symmetric
-consumption case with $C = \{0.2, 0.2\}$, and an asymmetric case
+consumption case with $C = \{2, 2\}$, and an asymmetric case
 with $C = \{0.3, 0.7\}$.  Species vary only in their rate of resource
 conversion efficiency and the degree in which they specialise in the
 two resources.  For each case, we considered two resident communities;
@@ -1073,7 +1079,7 @@ self-competition'' \citep{Barabas-2012}.}
  \centering
  \includegraphics{figures/components}
  \caption{Method for estimating the shape the competition function
-   embedded in a mechanistic resource-based model. To illustrate the
+   embedded in a resource-based model. To illustrate the
    method, we present results from a model with known solution
    \citep{Dieckmann-1999} (see Appendix \ref{sec:DD99} for
    details). For each model we estimate: (a) the fitness of a rare
@@ -1231,6 +1237,19 @@ where $D$ is the resource turnover rate, $S_j$ is the supply rate of
 resource $j$ and where the sum is over all species in the community.
 % TODO: Do we have a better definition of this?
 
+% Need to document the parameters used; if we update in the model we
+% need to update here so it might be best to do this automatically.
+% See:
+%  * R/rstar_model.R: rstar_parameters() for m, D
+%  * R/rstar_figure.R: dat_rstar() for C, K, S
+
+For the models considered here, we assume $m = 0.25$, $D=0.25$.
+%
+For the ``symmetric consumption'' model, we assumed $C = {2, 2}$
+for both species and a suppy rate of  $S = {0.25, 0.25}$.  For the
+``asymmetric consumption'' model we assumed $C = {0.3, 0.7}$ and
+$S = {0.5, 0.5}$.  We define a species strategy based on a single axis
+$x = U_{1i} = 1 - U_{2i}$.
 
 \subsection{Details about \plant\ model}\label{sec:plant}
 

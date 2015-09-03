@@ -40,3 +40,6 @@ ignore/
 
 vignettes/*.md
 vignettes/*.html
+
+ms/auto
+ms/notes.md

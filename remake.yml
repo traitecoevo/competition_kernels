@@ -26,6 +26,9 @@ plot_options:
   square:
     height: 5.5
     width: 5.5
+  shape:
+    height: 1.3
+    width: 2
 
 knitr_options:
   vignette:
@@ -64,6 +67,19 @@ targets:
       - ms/figures/sm_plant_lma_components.pdf
       - ms/figures/sm_plant_hmat_components.pdf
       - ms/figures/sm_plant_hmat_density.pdf
+
+  figures_shapes:
+    depends:
+      - ms/figures/shape/constant.pdf
+      - ms/figures/shape/gaussian.pdf
+      - ms/figures/shape/platykurtic.pdf
+      - ms/figures/shape/logistic.pdf
+      - ms/figures/shape/gaussian_offset.pdf
+      - ms/figures/shape/exponential.pdf
+      - ms/figures/shape/bessel.pdf
+      - ms/figures/shape/laplacian.pdf
+      - ms/figures/shape/gaussian_with_hat.pdf
+      - ms/figures/shape/step_asymmetric.pdf
 
   plant_data:
     depends:
@@ -159,6 +175,37 @@ targets:
   ms/figures/sm_plant_hmat_density.pdf:
     command: fig_plant_density(plant_hmat_density_1, plant_hmat_density_2)
     plot: wide
+
+  ms/figures/shape/constant.pdf:
+    command: shape_constant()
+    plot: shape
+  ms/figures/shape/gaussian.pdf:
+    command: shape_gaussian()
+    plot: shape
+  ms/figures/shape/platykurtic.pdf:
+    command: shape_platykurtic()
+    plot: shape
+  ms/figures/shape/logistic.pdf:
+    command: shape_logistic()
+    plot: shape
+  ms/figures/shape/gaussian_offset.pdf:
+    command: shape_gaussian_offset()
+    plot: shape
+  ms/figures/shape/exponential.pdf:
+    command: shape_exponential()
+    plot: shape
+  ms/figures/shape/bessel.pdf:
+    command: shape_bessel()
+    plot: shape
+  ms/figures/shape/laplacian.pdf:
+    command: shape_laplacian()
+    plot: shape
+  ms/figures/shape/gaussian_with_hat.pdf:
+    command: shape_gaussian_with_hat()
+    plot: shape
+  ms/figures/shape/step_asymmetric.pdf:
+    command: shape_step_asymmetric()
+    plot: shape
 
   dat_rstar_abrams:
     command: rstar_add_abrams()

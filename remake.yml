@@ -101,7 +101,9 @@ targets:
       - ms/competition-kernels-sm.pdf
       - ms/ms.sty
       - ms/amnat.bst
+      - ms/shapes.tex
       - figures
+      - figures_shapes
     command: latex_build("ms/competition-kernels.tex", "ms/references.bib", clean=TRUE)
 
   ms/competition-kernels-sm.pdf:

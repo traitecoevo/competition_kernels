@@ -26,6 +26,9 @@ shape_platykurtic <- function() {
   curve(exp(-x^4), n=200, add=TRUE)
 }
 
+## Kisdi uses:
+##
+##  c * (1 - 1 / (1 + v * exp(- k * dx)))
 shape_logistic <- function() {
   shape_base(c(-8, 8), c(0, 1))
   curve(1 / (1 + exp(-x)), n=200, add=TRUE)
@@ -50,7 +53,7 @@ shape_bessel <- function() {
 
 shape_laplacian <- function() {
   shape_base(c(-2, 2), c(0, 1))
-  text(0, 0.5, "?", cex=0.33 / strheight("?", "user"))
+  curve(exp(-2 * abs(x)), add=TRUE)
 }
 
 shape_gaussian_with_hat <- function() {

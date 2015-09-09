@@ -13,15 +13,6 @@
   \usepackage{xr}%
   \externaldocument{competition-kernels-sm}}{}
 
-% We will generate all images so they have a width \maxwidth. This means
-% that they will get their normal width if they fit onto the page, but
-% are scaled down if they would overflow the margins.
-\makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-
 \title{The shape of competition functions in resource-based models}
 
 \author{Richard G. FitzJohn, Daniel S. Falster, Georges Kunstler and Mark Westoby}
@@ -1018,40 +1009,7 @@ ecology.
 
 \section{Tables}
 
-
-\begin{table}[h]
- \caption{Kernel shapes investigated in the literature up to the present.
-`Kinked' kernels refers to those that are ``non-differentiable at the point of
-self-competition'' \citep{Barabas-2012}.}
-\centering
-{\footnotesize
-\def\minifigheight{5ex}
-  \begin{tabularx}{\textwidth}{lclX}
-  \hline
-  Name & Shape & Characteristic equation & References \\
-  \hline
-    \textbf{Continuous}\\[1ex]
-  %
-  Constant &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/constant}}& & Hubbell-2001, Egas-2004 \\
-  Gaussian &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/gaussian}}& & Slatkin-1980, Taper-1985,
-  Dieckmann-1999\\
-  Platykurtic &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/platykurtic}}& &  Leimar-2013 \\
-  Offset Gaussian &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/gaussian_offset}}& & Slatkin-1980, Rummel-1985\\
-  ??? & & $1 + \exp(-(x_i + x_j + b)^2) - \exp(-b^2)$ & Brown-1987-66 \\
-  Exponential &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/exponential}}& $\exp(dx^4)$ &Pigolotti-2007, Leimar-2013\\
-  Logistic &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/logistic}}  & & Law-1997, Kisdi-1999, Geritz-1999, Calcagno-2006\\
-  Bessel &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/bessel}} & & Bolker-2009\\
-% more from competition-colonisation literature?
- \multicolumn{4}{l}{\textbf{Kinked}} \\[1ex]
-  Laplacian &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/laplacian}} & $\exp(-2|x|)$ & Roughgarden-1972, Leimar-2013 \\
-  Gaussian with hat &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/gaussian_with_hat}} & & Scheffer-2006, Barabas-2013, Leimar-2013 \\
-  Asymmetric step
-       &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/step_asymmetric}} & & Kinzig-1999, Calcagno-2006, DAndrea-2013 \\
-  \hline
-  \end{tabularx}
-}
-\label{tab:shapes}
-\end{table}
+\input{shapes}
 
 \clearpage
 

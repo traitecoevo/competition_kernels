@@ -170,7 +170,7 @@ might drive species competition and coexistence \citep{Adler-2013}.
 However, characteristics such as trait over-dispersion are often
 interpreted as
 signatures of niche diversification \citep[e.g.][]{Kraft-2008} by
- studies that have directly transferred the Gaussian competition function and the limitimg similarity principle  to field measured traits.
+ studies that have directly transferred the Gaussian competition function and the limiting similarity principle  to field measured traits.
 % GEORGES: I think I see what you mean (coexistence of diff traits value
 % because different they are selected at different time during succession),
 % but this is not that that clear from the correlation with growth rate.
@@ -418,7 +418,7 @@ where $K_i$ is the equilibrium value for $N_i$ when species-$i$ is
 grown in a monoculture (i.e., the carrying capacity), and
 $\alpha_{ij}$ is the per-capita competitive effect of species-$j$ on
 species-$i$, and the sum is over all species in the community,
-including species $i$.  This assues that the competitive effects are
+including species $i$.  This assumes that the competitive effects are
 additive over all species in a community and density independent
 within a species.
 %
@@ -529,6 +529,8 @@ use $U$ to avoid confusion with carrying capacity.)  The rate of
 consumption of resource $j$ by species $i$ is determined by $C_{ki}$
 the content of resource $k$ in species $i$. We assumed that the
 content was identical across species.
+% Here we us k for the resources subscript and in the appendix we use j. I change everything to k in the appendix (but this could be the other way around if you think that there are risk of confusion between k and K.
+
 % TODO[RGF]: See Rstar results for another discussion here, but we
 % need to tidy up what x is.  If we hinge C on the same trait axis
 % then we will definitely need the $x$ rather than explicitly talking
@@ -540,6 +542,7 @@ content was identical across species.
 %
 % Yes - I (RGF) agree - just need to port the model over to use the
 % formulation that you prefer.
+% GK: the branch alternat_rstar have a model with C=U
 
 \subsection{\plant\ model}
 
@@ -1077,12 +1080,13 @@ ecology.
   resource 1.
   Solid black lines indicate the competition felt by invading species. Solid
   black bars indicate regions where the invader has positive fitness, i.e.
-  could successfully establish. Parameters for the symmetric case, $c_{1i} =
-  c_ {2i}=0.5$ and for the asymmetric case $c_{1i} = 0.3, c_ {2i}=0.7$. Resident
+  could successfully establish. Parameters for the symmetric case, $C = \{2, 2\}$ and 
+  for the asymmetric case $C = \{0.3, 0.7\}$. Resident
   trait values are: (a) 0.6, (b) 0.5, (c) 0.7, (d) 0.9. All other parameters
   are given in Appendix \ref{sec:Rstar}.}
   \label{fig:Rstar}
 \end{figure}
+% I changed c to C to match the text. BASED ON R CODE THIS 2,2 and not 0.5,0.5 for the symmetric case and this match the text BUR RICH YOU NEED TO CHECK
 
 \begin{figure}[h]
   \centering
@@ -1116,11 +1120,12 @@ ecology.
   \caption{Density dependence of competition for LMA in plant.  While
     strength of competition varies with traits and is nonlinear with
     density, the pattern of density dependence does not vary strongly
-    with traits.  The per-capita competition coefficient is blue when
+    with traits.  The per-capita competition coefficient (panels a and b) is blue when
     stronger than competition is weaker than intraspecific competition
     at equilibrium, red when weaker.  The colour (z) axis following
     the horizontal dotted lines correspond to figure
-    \ref{fig:plant_lma}.  As relative population sizes increase, the
+    \ref{fig:plant_lma}.  The black line is at competition coefficient equals 
+    intraspecific competition. As relative population sizes increase, the
     \emph{per-capita} rates of competition decrease, even as the total
     rates of competition ($N \alpha$) increase.  The bottom panels (c
     and d) are competition coefficients \emph{relative} to
@@ -1175,16 +1180,16 @@ The change in population size of species $i$ ($N_i$) is:
   \label{eq:rstar-n}
   \frac{\ud N_i}{\ud t} = N_i \, (\min(p_{1i}(R_1), p_{2i}(R_2)) - m)
 \end{equation}
-where $m$ is the mortality rate and where $p_{ji}(R_j)$ is the
+where $m$ is the mortality rate and where $p_{ki}(R_k)$ is the
 specific growth rate of species $i$ given the availability of resource
-$j$, $R_j$, and which follows the Monod funtion:
+$k$, $R_k$, and which follows the Monod funtion:
 \begin{equation}
   \label{eq:rstar-p}
-  p_{ji}(R_j) = \frac{r_i R_j}{U_{ji} + R_j}.
+  p_{ki}(R_k) = \frac{r_i R_k}{U_{ki} + R_k}.
 \end{equation}
 %
-The parameter $U_{ji}$ represents the efficiency of conversion of
-resource $j$ into new offspring; the higher $U_{ji}$, the less
+The parameter $U_{ki}$ represents the efficiency of conversion of
+resource $k$ into new offspring; the higher $U_{ki}$, the less
 resources need to be acquired for a given growth rate.  (Note that $U$
 here is $K$ in \citealt{Huisman-2001} but we avoid $K$ to prevent
 confusion with carrying capacity in the Lotka--Volterra model.)
@@ -1192,12 +1197,13 @@ confusion with carrying capacity in the Lotka--Volterra model.)
 The dynamics of the resources themselves follow the equations:
 \begin{equation}
   \label{eq:rstar-r}
-  \frac{\ud R_j}{\ud t} =
-  D \times (S_j - R_j) - \sum_{i=1}^n {C_{ji} N_i
+  \frac{\ud R_k}{\ud t} =
+  D \times (S_k - R_k) - \sum_{i=1}^n {C_{ki} N_i
     \min(p_{1i}(R_1), p_{2i}(R_2))}
 \end{equation}
-where $D$ is the resource turnover rate, $S_j$ is the supply rate of
-resource $j$ and where the sum is over all species in the community.
+where $D$ is the resource turnover rate, $S_k$ is the supply rate of
+resource $k$ and where the sum is over the consumption of all $n$ species in the community (accounting for their consumption rate $C_{ki}$).
+
 % TODO: Do we have a better definition of this?
 
 % Need to document the parameters used; if we update in the model we
@@ -1209,10 +1215,11 @@ resource $j$ and where the sum is over all species in the community.
 For the models considered here, we assume $m = 0.25$, $D=0.25$.
 %
 For the ``symmetric consumption'' model, we assumed $C = {2, 2}$
-for both species and a suppy rate of  $S = {0.25, 0.25}$.  For the
+for both species and a supply rate of  $S = {0.25, 0.25}$.  For the
 ``asymmetric consumption'' model we assumed $C = {0.3, 0.7}$ and
 $S = {0.5, 0.5}$.  We define a species strategy based on a single axis
 $x = U_{1i} = 1 - U_{2i}$.
+
 
 \subsection{Details about \plant\ model}\label{sec:plant}
 

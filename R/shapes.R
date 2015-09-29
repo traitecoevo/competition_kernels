@@ -46,9 +46,11 @@ shape_exponential <- function() {
   curve(exp, add=TRUE)
 }
 
-shape_bessel <- function() {
-  shape_base(c(-2, 2), c(0, 1))
-  text(0, 0.5, "?", cex=0.33 / strheight("?", "user"))
+shape_gaussian_with_hat <- function() {
+  shape_base(c(-4, 4), ylim=c(0, 1))
+  curve(0.75*dnorm(x)/dnorm(0), n=200, add=TRUE, col="grey")
+  f <- function(x) 0.75*exp(-x^4) + 0.25*dnorm(x, sd = 0.12)/dnorm(0, sd = 0.12)
+  curve(f(x)/f(0), n=200, add=TRUE)
 }
 
 shape_laplacian <- function() {
@@ -56,13 +58,14 @@ shape_laplacian <- function() {
   curve(exp(-2 * abs(x)), add=TRUE)
 }
 
-shape_gaussian_with_hat <- function() {
+shape_gaussian_with_spike <- function() {
   shape_base(c(-4, 4), ylim=c(0, 1))
-  curve(dnorm(x) / dnorm(0), n=200, add=TRUE, col="grey")
-  text(0, 0.5, "?", cex=0.33 / strheight("?", "user"))
+  curve(0.75*dnorm(x)/dnorm(0) , n=200, add=TRUE)
+  lines(c(0, 0), c(0.75, 1), lwd=2)
 }
 
 shape_step_asymmetric <- function() {
   shape_base(c(-2, 2), c(0, 1))
-  text(0, 0.5, "?", cex=0.33 / strheight("?", "user"))
+  curve(0 + 0*x, from = -2, to=0, n=100, add=TRUE)
+  curve(1 + 0*x, from = 0, to=2, n=100, add=TRUE)
 }

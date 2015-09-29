@@ -77,9 +77,9 @@ targets:
       - ms/figures/shape/logistic.pdf
       - ms/figures/shape/gaussian_offset.pdf
       - ms/figures/shape/exponential.pdf
-      - ms/figures/shape/bessel.pdf
-      - ms/figures/shape/laplacian.pdf
       - ms/figures/shape/gaussian_with_hat.pdf
+      - ms/figures/shape/laplacian.pdf
+      - ms/figures/shape/gaussian_with_spike.pdf
       - ms/figures/shape/step_asymmetric.pdf
 
   plant_data:
@@ -197,14 +197,14 @@ targets:
   ms/figures/shape/exponential.pdf:
     command: shape_exponential()
     plot: shape
-  ms/figures/shape/bessel.pdf:
-    command: shape_bessel()
+  ms/figures/shape/gaussian_with_hat.pdf:
+    command: shape_gaussian_with_hat()
     plot: shape
   ms/figures/shape/laplacian.pdf:
     command: shape_laplacian()
     plot: shape
-  ms/figures/shape/gaussian_with_hat.pdf:
-    command: shape_gaussian_with_hat()
+  ms/figures/shape/gaussian_with_spike.pdf:
+    command: shape_gaussian_with_spike()
     plot: shape
   ms/figures/shape/step_asymmetric.pdf:
     command: shape_step_asymmetric()

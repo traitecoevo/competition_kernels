@@ -5,38 +5,39 @@ self-competition'' \citep{Barabas-2012}.  Equations are presented only to give a
 }
 \centering
 {\footnotesize
+\renewcommand{\arraystretch}{1.5}  % more space between rows of table
 \def\minifigheight{5ex}
-\begin{tabularx}{\textwidth}{lclX}
+\begin{tabularx}{\textwidth}{lclp{5cm}}
   \hline
   Name & Shape & Representative equation & Example references \\
   \hline
     \textbf{Continuous}\\[1ex]
     %
-    Constant &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/constant}}& $c$ & \citet{Hubbell-2001, Egas-2004} \\
+    Constant &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/constant}}& $c$ & \citet{Hubbell-2001} \\
     %
     Gaussian &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/gaussian}}& $\exp\left(-\frac{(\Delta x)^2}{\sigma^2}\right)$ & \citet{Slatkin-1980, Taper-1985, Dieckmann-1999}\\
     %
     Platykurtic &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/platykurtic}}& $\exp\left(-\frac{(\Delta x)^4}{\sigma^2}\right)$&  \citet{Leimar-2013} \\
     %
-    Offset Gaussian &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/gaussian_offset}}& $\exp\left(-\frac{(\Delta x - b)^2}{\sigma^2}\right)$ & \citet{Slatkin-1980, Rummel-1985}\\
-    % TODO[RGF]: This looks like an offset Gaussian to me.  I've dropped it for now as it's just a big ugly equation in the table...
-    % ??? & & $1 + \exp(-(x_i + x_j + b)^2) - \exp(-b^2)$ & \citet{Brown-1987-66} \\
-    % TODO[RGF]: The equation here comes from Daniel, but does not
-    % match my implementation in the code.  What's actually used in
-    % Leimar?  Is the 'd' a delta or a constant?
-    Exponential &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/exponential}}& $\exp(dx^4)$ &\citet{Pigolotti-2007, Leimar-2013}\\
-    % TODO[RGF]: I've just gone with a standard logistic here, Kisdi
-    % also includes a scaling term on the dx.
-    Logistic &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/logistic}} & $\frac{1}{1 + \exp(-\Delta x)}$ & \citet{Law-1997, Kisdi-1999, Geritz-1999, Calcagno-2006}\\
-    Bessel &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/bessel}} & & \citet{Bolker-2009}\\
-    % more from competition-colonisation literature?
-    \textbf{Kinked}\\[1ex]
-    % TODO[RGF]: should this be |\Delta x|?
+    Exponential &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/exponential}}& $\exp(d x)$ &\citet{Pigolotti-2007}\\
+    % Add scaling term on the dx that's important for connecting with asymmetric step where d = infty
+    Logistic &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/logistic}} & $\frac{1}{1 + \exp(d \,\Delta x)}$ & \citet{Law-1997, Kisdi-1999, Geritz-1999, Egas-2004, Calcagno-2006, DAndrea-2013}\\
+    %
+    Offset Gaussian &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/gaussian_offset}}& $\exp\left(-\frac{(\Delta x - b)^2}{\sigma^2}\right)$ & \citet{Slatkin-1980, Rummel-1985,Brown-1987-66}\\
+    %
+    Gaussian with hat &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/gaussian_with_hat}}& 
+    % TODO This eqn looks ugly, wonder if we need it?
+    {\tiny $c \exp\left(-\frac{(\Delta x)^2}{\sigma_1^2}\right)+(1-c) \exp\left(-\frac{(\Delta x)^2}{\sigma_2^2}\right)$}
+    &  \citet{Barabas-2013, Leimar-2013} \\
+    %
+      \textbf{Kinked}\\[1ex]
     Laplacian &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/laplacian}} & $\exp(-2|x|)$ & \citet{Roughgarden-1972, Leimar-2013} \\
     %
-    Gaussian with hat &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/gaussian_with_hat}} & & \citet{Scheffer-2006, Barabas-2013, Leimar-2013} \\
     Asymmetric step
-       &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/step_asymmetric}} & & \citet{Kinzig-1999, Calcagno-2006, DAndrea-2013} \\
+       &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/step_asymmetric}} & $ \frac{1}{1 + \exp(\infty \, \Delta x)},$  & \citet{Kinzig-1999, Egas-2004, Calcagno-2006, DAndrea-2013} \\
+    Gaussian with spike &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{figures/shape/gaussian_with_spike}} & 
+        {\tiny $c \exp\left(-\frac{(\Delta x)^2}{\sigma_1^2}\right)+(1-c) \exp\left(-\frac{(\Delta x)^2}{\infty}\right)$}
+        & \citet{Scheffer-2006, Barabas-2013} \\
     \hline
   \end{tabularx}
 }

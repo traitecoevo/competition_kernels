@@ -25,7 +25,7 @@ p$seed_rain <- res$seed_rain[,"out"]
 ## Extract the ODE times so that we run at the same points as the
 ## resident population was run at.
 schedule <- res$schedule
-schedule$ode_times <- attr(res, "ebt")$ode_times
+schedule$ode_times <- attr(res, "scm")$ode_times
 
 ## Resident lma values:
 lma.res <- sapply(seq_len(p$size), function(i) p[[i]]$parameters$lma)
@@ -154,7 +154,7 @@ p2$seed_rain <- res2$seed_rain[,"out"]
 ## Extract the ODE times so that we run at the same points as the
 ## resident population was run at.
 schedule2 <- res2$schedule
-schedule2$ode_times <- attr(res2, "ebt")$ode_times
+schedule2$ode_times <- attr(res2, "scm")$ode_times
 
 ## Resident lma values:
 lma.res2 <- sapply(seq_len(p2$size), function(i) p2[[i]]$parameters$lma)

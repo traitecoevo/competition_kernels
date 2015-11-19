@@ -75,7 +75,7 @@ aax1                                  p=NULL, s=NULL, schedule=NULL,
   schedule <- get_or_default(schedule, default_schedule, p)
   p <- add_strategy_trait(trait, value, p, s, seed_rain)
   schedule <- build.schedule(p, schedule, nsteps, eps, verbose=TRUE)
-  schedule$ode_times <- attr(schedule, "ebt")$ode_times
+  schedule$ode_times <- attr(schedule, "scm")$ode_times
   function(values) {
     log(landscape(trait, values, p, schedule))
   }
@@ -83,10 +83,10 @@ aax1                                  p=NULL, s=NULL, schedule=NULL,
 
 add_ode_times <- function(trait, value, p, schedule, s, seed_rain=1) {
   p <- add_strategy_trait(trait, value, p, s, seed_rain)
-  ebt <- new(EBT, p)
-  ebt$cohort_schedule <- schedule$copy()
-  ebt$run()
-  ebt$ode_times
+  scm <- new(SCM, p)
+  scm$cohort_schedule <- schedule$copy()
+  scm$run()
+  scm$ode_times
 }
 
 add_strategy_trait <- function(trait, value, p, s, seed_rain=NULL) {

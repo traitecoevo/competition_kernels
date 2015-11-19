@@ -17,7 +17,7 @@ competition_assay <- function(N, lma.mutant, p) {
   p$seed_rain <- N
   schedule <- build.schedule(p, schedule0, 5, 1e-3,
                              progress=FALSE, verbose=FALSE)
-  schedule$ode_times <- attr(schedule, "ebt")$ode_times
+  schedule$ode_times <- attr(schedule, "scm")$ode_times
 
   w <- landscape(lma.mutant, p, schedule)
   z <- model_jacobian_density(lma.mutant, p, schedule)

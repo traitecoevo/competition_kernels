@@ -69,7 +69,7 @@ plant_competition_prepare <- function(trait, p0=NULL, n=20L,
 }
 
 plant_base_parameters <- function() {
-  p <- ebt_base_parameters()
+  p <- scm_base_parameters()
   p$control$equilibrium_nsteps <- 30
   p$control$equilibrium_solver_name <- "hybrid"
   p$disturbance_mean_interval <- 20.0

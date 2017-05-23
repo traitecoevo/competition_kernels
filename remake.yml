@@ -6,7 +6,6 @@ packages:
   - nleqslv
   - numDeriv
   - deSolve
-  - callr
 
 sources:
   - R

@@ -24,7 +24,7 @@ Short list of main issues with models
   - No clear generalisation yet about competition kernel shapes
     - our lma kernel looks a little like the roughgarden offset Gaussian
     - our hmat kernel looks like kisdi's asymmetric kernel.
-  - Kernels other than Gaussian may lead to coexistance
+  - Kernels other than Gaussian may lead to coexistence
   - Other points: density dependent competition, shape of r and K with respect to traits
 
 Traits are a productive way forward

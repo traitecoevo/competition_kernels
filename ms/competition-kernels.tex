@@ -1,6 +1,6 @@
 \documentclass[a4paper,11pt]{article}
 \usepackage[osf]{mathpazo}
-\usepackage{ms}
+\usepackage{ms/ms}
 \usepackage{natbib}
 \usepackage{graphicx}
 \usepackage{caption}
@@ -20,6 +20,7 @@
 \newcommand{\verify}[1]{{\color{navy}{(verify: #1)}}}
 \newcommand{\todo}[1]{{\color{navy}{(todo: #1)}}}
 
+
 %%% COMMENTS & REVISIONS -- OFF %%%
 % \newcommand{\rev}[1]{{#1}}
 % \newcommand{\verify}[1]{{#1}}
@@ -27,9 +28,8 @@
 
 
 % Allow referencing into the supporting information, once that exists.
-\IfFileExists{./competition-kernels-sm.tex}{%
-  \usepackage{xr}%
-  \externaldocument{competition-kernels-sm}}{}
+% \usepackage{xr}%
+% \externaldocument{competition-kernels-sm}
 
 %---------------------------------------
 
@@ -48,7 +48,12 @@
 \runninghead{Competition functions in resource models}
 \keywords{Competition, coexistence, kernel, resources}
 
-\input{common-defs}
+\newcommand{\ud}{\ensuremath{\mathrm{d}}}
+\newcommand{\sign}{\mathop{\mathrm{sign}}\nolimits}
+\newcommand{\Rstar}{\ensuremath{R^*}}
+\newcommand{\plant}{{\tt plant}}
+\newcommand{\hmat}{\ensuremath{h_{\text{mat}}}}
+\newcommand{\lma}{\textsc{lma}}
 
 \begin{document}
 
@@ -63,7 +68,6 @@
 % \doublespacing
 
 \begin{abstract}
-%% TODO: shrink and tighten
 Community assembly can be thought of in a trait space, where the problem is to understand what configurations of occupancy are possible. For this purpose a central concept is the competition function, which describes how a resident species draws down the fitness landscape around it in trait space. In textbooks since the 1970s competition functions have most often been thought of as single-peaked and centred on the traits possessed by the resident. Intuitively arising from competition functions of this shape has been the concept of species packing or limiting similarity, whereby coexisting species are expected to be spaced out from each other in trait space.
 Plants on land are usually thought of as competing for space. This means that they are not much differentiated in their usage of resources such as light, water and mineral nutrients. Further their depletion of these resources is local around the plant individual. There is often establishment advantage, meaning that tall individuals compete asymmetrically with short ones, especially for light. Because these features are poorly aligned with the standard limiting similarity model, a variety of alternative models have arisen to account for continuing coexistence in sessile communities, driven variously by resource ratios, by colonization-competition tradeoffs, by successional differentiation, by variation in response over time combined with demographic storage effects, and by stochasticity alone or in combination with other effects.
 Here we address the behaviour of two of these models by describing the competition functions that are implicit in them, and comparing those with results long established for Lotka-Volterra competition with Gaussian functions. We are concerned only with models where competition between species depends on their traits, and where therefore a predicted assemblage corresponds to a constellation in trait space. We present general methods for quantifying competition functions for any given model.
@@ -73,25 +77,23 @@ None [neither?] of the models investigated for sessile-community competition sho
 
 \section{Introduction}
 
-Competition is a powerful force structuring ecological communities \citep{Schluter-2000,Vellend-2016}. Over the short term, competition for scarce resources regulates the overall abundance of individuals in a community. Over longer time frames, competition among different phenotypes reshapes community structure and dynamics, by favouring some types over others. Such selective effects drive evolutionary arms races, which favour traits giving prior access to a resource, while also regulating the diversity of types (often species) that can coexist \citep[e.g.][]{Gause-1934,Lack-1947,MacArthur-1967}. Understanding the strength and nature of competitive interactions among individuals, and how this varies with traits of the competing types, is thus a foundation for theories of community assembly and adaptive evolution.
+Competition is a powerful force structuring ecological communities \citep{Schluter-2000,Vellend-2016}. In the short term, competition for scarce resources regulates the overall abundance of individuals in a community. Over longer time frames, competition among different phenotypes reshapes community structure and dynamics, by favouring some types over others. Such selective effects drive evolutionary arms races, which favour traits giving prior access to a resource, while also regulating the diversity of types (often species) that can coexist \citep[e.g.][]{Gause-1934,Lack-1947,MacArthur-1967}. Understanding the strength and nature of competitive interactions among individuals, and how this varies with traits of the competing types, is thus a foundation for theories of community assembly and adaptive evolution.
 
-A common approach for embedding competitive processes within models of community assembly is via the phenomenological Lotka-Volterra (LV) model, wherein the  population dynamics of different types (most often species) are determined by their intrinsic carrying capacity, the density of competitors, and so-called ``competition coefficients'' \citep{Lotka-1925, Volterra-1926} --- constants describing how the per capita rate of population growth for one type is reduced by the abundance of another type. Variants of the LV model form the foundation for much theory in community ecology, including the competitive exclusion principle \citep{Gause-1934}, limiting similarity \citep{MacArthur-1967, May-1972, Slatkin-1980}, character displacement \citep{Taper-1985, Case-2000}, species coexistence and community assembly \citep{MacArthur-1967, Calcagno-2006, Leimar-2013}, Chesson's modern coexistence theory \citep{Chesson-2000,Barabas-2018}, the competition colonisation trade-off (??), and sympatric speciation \citep{Dieckmann-1999}.
+A common approach for embedding competitive processes within models of community assembly is via the phenomenological Lotka-Volterra (LV) model, wherein the  population dynamics of different types (most often species) are determined by their intrinsic carrying capacity, the density of competitors, and so-called ``competition coefficients'' \citep{Lotka-1925, Volterra-1926} --- constants describing how the per capita rate of population growth for one type is reduced by the abundance of another type. Variants of the LV model form the foundation for much theory in community ecology, including the competitive exclusion principle \citep{Gause-1934}, limiting similarity \citep{MacArthur-1967, May-1972, Slatkin-1980, Abrams-1983}, character displacement \citep{Taper-1985, Case-2000}, species coexistence and community assembly \citep{MacArthur-1967, Calcagno-2006, Leimar-2013, DAndrea-2019}, Chesson's modern coexistence theory \citep{Chesson-2000,Barabas-2018}, and sympatric speciation \citep{Dieckmann-1999}.
 
 A key feature in several theory strands derived from LV models is linking competitive outcomes and traits. This link is achieved via a ``competition function'', which relates the size of the constant competition coefficient to the absolute difference in some trait between the two competitors. Historically, researchers mainly used Gaussian shapes for this function, which suggest types with similar traits compete intensely for resources, and that competitive coefficients decline with the absolute differences in trait values via a Gaussian curve (Table \ref{tab:shapes}). Indeed, the idea of species arranged along a resource axis, differentiated in their resource use via some trait and with Gaussian decline in either resource utilisation of competitive impact (e.g., Fig. \ref{fig:competition-functions}), is iconic within community ecology and is almost universally present in textbooks from 1970s through to the present \citep[e.g.,][]{Krebs-1972, Ricklefs-1973, Ricklefs-1999, Krebs-2013}. While originally derived with reference to a resource utilisation curves \citep{MacArthur-1967, Roughgarden-1979}, in most formulations resources are not modelled explicitly, rather implied via the competition coefficients.
 
-While Gaussian competition functions have perhaps been the most common shape applied within community ecology, alternative shapes have also been considered (Table \ref{tab:shapes}). An asymmetric function has been used to \todo{...., ref}, such as in the model representing competition-colonization trade-off \todo{ref}. \todo{ Offset Gaussian.}. More recently, researchers have considered so-called ``kinked'' functions -- shapes that are not continuously differentiable (Table \ref{tab:shapes}). These studies have clarified an important point: the shape of the competition function can fundamentally alter the diversity of types supported in modelled communities \citep{Calcagno-2006, Scheffer-2006, Pigolotti-2007, Leimar-2013, Barabas-2013}. Specifically, so-called ``continuous'' functions (Table \ref{tab:shapes}) lead to a distributed and evenly spaced distribution of traits, while ``kinked'' functions (Table \ref{tab:shapes}) allow for a continuous coexistence of traits in the community. These results reinforce similar insights \verify{suggested in earlier theory about limiting similarity} \todo{(refs)} and the broader picture portrayed by the iconic image of niche differentiation portrayed in Figure 1: that the shape of competition functions is fundamental for understanding the mixtures of traits favoured in an ecosystem.
+While Gaussian competition functions have been the most-common shape applied within community ecology, alternative shapes have also been considered (Table \ref{tab:shapes}). An asymmetric function has been where size gives exclusive access to a resource \citep[e.g.]{Law-1997, Kisdi-1999, Geritz-1999, Egas-2004, Calcagno-2006, DAndrea-2013} (Table \ref{tab:shapes}). More recently, researchers have considered so-called ``kinked'' functions (Table \ref{tab:shapes}), with shapes that are not continuously differentiable \citep{Calcagno-2006, Scheffer-2006, Pigolotti-2007, Leimar-2013, Barabas-2013}. These studies have clarified an important point: the shape of the competition function can fundamentally alter the diversity of types supported in modelled communities. Specifically, so-called ``continuous'' functions (Table \ref{tab:shapes}) lead to a distributed and evenly spaced distribution of traits, while ``kinked'' functions (Table \ref{tab:shapes}) allow for a continuous coexistence of traits in the community \citep{Scheffer-2006, Pigolotti-2007, Leimar-2013, Barabas-2013, DAndrea-2013}. These results reinforce similar insights suggested in earlier theory about limiting similarity \citep{Abrams-1983} and the broader picture portrayed by the iconic image of niche differentiation portrayed in Figure 1: that the nature of competitive impact is fundamental for understanding the mixtures of traits favoured in an ecosystem.
 
-An alternative approach for linking competition with community assembly and traits is to explicitly model the abundance of shared resources and depletion of these by populations of different individuals on the basis of their traits (hereafter called `resource models'). Unlike the LV models, the competitive effects of species on each other in resource models are not specified directly, but rather emerge via the aggregate effect on shared resources. Resources commonly considered for plant communities include light, nutrients, and water. The most prominent model of this type is Tilman's ``\Rstar'' model \citep{Tilman-1977, Tilman-1982}, which focusses on the minimal resource level individuals can tolerate. A second class are successional models forest communities, in which there is size-structured competition for light \citep{Huston-1987,Kohyama-1993,Moorcroft-2001,Falster-2011}, and potentially also competition for nutrients or water \verify{????, water, eg. farrior}. While the \Rstar model has commonly been used to investigate questions about community assembly \todo{references}, size-based successional models have historically been used to answer questions about carbon, water and nutrient cycles \todo{references} more than community assembly. One reason size-based models have not used to investigate questions about community assembly is because demographic quantities like the per capita growth rate of individuals in each species, central to most success of theory using Lotka-Volterra models, are difficult to calculate. Recent advances in the numerical solving of size-structured models \citep{Falster-2016}, however, has allowed per capita growth rates to be estimated for entire metapopulations, thereby enabling direct modelling of trait-based community assembly in complex size- and patch-structured communities \cite{Falster-2017}. A downside of using resource models for questions about community assembly, especially the size-based models, is that they can be more computationally demanding to run and therefore investigate, making LV models of continual interest.
+An alternative approach for linking competition with community assembly and traits is to explicitly model the abundance of shared resources and depletion of these by populations of different individuals on the basis of their traits (hereafter called `resource models'). Unlike the LV models, the competitive effects of species on each other in resource models are not specified directly, but rather emerge via the aggregate effect on shared resources. Resources commonly considered for plant communities include light, nutrients, and water. The most prominent model of this type is Tilman's ``\Rstar'' model \citep{Tilman-1977, Tilman-1982}, which focusses on the minimal resource level individuals can tolerate. A second class are successional models forest communities, in which there is size-structured competition for light \citep{Huston-1987,Kohyama-1993,Moorcroft-2001,Falster-2011,Falster-2016,Weng-2020}, and potentially also competition for nutrients or water \citep{Moorcroft-2001,Farrior-2013, Smith-2014, Fisher-2018,Weng-2020}. While the \Rstar model has commonly been used to investigate questions about community assembly, size-based successional models have historically been used to answer questions about carbon, water and nutrient cycles more than community assembly \citep{Moorcroft-2001,Medvigy-2012,Smith-2014,Fisher-2018}. One reason size-based models have not used to investigate questions about community assembly is because demographic quantities like the per capita growth rate of individuals in each species, central to most success of theory using Lotka-Volterra models, are difficult to calculate. Recent advances in the numerical solving of size-structured models \citep{Falster-2016}, however, has allowed per capita growth rates to be estimated for entire metapopulations, thereby enabling direct modelling of trait-based community assembly in complex size- and patch-structured communities \cite{Falster-2017}. A downside of using resource models for questions about community assembly, especially the size-based models, is that they can be more computationally demanding to run and therefore investigate, making LV models of continual interest.
 
-Despite addressing similar questions -- about the the diversity and structure of ecological communities, especially in relation to traits -- studies using LV and resource models have remained largely isolated from one another. \todo{what about Abrams 2008?}.
-
-In this paper we try to bridge this divide, by asking how well the signature of competitive interactions that emerges from resource models resembles the trait-dependent competition functions assumed within LV models. While few would argue that LV models are more than a convenient toy framework, nonetheless LV models make strong assumptions about the nature of competitive interactions. As a starting point, LV models assume that all competitive interactions within the community can be summarised via a matrix of pairwise and constant competition coefficients, and that the total competitive effect of a series of competitors can be summed across species. Additionally, models using trait-based competition functions assume that competitive interactions between two species can be represented via a competition function with a definite shape (such as in Table \ref{tab:shapes}), and that the shape of the competition function is invariant with the absolute value of the trait, the density of the both species in the community. If these assumptions are supported by resource models, where competitive effects emerge from lower-level interactions that are inspired by natural systems, then we can be confident that insights derived from LV models may apply broadly within natural systems. 
+Despite addressing similar questions -- about the the diversity and structure of ecological communities, especially in relation to traits -- studies using LV and resource models have remained largely isolated from one another. In this paper we try to bridge this divide, by asking how well the signature of competitive interactions that emerges from resource models resembles the trait-dependent competition functions assumed within LV models. While few would argue that LV models are more than a convenient toy framework, nonetheless LV models make strong assumptions about the nature of competitive interactions. As a starting point, LV models assume that all competitive interactions within the community can be summarised via a matrix of pairwise and constant competition coefficients, and that the total competitive effect of a series of competitors can be summed across species. Additionally, models using trait-based competition functions assume that competitive interactions between two species can be represented via a competition function with a definite shape (such as in Table \ref{tab:shapes}), and that the shape of the competition function is invariant with the absolute value of the trait, the density of the both species in the community. If these assumptions are supported by resource models, where competitive effects emerge from lower-level interactions that are inspired by natural systems, then we can be confident that insights derived from LV models may apply broadly within natural systems. 
 
 To that end, we determine the shape of the emergent competition functions that are produced in the resource models, where the abundance and depletion of resources is represented explicitly, and used these to verify several assumptions implied by the structure of the competition functions within LV models. We consider two classes of resource models: Tilman's \Rstar\ model involving competition for essentials nutrients depending on the species resource use and requirement, and the \plant\ model involving competition for light in disturbance-prone vegetation, and influenced by physiological traits. Our hope was that these shapes would resemble one of the shapes used in previous LV models (Table \ref{tab:shapes}), as this would assure us that insights gained from LV models perhaps generalise to resource-based models. Our approach of comparing the emergent behaviour of a resource-based model to that of a function-based approach is not itself new; \citet{Abrams-2008} found the \Rstar\ model to satisfy few of the assumptions that underpin LV dynamics. Our analysis extends \citeauthor{Abrams-2008} approach by considering not just competition coefficients, but trait-based competition functions, and including an additional class of resource-based model, involving size-based competition for light.
 
 \section{Methods}
 
-We investigated the dynamics of two resource models--- \Rstar{} and \plant{}---in which the competitive impact of one type on another arises emerges from the joint impact of all individuals in depleting a shared resource. For each of these resource models, we computed the quantities used in the LV equations across a range of trait values, to estimate the shape of the emergent competition functions implied by the model. We then assessed the shape of these functions, and whether they varied with the absolute value of traits values, and the density of competitors.
+We investigated the dynamics of two resource models--- \Rstar\  and \plant, in which the competitive impact of one type on another arises emerges from the joint impact of all individuals in depleting a shared resource. For each of these resource models, we computed the quantities used in the LV equations across a range of trait values, to estimate the shape of the emergent competition functions implied by the model. We then assessed the shape of these functions, and whether they varied with the absolute value of traits values, and the density of competitors.
 
 \subsection{The Lotka-Volterra model}
 
@@ -101,52 +103,8 @@ In the standard LV model, the rate of increase in the abundance of species $i$ i
 \end{equation}
 where $K_i$ is the equilibrium value for $N_i$ when species-$i$ is grown in a monoculture (i.e., the carrying capacity), and $\alpha_{ij}$ is the per-capita competitive effect of species-$j$ on species-$i$, and the sum is over all species in the community, including species $i$. Eq. \ref{eq:LV} implies competitive effects are additive over all individuals in a community. By convention, competition coefficients are expressed as the effect of species-$j$ on species-$i$, relative to the effect of species-$i$ on itself (at equilibrium).  So $\alpha_{ii} \equiv 1$. When $\alpha_{ij} > \alpha_{ii}$ interspecific competition is stronger than intraspecific competition. While other forms of equation (\ref{eq:LV}) exist that differ in the exact nature of density dependence \citep[e.g.][]{Leimar-2013}, the differences are small and so for simplicity we consider a single version.
 
-\subsection{Resource model 1: \Rstar }
 
-The \Rstar\ model is one of the best studied and cited models of resource competition \citep{Tilman-1977, Tilman-1982, Huisman-2001}, originating from a study on exploitative competition for any pair of generic resources \citep{Leon-1975}. We implemented a version where the growth rates follow a Monod equation \citep{Huisman-2001}, with parameter trade-offs assumed by \citet{Fox-2008}. This implementation is similar to the widely-used version described by \citet{Tilman-1977, Tilman-1982}. \verify{ What is the difference with Tilman 1977?}. 
-
-\todo{I have shifted the model description from the appendix back into the main text, and tried to make it more streamlined. GJK - please review to ensure no meaning has been lost. }
-
-Individuals in the \Rstar\ model compete in an unstructured environment for two essential (non-substitutable) resources. Per capita growth rates for each type depend on the availability of the resource that is currently most limiting. Let $R_1, R_2$ be the abundances of the two resources. The change in population size of type $i$ is then
-\begin{equation}
-  \label{eq:rstar-n}
-  \frac{\ud N_i}{\ud t} = N_i \, \left(r_i \min\left(\frac{R_1}{U_{1i} + R_1}, \frac{R_2}{U_{2i} + R_2}\right) - m\right),
-\end{equation}
-where $r_i$ is the maximum birth rate of type $i$, i.,e. without resource limitation \verify{true?}; $m$ is the mortality rate, and $U_{ki}$ is the efficiency in converting resource $k$ into new offspring. (Higher $U_{ki}$ thus means less are resources needed to for a given growth rate. The dynamics of the resources themselves are given by
-\begin{equation}
-  \label{eq:rstar-r}
-  \frac{\ud R_k}{\ud t} =
-  D (S_k - R_k) - \sum_{i=1}^n {C_{ki} N_i
-    \min\left(\frac{R_1}{U_{1i} + R_1}, \frac{R_2}{U_{2i} + R_2}\right)},
-\end{equation}
-where $D$ is the resource turnover rate, $S_k$ is the supply rate of resource $k$, $C_{ki}$ is the consumption rate \verify{consumption rate or resource content?} of resource $k$ by type $i$. 
-\todo{previous text discussed setting C= U, is this still relevant?} 
-\todo{previous text said C did not vary among species. Should we mention that here? }
-
-Following previous studies \citep{Tilman-1985, Schreiber-2003, Fox-2008}, we let a trait $x_i$ determine the relative amounts of the two resources required for growth of individuals in type $i$: \begin{equation}
-\label{eq:R3}
-x = U_{1i} = 1 - U_{2i}.
-\end{equation}
-Types thus vary from requiring mostly resource 1 ($x << 0.5$), to equal amounts of both resources ($x = 0.5$), to mostly resource 2 ($x >> 0.5$).
-
-We considered two cases of this model, one with symmetric consumption \verify{or content?} between the two species, and another with asymmetric consumption. \verify{What does this mean? Is it symmetric across species or with respect to resources?}. \verify{Are symmetric and asymmetric cases both important?} Because $C$ does not vary by species, coexistence was not possible in this model \citep{Tilman-1982}. Invasion is therefore sufficient for competitive replacement.
-
-Parameters were set following \citet{Fox-2008}, with $m = 0.25$, $D=0.25$ \verify{true? Need to update parameters if model has been changed?}. For the ``symmetric'' model, we assumed $C = {2, 2}$ for both species and a supply rate of  $S = {0.25, 0.25}$.  For the ``asymmetric'' model we assumed $C = {0.3, 0.7}$ and $S = {0.5, 0.5}$. In the asymmetric model, the two resources are \verify{consumed at a different by each species}.
-% See:
-%  * R/rstar_model.R: rstar_parameters() for m, D
-%  * R/rstar_figure.R: dat_rstar() for C, K, S
-
-\subsection{Resource model 2: \plant }
-
-\plant\ is an individual-based model of plant competition for light in a size-structured metapopulation \citep{Falster-2016, Falster-2017}. Vegetation in the \plant\ model comprises a large number of patches subject to a disturbance regime. Disturbances clear established vegetation within a patch, which are then recolonised via seed dispersal from other patches. Individual plants progress through their life-cycle, from seeds until mature adults, with growth survival and fecundity rates determined by the combined effect of an individual's traits, their current size, and the degree of shading from other plants within the same patch. Shading at a given height is computed from the cumulative leaf area above that height. Short-term competitive effects are therefore size-asymmetric. The sole effect of shading (and the only source of competition) is to alter an individual's photosynthetic income. Following \citep{Falster-2017}, fitness of individuals with a given type is calculated by integrating seed output across the entire metapopulation.
-
-\plant\ is used here as an example of a broader group of models dealing with successional turnover. Several forest models have a similar overall structure \citep{Huston-1987,Kohyama-1993,Moorcroft-2001}. \todo{add refs to LJP Guess, ED2}. A distinct feature of the \plant compared to the others is its ability to numerically solve equilibrium densities and per-capita growth rates for the metapopulation. Full details on the model are described in see \citet{Falster-2016, Falster-2017}.
-
-Using \plant, we estimated trait-based competitive functions for two traits whose evolutionary dynamics have recently been investigated \citep{Falster-2017}: leaf mass per unit leaf area (\lma) and height at maturation (\hmat). In the model, \lma\ moderates a physiological trade-off between the cost of building an extra unit of leaf area and the rate of leaf turnover \citep{Wright-2004}. Variation in \lma\ thereby underpins a trade-off between height growth rate and shade-tolerance of seedlings. Meanwhile, \hmat\ moderates the allocation of surplus energy between growth and seed production, as an individual increases in size.
-
-\verify{Do we want to add any equations for the plant model? E.g. for basic fitness calculations?}
-
-\subsection{Estimating emergent competition functions}
+\subsection{Method for estimating emergent competition functions}
 
 We are interested in situations where the different parameters in equation (\ref{eq:LV}) are functions of traits; that is replacing the subscripts in the above equations as continuous functions of species traits $x$. In particular, when the coefficient $\alpha_{ij}$ becomes a function $\alpha(x_i, x_j)$. We restricted our analysis to the simplest situation where a single type with trait $x_I$ invades a community comprising a single resident type with trait $x_R$ at equilibrium. The fitness $w_I(x_I, x_R)$ of the invading type is its per capita rate of increase when rare ($N_I = 0$), or: 
 \begin{equation}\label{eq:LVi}
@@ -162,84 +120,120 @@ To estimate the shapes of competition functions embedded within the \Rstar\ and 
 \item $K(x_I)$: equilibrium population density of invader when growing in monoculture, and
 \item $K(x_R)$: equilibrium population density of resident when growing in monoculture.
 \end{enumerate}
-We then solved for $\alpha(x_R, x_I)$ by rearranging  \ref{eq:LVi} to give:
+
+For each of the resource models considered, we computed these core quantities across a range of invader trait values. We then solved for $\alpha(x_R, x_I)$ by rearranging eq. \ref{eq:LVi} to estimate the emergent competition functions as
 \begin{equation} \label{eq:alpha}
-  \alpha(x_R, x_I) = \frac{K(x_I)}{N_R} \left(1 - \frac{w_I(x_I, x_R)}{r(x_I)}\right)
+  \alpha(x_R, x_I) = \frac{K(x_I)}{N_R} \left(1 - \frac{w_I(x_I, x_R)}{r(x_I)}\right),
 \end{equation}
-(note that at equilibrium $N_R = K(x_R)$).
+where $N_R = K(x_R)$ (abundance at equilibrium). 
 
-For each of the resource models, we computed the core quantities used in the LV equations across a range of invader trait values, in order to estimate the emergent competition functions. In each case, we considered two resident communities; one where invasion by other types was possible, and one where the resident was located at the evolutionary attractor. 
+For each model, we considered two resident communities; one where invasion by other types was possible, and one where the resident was located at the evolutionary attractor. To investigate whether the shape of competition functions varies with the density of the competitor, we varied $N_R$ from eq. \ref{eq:alpha} from \verify{ its equilibrium value of $N_R=K(x_R)$}.
 
-To verify that this approach accurately recovers the competition functions used within a model, we tested it on a model with with known solution. Using the model of \citet{Dieckmann-1999} (see Appendix \ref{sec:DD99} for details), we estimated the shape of the competition function embedded within it, as if we didn't know the answer and compared this to the true generating value.
+To verify that this approach accurately recovers the competition functions used within a model, we tested it on a model with with known solution. Using the model of \citet{Dieckmann-1999}, we estimated the shape of the competition function embedded within the equations, as if we didn't know the answer and compared this to the true generating value. Full details on the model are provided in Appendix 1.
 
-To investigate whether the shape of competition functions varies with the density of the competitor, we varied $N_R$ from eq. \ref{eq:alpha} from \verify{ its equilibrium value of $N_R=K(x_R)$}.
+\subsection{Resource model 1: \Rstar }
+
+The \Rstar\ model is one of the best studied and cited models of resource competition \citep{Tilman-1977, Tilman-1982, Huisman-2001}, originating from a study on exploitative competition for any pair of generic resources \citep{Leon-1975}. We implemented a version where the growth rates follow a Monod equation \citep{Huisman-2001}, with parameter trade-offs assumed by \citet{Fox-2008}. This implementation is similar to the widely-used version described by \citet{Tilman-1977, Tilman-1982}, with difference that \verify{ (GJK)  What is the difference with Tilman 1977?}. 
+
+\verify{I have shifted the model description from the appendix back into the main text, and tried to make it more streamlined. (GJK)  please review to ensure no meaning has been lost. }
+
+Individuals in the \Rstar\ model compete in an unstructured environment for two essential (non-substitutable) resources. Per capita growth rates for each type depend on the availability of the resource that is currently most limiting. Let $R_1, R_2$ be the abundances of the two resources. The change in population size of type $i$ is then
+\begin{equation}
+  \label{eq:rstar-n}
+  \frac{\ud N_i}{\ud t} = N_i \, \left(r_i \min\left(\frac{R_1}{U_{1i} + R_1}, \frac{R_2}{U_{2i} + R_2}\right) - m\right),
+\end{equation}
+where $r_i$ is the maximum birth rate of type $i$, i.,e. without resource limitation \verify{(GJK) true?}; $m$ is the mortality rate, and $U_{ki}$ is the efficiency in converting resource $k$ into new offspring. (Higher $U_{ki}$ thus means less are resources needed to for a given growth rate. The dynamics of the resources themselves are given by
+\begin{equation}
+  \label{eq:rstar-r}
+  \frac{\ud R_k}{\ud t} =
+  D (S_k - R_k) - \sum_{i=1}^n {C_{ki} N_i
+    \min\left(\frac{R_1}{U_{1i} + R_1}, \frac{R_2}{U_{2i} + R_2}\right)},
+\end{equation}
+where $D$ is the resource turnover rate, $S_k$ is the supply rate of resource $k$, $C_{ki}$ is the consumption rate \verify{ (GJK) consumption rate or resource content?} of resource $k$ by type $i$. 
+\todo{(GJK) previous text discussed setting C= U, is this still relevant?} 
+\todo{(GJK) previous text said C did not vary among species. Should we mention that here? }
+
+Following previous studies \citep{Tilman-1985, Schreiber-2003, Fox-2008}, we let a trait $x_i$ determine the relative amounts of the two resources required for growth of individuals in type $i$: \begin{equation}
+\label{eq:R3}
+x = U_{1i} = 1 - U_{2i}.
+\end{equation}
+Types thus vary from requiring mostly resource 1 ($x << 0.5$), to equal amounts of both resources ($x = 0.5$), to mostly resource 2 ($x >> 0.5$).
+
+We considered two cases of this model, one with symmetric consumption \verify{(GJK) or content?} between the two species, and another with asymmetric consumption. \verify{(GJK) What does this mean? Is it symmetric across species or with respect to resources?}. \verify{(GJK) Are symmetric and asymmetric cases both important?} Because $C$ does not vary by species, coexistence was not possible in this model \citep{Tilman-1982}. Invasion is therefore sufficient for competitive replacement.
+
+Parameters were set following \citet{Fox-2008}, with $m = 0.25$, $D=0.25$ \verify{(GJK) true? Need to update parameters if model has been changed?}. For the ``symmetric'' model, we assumed $C = {2, 2}$ for both species and a supply rate of  $S = {0.25, 0.25}$.  For the ``asymmetric'' model we assumed $C = {0.3, 0.7}$ and $S = {0.5, 0.5}$. In the asymmetric model, the two resources are \verify{(GJK) consumed at a different by each species}.
+% See:
+%  * R/rstar_model.R: rstar_parameters() for m, D
+%  * R/rstar_figure.R: dat_rstar() for C, K, S
+
+\subsection{Resource model 2: \plant }
+
+\plant\ is an individual-based model of plant competition for light in a size-structured metapopulation \citep{Falster-2016, Falster-2017}. 
+
+
+Vegetation in the \plant\ model comprises a large number of patches subject to a disturbance regime. Disturbances clear established vegetation within a patch, which are then recolonised via seed dispersal from other patches. Individual plants progress through their life-cycle, from seeds until mature adults, with growth survival and fecundity rates determined by the combined effect of an individual's traits, their current size, and the degree of shading from other plants within the same patch. Shading at a given height is computed from the cumulative leaf area above that height. Short-term competitive effects are therefore size-asymmetric. The sole effect of shading (and the only source of competition) is to alter an individual's photosynthetic income. Following \citep{Falster-2017}, fitness of individuals with a given type is calculated by integrating seed output across the entire metapopulation. The \plant\ model is used here as an example of a broader group of models dealing with successional turnover. Several forest models have a similar overall ecological structure, with the forest comprised of a metapopulation of patches \citep{Huston-1987,Kohyama-1993,Moorcroft-2001, Medvigy-2012, Smith-2014}. A distinct feature of \plant, compared to the others, is the ability to numerically solve equilibrium densities and per-capita growth rates for the metapopulation, and thereby estimate all the components required in eq. \ref{eq:alpha} to estimate the shape of the competition function.
+
+Using \plant, we estimated trait-based competitive functions for two traits whose evolutionary dynamics have recently been investigated \citep{Falster-2017}: leaf mass per unit leaf area (\lma) and height at maturation (\hmat). In the model, \lma\ moderates a physiological trade-off between the cost of building an extra unit of leaf area and the rate of leaf turnover \citep{Wright-2004}. Variation in \lma\ thereby underpins a trade-off between height growth rate and shade-tolerance of seedlings. Meanwhile, \hmat\ moderates the allocation of surplus energy between growth and seed production, as an individual increases in size \citep{Falster-2017}. Full details on the model are described in see \citet{Falster-2016, Falster-2017}.
 
 \section{Results}
 
 \subsection{Recovering a known competition function}
 
-Our proposed method for recovering the shape of a competition function within a model was able to accurately recover the Gaussian-shaped competition functions used by the model of \citet{Dieckmann-1999}. Fig. \ref{fig:components}a-c and Fig. \ref{fig:components}a-b,d show how elements of the model vary for two different resident communities, with resulting competition functions shown in Fig. \ref{fig:components}e and Fig. \ref{fig:components}f. Both function reflect the true Gaussian shape. Note also that the competition functions do not vary in shape, only in position (compare panels e and f) along the trait axis for the different resident scenarios. This indicates that the functions depend only on the difference in trait values, not the absolute value of trait values. \todo{We also found that the shape of the function did not depend on the density of the competitor (add fig in supp mat), which again reflects the true behaviour of the model.}
+Our proposed method for recovering the shape of a competition function within a model was able to accurately recover the Gaussian-shaped competition functions used by the model of \citet{Dieckmann-1999}. Fig. \ref{fig:components}a-c and Fig. \ref{fig:components}a-b,d show how elements of the model vary for two different resident communities, with resulting competition functions shown in Fig. \ref{fig:components}e and Fig. \ref{fig:components}f. Both function reflect the true Gaussian shape. Note also that the competition functions do not vary in shape, only in position (compare panels e and f) along the trait axis for the different resident scenarios. This indicates that the functions depend only on the difference in trait values, not the absolute value of trait values. We also found that the shape of the function did not depend on the density of the competitor (results not shown), which again reflects the true behaviour of the model.
 
 \subsection{The \Rstar model}
 
-% For each model there are a few things to discuss: 
-% - Non-equilibrium before equilibrium
-% - Density dependence after discussing each model
-% - Different measures of competition (where?)
-
 For the \Rstar\ model we considered a trait influencing the relative amounts of the two resources required for growth of individuals under two cases: a symmetric consumption case, and an asymmetric case.
 
-In the symmetric model, we first considered a resident at $x = 0.6$, intermediate between being completely indiscriminate about the two resources at $x = 0.5$ and a specialist on resource B). The resident species competes strongly with species that are more specialised than itself (self competition is $\alpha(x, x) \equiv 1$). Invaders that were less specialised (i.e., closer to $x = 0.5$ than the resident) experienced less competition from the resident than it exerted on itself (Fig. \ref{fig:Rstar}b). The region of competition $< 1$ lines up perfectly with the region where invasion was possible (black bar on Fig. \ref{fig:Rstar}b, fitness greater than zero on Fig. \ref{fig:sm_rstar_components1}c1). When the resident was moved to $x = 0.5$ (completely indiscriminate) then invasion was not possible for any other type.  In this case, the strength of competition increased monotonically away from the resident. The shape of the functions produced looks nothing like any of the common shapes depicted in Table \ref{tab:shapes}.
+In the symmetric model, we first considered a resident at $x = 0.6$, intermediate between being completely indiscriminate about the two resources at $x = 0.5$ and a specialist on resource B). The resident species competes strongly with species that are more specialised than itself (self competition is $\alpha(x, x) \equiv 1$). Invaders that were less specialised (i.e., closer to $x = 0.5$ than the resident) experienced less competition from the resident than it exerted on itself (Fig. \ref{fig:Rstar}b). The region of competition $< 1$ lines up perfectly with the region where invasion was possible (black bar on Fig. \ref{fig:Rstar}b, fitness greater than zero on Fig. \ref{fig:sm_rstar_components1}). When the resident was moved to $x = 0.5$ (completely indiscriminate) then invasion was not possible for any other type.  In this case, the strength of competition increased monotonically away from the resident. The shape of the functions produced looks nothing like any of the common shapes depicted in Table \ref{tab:shapes}.
 
 In the asymmetric case, consumption rates are higher for resource $2$ than resource $1$; this shifts the model in favour of species that could most efficiently use resource $2$. With a single resident at $x = 0.7$, invasion was possible for species that use $2$ more efficiently ($x$ in $(0.7, \approx 0.99)$). The shape of the competition function was considerably more complicated than the symmetric case, though the region of invasion still corresponded to the region where competition was less than 1.
 
-\todo{DF can't recall how to interpret these figures. Not a good sign. Revisit methods to ensure we understand how this is being calculated and that it aligns with the methods as described. }
-In both the symmetric and asymmetric case, the competition coefficient was density dependent. \verify{what do we mean by this? shape of the competition function varied considerably with the density of the resident? Below we say it doesn't change. } Increasing the resident density changes the per-capita competitive impact. In the symmetric model, the \emph{shape} did not qualitatively change, and competition was always saturating with increasing density. Increasing species density decreased the per-capita competitive effect (Fig. \ref{fig:rstar_density_dependence}a--b). In the asymmetric model, the shape of competition qualitatively changed, though on average per-capita competition appeared to decrease with increasing density (Fig. \ref{fig:rstar_density_dependence}c--d). 
+\todo{DF can't recall how to interpret the figures for density dependence results. Need to revisit methods to ensure we understand how this is being calculated and that it aligns with the methods as described. }
+In both the symmetric and asymmetric case, the competition coefficient was density dependent. \verify{what do we mean by this? shape of the competition function varied considerably with the density of the resident? Below we say it doesn't change. } Increasing the resident density changes the per-capita competitive impact. In the symmetric model, the shape did not qualitatively change, and competition was always saturating with increasing density. Increasing species density decreased the per-capita competitive effect (Fig. \ref{fig:rstar_density_dependence} a--b). In the asymmetric model, the shape of competition qualitatively changed, though on average per-capita competition appeared to decrease with increasing density (Fig. \ref{fig:rstar_density_dependence}c--d). 
 
 \subsection{The \plant\ model: \hmat}
 
-In the \plant\ model, strategies that have different \hmat\ differ in how that allocate resources between growth and seed production at different sizes. Plants with lower \hmat\ reproduce earlier, and thus ensure they achieve some reproduction, but because they allocate less resources to growth,risk being over-topped and out-shaded by strategies that reproduce later. Generally, this dynamics leads to asymmetric competition with taller strategies suppressing the fitness of shorter strategies \cite{Falster-2017}.
+In the \plant\ model, strategies that have different \hmat\ differ in how they allocate resources between growth and seed production at different sizes. Plants with lower \hmat\ reproduce earlier, and thus ensure they achieve some reproduction, but because they allocate less resources to growth, risk being over-topped and out-shaded by strategies that reproduce later. Generally, this dynamics leads to asymmetric competition with taller strategies suppressing the fitness of shorter strategies \cite{Falster-2017}.
 
 Reflecting this dynamic, the competition functions that emerged from \plant\ for the trait \hmat\ were asymmetric (Fig. \ref{fig:plant_hmat}), somewhat resembling the asymmetric function used in some previous studies \citep{Law-1997, Kisdi-1999, Geritz-1999, Egas-2004, Calcagno-2006, DAndrea-2013} (Table \ref{tab:shapes}). This shape arose from joint changes in maximum growth rate, carrying capacity, and fitness with trait values (Fig. \ref{fig:sm_plant_hmat_components}). As expected, all types exerted competition more strongly on types that are shorter than them, and less on types that taller than them.  However, the competition function did not asymptote like the logistic function that has preciously been used to model asymmetric competition (Table \ref{tab:shapes}). The shape of the function varied with the position  of the resident type (compare panels \textit{a} and \textit{b} in Fig. \ref{fig:plant_hmat}) and with the density of the competitor (Fig. \ref{fig:plant_hmat_density_dependence}). As the resident strategy increased in size, the strength of competition felt by smaller types increased, and the slope of this competitive effect increased (compare panels \textit{a} and \textit{b} in Fig. \ref{fig:plant_hmat}).  \todo{expand on changes with density}.
 
 \subsection{The \plant\ model: \lma}
 
-Strategies with different \lma\ values reflect different compromises struck along the ``leaf economic spectrum''\citep{Reich-1997,Wright-2004}. High \lma\ leaves are costly to deploy but have longer lifespan, so need to be replaced less often. Previous analyses have shown that in single species system, selection initially favours lower \lma\ values, as the fast growth achieved gives prior access to light. On this basis, we might expect the competition function for this trait to also have an asymmetric shape.
+Strategies with different \lma\ values reflect different compromises struck along the ``leaf economic spectrum''\citep{Reich-1997,Wright-2004}. High \lma\ leaves are costly to deploy but have longer lifespan, so need to be replaced less often. Previous analyses have shown that in single species system, selection initially favours lower \lma\ values, as the fast growth achieved gives prior access to light \citep{Falster-2017}. On this basis, we might expect the competition function for this trait to also have an asymmetric shape.
 
-This shape arose from joint changes in maximum growth rate, carrying capacity, and fitness with trait values (Fig. \ref{fig:sm_plant_lma_components}).
 
-The shape of the competition function in \plant\ for the trait \lma\ was complex and does not conform to any of the simple shapes in wide use (Table \ref{tab:shapes}). We first looked at the situation where a resident was under directional selection towards lower \lma\ (Fig. \ref{fig:plant_lma}a). In the region of trait space close to the resident type, competition was strongly asymmetric. The resident exerted a large amount of competition on types with \lma\ values higher than itself (``slow''strategy types) and less on types with \lma\ values lower (``fast'' strategy types; Fig. \ref{fig:plant_lma}a). Invasion was possible in the region with \lma\ values smaller than the invader until growth and carrying capacity reach a biological limit to invasion(Fig. \ref{fig:sm_plant_lma_components}c1). Above the resident \lma\ value, the competition function was sawtooth shaped, before eventually declining steeply. In contrast to the complex shape of fitness and competition, maximum growth rate had a simple form and carrying capacity was approximately Gaussian (Fig. \ref{fig:sm_plant_lma_components}\,a and b).
 
-Moving the resident towards the evolutionary attractor, invasion was possible through a broad range of trait values (both above and below the resident value).
-\begin{itemize}
-\item Explain how is it the case that invasion was possible through the region where competition $\approx 1$ -- that doesn't make much sense!
-  It's similar to the situation with \hmat\ though (\TODO).
-  \begin{itemize}
-    % TODO[RGF]: might actually be more of a discussion point I think?
-  \item Much like the \hmat\ case above, invasion is possible through regions even where interspecific competition is stronger than intraspecific competition.
-This is because of the way that
-    competition enters the LV dynamics; in cases where $r$
-    and $K$ aren't constant, the outcome of competition will depend on
-    all three functions and broad generalisations may not be possible
-    \citep[c.f.][]{Leimar-2013}.
-  \end{itemize}
-\end{itemize}
+The shape of the competition function in \plant\ for the trait \lma\ was complex and does not conform to any of the simple shapes in wide use (Table \ref{tab:shapes}). This shape arose from joint changes in maximum growth rate, carrying capacity, and fitness with trait values (Fig. \ref{fig:sm_plant_lma_components}). We first looked at the situation where a resident was under directional selection towards lower \lma\ (Fig. \ref{fig:plant_lma}a). In the region of trait space close to the resident type, competition was strongly asymmetric. The resident exerted a large amount of competition on types with \lma\ values higher than itself (``slow''strategy types) and less on types with \lma\ values lower (``fast'' strategy types; Fig. \ref{fig:plant_lma}a). Invasion was possible in the region with \lma\ values smaller than the invader until growth and carrying capacity reach a biological limit to invasion(Fig. \ref{fig:sm_plant_lma_components} c1). Above the resident \lma\ value, the competition function was sawtooth shaped, before eventually declining steeply. In contrast to the complex shape of fitness and competition, maximum growth rate had a simple form and carrying capacity was approximately Gaussian (Fig. \ref{fig:sm_plant_lma_components}\,a and b).
+
+Moving the resident towards the evolutionary attractor, invasion became possible through a broad range of trait values (both above and below the resident value). 
+
 
 \todo{density dependence - Fig. \ref{fig:plant_lma_density_dependence}. Some comment on the way that the shape fluctuates all over the show}
 
 \section{Discussion}
 
+What is productive way forward?
 
 Key points to bring out
 
 - plant more similar to asymmetric function
 - shapes are density dependent
+- Abrams 1980: Are competition coefficients constant? Inductive versus deductive approaches
 
-% TODO[RGF]: check, might already be covered, but if not perhaps say
-% that there are relatively few models that we could find that include
-% traits and fitness without including an explicit competition
-% function.  Given the central focuss of competition functions, this
-% seems like an underdeveloped area of theory.
+
+Also, there are relatively few models that we could find that include
+traits and fitness without including an explicit competition function.  Given the central focuss of competition functions, this seems like an underdeveloped area of theory.
+
+
+
+Interestingly, in plant invasion was possible even though the notional competition function was close to 1.0 across the range. Yet, because much higher than 
+
+- invasion possible through regions even where interspecific competition is stronger than intraspecific competition.
+- This is because of the way that competition enters the LV dynamics; in cases where $r$ and $K$ aren't constant, the outcome of competition will depend on all three functions and broad generalisations may not be possible \citep[c.f.][]{Leimar-2013}.
+- Chesson: what does he assume about r \& K
+
+
 
 \emph{``The nearly complete dependence of theoretical community ecology on a limited number of simple models has resulted in the development of subsequent generations of deceptively simple constructs that may often confuse our understanding of the underlying biology rather than improve it. The
 LV competition equations and the community matrix are one such pair of constructs.''} \citep{Neill-1974}
@@ -262,7 +256,9 @@ The derived function from the \hmat\ within \plant\
 resembles the asymmetric functions used in models investigating asymmetric competition \citep{Law-1997, Geritz-1999, Kisdi-1999,
   Calcagno-2006}. The competition function for our \lma\ model at least superficially resembles the asymmetric Gaussian, but the ridges along the top are distinctly non-Gaussian and arise from real biological features of the system. \citet{Falster-2011} showed how the amount of shading undulates through successional time; here this translates into undulations in the fitness of an invader with respect to traits. In contrast, the competition functions in the different version of \Rstar\ model did not resemble either a Gaussian or a asymmetric function. The main generalisation about these findings is that none of the functions resemble Gaussian functions.
 
-We also found that, for all three of the models, the derived competition functions were strongly density dependent. It was not only
+We also found that, for all three of the models, the derived competition functions were strongly density dependent. It was not only ??????
+
+
 % @richfitz - update shape results the amplitude of the function that changed, but also its \emph{shape}
 (Fig. \ref{fig:plant_lma_density_dependence} and \ref{fig:rstar_density_dependence}). This result was predicted by \citet{Abrams-1980}, who argued that not satisfying the implicit of LV dynamics would lead to widespread non-constant density dependence. The idea that competitive
 % MW Found this hard to follow - does it just mean that Abrams pointed
@@ -285,7 +281,7 @@ Indeed, many authors have repeatedly raised similar questions \citep[e.g.][]{And
 % TODO[RGF]: This paragraph needs reworking into a single central point.
 It is certainly possible to expand the idea of a competition function to be a function not only of trait differences, but also of population densities and of the actual values of species traits. But clearly, with these complications it becomes less easy to intuit the influence of residents on invasibility and what configuration of species would not be invasible. The consequence of including functions of this complexity in traditional analyses about species-coexistence and character displacement are simply unknown.
 Even just allowing density dependent competition could change the number of equilibria in the model and the stability of such equilibria. However, such an approach would only work if the competition functions derived from pairs of species could still be added to get the effect of an entire resident community on a potential invader. Our results suggest that such additivity is unlikely
-(Fig. \ref{fig:  \label{fig:plant_lma_density_dependence}). % GEORGES: This is unclear for me how this figure show that??
+(Fig. \ref{fig:plant_lma_density_dependence}). % GEORGES: This is unclear for me how this figure show that??
  So in that case the competition would be a function of the entire resident community. Previous studies based on the LV model have already warned that interaction between three or more species in a community could not be easily predicted by pairwise interaction alone because of potential indirect effect between species \citep{Levine-1976}.
 % GEORGES: Not sure if this fit well here but I think it could be interesting to discuss previous paper that have shown that multiple species are quite different that the sum of teh pairs such as Levine.
  At that point we are perhaps stretching the concept of a competition coefficient beyond its useful limit. We may as well model a multi-species assemblage with explicit depletion of resources.
@@ -336,23 +332,66 @@ The problem with the Lotka-Volterra system of equations is that the model was fo
 
 \section{Tables}
 
-\input{shapes}
+\begin{table}[h]
+ \caption{Example kernel shapes used to represent competition in trait or resource space.  `Kinked' kernels refers to those that are ``non-differentiable at the point of
+self-competition'' \citep{Barabas-2012}.  Equations are presented only to give a general idea of shapes in terms of specices trait differences ($\Delta x$); various scaling parameters are common, and specific to different implementations.
+}
+\centering
+{\footnotesize
+\renewcommand{\arraystretch}{1.5}  % more space between rows of table
+\def\minifigheight{5ex}
+\begin{tabularx}{\textwidth}{lclp{5cm}}
+  \hline
+  Name & Shape & Representative equation & Example references \\
+  \hline
+    \textbf{Continuous}\\[1ex]
+    %
+    Constant &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{ms/figures/shape/constant.pdf}}& $c$ & \citet{Hubbell-2001} \\
+    %
+    Gaussian &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{ms/figures/shape/gaussian}}& $\exp\left(-\frac{(\Delta x)^2}{\sigma^2}\right)$ & \citet{Slatkin-1980, Taper-1985, Dieckmann-1999}\\
+    %
+    Platykurtic &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{ms/figures/shape/platykurtic}}& $\exp\left(-\frac{(\Delta x)^4}{\sigma^2}\right)$&  \citet{Leimar-2013} \\
+    %
+    Exponential &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{ms/figures/shape/exponential}}& $\exp(d x)$ &\citet{Pigolotti-2007}\\
+    % Add scaling term on the dx that's important for connecting with asymmetric step where d = infty
+    Asymmetric &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{ms/figures/shape/logistic}} & $\frac{1}{1 + \exp(d \,\Delta x)}$ & \citet{Law-1997, Kisdi-1999, Geritz-1999, Egas-2004, Calcagno-2006, DAndrea-2013}\\
+    %
+    Offset Gaussian &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{ms/figures/shape/gaussian_offset}}& $\exp\left(-\frac{(\Delta x - b)^2}{\sigma^2}\right)$ & \citet{Slatkin-1980, Rummel-1985,Brown-1987-66}\\
+    %
+    Gaussian with hat &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{ms/figures/shape/gaussian_with_hat}}& 
+    % TODO This eqn looks ugly, wonder if we need it?
+    {\tiny $c \exp\left(-\frac{(\Delta x)^2}{\sigma_1^2}\right)+(1-c) \exp\left(-\frac{(\Delta x)^2}{\sigma_2^2}\right)$}
+    &  \citet{Barabas-2013, Leimar-2013} \\
+    %
+      \textbf{Kinked}\\[1ex]
+    Laplacian &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{ms/figures/shape/laplacian}} & $\exp(-2|x|)$ & \citet{Roughgarden-1972, Leimar-2013} \\
+    %
+    Asymmetric step
+       &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{ms/figures/shape/step_asymmetric}} & $ \frac{1}{1 + \exp(\infty \, \Delta x)},$  & \citet{Kinzig-1999, Egas-2004, Calcagno-2006, DAndrea-2013} \\
+    Gaussian with spike &\adjustbox{valign=t}{\includegraphics[height=\minifigheight]{ms/figures/shape/gaussian_with_spike}} & 
+        {\tiny $c \exp\left(-\frac{(\Delta x)^2}{\sigma_1^2}\right)+(1-c) \exp\left(-\frac{(\Delta x)^2}{\infty}\right)$}
+        & \citet{Scheffer-2006, Barabas-2013} \\
+    \hline
+  \end{tabularx}
+}
+\label{tab:shapes}
+\end{table}
 
 \clearpage
 
 \section{Figures}
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
-  \includegraphics{figures/kernel}
+  \includegraphics{ms/figures/kernel}
   \caption{Classic textbook view of niche differentiation, based on either Gaussian resource utilisation curve or competition functions. Along the x-axis is a resource to be partitioned, such as food or prey size, or alternatively a trait axis.  Lines represent hypothetical resource utilisation curves for five different species, indicating the propensity of that species to use resources of a given particle size. Competition between two species will be proportional to the overlap in their resource utilisation curves. \citet{MacArthur-1967} proposed that competition would limit how closely species could sit relative to one another, via the width of utilisation curves. Soon after its publication, this idea of `limiting similarity` appeared in ecology textbooks. Figures similar to this appeared in the earliest editions of leading textbooks, continuing up to recent editions: \citet[Fig. 7.9]{Begon-1986}; \citet[Fig. 8.29]{Begon-2006}; \citet[Fig. 12.20]{Krebs-1978}; \citet[????]{ Krebs-2013}; \citet[Fig. 36.13]{Ricklefs-1973};\citet[Fig. 29.19]{Ricklefs-1999}.} 
   \label{fig:competition-functions}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[ht]
  \centering
- \includegraphics{figures/components}
- \caption{Demonstration that our method for estimating the shape of a competition function embedded in a model with known solution. For any model we estimate: (a) the fitness of a rare invader growing without competition, (b) the equilibrium population density of invader when growing in monoculture, (c, d) the fitness of a rare invader growing in competition with an established resident, represented by a point. From these elements, we can estimate the shape of the competition function (e, f). Note that panels a -- b do not depend on the resident community whereas panels c -- f do. In this example, we were able to recover the Gaussian competition function applied within \citet{Dieckmann-1999} (e,f).
+ \includegraphics{ms/figures/components}
+ \caption{Demonstration that our method for estimating the shape of a competition function embedded in a model with known solution. For any model we estimate: (a) the fitness of a rare invader growing without competition, (b) the equilibrium population density of invader when growing in monoculture, (c, d) the fitness of a rare invader growing in competition with an established resident, represented by a point. From these elements, we can estimate the shape of the competition function (e, f). Solid black bars indicate regions where the invader has positive fitness, i.e. could successfully establish. Note that panels a -- b do not depend on the resident community whereas panels c -- f do. In this example, we were able to recover the Gaussian competition function applied within \citet{Dieckmann-1999} (e,f).
  \todo{1. Above panels c-d, add some space and labels "At attractor" and "Away from attractor", as in Fig. 3.
  2. Remove blacks bars from figure (and also those in SuppMat) showing regions of positive fitness in panels e-f. these are not needed, as the same info is in the middle panels.
  3. Change x-axis label to same as Fig 3 (trait vale) }}
@@ -361,44 +400,36 @@ The problem with the Lotka-Volterra system of equations is that the model was fo
 
 \clearpage
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
-  \includegraphics{figures/rstar}
-  \caption{Shape of competition function embedded within the \Rstar\ model for a trait determining the stoichiometry of uptake for two essential resources. Here we have only shown the derived  competition functions for a community with a single resident at location indicated by the dashed line., see Figs. \ref{fig:sm_rstar_components1} and \ref{fig:sm_rstar_components2} for plot of all components used to derive these functions. Panels a--b show results when consumption of the two resources is equal, whereas panels c--d show results for an instance when resource 2 is required more than resource 1. Solid black lines indicate the competition felt by invading species. Solid black bars indicate regions where the invader has positive fitness, i.e. could successfully establish. Parameters for the symmetric case, $C = \{2, 2\}$ and for the asymmetric case $C = \{0.3, 0.7\}$. Resident trait values are: (a) 0.6, (b) 0.5, (c) 0.7, (d) 0.9. All other parameters are given in Appendix \ref{sec:Rstar}.} 
+  \includegraphics{ms/figures/rstar}
+  \caption{Shape of competition function embedded within the \Rstar\ model for a trait determining the stoichiometry of uptake for two essential resources. Here we have only shown the derived  competition functions for a community with a single resident at location indicated by the dashed line., see Figs. \ref{fig:sm_rstar_components1} and \ref{fig:sm_rstar_components2} for plot of all components used to derive these functions. Panels a--b show results when consumption of the two resources is equal, whereas panels c--d show results for an instance when resource 2 is required more than resource 1. Solid black lines indicate the competition felt by invading species. Solid black bars indicate regions where the invader has positive fitness, i.e. could successfully establish. Parameters for the symmetric case, $C = \{2, 2\}$ and for the asymmetric case $C = \{0.3, 0.7\}$. Resident trait values are: (a) 0.6, (b) 0.5, (c) 0.7, (d) 0.9. All other parameters are given in the Methods and also in the code.
+  }
   \label{fig:Rstar}
 \end{figure}
 
 \clearpage
 
-\begin{figure}[h]
-  \centering
-  \includegraphics{figures/plant_hmat}
-  \caption{Shape of competition function embedded within \plant\ model for the trait \hmat. Here we have only shown the derived  competition functions, see Fig. \ref{fig:sm_plant_hmat_components} for plot of all components used to derive these functions. Solid lines show the derived competition functions for a community with a single resident, whose location is indicated by the dashed line. Resident trait values are: (a) XXX, (b) XXX.} 
-  \label{fig:plant_hmat}
+\begin{figure}[ht]
+ \centering
+ \includegraphics{ms/figures/sm_plant_hmat_components}
+ \caption{Shape of competition function embedded within \plant\ model for the trait \hmat. Panel (a) shows  the fitness of a rare invader growing without competition, and (b) the equilibrium population density of invader when growing in monoculture. Panels (c) and (d) show the the fitness of a rare invader growing in competition with an established resident, represented by a point, with resident (c) away from and (d) at its evolutionary attractor. Solid black bars indicate regions where the invader has positive fitness, i.e. could successfully establish. Resident trait values are: (a) \todo{XXX}, (b) \todo{XXX}. All other parameters are provided in the code. }
+ \label{fig:plant_hmat}
 \end{figure}
 
 \clearpage
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
-  \includegraphics{figures/plant_lma}
-  \caption{Shape of competition function embedded within \plant\ model for the trait \lma. Here we have only shown the derived  competition functions, see Fig. \ref{fig:sm_plant_lma_components} for plot of all components used to derive these functions. Solid lines show the derived competition functions for a community with a single resident, whose location is indicated by the dashed line. Resident trait values are: (a) XXX, (b) XXX.} 
+  \includegraphics{ms/figures/sm_plant_lma_components}
+  \caption{Shape of competition function embedded within \plant\ model for the trait \lma. Panel (a) shows  the fitness of a rare invader growing without competition, and (b) the equilibrium population density of invader when growing in monoculture. Panels (c) and (d) show the the fitness of a rare invader growing in competition with an established resident, represented by a point, with resident (c) away from and (d) at its evolutionary attractor. Solid black bars indicate regions where the invader has positive fitness, i.e. could successfully establish. Resident trait values are: (a) \todo{XXX}, (b) \todo{XXX}. All other parameters are provided in the code.}
   \label{fig:plant_lma}
 \end{figure}
 
 \clearpage
 
-\begin{figure}[h]
-  \centering
-  \includegraphics{figures/plant_lma_density}
-  \caption{Density dependence of competition for \lma\ in plant.  While strength of competition varies with traits and is nonlinear with density, the pattern of density dependence does not vary strongly with traits.  The per-capita competition coefficient (panels a and b) is blue when stronger than competition is weaker than intraspecific competition at equilibrium, red when weaker.  The colour (z) axis following the horizontal dotted lines correspond to fig. \ref{fig:plant_lma}.  The black line is at competition coefficient equals intraspecific competition. As relative population sizes increase, the \emph{per-capita} rates of competition decrease, even as the total rates of competition ($N \alpha$) increase.  The bottom panels (c and d) are competition coefficients \emph{relative} to coefficients at equilibrium population size.  The lack of vertical strong vertical features indicates that competition strength varies fairly uniformly with density across trait space.
-  } \label{fig:  \label{fig:plant_lma_density_dependence}
-\end{figure}
-
-\clearpage
-
-\bibliographystyle{amnat}
-\bibliography{references}
+\bibliographystyle{ms/amnat}
+\bibliography{ms/references}
 
 \section{Appendices}
 

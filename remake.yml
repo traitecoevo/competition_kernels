@@ -1,11 +1,12 @@
 packages:
-  - plant
-  - rootSolve
+#  - plant
+#  - rootSolve
   - rmarkdown
-  - BB
-  - nleqslv
-  - numDeriv
-  - deSolve
+  - tinytex
+#  - BB
+#  - nleqslv
+#  - numDeriv
+#  - deSolve
 
 sources:
   - R
@@ -32,15 +33,14 @@ plot_options:
 knitr_options:
   vignette:
     auto_figure_prefix: true
-    chdir: true
-
+  
 targets:
   all:
     depends:
+      - ms/competition-kernels.pdf
       - plant_data
       - figures
       - figures_sm
-      - ms/competition-kernels.pdf
       - ms/competition-kernels-sm.pdf
       - vignettes/comp_lotka_tilman.pdf
 
@@ -97,20 +97,19 @@ targets:
 
   ms/competition-kernels.pdf:
     depends:
-      - ms/competition-kernels-sm.pdf
+      - ms/references.bib
       - ms/ms.sty
       - ms/amnat.bst
-      - ms/shapes.tex
-      - figures
-      - figures_shapes
-    command: latex_build("ms/competition-kernels.tex", "ms/references.bib", clean=TRUE)
+#      - ms/competition-kernels-sm.pdf
+#      - figures
+#      - figures_shapes
+    command: pdflatex("ms/competition-kernels.tex")
 
   ms/competition-kernels-sm.pdf:
     depends:
       - ms/suppmat.sty
-      - figures_sm
-    # NOTE: clean is FALSE here because we need the '.aux' file for above.
-    command: latex_build("ms/competition-kernels-sm.tex", clean=FALSE)
+    #  - figures_sm
+    command: pdflatex("ms/competition-kernels-sm.tex", clean = FALSE)
 
   # Data common to all _resident_ communities, but specific to one set
   # of parameter values.

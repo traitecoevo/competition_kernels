@@ -1,6 +1,6 @@
 \documentclass[10pt,twoside]{article}
 
-\usepackage{suppmat}
+\usepackage{ms/suppmat}
 \usepackage{listings}
 \usepackage{amsmath}
 
@@ -13,7 +13,18 @@
 %   \usepackage{xr}%
 %   \externaldocument{competition-kernels}}{}
 
-\input{common-defs}
+
+\newcommand{\ud}{\ensuremath{\mathrm{d}}}
+\newcommand{\sign}{\mathop{\mathrm{sign}}\nolimits}
+\newcommand{\Rstar}{\ensuremath{R^*}}
+\newcommand{\plant}{{\tt plant}}
+\newcommand{\hmat}{\ensuremath{h_{\text{mat}}}}
+\newcommand{\lma}{{\textsc{lma}}}
+
+\newcommand{\rev}[1]{{\color{navy}{#1}}}
+\newcommand{\verify}[1]{{\color{navy}{(verify: #1)}}}
+\newcommand{\todo}[1]{{\color{navy}{(todo: #1)}}}
+
 
 % We will generate all images so they have a width \maxwidth. This means
 % that they will get their normal width if they fit onto the page, but
@@ -39,80 +50,81 @@
 
 \newpage
 
-\begin{figure}[h]
+\begin{figure}[ht]
  \centering
- \includegraphics{figures/sm_rstar_components1}
- \caption{Components used to estimate competition functions shown in Figs.
- {\figRstar}b-c for \Rstar\ model with symmetric resource requirements.
-  Panels show: (a) the fitness of a rare invader growing without competition,
-  (b) the equilibrium population density of invader when growing in monoculture,
-  (c1, c2) the fitness of a rare invader growing in competition with an established
-  resident, whose location is indicated by dashed line, and (d1,d2) derived competition
-  functions for communities in panels  c1 \& c2. Parameters as in Fig.
-  {\figRstar}a-c.}
+ \includegraphics{ms/figures/sm_rstar_components1}
+ \caption{ Components used to estimate competition functions shown in Figs. 3b-c for \Rstar\ model with symmetric resource requirements. Panels show: (a) the fitness of a rare invader growing without competition, (b) the equilibrium population density of invader when growing in monoculture, (c-d) the fitness of a rare invader growing in competition with an established resident, whose location is indicated by dashed line, and (e-f) derived competition functions for communities in panels (c-d). Parameters as in Fig. 3a-b.}
   \label{fig:sm_rstar_components1}
 \end{figure}
 
 \newpage
 
-\begin{figure}[h]
+\begin{figure}[ht]
  \centering
- \includegraphics{figures/sm_rstar_components2}
- \caption{Components used to estimate competition functions shown in Figs.
- {\figRstar}e-f for \Rstar\ model with asymmetric resource requirements.
-  Panels show: (a) the fitness of a rare invader growing without competition,
-  (b) the equilibrium population density of invader when growing in monoculture,
-  (c1, c2) the fitness of a rare invader growing in competition with an established
-  resident, whose location is indicated by dashed line, and (d1,d2) derived competition
-  functions for communities in panels c1 \& c2. Parameters as in Fig.
-  {\figRstar}d-f.}
-  \label{fig:sm_rstar_components2}
-\end{figure}
+ \includegraphics{ms/figures/sm_rstar_components2}
+ \caption{Components used to estimate competition functions shown in Figs. 3e-f for \Rstar\ model with asymmetric resource requirements. Panels show: (a) the fitness of a rare invader growing without competition, (b) the equilibrium population density of invader when growing in monoculture, (c-d) the fitness of a rare invader growing in competition with an established resident, whose location is indicated by dashed line, and (e-f) derived competition functions for communities in panels (c-d). Parameters as in Fig. 3c-d.} 
+  \label{fig:sm_rstar_components2} 
+  \end{figure}
 
 \newpage
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
-  \includegraphics{figures/sm_rstar_density1}
-  \caption{Density dependence in \Rstar\ model for symmetric consumption(??) model. More details needed here.}
+  \includegraphics{ms/figures/sm_rstar_density1}
+  \caption{Density dependence in \Rstar\ model for symmetric consumption model. 
+  \todo{MORE details needed here. See explanation for lma.}
+  }
   \label{fig:rstar_density_dependence1}
 \end{figure}
 
 \newpage
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
-  \includegraphics{figures/sm_rstar_density2}
-  \caption{Density dependence in \Rstar\ model for asymmetric consumption(??) model. More details needed here.}
+  \includegraphics{ms/figures/sm_rstar_density2}
+  \caption{Density dependence in \Rstar\ model for asymmetric consumption model. 
+  \todo{MORE details needed here. See explanation for lma.}
+  }
   \label{fig:rstar_density_dependence2}
 \end{figure}
 
 \newpage
 
-\begin{figure}[h]
- \centering
- \includegraphics{figures/sm_plant_hmat_components}
- \caption{Components used to estimate competition functions shown in Figs. {\figPlantHmat} for \plant\ model and the trait height at maturation. Panels show: (a) the fitness of a rare invader growing without competition, (b) the equilibrium population density of invader when growing in monoculture, (c1, c2) the fitness of a rare invader growing in competition with an established resident, whose location is indicated by dashed line, and (d1,d2) derived competition functions for communities in panels c1 \& c2. Parameters as in Fig. {\figPlantHmat}.}
-  \label{fig:sm_plant_hmat_components}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics{ms/figures/plant_lma_density}
+  \caption{Density dependence of competition for \lma\ in plant.  While strength of competition varies with traits and is non-linear with density, the pattern of density dependence does not vary strongly with traits.  The per-capita competition coefficient (panels a and b) is blue when stronger than competition is weaker than intraspecific competition at equilibrium, red when weaker.  The colour (z) axis following the horizontal dotted lines correspond to Fig. 5 (main text).  The black line is at competition coefficient equals intraspecific competition. As relative population sizes increase, the per-capita rates of competition decrease, even as the total rates of competition ($N \alpha$) increase.  The bottom panels (c and d) are competition coefficients relative to coefficients at equilibrium population size.  The lack of vertical strong vertical features indicates that competition strength varies fairly uniformly with density across trait space.
+  } 
+  \label{fig:plant_lma_density_dependence}
 \end{figure}
+
+% \begin{figure}[ht]
+%  \centering
+%  \includegraphics{ms/figures/sm_plant_hmat_components}
+%  \caption{Components used to estimate competition functions shown in Figs. {\figPlantHmat} for \plant\ model and the trait height at maturation. Panels show: (a) the fitness of a rare invader growing without competition, (b) the equilibrium population density of invader when growing in monoculture, (c1, c2) the fitness of a rare invader growing in competition with an established resident, whose location is indicated by dashed line, and (d1,d2) derived competition functions for communities in panels c1 \& c2. Parameters as in Fig. {\figPlantHmat}.}
+%   \label{fig:sm_plant_hmat_components}
+% \end{figure}
 
 \newpage
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
-  \includegraphics{figures/sm_plant_hmat_density}
-  \caption{Density dependence in \plant model for the trait \hmat}. MORE details needed here.
+  \includegraphics{ms/figures/sm_plant_hmat_density}
+  \caption{Density dependence in \plant model for the trait \hmat. 
+  \todo{MORE details needed here. See explanation for lma}
+  }
   \label{fig:plant_hmat_density_dependence}
 \end{figure}
 
 \newpage
 
-\begin{figure}[h]
- \centering
- \includegraphics{figures/sm_plant_lma_components}
- \caption{Components used to estimate competition functions shown in Figs. {\figPlantLma} for \plant\ model and the trait leaf mass per area. Panels show: (a) the fitness of a rare invader growing without competition, (b) the equilibrium population density of invader when growing in monoculture, (c1, c2) the fitness of a rare invader growing in competition with an established resident, whose location is indicated by dashed line, and (d1,d2) derived competition functions for communities in panels  c1 \& c2. Parameters as in Fig. {\figPlantLma}.} 
- \label{fig:sm_plant_lma_components}
-\end{figure}
+% \begin{figure}[ht]
+%  \centering
+%  \includegraphics{ms/figures/sm_plant_lma_components}
+%  \caption{Components used to estimate competition functions shown in Figs. {\figPlantLma} for \plant\ model and the trait leaf mass per area. Panels show: (a) the fitness of a rare invader growing without competition, (b) the equilibrium population density of invader when growing in monoculture, (c1, c2) the fitness of a rare invader growing in competition with an established resident, whose location is indicated by dashed line, and (d1,d2) derived competition functions for communities in panels  c1 \& c2. Parameters as in Fig. {\figPlantLma}.} 
+%  \label{fig:sm_plant_lma_components}
+% \end{figure}
 
 
 % \clearpage

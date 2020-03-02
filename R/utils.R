@@ -47,5 +47,5 @@ render_pdf <- function(filename) {
   on.exit(setwd(owd))
   filename <- basename(filename)
   dest <- paste0(sub("\\.md", "", filename), ".pdf")
-  callr::call_system(Sys_which("pandoc"), c(filename, "-o", dest))
+  call_system(Sys_which("pandoc"), c(filename, "-o", dest))
 }

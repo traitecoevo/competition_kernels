@@ -1,0 +1,43 @@
+Type: Compendium
+Package: competition_kernels
+Title: Paper about competition kernels in resource models
+Version: 0.0.1
+Authors@R: c(
+    person(given = "Daniel", family = "Falster", role = c("aut", "cre"), email = "daniel.falster@unsw.edu.au", comment = c(ORCID = "0002-9814-092X")),
+    person(given = "Rich", family = "FitzJohn", role = c("aut")),
+    person(given = "Georges", family = "Kunstler", role = c("aut"))
+    )
+Description: Compendium description
+License: MIT + file LICENSE
+Depends: 
+    deSolve,
+    grid,
+    grImport,
+    RColorBrewer,
+    rmarkdown,
+    rootSolve (== 1.6.6),
+    Rcpp,
+    R6,
+    crayon,
+    nleqslv,
+    numDeriv,
+    BB,
+    BH,
+    numDeriv,
+    deSolve,
+    yaml,
+    digest,
+    crayon,
+    optparse,
+    loggr,
+    plant,
+    storr,
+    remake
+Remotes:
+    github::smbache/loggr, 
+    github::traitecoevo/plant@v1.1.0, 
+    github::richfitz/storr, 
+    github::richfitz/remake
+Encoding: UTF-8
+Language: en
+LazyData: true

@@ -1,12 +1,12 @@
 packages:
-#  - plant
-#  - rootSolve
+  - plant
+  - rootSolve
   - rmarkdown
   - tinytex
-#  - BB
-#  - nleqslv
-#  - numDeriv
-#  - deSolve
+  - BB
+  - nleqslv
+  - numDeriv
+  - deSolve
 
 sources:
   - R
@@ -44,14 +44,13 @@ targets:
       - ms/competition-kernels-sm.pdf
       - vignettes/comp_lotka_tilman.pdf
 
-  # NOTE: some issues getting dependencies to behave sensibly here
-  # (manuscript rebuilding when figures change but tex does not)
   figures:
     depends:
-      # - glob("ms/figures/*")
       - ms/figures/kernel.pdf
       - ms/figures/components.pdf
       - ms/figures/rstar.pdf
+      - ms/figures/sm_plant_lma_components.pdf
+      - ms/figures/sm_plant_hmat_components.pdf
       - ms/figures/plant_hmat.pdf
       - ms/figures/plant_lma.pdf
       - ms/figures/plant_lma_density.pdf
@@ -64,8 +63,6 @@ targets:
       - ms/figures/sm_rstar_abrams.pdf
       - ms/figures/sm_rstar_density1.pdf
       - ms/figures/sm_rstar_density2.pdf
-      - ms/figures/sm_plant_lma_components.pdf
-      - ms/figures/sm_plant_hmat_components.pdf
       - ms/figures/sm_plant_hmat_density.pdf
 
   figures_shapes:

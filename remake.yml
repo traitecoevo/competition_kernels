@@ -37,9 +37,11 @@ knitr_options:
 targets:
   all:
     depends:
-      - ms/competition-kernels.pdf
-      - plant_data
       - figures
+      - ms/competition-kernels.pdf
+
+  suppmat:
+    depends:
       - figures_sm
       - ms/competition-kernels-sm.pdf
       - vignettes/comp_lotka_tilman.pdf
@@ -97,15 +99,14 @@ targets:
       - ms/references.bib
       - ms/ms.sty
       - ms/amnat.bst
-#      - ms/competition-kernels-sm.pdf
-#      - figures
-#      - figures_shapes
+      - figures
+      - figures_shapes
     command: pdflatex("ms/competition-kernels.tex")
 
   ms/competition-kernels-sm.pdf:
     depends:
       - ms/suppmat.sty
-    #  - figures_sm
+      - figures_sm
     command: pdflatex("ms/competition-kernels-sm.tex", clean = FALSE)
 
   # Data common to all _resident_ communities, but specific to one set

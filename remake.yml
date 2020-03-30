@@ -13,8 +13,8 @@ sources:
 
 plot_options:
   tall:
-    height: 6.5
-    width: 5.5
+    height: 4
+    width: 8
   wide:
     height: 3.5
     width: 5.5
@@ -40,32 +40,23 @@ targets:
       - figures
       - ms/competition-kernels.pdf
 
-  suppmat:
-    depends:
-      - figures_sm
-      - ms/competition-kernels-sm.pdf
-      - vignettes/comp_lotka_tilman.pdf
-
   figures:
     depends:
+      - figures_shapes
       - ms/figures/kernel.pdf
       - ms/figures/components.pdf
       - ms/figures/rstar.pdf
-      - ms/figures/sm_plant_lma_components.pdf
-      - ms/figures/sm_plant_hmat_components.pdf
       - ms/figures/plant_hmat.pdf
       - ms/figures/plant_lma.pdf
-      - ms/figures/plant_lma_density.pdf
-      - figures_shapes
-
-  figures_sm:
-    depends:
-      - ms/figures/sm_rstar_components1.pdf
-      - ms/figures/sm_rstar_components2.pdf
-      - ms/figures/sm_rstar_abrams.pdf
-      - ms/figures/sm_rstar_density1.pdf
-      - ms/figures/sm_rstar_density2.pdf
-      - ms/figures/sm_plant_hmat_density.pdf
+      - ms/figures/rstar_components1.pdf
+      - ms/figures/rstar_components2.pdf
+      - ms/figures/plant_lma_components.pdf
+      - ms/figures/plant_hmat_components.pdf
+      # - ms/figures/rstar_abrams.pdf
+      # - ms/figures/sm_rstar_density1.pdf
+      # - ms/figures/sm_rstar_density2.pdf
+      # - ms/figures/sm_plant_hmat_density.pdf
+      # - ms/figures/plant_lma_density.pdf
 
   figures_shapes:
     depends:
@@ -102,12 +93,6 @@ targets:
       - figures
       - figures_shapes
     command: pdflatex("ms/competition-kernels.tex")
-
-  ms/competition-kernels-sm.pdf:
-    depends:
-      - ms/suppmat.sty
-      - figures_sm
-    command: pdflatex("ms/competition-kernels-sm.tex", clean = FALSE)
 
   # Data common to all _resident_ communities, but specific to one set
   # of parameter values.
@@ -159,16 +144,16 @@ targets:
     command: fig_plant_density(plant_lma_density_1, plant_lma_density_2)
     plot: wide
 
-  ms/figures/sm_rstar_components1.pdf:
+  ms/figures/rstar_components1.pdf:
     command: fig_rstar_components(1)
     plot: tall
-  ms/figures/sm_rstar_components2.pdf:
+  ms/figures/rstar_components2.pdf:
     command: fig_rstar_components(2)
     plot: tall
-  ms/figures/sm_plant_lma_components.pdf:
+  ms/figures/plant_lma_components.pdf:
     command: fig_plant_components(plant_lma_1, plant_lma_2)
     plot: tall
-  ms/figures/sm_plant_hmat_components.pdf:
+  ms/figures/plant_hmat_components.pdf:
     command: fig_plant_components(plant_hmat_1, plant_hmat_2)
     plot: tall
   ms/figures/sm_plant_hmat_density.pdf:

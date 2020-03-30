@@ -35,7 +35,7 @@ plot_components <- function(x, r, K, x1, x2, N1, N2, w1, w2, a1, a2,
                             xlab="Ecological character (trait)",
                             ylim_r=NULL, ylim_K=NULL, ylim_w=NULL,
                             ylim_a=NULL, log="") {
-  cex <- .66
+  cex <- .8
 
   if (is.null(ylim_r)) {
     ylim_r <- expand_range(c(0, max(r)), c(0, 0.1))
@@ -55,37 +55,48 @@ plot_components <- function(x, r, K, x1, x2, N1, N2, w1, w2, a1, a2,
   ylab_w <- expression("Fitness (" * italic(w) * ")")
   ylab_a <- expression("Competition (" * alpha * ")")
 
-  par(mfrow=c(3, 2), mar=c(2, 3.5, .5, .5), oma=c(2, 1, 0, 0),
+  par(mfrow=c(2, 3), mar=c(2.5, 4.0, .5, .5), oma=c(2, 1, 2, 0),
       mgp=c(2.5, 1, 0))
 
-  plot(x, r, las=1, ylim=ylim_r, type="l", log=log, ylab=ylab_r)
+  plot(x, r, las=1, ylim=ylim_r, type="l", log=log, ylab="")
+  mtext(ylab_r, 2, 3, cex=0.8*cex)
   label_panel(1)
-  plot(x, K, las=1, type="l", ylim=ylim_K, log=log, ylab=ylab_K)
-  label_panel(2)
 
-  plot(x, w1, las=1, type="l", ylim=ylim_w, log=log, ylab=ylab_w)
+  plot(x, w1, las=1, type="l", ylim=ylim_w, log=log, ylab="")
+  mtext(ylab_w, 2, 3, cex=0.8*cex)
   abline(h=0, v=x1, lty=2, col="grey")
   points(x1, 0.0, pch=19)
   label_panel(3)
 
-  plot(x, w2, las=1, type="l", ylim=ylim_w, log=log, ylab="", yaxt="n")
-  axis(2, labels=FALSE)
+  mtext("Away from attractor", 3, 1, xpd=NA, cex=cex)
+
+
+  plot(x, w2, las=1, type="l", ylim=ylim_w, log=log, ylab="")#, yaxt="n")
+#  axis(2, labels=FALSE)
   abline(h=0, v=x2, lty=2, col="grey")
   points(x2, 0.0, pch=19)
-  label_panel(4)
+  label_panel(5)
 
-  plot(x, a1, las=1, type="l", ylim=ylim_a, log=log, ylab=ylab_a)
+  mtext("At attractor", 3, 1, xpd=NA, cex=.8)
+
+
+  plot(x, K, las=1, type="l", ylim=ylim_K, log=log, ylab="")
+  mtext(ylab_K, 2, 3, cex=0.8*cex)
+  label_panel(2)
+
+  plot(x, a1, las=1, type="l", ylim=ylim_a, log=log, ylab="")
+  mtext(ylab_a, 2, 3, cex=0.8*cex)
   abline(h=1.0, v=x1, lty=2, col="grey")
   points(x1, 1.0, pch=19)
-  mtext(xlab, 1, xpd=NA, line=2.4, cex=cex)
-  label_panel(5)
+  mtext(xlab, 1, xpd=NA, line=3, cex=cex)
+  label_panel(4)
   add_black_bar(x, w1)
 
-  plot(x, a2, las=1, type="l", ylim=ylim_a, log=log, ylab="", yaxt="n")
+  plot(x, a2, las=1, type="l", ylim=ylim_a, log=log, ylab="")
   axis(2, labels=FALSE)
   abline(h=1.0, v=x2, lty=2, col="grey")
   points(x2, 1.0, pch=19)
-  mtext(xlab, 1, xpd=NA, line=2.3, cex=cex)
+#  mtext(xlab, 1, xpd=NA, line=2.3, cex=cex)
   label_panel(6)
   add_black_bar(x, w2)
 }

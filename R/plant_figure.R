@@ -44,7 +44,7 @@ fig_plant_components <- function(d1, d2) {
   xlab <- plant_trait_lab(d1$trait)
   x <- d1$x_mutant
   if (d1$trait == "hmat") {
-    ylim_a <- c(-1, 40)
+    ylim_a <- c(-1, 10)
     ylim_w <- c(-5, 3)
   } else {
     ylim_a <- c(0, 2.5)

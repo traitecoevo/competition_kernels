@@ -1,12 +1,10 @@
 ## NOTE: If changing parameters, be sure to update (manually) the
 ## values in appendix sec:Rstar.
 dat_rstar <- function() {
-  C1 <- c(.2, .2) * 10
-  C2 <- c(.3, .7)
   x1 <- c(0.6, 0.5)
-  x2 <- c(0.7, 0.9)
-  p1 <- rstar_parameters(rstar_mat_2_tradeoff, matrix(C1, nrow=2), S=0.25)
-  p2 <- rstar_parameters(rstar_mat_2_tradeoff, matrix(C2, nrow=2), S=0.5)
+  x2 <- c(0.9, 0.7)
+  p1 <- rstar_parameters(rstar_mat_2_tradeoff, rstar_mat_2_tradeoff, S=0.5)
+  p2 <- rstar_parameters(rstar_mat_2_tradeoff, rstar_mat_2_tradeoff, S=c(0.7, 0.3))
   list(dat_rstar1(p1, x1),
        dat_rstar1(p2, x2))
 }
@@ -46,7 +44,7 @@ fig_rstar <- function() {
   label_panel(1)
   mtext(expression("Competition (" * alpha * ")"), 2, 1.6, outer=TRUE)
   mtext("Trait value", 1, 1.8, outer=TRUE)
-  mtext("Away from attractor", 3, 0.5, xpd=NA, cex=.8)
+#  mtext("Away from attractor", 3, 0.5, xpd=NA, cex=.8)
 
   plot(dat1$x, dat1$a2, type="l", ylim=ylim_alpha, xaxt="n", yaxt="n")
   axis(1, labels=FALSE)
@@ -54,7 +52,7 @@ fig_rstar <- function() {
   abline(h=1.0, v=dat1$x2, lty=2, col="darkgrey")
   points(dat1$x2, 1.0, pch=19)
   label_panel(2)
-  mtext("At attractor", 3, 0.5, xpd=NA, cex=.8)
+ # mtext("At attractor", 3, 0.5, xpd=NA, cex=.8)
   mtext("Equal resources", 4, 0.5, xpd=NA, cex=.8)
 
   plot(dat2$x, dat2$a1, type="l", ylim=ylim_alpha, las=1)

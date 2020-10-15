@@ -68,7 +68,7 @@ plot_components <- function(x, r, K, x1, x2, N1, N2, w1, w2, a1, a2,
   points(x1, 0.0, pch=19)
   label_panel(3)
 
-  mtext("Away from attractor", 3, 1, xpd=NA, cex=cex)
+#  mtext("Away from attractor", 3, 1, xpd=NA, cex=cex)
 
 
   plot(x, w2, las=1, type="l", ylim=ylim_w, log=log, ylab="")#, yaxt="n")
@@ -77,7 +77,7 @@ plot_components <- function(x, r, K, x1, x2, N1, N2, w1, w2, a1, a2,
   points(x2, 0.0, pch=19)
   label_panel(5)
 
-  mtext("At attractor", 3, 1, xpd=NA, cex=.8)
+#  mtext("At attractor", 3, 1, xpd=NA, cex=.8)
 
 
   plot(x, K, las=1, type="l", ylim=ylim_K, log=log, ylab="")

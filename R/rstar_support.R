@@ -8,7 +8,7 @@ colMins <- function(x) {
   apply(x, 2, min)
 }
 
-equilibrium <- function(dydt, y, pars, method="runsteady",
+equilibrium <- function(dydt, y, pars, method="nleqslv",
                         init_time=200, max_time=1e5) {
   method <- match.arg(method, c("runsteady", "nleqslv", "simple"))
 

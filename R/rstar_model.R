@@ -13,7 +13,7 @@ rstar_competition <- function(x_resident, p, N_resident=NULL, n=300L) {
   K_invade <- rstar_carrying_capacity(x_invade, p)
   r_invade <- rstar_max_growth_rate(x_invade, p)
   w_invade <- rstar_fitness_given_R(x_invade, eq$R, p)
-  
+
   list(p=p,
        x_resident=x_resident,
        x_invade=x_invade,
@@ -100,7 +100,7 @@ rstar_carrying_capacity <- function(x, parameters) {
   Rstar <- rstar_Rstar(x, parameters)
   D <- parameters$D
   S <- parameters$S
-  C <- parameters$C(x)
+  C <- parameters$C(rbind(x,x))
   m <- parameters$m
 
   colMins(D * (S - Rstar) / (m * C))
@@ -110,7 +110,7 @@ rstar_carrying_capacity <- function(x, parameters) {
 rstar_dRdt <- function(x, N, R, parameters) {
   D <- parameters$D
   S <- parameters$S
-  C <- parameters$C(x)
+  C <- parameters$C(rbind(x,x))
 
   D * (S - R) - drop(C %*% (N * rstar_min_p(x, R, parameters)))
 }
@@ -199,7 +199,7 @@ rstar_single_equilibrium <- function(x, parameters) {
   ## For 1 resource both R and N must be at equilibrium, but for >1
   ## resource, the nonlimiting resource need adjusting.
   if (nrow(R) > 1) {
-    C <- parameters$C(x)
+    C <- parameters$C(rbind(x,x))
     len_min <- colMins((S - R) / C)
     R <- S - C * rep(len_min, each=nrow(R))
   }
@@ -218,7 +218,7 @@ rstar_single_equilibrium <- function(x, parameters) {
 rstar_single_equilibrium_R <- function(x, N, parameters) {
   # x, N, parameters
   K <- parameters$K(x)
-  C <- parameters$C(x)
+  C <- parameters$C(rbind(x,x))
   S <- parameters$S
   D <- parameters$D
   r <- parameters$r
@@ -242,7 +242,8 @@ rstar_matrices <- function(K, C) {
     n_C <- attr(C, "npar", TRUE)
     i_K <- seq_len(n_K)
     i_C <- seq_len(n_C) + n_K
-
+    print(i_C)
+    print(i_K)
     ## Number of resouces, computed with dummy vector
     k <- nrow(K(matrix(rep(0.5, n_K), n_K, 1)))
     if (nrow(C(matrix(rep(0.5, n_C), n_C, 1))) != k) {
@@ -279,7 +280,7 @@ rstar_matrices_fixed <- function(K, C) {
 
 ## Make a constant function out of a column matrix or vector.
 make_rstar_mat_constant <- function(M) {
-  if (!is.matrix(M) || ncol(M) != 1) {
+  if (!is.matrix(M)) {
     stop("M must be a single column matrix")
   }
   ret <- function(x) {

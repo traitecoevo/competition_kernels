@@ -1,5 +1,4 @@
 packages:
-  - plant
   - rootSolve
   - rmarkdown
   - tinytex

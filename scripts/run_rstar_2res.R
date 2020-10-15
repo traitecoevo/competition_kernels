@@ -2,12 +2,12 @@
 ## equilibrium* only if each species becomes limited by the resource
 ## for which it has, compared to its competitors, the highest
 ## requirement.
-source("rstar_new.R")
-source("rstar_support.R")
-source("rstar_plot.R")
+source("../R/rstar_model.R")
+source("../R/rstar_support.R")
+source("../R/rstar_plot.R")
 
 col_died <- make_transparent("grey", .2)
-p <- rstar_parameters(rstar_mat_2_tradeoff, rstar_mat_2_tradeoff, S=1.0)
+p <- rstar_parameters(rstar_mat_2_tradeoff, rstar_mat_2_tradeoff, S=0.5)
 
 ## x <- matrix(0.5, nrow=2)
 ## N0 <- 1
@@ -37,6 +37,61 @@ rstar_plot(x2, p, col=col2)
 for (i in 1:100) {
   rstar_trajectory(x2, N2, p, col=col2_tr, col_died=col_died, S=runif(2))
 }
+
+N_mat <- 250
+seq_S1 <- seq(0,1, len = N_mat)
+res_mat_N1 <- matrix(NA, nrow =N_mat, ncol = N_mat)
+res_mat_N2 <- matrix(NA, nrow =N_mat, ncol = N_mat)
+for (i in 1:N_mat){
+  for (j in 1:N_mat){
+  xb <- cbind(rep(seq_S1[i],2), seq_S1[j], deparse.level=0)  
+  N <- rstar_equilibrium(xb, N2, p)$N
+  res_mat_N1[i, j] <- N[1]
+  res_mat_N2[i, j] <- N[2]
+  print(paste0("i = ", i))
+  }
+}
+saveRDS(list(res_mat_N1, res_mat_N2), file = "testCoex.rds")
+
+
+list_mat <- readRDS(file = "testCoex.rds")
+res_mat_N1 <- list_mat[[1]]
+res_mat_N2 <- list_mat[[2]]
+
+N_eps <- 10000000000000
+res_mat_N1b <- res_mat_N1
+res_mat_N2b <- res_mat_N2
+res_mat_N1[res_mat_N1<=.Machine$double.eps*N_eps] <-NA 
+res_mat_N2[res_mat_N2<=.Machine$double.eps*N_eps] <- NA
+res_mat_N <- res_mat_N1 + res_mat_N2
+res_mat_N[res_mat_N1b<=.Machine$double.eps*N_eps & res_mat_N2b<=.Machine$double.eps*N_eps] <- NA
+
+# Plot area of coexistence
+library(plot.matrix)
+par(mfrow = c(1,1), type = "s")
+image( res_mat_N , xlab = "x_I", ylab = "x_R")
+
+
+# Plot abundance of both species at different combination of trait values
+par(mfrow = c(2,2))
+for (i in c(1*N_mat/100, 10*N_mat/100, 90*N_mat/100, 99*N_mat/100)){
+plot(seq_S1,res_mat_N1b[i,], type = "l", ylim = range(res_mat_N1b[i,],res_mat_N2b[i,], na.rm = TRUE))
+lines(seq_S1,res_mat_N2b[i,], col ="red")
+abline(v = 0.5, col = "green")
+abline(v = seq_S1[i], col = "green",lty = 2)
+}
+
+# Plot abundance of both species at traits value used in the paper
+par(mfrow = c(1,1))
+i <- 151
+plot(seq_S1,res_mat_N1b[i,], type = "l", ylim = range(res_mat_N1b[i,],res_mat_N2b[i,], na.rm = TRUE), 
+     xlab = "Traits of species 1", ylab = "abundance")
+lines(seq_S1,res_mat_N2b[i,], col ="red")
+abline(v = seq_S1[i], col = "green",lty = 2)
+
+rstar_equilibrium(x2, N2, p)
+x2 <- matrix(c(0.4,0.2,0.6,0.2),2,2)
+rstar_equilibrium(matrix(c(0.4,0.2,0.6,0.2),2,2), N2, p)
 
 ## Now, displace the single species system from equilibrium and look
 ## at the new level of resources:

@@ -1,4 +1,4 @@
-dd99_parameters <- function(r=1.0, K_0=500.0, s2_C=0.16, s2_K=1) {
+dd99_parameters <- function(r=1.0, K_0=500.0, s2_C=0.4, s2_K=1) {
   list(r=r, K_0=K_0, s2_C=s2_C, s2_K=s2_K)
 }
 

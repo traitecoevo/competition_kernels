@@ -143,11 +143,17 @@ targets:
     command: fig_plant_density(plant_lma_density_1, plant_lma_density_2)
     plot: wide
 
-  ms/figures/rstar_components1.pdf:
+  ms/figures/rstar_components_U_1.pdf:
     command: fig_rstar_components(1)
     plot: tall
-  ms/figures/rstar_components2.pdf:
+  ms/figures/rstar_components_U_2.pdf:
     command: fig_rstar_components(2)
+    plot: tall
+  ms/figures/rstar_components_UC_1.pdf:
+    command: fig_rstar_components(3)
+    plot: tall
+  ms/figures/rstar_components_UC_2.pdf:
+    command: fig_rstar_components(4)
     plot: tall
   ms/figures/plant_lma_components.pdf:
     command: fig_plant_components(plant_lma_1, plant_lma_2)

@@ -2,11 +2,19 @@
 ## values in appendix sec:Rstar.
 dat_rstar <- function() {
   x1 <- c(0.6, 0.5)
-  x2 <- c(0.9, 0.7)
-  p1 <- rstar_parameters(rstar_mat_2_tradeoff, rstar_mat_2_tradeoff, S=0.5)
-  p2 <- rstar_parameters(rstar_mat_2_tradeoff, rstar_mat_2_tradeoff, S=c(0.7, 0.3))
+  x2 <- c(0.7, 0.9)
+  C1 <- c(.2, .2) * 10
+  C2 <- c(.3, .7)
+  x1b <- c(0.6, 0.5)
+  x2b <- c(0.9, 0.7)
+  p1 <- rstar_parameters(rstar_mat_2_tradeoff, matrix(C1, nrow=2), S=0.5)
+  p2 <- rstar_parameters(rstar_mat_2_tradeoff, matrix(C2, nrow=2), S=0.5)
+  p1b <- rstar_parameters(rstar_mat_2_tradeoff, rstar_mat_2_tradeoff, S=0.5)
+  p2b <- rstar_parameters(rstar_mat_2_tradeoff, rstar_mat_2_tradeoff, S=c(0.7, 0.3))
   list(dat_rstar1(p1, x1),
-       dat_rstar1(p2, x2))
+       dat_rstar1(p2, x2),
+       dat_rstar1(p1b, x1b),
+       dat_rstar1(p2b, x2b))
 }
 
 dat_rstar1 <- function(p, x_resident) {

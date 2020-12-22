@@ -47,6 +47,10 @@ targets:
       - ms/figures/rstar.pdf
       - ms/figures/plant_hmat.pdf
       - ms/figures/plant_lma.pdf
+      - ms/figures/rstar_components_U_1.pdf
+      - ms/figures/rstar_components_U_2.pdf
+      - ms/figures/rstar_components_UC_1.pdf
+      - ms/figures/rstar_components_UC_2.pdf
       - ms/figures/rstar_components1.pdf
       - ms/figures/rstar_components2.pdf
       - ms/figures/plant_lma_components.pdf

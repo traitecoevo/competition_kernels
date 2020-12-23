@@ -31,7 +31,7 @@
 
 %---------------------------------------
 
-\title{ARTICLE: Emergent shapes of trait-based competition functions from resource-based models: Gaussians are not typical in plant communities}
+\title{ARTICLE: Emergent shapes of trait-based competition functions from resource-based models: A Gaussian is not normal in plant communities}
 
 \author{Daniel S. Falster\textsuperscript{1,*}, Georges Kunstler\textsuperscript{2}, Richard G. FitzJohn\textsuperscript{3}, Mark Westoby\textsuperscript{4}}
 
@@ -247,7 +247,7 @@ It is possible in principle to expand the idea of a competition function. The cu
 
 First, there are currently few models that relate traits to fitness via competition for a common resource, without including a phenomenological competition function \citep{DAndrea-2016a}. There are many ecosystem models and simulators that include competition for explicit resources, but these are often designed to track cycles of carbon, water or nutrients \citep{Moorcroft-2001, Medvigy-2012, Smith-2014,Fisher-2018}, more than to study competition among strategies or community assembly \citep{Kohyama-1993, Falster-2017}. These models commonly provide for a few strategies with fixed properties. Retooling such models so that they can also focus on the dynamics of competing strategies, driven solely by differences in traits, could expand the range of possibilities for capturing the effect of traits on competition.
 
-Second, given the difficulty in linking RB models to competition functions, we suggest shifting focus away from the competition functions or coefficients per se, and focussing instead onto the ways competition impacts on fitness landscapes and resources \citep[see also][]{Laughlin-2020}. A notable feature of our results, particularly those from the size-based successional model, was that the impacts of competition on fitness landscapes are more orderly and intuitive than the shapes of the derived competition functions (Figs. \ref{fig:Rstar} - \ref{fig:plant_lma}). Fitness landscapes capture the combined effects of all features of a species demography, including competition. Comparing landscapes with and without competition allows one to see how the growth rate for all strategies is reduced by the presence of an existing type, e.g. compare panel a (no competition) vs panels c and e (with competition) in Figs. \ref{fig:Rstar} - \ref{fig:plant_lma}). 
+Second, given the difficulty in linking RB models to competition functions, we suggest shifting focus away from the competition functions or coefficients per se, and focussing instead onto the ways competition impacts on fitness landscapes and resources \citep[see also][]{Laughlin-2020}. A notable feature of our results, particularly those from the size-based successional model, was that the impacts of competition on fitness landscapes are more orderly and intuitive than the shapes of the derived competition functions (Figs. \ref{fig:rstar_components_UC1} - \ref{fig:plant_lma}). Fitness landscapes capture the combined effects of all features of a species demography, including competition. Comparing landscapes with and without competition allows one to see how the growth rate for all strategies is reduced by the presence of an existing type, e.g. compare panel a (no competition) vs panels c and e (with competition) in Figs. \ref{fig:rstar_components_UC1} - \ref{fig:plant_lma}). 
 
 Third, the increased certainty that comes from modelling resources explicitly should give us confidence to explore how multivariate trait combinations interact to shape competitive outcomes. Using the same successional model as analysed here, \citet{Falster-2017} already showed how two traits could interact to produce a different strategy mixture than when each trait was analysed independently. Using Gaussian competition functions, \citet{Doebeli-2010} similarly showed that interactions between multiple traits enhanced the possibility for diverse strategies to be supported. 
 
@@ -262,7 +262,7 @@ Despite being difficult to quantify in the field and to represent in models, com
 \section{Tables}
 
 \begin{table}[h]
- \caption{Example shapes of competition functions used to represent competition in trait or resource space. `Kinked' functions refers to those that are ``non-differentiable at the point of self-competition'' \citep{Barabas-2012}. Equations are presented only to give a general idea of shapes in terms of species trait differences ($\Delta x$); various scaling parameters are common, and specific to different implementations. }
+ \caption{Example shapes of competition functions used to represent competition in trait space. `Kinked' functions refers to those that are ``non-differentiable at the point of self-competition'' \citep{Barabas-2012}. Equations are presented only to give a general idea of shapes in terms of species trait differences ($\Delta x$); various scaling parameters are common, and specific to different implementations. }
 
 \centering
 {\footnotesize
@@ -333,7 +333,7 @@ Despite being difficult to quantify in the field and to represent in models, com
 \begin{figure}[ht]
  \centering
  \includegraphics[width=1.0\textwidth]{ms/figures/rstar_components_UC_1}
- \caption{{\bf Shape of competition function embedded within the consumer-resource model for a trait determining the relative amounts of the two essential resources required for growth, with resource content equal to resource half saturation determined by the trait such as $C_{ki} - U_{ki}$.} Panel descriptions as in Fig. \ref{fig:components}. Resident trait values are: (c,d) 0.6, (e,f) 0.5. All other parameters are given in the Methods and also in the code.} 
+ \caption{{\bf Shape of competition function embedded within the consumer-resource model for a trait determining the relative amounts of the two essential resources required for growth, with resource content equal to resource half saturation determined by the trait such as $C_{ki} = U_{ki}$.} Panel descriptions as in Fig. \ref{fig:components}. Resident trait values are: (c,d) 0.6, (e,f) 0.5. All other parameters are given in the Methods and also in the code.} 
  \label{fig:rstar_components_UC1}
 \end{figure}
 
@@ -367,6 +367,8 @@ Despite being difficult to quantify in the field and to represent in models, com
 
 \section{Supplementary online material}
 
+\renewcommand{\thefigure}{S\arabic{figure}}
+\setcounter{figure}{0}
 
 \begin{figure}[ht]
  \centering
@@ -387,7 +389,7 @@ Despite being difficult to quantify in the field and to represent in models, com
 \begin{figure}[ht]
  \centering
  \includegraphics[width=1.0\textwidth]{ms/figures/rstar_components_UC_2}
- \caption{{\bf Shape of competition function embedded within the consumer-resource model for a trait determining the relative amounts of the two essential resources required for growth, with resource content equal to resource half saturation determined by the trait such as $C_{ki} - U_{ki}$ with asymmetrical resource supply $S = \{0.7, 0.3\}$.} Panel descriptions as in Fig. \ref{fig:components}. Resident trait values are: (c,d) 0.9, (e,f) 0.7. All other parameters are given in the Methods and also in the code.} 
+ \caption{{\bf Shape of competition function embedded within the consumer-resource model for a trait determining the relative amounts of the two essential resources required for growth, with resource content equal to resource half saturation determined by the trait such as $C_{ki} = U_{ki}$ with asymmetrical resource supply $S = \{0.7, 0.3\}$.} Panel descriptions as in Fig. \ref{fig:components}. Resident trait values are: (c,d) 0.9, (e,f) 0.7. All other parameters are given in the Methods and also in the code.} 
  \label{fig:Srstar_components_UC2}
 \end{figure}
 

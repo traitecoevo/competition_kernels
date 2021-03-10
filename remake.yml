@@ -38,6 +38,7 @@ targets:
     depends:
       - figures
       - ms/competition-kernels.pdf
+      - ms/competition-kernels-sm.pdf
 
   figures:
     depends:
@@ -79,6 +80,13 @@ targets:
       - figures
       - figures_shapes
     command: pdflatex("ms/competition-kernels.tex")
+
+  ms/competition-kernels-sm.pdf:
+    depends:
+      - ms/suppmat.sty
+      - figures
+    command: pdflatex("ms/competition-kernels-sm.tex")
+
 
   # Data common to all _resident_ communities, but specific to one set
   # of parameter values.

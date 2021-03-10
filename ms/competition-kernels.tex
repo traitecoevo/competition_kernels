@@ -2,6 +2,7 @@
 \usepackage[osf]{mathpazo}
 \usepackage{ms/ms}
 \usepackage{natbib}
+\usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage[labelfont=bf]{caption} % make label for figure bold
@@ -37,9 +38,9 @@
 
 \affiliation{
 	\textsuperscript{1} Evolution \& Ecology Research Centre, and School of Biological, Earth and Environmental Sciences, University of New South Wales, Sydney NSW 2052, Australia\\
-	\textsuperscript{2} Univ. Grenoble Alpes, INRAE, LESSEM, 2 rue de la Papeterie-BP 76, St-Martin-d’Héres, F-38402 France\\
+	\textsuperscript{2} Univ. Grenoble Alpes, INRAE, LESSEM, 2 rue de la Papeterie-BP 76, St-Martin-d’Héres, F-38402, France\\
 	\textsuperscript{3} Department of Infectious Disease Epidemiology, Imperial College London, Faculty of Medicine, Norfolk Place, London W2 1PG, United Kingdom\\
-	\textsuperscript{4} Department of Biological Sciences, Macquarie University, Sydney NSW 2109 Australia;
+	\textsuperscript{4} Department of Biological Sciences, Macquarie University, Sydney NSW 2109, Australia;
 	\textsuperscript{*} Author for correspondence: daniel.falster@unsw.edu.au
 	}
 
@@ -181,11 +182,20 @@ We considered two cases of the model for resource content. First, we considered 
 
 \subsection{RB model 2: Size-based successional dynamics}
 
-\plant\ is an individual-based model of plant competition for light in a size-structured metapopulation \citep{Falster-2016, Falster-2017}. The \plant\ model is used here as an example of a broader group of models dealing with size-based successional turnover. Several forest models have a similar overall ecological structure, with the forest comprising a metapopulation of patches \citep{Huston-1987,Kohyama-1993,Moorcroft-2001, Medvigy-2012, Smith-2014}. A key feature of \plant, for current purposes, is that individual performance and resource use are based on well-established physiological tradeoffs represented by traits widely measured in the field. Because of this, the competition functions retrieved are directly relevant to field data.
+\plant\ is an individual-based model of plant competition for light in a size-structured metapopulation \citep{Falster-2016, Falster-2018}. The \plant\ model is used here as an example of a broader group of models dealing with size-based successional turnover. Several forest models have a similar overall ecological structure, with the forest comprising a metapopulation of patches \citep{Huston-1987,Kohyama-1993,Moorcroft-2001, Medvigy-2012, Smith-2014}. A key feature of \plant, for current purposes, is that individual performance and resource use are based on well-established physiological tradeoffs represented by traits widely measured in the field. Because of this, the competition functions retrieved are directly relevant to field data.
 
 Vegetation in the \plant\ model comprises a large number of patches subject to a disturbance regime. Disturbances clear established vegetation within a patch, which are then recolonised via seed dispersal from other patches. Individual plants progress through their life-cycle, from seeds until reproductive adults. Growth, survival and fecundity rates are determined by the combined effect of an individual's traits, their current size, and the degree of shading from other plants within the same patch. Shading at a given height is computed from the cumulative leaf area above that height. Short-term competitive effects are therefore size-asymmetric. The sole effect of shading (and the only source of competition) is to alter an individual's photosynthetic income. Following \citet{Falster-2017}, fitness of individuals with a given type or trait-combination is calculated by integrating seed output across the entire metapopulation. 
 
 Using \plant, we estimated trait-based competitive functions for two traits whose evolutionary dynamics have recently been investigated \citep{Falster-2017}: leaf mass per unit leaf area (\lma) and height at maturation (\hmat). In the model, \lma\ moderates a physiological trade-off between the cost of building an extra unit of leaf area and the rate of leaf turnover \citep{Wright-2004}. Variation in \lma\ thereby underpins a trade-off between height growth rate and shade-tolerance of seedlings. Meanwhile, \hmat\ moderates the allocation of surplus energy between growth and seed production, as an individual increases in size \citep{Falster-2017}. Full details are in \citet{Falster-2016, Falster-2017}.
+
+\subsection{Code}
+
+All analyses were conducted using the or \textsc{r} \citep{R-2021}, using the packages 
+{\tt rootSolve} \citep{Soetaert-2009}, 
+{\tt nleqslv} \citep{Hasselman-2008}, 
+{\tt deSolve} \citep{Soetaert-2010}, and
+{\tt plant} \citep{Falster-2016, Falster-2018}. The growth model applied here is implemented as the \texttt{FF16} physiological module within v1.1 of the {\plant} package. 
+Code reproducing the results is available at \href{https://github.com/traitecoevo/competition_kernels}{https://github.com/traitecoevo/competition\_kernels}.
 
 \section{Results}
 
@@ -256,6 +266,10 @@ Finally, we should be looking to derive new macroscopic approximations of the mo
 \subsection{Conclusions}
 
 Despite being difficult to quantify in the field and to represent in models, competition is undoubtedly a powerful force in structuring communities. Our results reinforce previous arguments that if competition is density dependent or non-additive across species \citep{Abrams-1980, Abrams-2008, Letten-2019}, or if the shape of competition varies with species traits and not just trait separation \citep{Abrams-2008, Song-2019}, then a trait-based competition function that produces a fixed shape will not adequately capture the dynamics of real systems. Moreover, the widespread assumption of the unimodal function that competition is most intense among similar species does not work in plant communities. If we want to move trait-based community ecology forward, we need to focus on connecting traits to resources and population dynamics, with models that explicitly model the resources being contested.
+
+\subsection{Acknowledgements}
+
+We thank two anonymous reviewers and R Dinnage for valuable comments on an earlier version. This work was supported by a ARC Laureate Fellowship to Westoby (FL100100080), an ARC Future Fellowship to DSF (FT160100113). Kunstler was supported by a Marie Curie International Outgoing Fellowship within the 7th European Community Framework Program (Demo-Traits project, no. 299340) and then by ANR project DECLIC (ANR-20-CES32-0005-01).
 
 \clearpage
 
@@ -370,29 +384,18 @@ Despite being difficult to quantify in the field and to represent in models, com
 \renewcommand{\thefigure}{S\arabic{figure}}
 \setcounter{figure}{0}
 
+
 \begin{figure}[ht]
- \centering
-	\includegraphics[width=1.0\textwidth]{ms/figures/rstar_components_U_1}
- \caption{{\bf Shape of competition function embedded within the consumer-resource model for a trait determining the relative amounts of the two essential resources required for growth, with constant symmetric resource content.} Panel descriptions as in Fig. \ref{fig:components}. Parameters for the resource content, $C = \{2, 2\}$. Resident trait values are: (c,d) 0.6, (e,f) 0.5. All other parameters are given in the Methods and also in the code.}
- \label{figS:Rstar_U1}
+\caption{{\bf Shape of competition function embedded within the consumer-resource model for a trait determining the relative amounts of the two essential resources required for growth, with constant symmetric resource content.} Panel descriptions as in Fig. 2. Parameters for the resource content, $C = \{2, 2\}$. Resident trait values are: (c,d) 0.6, (e,f) 0.5. All other parameters are given in the Methods and also in the code.}
 \end{figure}
 
-\newpage
 \begin{figure}[ht]
- \centering
-	\includegraphics[width=1.0\textwidth]{ms/figures/rstar_components_U_2}
- \caption{{\bf Shape of competition function embedded within the consumer-resource model for a trait determining the relative amounts of the two essential resources required for growth, with constant asymmetric resource content.} Panel descriptions as in Fig. \ref{fig:components}. Parameters for the resource content, $C = \{0.3, 0.7\}$. Resident trait values are: (c,d) 0.7, (e,f) 0.9. All other parameters are given in the Methods and also in the code.}
- \label{figS:Rstar_U2}
+ \caption{{\bf Shape of competition function embedded within the consumer-resource model for a trait determining the relative amounts of the two essential resources required for growth, with constant asymmetric resource content.} Panel descriptions as in Fig. 2. Parameters for the resource content, $C = \{0.3, 0.7\}$. Resident trait values are: (c,d) 0.7, (e,f) 0.9. All other parameters are given in the Methods and also in the code.}
 \end{figure}
 
-\newpage
 \begin{figure}[ht]
- \centering
- \includegraphics[width=1.0\textwidth]{ms/figures/rstar_components_UC_2}
- \caption{{\bf Shape of competition function embedded within the consumer-resource model for a trait determining the relative amounts of the two essential resources required for growth, with resource content equal to resource half saturation determined by the trait such as $C_{ki} = U_{ki}$ with asymmetrical resource supply $S = \{0.7, 0.3\}$.} Panel descriptions as in Fig. \ref{fig:components}. Resident trait values are: (c,d) 0.9, (e,f) 0.7. All other parameters are given in the Methods and also in the code.} 
- \label{fig:Srstar_components_UC2}
+ \caption{{\bf Shape of competition function embedded within the consumer-resource model for a trait determining the relative amounts of the two essential resources required for growth, with resource content equal to resource half saturation determined by the trait such as $C_{ki} = U_{ki}$ with asymmetrical resource supply $S = \{0.7, 0.3\}$.} Panel descriptions as in Fig. 2. Resident trait values are: (c,d) 0.9, (e,f) 0.7. All other parameters are given in the Methods and also in the code.} 
 \end{figure}
-
 
 \end{document}
 

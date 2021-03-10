@@ -1,6 +1,6 @@
 \documentclass[10pt,twoside]{article}
 
-\usepackage{suppmat}
+\usepackage{ms/suppmat}
 \usepackage{listings}
 \usepackage{amsmath}
 
@@ -13,8 +13,6 @@
 %   \usepackage{xr}%
 %   \externaldocument{competition-kernels}}{}
 
-\input{common-defs}
-
 % We will generate all images so they have a width \maxwidth. This means
 % that they will get their normal width if they fit onto the page, but
 % are scaled down if they would overflow the margins.
@@ -26,8 +24,13 @@
 \makeatother
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 
-\title{competition kernels: shapes and consequences}
+\title{Emergent shapes of trait-based competition functions from resource-based models: A Gaussian is not normal in plant communities}
 \date{}
+\author{Daniel S. Falster, Georges Kunstler, Richard G. FitzJohn, Mark Westoby}
+\runninghead{}
+\address{}
+\emailaddress{}
+
 
 % \usepackage{natbib}
 
@@ -37,86 +40,32 @@
 
 \setcounter{secnumdepth}{1}
 
-\begin{figure}[h]
+\renewcommand{\thefigure}{S\arabic{figure}}
+\setcounter{figure}{0}
+
+\begin{figure}[ht]
  \centering
- \includegraphics{figures/sm_rstar_components1}
- \caption{Components used to estimate competition functions shown in Figs.
- {\figRstar}b-c for \Rstar\ model with symmetric resource requirements.
-  Panels show: (a) the fitness of a rare invader growing without competition,
-  (b) the equilibrium population density of invader when growing in monoculture,
-  (c1, c2) the fitness of a rare invader growing in competition with an established
-  resident, whose location is indicated by dashed line, and (d1,d2) derived competition
-  functions for communities in panels  c1 \& c2. Parameters as in Fig.
-  {\figRstar}a-c.}
-  \label{fig:sm_rstar_components1}
+	\includegraphics[width=1.0\textwidth]{ms/figures/rstar_components_U_1}
+ \caption{{\bf Shape of competition function embedded within the consumer-resource model for a trait determining the relative amounts of the two essential resources required for growth, with constant symmetric resource content.} Panel descriptions as in Fig. 2. Parameters for the resource content, $C = \{2, 2\}$. Resident trait values are: (c,d) 0.6, (e,f) 0.5. All other parameters are given in the Methods and also in the code.}
+ \label{figS:Rstar_U1}
 \end{figure}
 
-\begin{figure}[h]
+\newpage
+\begin{figure}[ht]
  \centering
- \includegraphics{figures/sm_rstar_components2}
- \caption{Components used to estimate competition functions shown in Figs.
- {\figRstar}e-f for \Rstar\ model with asymmetric resource requirements.
-  Panels show: (a) the fitness of a rare invader growing without competition,
-  (b) the equilibrium population density of invader when growing in monoculture,
-  (c1, c2) the fitness of a rare invader growing in competition with an established
-  resident, whose location is indicated by dashed line, and (d1,d2) derived competition
-  functions for communities in panels c1 \& c2. Parameters as in Fig.
-  {\figRstar}d-f.}
-  \label{fig:sm_rstar_components2}
+	\includegraphics[width=1.0\textwidth]{ms/figures/rstar_components_U_2}
+ \caption{{\bf Shape of competition function embedded within the consumer-resource model for a trait determining the relative amounts of the two essential resources required for growth, with constant asymmetric resource content.} Panel descriptions as in Fig. 2. Parameters for the resource content, $C = \{0.3, 0.7\}$. Resident trait values are: (c,d) 0.7, (e,f) 0.9. All other parameters are given in the Methods and also in the code.}
+ \label{figS:Rstar_U2}
 \end{figure}
 
-\begin{figure}[h]
+\newpage
+\begin{figure}[ht]
  \centering
- \includegraphics{figures/sm_plant_hmat_components}
- \caption{Components used to estimate competition functions shown in Figs.
- {\figPlantHmat} for \plant\ model and the trait height at maturation.
-  Panels show: (a) the fitness of a rare invader growing without competition,
-  (b) the equilibrium population density of invader when growing in monoculture,
-  (c1, c2) the fitness of a rare invader growing in competition with an established
-  resident, whose location is indicated by dashed line, and (d1,d2) derived competition
-  functions for communities in panels c1 \& c2. Parameters as in Fig.
-  {\figPlantHmat}.}
-  \label{fig:sm_plant_hmat_components}
+ \includegraphics[width=1.0\textwidth]{ms/figures/rstar_components_UC_2}
+ \caption{{\bf Shape of competition function embedded within the consumer-resource model for a trait determining the relative amounts of the two essential resources required for growth, with resource content equal to resource half saturation determined by the trait such as $C_{ki} = U_{ki}$ with asymmetrical resource supply $S = \{0.7, 0.3\}$.} Panel descriptions as in Fig. 2. Resident trait values are: (c,d) 0.9, (e,f) 0.7. All other parameters are given in the Methods and also in the code.} 
+ \label{fig:Srstar_components_UC2}
 \end{figure}
 
-\begin{figure}[h]
- \centering
- \includegraphics{figures/sm_plant_lma_components}
- \caption{Components used to estimate competition functions shown in Figs.
- {\figPlantLma} for \plant\ model and the trait leaf mass per area.
-  Panels show: (a) the fitness of a rare invader growing without competition,
-  (b) the equilibrium population density of invader when growing in monoculture,
-  (c1, c2) the fitness of a rare invader growing in competition with an established
-  resident, whose location is indicated by dashed line, and (d1,d2) derived competition
-  functions for communities in panels  c1 \& c2. Parameters as in Fig.
-  {\figPlantLma}.}
-  \label{fig:sm_plant_lma_components}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics{figures/sm_rstar_density1}
-  \caption{Density dependence in \Rstar: symmetric model}
-  \label{fig:rstar_density_dependence}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics{figures/sm_rstar_density2}
-  \caption{Density dependence in \Rstar: asymmetric model}
-  \label{fig:rstar_density_dependence}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics{figures/sm_plant_hmat_density}
-  \caption{Density dependence in \plant: \hmat}
-  \label{fig:plant_hmat_density_dependence}
-\end{figure}
-
-% \clearpage
-% \bibliographystyle{amnat}
-% \bibliography{references}
 
 \end{document}
 

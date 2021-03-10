@@ -2,10 +2,10 @@ packages:
   - rootSolve
   - rmarkdown
   - tinytex
-  - BB
   - nleqslv
   - numDeriv
   - deSolve
+  - plant
 
 sources:
   - R
@@ -44,22 +44,12 @@ targets:
       - figures_shapes
       - ms/figures/kernel.pdf
       - ms/figures/components.pdf
-      - ms/figures/rstar.pdf
-      - ms/figures/plant_hmat.pdf
-      - ms/figures/plant_lma.pdf
       - ms/figures/rstar_components_U_1.pdf
       - ms/figures/rstar_components_U_2.pdf
       - ms/figures/rstar_components_UC_1.pdf
       - ms/figures/rstar_components_UC_2.pdf
-      - ms/figures/rstar_components1.pdf
-      - ms/figures/rstar_components2.pdf
       - ms/figures/plant_lma_components.pdf
       - ms/figures/plant_hmat_components.pdf
-      # - ms/figures/rstar_abrams.pdf
-      # - ms/figures/sm_rstar_density1.pdf
-      # - ms/figures/sm_rstar_density2.pdf
-      # - ms/figures/sm_plant_hmat_density.pdf
-      # - ms/figures/plant_lma_density.pdf
 
   figures_shapes:
     depends:
@@ -80,13 +70,6 @@ targets:
       - plant_lma_2
       - plant_hmat_1
       - plant_hmat_2
-
-  plant_density_data:
-    depends:
-      - plant_lma_density_1
-      - plant_lma_density_2
-      - plant_hmat_density_1
-      - plant_hmat_density_2
 
   ms/competition-kernels.pdf:
     depends:
@@ -119,33 +102,12 @@ targets:
   plant_hmat_2:
     command: plant_competition(15.5, plant_hmat_shared)
 
-  plant_lma_density_1:
-    command: plant_competition_density(plant_lma_1)
-  plant_lma_density_2:
-    command: plant_competition_density(plant_lma_2)
-  plant_hmat_density_1:
-    command: plant_competition_density(plant_hmat_1)
-  plant_hmat_density_2:
-    command: plant_competition_density(plant_hmat_2)
-
   ms/figures/kernel.pdf:
     command: fig_kernel()
     plot: wide
   ms/figures/components.pdf:
     command: fig_components()
     plot: tall
-  ms/figures/rstar.pdf:
-    command: fig_rstar()
-    plot: wide
-  ms/figures/plant_hmat.pdf:
-    command: fig_plant(plant_hmat_1, plant_hmat_2)
-    plot: skinny
-  ms/figures/plant_lma.pdf:
-    command: fig_plant(plant_lma_1, plant_lma_2)
-    plot: skinny
-  ms/figures/plant_lma_density.pdf:
-    command: fig_plant_density(plant_lma_density_1, plant_lma_density_2)
-    plot: wide
 
   ms/figures/rstar_components_U_1.pdf:
     command: fig_rstar_components(1)
@@ -165,9 +127,6 @@ targets:
   ms/figures/plant_hmat_components.pdf:
     command: fig_plant_components(plant_hmat_1, plant_hmat_2)
     plot: tall
-  ms/figures/sm_plant_hmat_density.pdf:
-    command: fig_plant_density(plant_hmat_density_1, plant_hmat_density_2)
-    plot: wide
 
   ms/figures/shape/constant.pdf:
     command: shape_constant()
@@ -199,20 +158,3 @@ targets:
   ms/figures/shape/step_asymmetric.pdf:
     command: shape_step_asymmetric()
     plot: shape
-
-  dat_rstar_abrams:
-    command: rstar_add_abrams()
-  ms/figures/sm_rstar_abrams.pdf:
-    command: fig_rstar_abrams(dat_rstar_abrams)
-    plot: true
-  ms/figures/sm_rstar_density1.pdf:
-    command: fig_rstar_density(1)
-    plot: true
-  ms/figures/sm_rstar_density2.pdf:
-    command: fig_rstar_density(2)
-    plot: true
-
-  vignettes/comp_lotka_tilman.md:
-    knitr: vignette
-  vignettes/comp_lotka_tilman.pdf:
-    command: render_pdf("vignettes/comp_lotka_tilman.md")

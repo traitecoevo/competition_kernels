@@ -1,11 +1,14 @@
-# Competition kernels
+# Emergent shapes of trait-based competition functions from resource-based models
 
-Code for the competition kernels.
+This repository contains all the code used in the manuscript:
 
+Falster DS, Kunstler G, FitzJohn RG, Westoby M (2021) "Emergent shapes of trait-based competition functions from resource-based models: A Gaussian is not normal in plant communities." *The American Naturalist*
+
+Abstract: In community ecology, it is widely assumed that organisms with similar traits compete more intensely with one another for resources. This assumption is often encoded into theory and empirical tests, via a unimodal competition function, which predicts that per capita competitive effect declines with separation in traits. Yet, it remains unknown how well this function represents the true effect of traits on competitive outcomes, especially for long-lived plant communities where lifetime fitness is difficult to estimate. Here we evaluate the shape of competition functions embedded in two resource-based (RB) models, wherein plants compete for shared, essential resources. In the first RB model, individuals compete for two essential nutrients, and in the second they compete for light in a size-based successional setting. We compared the shapes of the competition functions that emerged from interactions within these RB models to the unimodal function and others shapes commonly applied. In few instances did the trait-based competition function emerging from the RB model even vaguely resemble any of the shapes previously used. The mismatch between these two approaches suggests that theory derived using fixed competition functions based on trait separation may not apply well to plant systems where individuals compete for shared resources. The more promising path will be to model depletion of resources by populations in relation to their traits, with its consequences for fitness landscapes and competitive exclusion. 
 
 Additional accessory files are also including:
 
-- `DECRIPTION`: A machine-readable [compendium]() file containing key metadata and dependencies 
+- `DECRIPTION`: A machine-readable compendium file containing key metadata and dependencies 
 - `LICENSE`: License for the materials
 - `Dockerfile` & `.binder/Dockerfile`: files used to generate docker containers for long-term reproducibility
 
@@ -14,7 +17,7 @@ Additional accessory files are also including:
 All analyses were done in `R`, and the paper is written in LaTeX. All code needed to reproduce the submitted products is included in this repository. To reproduce this paper, run the code contained in the `analysis.R` file. Figures will be output to a directory called `output` and the paper and supplementary materials in the folder `ms`.
 
 
-The paper was written in 2016 using a version of R available at the time. With some minor updates, the code has been updated and was last seen running wild and free on R 3.6.1. You can try running it on your current version and it may work. 
+The paper was written in 2016 using a version of R available at the time. With some minor updates, the code has been updated and was last seen running wild and free on R 4.0. You can try running it on your current version and it may work. 
 
 To ensure [computational reproducibility](https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf) into the future, we have also generated [Docker](http://dockerhub.com) and [Binder](https://mybinder.org) containers, enabling you to launch a compute environment built off R 3.6.1 with all the dependencies included.
 
@@ -71,3 +74,4 @@ Contributors
 Daniel Falster
 Rich FitzJohn
 Georges Kunstler
+Saras Windecker (docker)
